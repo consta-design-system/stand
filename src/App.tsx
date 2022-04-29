@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { routerAtom, routesNames } from '##/modules/router';
-import { standsAtom } from '##/modules/stands';
-import { libsAtom } from '##/modules/libs';
+import { routerAtom, routesNames } from './modules/router';
+import { standsAtom } from './modules/stands';
+import { libsAtom } from './modules/libs';
 import { useAtom } from '@reatom/react';
 import { useRoute, useRouter } from 'react-router5';
 
-import { LibsPage } from '##/pages/LibsPage';
+import { LibsPage } from './pages/LibsPage';
 
 export const App: React.FC = () => {
   // const [router] = useAtom(routerAtom);
