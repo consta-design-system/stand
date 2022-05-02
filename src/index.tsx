@@ -21,4 +21,4 @@ const Root: React.FC = () => {
 // router.start();
 // createRoot(document.getElementById('app') as Element).render(<Root />);
 
-ReactDOM.render(<Root />, document.getElementById('app'));
+ReactDOM.render(<Root />, document.getElementById('root'));

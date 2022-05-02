@@ -10,7 +10,7 @@ export { routerAtom } from '../../exportAtoms/router';
 
 export const { routesNames, routes } = createRoutes();
 
-const router = createRouter(routes, { defaultRoute: routesNames.LIBS });
+const router = createRouter(routes);
 
 router.usePlugin(browserPlugin());
 router.usePlugin(plugin(store));
