@@ -12,19 +12,40 @@ import { IconBackward } from '@consta/uikit/IconBackward';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { Switch } from '@consta/uikit/Switch';
 import { Button } from '@consta/uikit/Button';
+import { Badge } from '@consta/uikit/Badge';
 import { TextField } from '@consta/uikit/TextField';
 import { useFlag } from '@consta/uikit/useFlag';
-import { LibWithStands } from '##/exportTypes';
+import { LibWithStands, Stand } from '##/exportTypes';
 
 import './LibPageMenu.css';
+import { useMemo } from 'react';
 
 const getItemLabel = (item: { title: string }) => item.title;
 const getItemGroupId = (item: { group?: string }) => item.group;
 const getItemDescription = () => undefined;
 const getGroupLabel = (group: { title: string }) => group.title;
 const getGroupKey = (group: { id: string }) => group.id;
+const getItemBadge = (item: Stand) => {
+  if (item.status === 'stable') {
+    return undefined;
+  } else if (item.status === 'canary') {
+    return <Badge label="Canary" view="filled" status="success" size="s" />
+  } else if (item.status === 'inWork') {
+    return <Badge label="в работе" view="filled" status="warning" size="s" />
+  } else {
+    return <Badge label="depricated" view="stroked" status="error" size="s" />
+  }
+}
 
 const cnLibPageMenu = cn('LibPageMenu');
+
+const defaultStand: Stand = {
+    id: 'uikit',
+    title: 'Обзор',
+    group: 'review',
+    status: 'stable',
+    version: ''
+}
 
 export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
@@ -33,22 +54,47 @@ export const LibPageMenu: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string | undefined | null>(null);
   const [showDeprecated, setShowDeprecated] = useFlag(true);
 
-
-  const getItemOnClick = useCallback(
-    (item: { id: string }) => router.navigate(routesNames.LIBS_LIB, { standId: item.id }),
+  const onItemClick = useCallback(
+    (item: { standId?: string, id: string }) => {
+      if (item.standId) {
+        router.navigate(routesNames.LIBS_LIB_STAND, { libId: item.id, standId: item.standId })
+      } else {
+        router.navigate(routesNames.LIBS_LIB, { libId: item.id })
+      }
+    },
     [],
   );
 
-  const back = () => useCallback(() => router.navigate(routesNames.LIBS, { replace: true }), []);
+  const getItemActive = (item: Stand) => {
+    if (item.standId) {
+      return router.isActive(routesNames.LIBS_LIB_STAND, { libId: item.id, standId: item.standId })
+    } else {
+      return router.isActive(routesNames.LIBS_LIB, { libId: item.id }) || router.getState().path === '/'
+    }
+  }
 
-  console.log(lib)
+  const back = () => useCallback(() => router.navigate(routesNames.LIBS, { replace: true }), []);
 
   const { stands, image, groups } = lib ?? {} as LibWithStands;
 
-  const AdditionalControls = () => {
+  const allStands = [defaultStand, ...(stands ?? [])];
+
+  const visibleStands = useMemo(() => {
+    return allStands.filter((item) => {
+      if (!showDeprecated && item.status === 'depricated') {
+        return false;
+      }
+      if (searchValue && searchValue.trim() !== '') {
+        return item.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+      }
+      return true;
+    });
+  }, [showDeprecated, searchValue])
+
+  const additionalControls = () => {
     return (
       <div className={cnLibPageMenu('Controls')}>
-        {libs.length > 1 && (
+        {libs?.length > 1 && (
              <Button
              label="К списку библиотек"
              iconLeft={IconBackward}
@@ -82,15 +128,17 @@ export const LibPageMenu: React.FC = () => {
 
   return (
     <PortalMenu
-      items={stands}
+      items={visibleStands}
       className={cnLibPageMenu()}
-      groups={[...groups]}
-      additionalControls={<AdditionalControls />}
+      groups={[...(groups ?? [])]}
+      additionalControls={additionalControls()}
       getItemLabel={getItemLabel}
       getGroupLabel={getGroupLabel}
+      getItemActive={getItemActive}
+      getItemBadge={getItemBadge}
       getGroupKey={getGroupKey}
       getItemGroupId={getItemGroupId}
-      getItemOnClick={getItemOnClick}
+      onItemClick={({ item }) => onItemClick(item)}
       getItemDescription={getItemDescription}
     />
   );

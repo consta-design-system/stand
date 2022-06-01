@@ -1,0 +1,13 @@
+.stand--LibPageContent {
+    &-Title {
+        margin-bottom: 0.4em;
+    }
+
+    &-Wrapper {
+        width: 100%;
+
+        & > *:not(:last-child) {
+            margin-bottom: var(--space-m);
+        }
+    }
+}

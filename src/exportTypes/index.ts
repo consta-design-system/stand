@@ -8,7 +8,10 @@ export type Stand<Group extends string = string> = {
   id: string;
   title: string;
   group: Group;
+  image?: (() => React.ReactElement | null) | string;
+  description?: string;
   order?: number;
+  standId?: string;
   status: 'depricated' | 'canary' | 'stable' | 'inWork';
   version: string;
   docs?: React.FC;
