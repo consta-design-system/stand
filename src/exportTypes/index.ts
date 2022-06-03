@@ -9,6 +9,7 @@ export type Stand<Group extends string = string> = {
   title: string;
   group: Group;
   image?: (() => React.ReactElement | null) | string;
+  logo?:  (() => React.ReactElement | null) | string;
   description?: string;
   order?: number;
   standId?: string;

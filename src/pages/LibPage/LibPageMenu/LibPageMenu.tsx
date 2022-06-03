@@ -55,15 +55,7 @@ const getItemParmas = (item: Stand, libId?: string): Record<string, string> => {
   }
 }
 
-const cnLibPageMenu = cn('LibPageMenu');
-
-const defaultStand: Stand = {
-    id: 'uikit',
-    title: 'Обзор',
-    group: 'review',
-    status: 'stable',
-    version: ''
-}
+const cnLibPageMenu = cn('LibPageMenu')
 
 export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
@@ -84,6 +76,14 @@ export const LibPageMenu: React.FC = () => {
     [],
   );
 
+  const defaultStand: Stand = {
+    id: lib?.id ?? 'uikit',
+    title: 'Обзор',
+    group: 'review',
+    status: 'stable',
+    version: ''
+}
+
   const getItemActive = (item: Stand) => {
     if (item.standId) {
       return getIsActive(routesNames.LIBS_LIB_STAND, { libId: item.id, standId: item.standId }, true)
@@ -92,7 +92,12 @@ export const LibPageMenu: React.FC = () => {
     }
   }
 
-  const { stands, image, groups } = lib ?? {} as LibWithStands;
+  const back = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    router.navigate(routesNames.LIBS)
+  }, []);
+
+  const { stands, logo, groups } = lib ?? {} as LibWithStands;
 
   const allStands = [defaultStand, ...(stands ?? [])];
 
@@ -111,18 +116,20 @@ export const LibPageMenu: React.FC = () => {
   const additionalControls = () => {
     return (
       <div className={cnLibPageMenu('Controls')}>
-        {libs?.length > 1 && (
-            <Button
+        {libs?.length > 0 && (
+          <Button
              as="a"
              href={router.buildPath(routesNames.LIBS)}
              label="К списку библиотек"
              iconLeft={IconBackward}
              size="xs"
              view="clear"
+             onClick={back}
              className={cnLibPageMenu('Button')}
            />
         )}
-        <img alt="Consta-UIKit" src={image?.toString()} className={cnLibPageMenu('Image')} />
+        {typeof logo === 'string' ? <img alt="Consta-UIKit" src={logo?.toString()} className={cnLibPageMenu('Image')} />
+          : logo?.()}
         <TextField
           type="text"
           value={searchValue}

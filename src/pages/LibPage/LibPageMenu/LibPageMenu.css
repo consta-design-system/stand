@@ -1,11 +1,17 @@
 .stand--LibPageMenu {
     &-Controls {
         margin-bottom: var(--space-xs);
+
+        & > *:not(:last-child) {
+            margin-bottom: var(--space-l);
+        }
+
+        & > *:first-child {
+            margin-bottom: var(--space-xl);
+        }
     }
 
-    &-Button {
-        margin-bottom: var(--space-xl);
-    }
+    
 
     &-Input {
         margin-bottom: var(--space-l);

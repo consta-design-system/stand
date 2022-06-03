@@ -44,7 +44,7 @@ export const StandPage: React.FC = () => {
   console.log(stand.path);
 
   return (
-    <DocLayout leftSide={<LibPageMenu/>}>
+    <DocLayout key={standID} leftSide={<LibPageMenu/>}>
       <LazyDocs id={standID} />
     </DocLayout>
   );

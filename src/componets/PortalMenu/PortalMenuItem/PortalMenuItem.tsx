@@ -8,11 +8,8 @@ import { cn } from '../../../utils/bem';
 import { Text } from '@consta/uikit/Text';
 import {
   PortalMenuItemProps,
-  PortalMenuPropGetItemActive,
-  PortalMenuPropGetItemSubMenu,
 } from '../types';
 import { Link } from '##/componets/Link';
-import { routesNames } from '##/modules/router';
 
 const cnPortalMenuItem = cn('PortalMenuItem');
 
