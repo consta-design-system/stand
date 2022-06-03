@@ -47,7 +47,7 @@ export const LibPageContent: React.FC = () => {
                                     <LibPageContentCard 
                                         key={`${cnLibPageContent({ standIndex, stand: stand.id })}`}
                                         stand={stand}
-                                        onClick={handleClick}
+                                        libId={libId}
                                     />
                                 )
                             })}
