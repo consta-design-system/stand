@@ -8,6 +8,7 @@ import { StandPageHeader } from './StandPageHeader';
 import { StandPageFooter } from './StandPageFooter';
 import { StandPageNavigation } from './StandPageNavigation';
 import { StandPageFigma } from './StandPageFigma';
+import { StandPageSandbox } from './StandPageSandbox';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand';
@@ -66,13 +67,14 @@ export const StandPage: React.FC = () => {
   }, [standPage]);
 
   const getContent = () => {
-    if (standPage === routesNames.LIBS_LIB_STAND) {
-      return null;
-    }
     if (standPage === routesNames.LIBS_LIB_STAND_DESIGN) {
-      return <StandPageFigma link={stand.stand.figma} />;
+      return <StandPageFigma className={cnStandPage('Figma')} link={stand.stand.figma} />;
     }
-  }
+    if (standPage === routesNames.LIBS_LIB_STAND_SANDBOX) {
+      return <StandPageSandbox className={cnStandPage('SandBox')} link={stand.stand.sandbox} />
+    }
+    return null;
+  };
 
   return (
       <DocLayout>
