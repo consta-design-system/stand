@@ -1,6 +1,10 @@
 .stand--StandPageFooter {
     width: 100%;
 
+    & a {
+        text-decoration: none;
+    }
+
     &-SPA {
         display: flex;
         align-items: center;

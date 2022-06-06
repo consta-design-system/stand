@@ -24,25 +24,25 @@ const FigmaImage = () => (
         </g>
         <defs>
             <linearGradient id="paint0_linear_1811_29955" x1="60.1394" y1="4.05994" x2="84.8973" y2="72.0759" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#F44F5A"/>
-                <stop offset="0.443" stop-color="#EE3D4A"/>
-                <stop offset="1" stop-color="#E52030"/>
+                <stop stopColor="#F44F5A"/>
+                <stop offset="0.443" stopColor="#EE3D4A"/>
+                <stop offset="1" stopColor="#E52030"/>
             </linearGradient>
             <linearGradient id="paint1_linear_1811_29955" x1="57.6725" y1="53.9702" x2="82.2829" y2="121.581" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#AE4CD5"/>
-                <stop offset="1" stop-color="#9331BF"/>
+                <stop stopColor="#AE4CD5"/>
+                <stop offset="1" stopColor="#9331BF"/>
             </linearGradient>
             <linearGradient id="paint2_linear_1811_29955" x1="54.6119" y1="97.1914" x2="80.4649" y2="168.213" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#33C481"/>
-                <stop offset="1" stop-color="#21A366"/>
+                <stop stopColor="#33C481"/>
+                <stop offset="1" stopColor="#21A366"/>
             </linearGradient>
             <linearGradient id="paint3_linear_1811_29955" x1="101.399" y1="1.888" x2="125.814" y2="68.9636" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#F09CA2"/>
-                <stop offset="1" stop-color="#EB6773"/>
+                <stop stopColor="#F09CA2"/>
+                <stop offset="1" stopColor="#EB6773"/>
             </linearGradient>
             <linearGradient id="paint4_linear_1811_29955" x1="105.883" y1="55.2093" x2="128.535" y2="117.447" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#32BDEF"/>
-                <stop offset="1" stop-color="#1EA2E4"/>
+                <stop stopColor="#32BDEF"/>
+                <stop offset="1" stopColor="#1EA2E4"/>
             </linearGradient>
         </defs>
     </svg>

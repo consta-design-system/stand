@@ -9,6 +9,7 @@ import { StandPageFooter } from './StandPageFooter';
 import { StandPageNavigation } from './StandPageNavigation';
 import { StandPageFigma } from './StandPageFigma';
 import { StandPageSandbox } from './StandPageSandbox';
+import { StandPageInformer } from './StandPageInformer';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand';
@@ -76,10 +77,17 @@ export const StandPage: React.FC = () => {
     return null;
   };
 
+  const standStatus = stand.stand.status;
+
   return (
       <DocLayout>
         <>
           <StandPageHeader stand={stand.stand} />
+          <StandPageInformer
+            status={standStatus}
+            depricated={standStatus === 'depricated' ? stand.stand.version : 's'}
+            className={cnStandPage('Informer')}
+          />
           <StandPageNavigation
             className={cnStandPage('Navigation')}
             standId={stand.id}

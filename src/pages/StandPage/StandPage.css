@@ -3,6 +3,10 @@
         margin-bottom: var(--space-3xl);
     }
 
+    &-Informer {
+        margin-bottom: var(--space-3xl);
+    }
+
     &-Figma {
         margin-bottom: var(--space-2xl);
     }
