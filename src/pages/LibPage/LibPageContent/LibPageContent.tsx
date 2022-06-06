@@ -8,7 +8,6 @@ import { LibPageContentCard } from './LibPageContentCard';
 import { Text } from '@consta/uikit/Text';
 import { useRouter } from 'react-router5';
 import { cn } from '##/utils/bem';
-import * as wp from '##/utils/whitepaper';
 import '##/utils/whitepaper/whitepaper.css';
 import './LibPageContent.css';
 
@@ -41,7 +40,7 @@ export const LibPageContent: React.FC = () => {
                 return (
                     <div  key={`${cnLibPageContent({ groupIndex, group: group.group?.id })}`}>
                         <Text className={cnLibPageContent('Title')} size="3xl" lineHeight="xs" weight="bold" >{group.group?.title}</Text>
-                        <div className={cnLibPageContent('Section', [wp.tplGrid({ 'ratio': '1-1-1', 'col-gap': 'full' })])}>
+                        <div className={cnLibPageContent('Section')}>
                             {group.items.map((stand, standIndex) => {
                                 return (
                                     <LibPageContentCard 

@@ -85,10 +85,12 @@ export const LibPageMenu: React.FC = () => {
 }
 
   const getItemActive = (item: Stand) => {
-    if (item.standId) {
-      return getIsActive(routesNames.LIBS_LIB_STAND, { libId: item.id, standId: item.standId }, true)
-    } else {
-      return getIsActive(routesNames.LIBS_LIB, { libId: item.id }, true) || router.getState().path === '/'
+    if (lib?.id) {
+      if (item.standId) {
+        return getIsActive(routesNames.LIBS_LIB_STAND, { libId: lib?.id, standId: item.standId })
+      } else {
+        return getIsActive(routesNames.LIBS_LIB, { libId: lib?.id }) || router.getState().path === '/'
+      }
     }
   }
 
