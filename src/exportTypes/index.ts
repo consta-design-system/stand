@@ -11,7 +11,12 @@ export type Stand<Group extends string = string> = {
   order?: number;
   status: 'depricated' | 'canary' | 'stable' | 'inWork';
   version: string;
+  standId?: string;
   docs?: React.FC;
+  figma?: string;
+  sandbox?: string;
+  playground?: React.FC;
+  description?: string;
 };
 
 export type Lib<GROUP extends Group> = {

@@ -1,0 +1,9 @@
+.stand--StandPage {
+    &-Navigation {
+        margin-bottom: var(--space-3xl);
+    }
+
+    &-Footer {
+        margin-top: calc(var(--space-2xl) + var(--space-4xl));
+    }
+}
