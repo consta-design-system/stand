@@ -13,9 +13,9 @@ type Props = {
 
 const cnStandPageHeader = cn('StandPageHeader');
 
-const getStatus = (status: Stand['status']): string | undefined => {
-    if (status === 'depricated'){
-        return 'depricated';
+const getLabel = (status: Stand['status']): string | undefined => {
+    if (status === 'deprecated'){
+        return 'deprecated';
     } else if (status === 'canary'){
         return 'canary';
     } else if (status === 'stable'){
@@ -23,6 +23,26 @@ const getStatus = (status: Stand['status']): string | undefined => {
     }
     return;
 }
+
+const getStatus = (status: Stand['status']) => {
+    if (status === 'deprecated'){
+        return 'error';
+    } else if (status === 'canary'){
+        return 'success';
+    } else if (status === 'stable'){
+        return 'normal';
+    }
+    return;
+}
+
+const getView = (status: Stand['status']) => {
+    if (status === 'deprecated' || status === 'stable') {
+        return 'stroked';
+    }
+    if (status === 'canary' || status === 'inWork') {
+        return 'filled';
+    }
+ }
 
 export const StandPageHeader = (props: Props) => {
     const { stand, className } = props;
@@ -34,10 +54,21 @@ export const StandPageHeader = (props: Props) => {
                 <Text weight="semibold" size="4xl" lineHeight="m">{title}</Text>
                 <div className={cnStandPageHeader('Badges')}>
                     {getStatus(status) && (
-                        <Badge size="l" label={getStatus(status)} status="normal" view="stroked" />
+                        <Badge
+                            size="l"
+                            label={getLabel(status)}
+                            status={getStatus(status)}
+                            view={getView(status)}
+                        />
                     )}
                     {version && (
-                       <Badge size="l" label={`Доступен с ${version}`} icon={IconYoutube} status="system" view="stroked" />
+                        <Badge
+                            size="l"
+                            label={`Доступен с ${version}`}
+                            icon={IconYoutube}
+                            status="system"
+                            view="stroked"
+                        />
                     )}
                 </div>
             </div>

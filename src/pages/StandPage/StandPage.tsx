@@ -78,6 +78,15 @@ export const StandPage: React.FC = () => {
   };
 
   const standStatus = stand.stand.status;
+  console.log(stand);
+
+  const { deprecated, canary } = useMemo(() => {
+    const others = stand.stand.otherVersion;
+    return {
+      deprecated: others?.filter((el) => el.status === 'deprecated')[0],
+      canary: others?.filter((el) => el.status === 'canary')[0]
+    };
+  }, [stand]);
 
   return (
       <DocLayout>
@@ -85,7 +94,8 @@ export const StandPage: React.FC = () => {
           <StandPageHeader stand={stand.stand} />
           <StandPageInformer
             status={standStatus}
-            depricated={standStatus === 'depricated' ? stand.stand.version : 's'}
+            deprecated={standStatus === 'deprecated' ? stand.stand.version : deprecated?.version}
+            canary={canary?.version}
             className={cnStandPage('Informer')}
           />
           <StandPageNavigation

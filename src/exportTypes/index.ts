@@ -9,7 +9,7 @@ export type Stand<Group extends string = string> = {
   title: string;
   group: Group;
   order?: number;
-  status: 'depricated' | 'canary' | 'stable' | 'inWork';
+  status: 'deprecated' | 'canary' | 'stable' | 'inWork';
   version: string;
   standId?: string;
   docs?: React.FC;
@@ -17,6 +17,7 @@ export type Stand<Group extends string = string> = {
   sandbox?: string;
   playground?: React.FC;
   description?: string;
+  otherVersion?: Stand<Group>[];
 };
 
 export type Lib<GROUP extends Group> = {
