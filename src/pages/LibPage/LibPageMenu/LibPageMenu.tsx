@@ -30,32 +30,32 @@ const getItemBadge = (item: Stand) => {
   if (item.status === 'stable') {
     return undefined;
   } else if (item.status === 'canary') {
-    return <Badge label="Canary" view="filled" status="success" size="s" />
+    return <Badge label="Canary" view="filled" status="success" size="s" />;
   } else if (item.status === 'inWork') {
-    return <Badge label="в работе" view="filled" status="warning" size="s" />
+    return <Badge label="в работе" view="filled" status="warning" size="s" />;
   } else {
-    return <Badge label="depricated" view="stroked" status="error" size="s" />
+    return <Badge label="depricated" view="stroked" status="error" size="s" />;
   }
-}
-const getItemHref= (item: Stand) => {
+};
+const getItemHref = (item: Stand) => {
   if (item.standId) {
     return routesNames.LIBS_LIB_STAND;
   }
   return routesNames.LIBS_LIB;
-}
+};
 const getItemParmas = (item: Stand, libId?: string): Record<string, string> => {
   if (item.standId) {
     return {
       libId: libId ?? '',
       standId: item.standId ?? '',
-    }
+    };
   }
   return {
     libId: libId ?? '',
-  }
-}
+  };
+};
 
-const cnLibPageMenu = cn('LibPageMenu')
+const cnLibPageMenu = cn('LibPageMenu');
 
 export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
@@ -65,41 +65,40 @@ export const LibPageMenu: React.FC = () => {
   const [showDeprecated, setShowDeprecated] = useFlag(true);
   const getIsActive = useIsActiveRouter();
 
-  const onItemClick = useCallback(
-    (item: { standId?: string, id: string }) => {
-      if (item.standId) {
-        router.navigate(routesNames.LIBS_LIB_STAND, { libId: item.id, standId: item.standId })
-      } else {
-        router.navigate(routesNames.LIBS_LIB, { libId: item.id })
-      }
-    },
-    [],
-  );
+  const onItemClick = useCallback(({ item }: { item: { standId?: string; id: string } }) => {
+    if (item.standId) {
+      router.navigate(routesNames.LIBS_LIB_STAND, { libId: item.id, standId: item.standId });
+    } else {
+      router.navigate(routesNames.LIBS_LIB, { libId: item.id });
+    }
+  }, []);
 
   const defaultStand: Stand = {
     id: lib?.id ?? 'uikit',
     title: 'Обзор',
     group: 'review',
     status: 'stable',
-    version: ''
-}
+    version: '',
+  };
 
   const getItemActive = (item: Stand) => {
     if (lib?.id) {
       if (item.standId) {
-        return getIsActive(routesNames.LIBS_LIB_STAND, { libId: lib?.id, standId: item.standId })
+        return getIsActive(routesNames.LIBS_LIB_STAND, { libId: lib?.id, standId: item.standId });
       } else {
-        return getIsActive(routesNames.LIBS_LIB, { libId: lib?.id }) || router.getState().path === '/'
+        return (
+          getIsActive(routesNames.LIBS_LIB, { libId: lib?.id }) || router.getState().path === '/'
+        );
       }
     }
-  }
+  };
 
   const back = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    router.navigate(routesNames.LIBS)
+    router.navigate(routesNames.LIBS);
   }, []);
 
-  const { stands, logo, groups } = lib ?? {} as LibWithStands;
+  const { stands, logo, groups } = lib ?? ({} as LibWithStands);
 
   const allStands = [defaultStand, ...(stands ?? [])];
 
@@ -113,25 +112,28 @@ export const LibPageMenu: React.FC = () => {
       }
       return true;
     });
-  }, [showDeprecated, searchValue])
+  }, [showDeprecated, searchValue]);
 
   const additionalControls = () => {
     return (
       <div className={cnLibPageMenu('Controls')}>
         {libs?.length > 0 && (
           <Button
-             as="a"
-             href={router.buildPath(routesNames.LIBS)}
-             label="К списку библиотек"
-             iconLeft={IconBackward}
-             size="xs"
-             view="clear"
-             onClick={back}
-             className={cnLibPageMenu('Button')}
-           />
+            as="a"
+            href={router.buildPath(routesNames.LIBS)}
+            label="К списку библиотек"
+            iconLeft={IconBackward}
+            size="xs"
+            view="clear"
+            onClick={back}
+            className={cnLibPageMenu('Button')}
+          />
         )}
-        {typeof logo === 'string' ? <img alt="Consta-UIKit" src={logo?.toString()} className={cnLibPageMenu('Image')} />
-          : logo?.()}
+        {typeof logo === 'string' ? (
+          <img alt="Consta-UIKit" src={logo?.toString()} className={cnLibPageMenu('Image')} />
+        ) : (
+          logo?.()
+        )}
         <TextField
           type="text"
           value={searchValue}
@@ -167,7 +169,7 @@ export const LibPageMenu: React.FC = () => {
       getItemBadge={getItemBadge}
       getGroupKey={getGroupKey}
       getItemGroupId={getItemGroupId}
-      onItemClick={({ item }) => onItemClick(item)}
+      onItemClick={onItemClick}
       getItemDescription={getItemDescription}
     />
   );
