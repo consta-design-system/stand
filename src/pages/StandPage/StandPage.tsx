@@ -12,6 +12,7 @@ import { StandPageSandbox } from './StandPageSandbox';
 import { StandPageInformer } from './StandPageInformer';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
+import { LibPageMenu } from '../LibPage/LibPageMenu';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand.mdx';
 
@@ -51,7 +52,6 @@ export const StandPage: React.FC = () => {
   // const Docs = lazy(() => import(`../../lazy/${standID}.tsx`));
   // const Docs = lazy(() => import(`../../lazy/uikit-components-attachment-stable`));
 
-
   const standPath = useMemo(() => {
     if (standPage === routesNames.LIBS_LIB_STAND) {
       return standID;
@@ -72,7 +72,7 @@ export const StandPage: React.FC = () => {
       return <StandPageFigma className={cnStandPage('Figma')} link={stand.stand.figma} />;
     }
     if (standPage === routesNames.LIBS_LIB_STAND_SANDBOX) {
-      return <StandPageSandbox className={cnStandPage('SandBox')} link={stand.stand.sandbox} />
+      return <StandPageSandbox className={cnStandPage('SandBox')} link={stand.stand.sandbox} />;
     }
     return null;
   };
@@ -84,32 +84,30 @@ export const StandPage: React.FC = () => {
     const others = stand.stand.otherVersion;
     return {
       deprecated: others?.filter((el) => el.status === 'deprecated')[0],
-      canary: others?.filter((el) => el.status === 'canary')[0]
+      canary: others?.filter((el) => el.status === 'canary')[0],
     };
   }, [stand]);
 
   return (
-      <DocLayout>
-        <>
-          <StandPageHeader stand={stand.stand} />
-          <StandPageInformer
-            status={standStatus}
-            deprecated={standStatus === 'deprecated' ? stand.stand.version : deprecated?.version}
-            canary={canary?.version}
-            className={cnStandPage('Informer')}
-          />
-          <StandPageNavigation
-            className={cnStandPage('Navigation')}
-            standId={stand.id}
-            libId={stand.lib.id}
-            onChange={setStandPage}
-          />
-          {getContent()}
-          {standPath && (
-             <LazyDocs id={standPath} />
-          )}
-          <StandPageFooter className={cnStandPage('Footer')} onSPAClick={() => {}} />
-        </>
-      </DocLayout>
+    <DocLayout>
+      <>
+        <StandPageHeader stand={stand.stand} />
+        <StandPageInformer
+          status={standStatus}
+          deprecated={standStatus === 'deprecated' ? stand.stand.version : deprecated?.version}
+          canary={canary?.version}
+          className={cnStandPage('Informer')}
+        />
+        <StandPageNavigation
+          className={cnStandPage('Navigation')}
+          standId={stand.id}
+          libId={stand.lib.id}
+          onChange={setStandPage}
+        />
+        {getContent()}
+        {standPath && <LazyDocs id={standPath} />}
+        <StandPageFooter className={cnStandPage('Footer')} onSPAClick={() => {}} />
+      </>
+    </DocLayout>
   );
 };
