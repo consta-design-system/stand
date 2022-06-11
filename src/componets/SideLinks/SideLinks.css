@@ -1,0 +1,13 @@
+.stand--SideLinks {
+    width:100%;
+
+    &-List {
+       width:100%;
+
+    }
+
+    &-Links {
+        width:100%;
+        margin-top: calc(var(--space-xl) + var(--space-2xs))
+    }
+}

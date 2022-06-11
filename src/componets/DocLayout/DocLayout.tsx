@@ -5,7 +5,13 @@ import { cn } from '##/utils/bem';
 
 const cnDocLayout = cn('DocLayout');
 
-export const DocLayout: React.FC<{ children?: React.ReactChild; leftSide?: React.ReactChild }> = (
+type Props = {
+  children?: React.ReactChild;
+  leftSide?: React.ReactChild
+  rightSide?: React.ReactChild;
+}
+
+export const DocLayout: React.FC<Props> = (
   props,
 ) => {
   return (
@@ -14,6 +20,7 @@ export const DocLayout: React.FC<{ children?: React.ReactChild; leftSide?: React
       <div className={cnDocLayout('Content')}>
         <div className={cnDocLayout('Paper')}>{props.children}</div>
       </div>
+      {props.rightSide && <div className={cnDocLayout('RightSide')}>{props.rightSide}</div>}
     </div>
   );
 };
