@@ -16,6 +16,7 @@ import { cn } from '##/utils/bem';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand.mdx';
 
 import { useStand } from './useStand';
+import { getNavigationList } from './helpers';
 import './StandPage.css';
 // import {PreparedStand} from '../../../types'
 
@@ -68,10 +69,10 @@ export const StandPage: React.FC = () => {
   }, [standPage]);
 
   const getContent = () => {
-    if (standPage === routesNames.LIBS_LIB_STAND_DESIGN) {
+    if (stand.stand.figma && standPage === routesNames.LIBS_LIB_STAND_DESIGN) {
       return <StandPageFigma className={cnStandPage('Figma')} link={stand.stand.figma} />;
     }
-    if (standPage === routesNames.LIBS_LIB_STAND_SANDBOX) {
+    if (stand.stand.sandbox && standPage === routesNames.LIBS_LIB_STAND_SANDBOX) {
       return <StandPageSandbox className={cnStandPage('SandBox')} link={stand.stand.sandbox} />
     }
     return null;
@@ -99,6 +100,7 @@ export const StandPage: React.FC = () => {
             className={cnStandPage('Informer')}
           />
           <StandPageNavigation
+            items={getNavigationList(!!stand.stand.sandbox)}
             className={cnStandPage('Navigation')}
             standId={stand.id}
             libId={stand.lib.id}

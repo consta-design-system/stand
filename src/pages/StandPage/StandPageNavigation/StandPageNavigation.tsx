@@ -4,32 +4,10 @@ import { routesNames } from '##/modules/router';
 import { Tabs } from '@consta/uikit/TabsCanary';
 import { useMemo } from 'react';
 import { useEffect } from 'react';
-
-type NavigationItem = {
-    label: string;
-    route: string;
-}
-
-const navigationList: NavigationItem[] = [
-    {
-        label: 'Обзор',
-        route: routesNames.LIBS_LIB_STAND,
-    },
-    {
-        label: 'Дизайнеру',
-        route: routesNames.LIBS_LIB_STAND_DESIGN,
-    },
-    {
-        label: 'Разработчику',
-        route: routesNames.LIBS_LIB_STAND_DEV,
-    },
-    {
-        label: 'Песочница',
-        route: routesNames.LIBS_LIB_STAND_SANDBOX,
-    },
-]
+import { NavigationItem } from '../helpers'
 
 type Props = {
+    items: NavigationItem[];
     standId?: string;
     libId?: string;
     className?: string;
@@ -37,16 +15,16 @@ type Props = {
 }
 
 export const StandPageNavigation = (props: Props) => {
-    const { standId = '', libId = '', onChange, className } = props;
+    const { standId = '', libId = '', onChange, className, items } = props;
     const router = useRouter();
     const route = useRoute();
     const routeName = route.route.name;
 
     const value = useMemo(() => {
-        return navigationList.filter((item) => {
+        return items.filter((item) => {
             return item.route === routeName
         })[0];
-    }, [route])
+    }, [route, items])
     
     useEffect(() => {
         onChange?.(value.route)
@@ -58,7 +36,7 @@ export const StandPageNavigation = (props: Props) => {
 
     return (
         <Tabs 
-            items={navigationList}
+            items={items}
             onChange={({ value }) => handleClick(value)}
             size="m"
             className={className}
