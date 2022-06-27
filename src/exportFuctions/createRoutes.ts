@@ -32,12 +32,12 @@ export const createRoutes = (path = '/', libsLenght = 1) => {
       path: '/:standId',
     },
     {
-      name: routesNames.LIBS_LIB_STAND_DESIGN,
-      path: '/design',
-    },
-    {
       name: routesNames.LIBS_LIB_STAND_DEV,
       path: '/dev',
+    },
+    {
+      name: routesNames.LIBS_LIB_STAND_DESIGN,
+      path: '/design',
     },
     {
       name: routesNames.LIBS_LIB_STAND_SANDBOX,

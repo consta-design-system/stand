@@ -1,6 +1,6 @@
 .stand--DocLayout {
   display: grid;
-  grid-template-columns: 320px auto 295px;
+  grid-template-columns: 320px auto 320px;
   background: var(--color-bg-secondary);
   min-height: 100vh;
 
@@ -11,7 +11,7 @@
   }
 
   &-RightSide {
-    padding: var(--space-2xl) var(--space-xl);
+    padding: var(--space-xl) var(--space-2xl) var(--space-xl) 0;
     position: sticky;
     top: 0;
     right: 0;
@@ -28,5 +28,6 @@
     margin: 0 auto;
     border-radius: 10px;
     padding: var(--space-2xl) var(--space-3xl);
+    min-height: 100%;
   }
 }

@@ -104,7 +104,7 @@ export const LibPageMenu: React.FC = () => {
 
   const visibleStands = useMemo(() => {
     return allStands.filter((item) => {
-      if (!showDeprecated && item.status === 'depricated') {
+      if (!showDeprecated && item.status === 'deprecated') {
         return false;
       }
       if (searchValue && searchValue.trim() !== '') {
