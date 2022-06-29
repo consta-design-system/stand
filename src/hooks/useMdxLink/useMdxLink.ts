@@ -30,7 +30,7 @@ const buildNavigateParams = (href: string): [string, Record<string, string>] => 
     ];
 }
 
-export const useHref = (href: string): Result => {
+export const useMdxLink = (href: string): Result => {
     const router = useRouter();
     const route = useRoute();
 

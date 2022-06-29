@@ -5,9 +5,8 @@ import { IconForward } from '@consta/uikit/IconForward';
 import { Tabs, RenderItemProps } from '@consta/uikit/TabsCanary';
 import { activeItemAtom } from '##/modules/anchor';
 import { useAtom } from '@reatom/react';
-import { useHref } from '##/hooks/useHref';
+import { useMdxLink } from '@consta/stand/src/hooks/useMdxLink';
 import { MenuItem } from '##/hooks/useMenu';
-import { useRouter } from 'react-router5';
 import { IconComponent } from '@consta/uikit/Icon';
 
 import './SideLinks.css';
@@ -25,7 +24,7 @@ type LinkItemProps = {
 const LinkItem = (props: LinkItemProps) => {
     const { href: hrefProp, label, className, target, iconRight } = props;
 
-    const { href, onClick } = useHref(hrefProp);
+    const { href, onClick } = useMdxLink(hrefProp);
 
     return (
         <Button 
