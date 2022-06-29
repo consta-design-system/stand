@@ -1,8 +1,14 @@
 .stand--DocLayout {
   display: grid;
-  grid-template-columns: 320px auto 320px;
+  --stand-doc-grid: 320px calc(100% - 640px) 320px;
+  grid-template-columns: var(--stand-doc-grid);
   background: var(--color-bg-secondary);
   min-height: 100vh;
+  max-width: 100vw;
+
+  &_withoutStand {
+    --stand-doc-grid: 320px calc(100% - 320px);
+  }
 
   &-LeftSide {
     padding: var(--space-2xl) var(--space-xl);

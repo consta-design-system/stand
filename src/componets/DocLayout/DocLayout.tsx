@@ -11,7 +11,7 @@ export const DocLayout: React.FC<{
   rightSide?: React.ReactChild;
 }> = (props) => {
   return (
-    <div className={cnDocLayout()}>
+    <div className={cnDocLayout({ withoutStand: !props.rightSide })}>
       <div className={cnDocLayout('LeftSide')}>{props.leftSide}</div>
       <div className={cnDocLayout('Content')}>
         <div className={cnDocLayout('Paper')}>{props.children}</div>

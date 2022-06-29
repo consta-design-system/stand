@@ -12,7 +12,6 @@ import { StandPageSandbox } from './StandPageSandbox';
 import { StandPageInformer } from './StandPageInformer';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
-import { LibPageMenu } from '../LibPage/LibPageMenu';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand';
 // import { Stand } from '../../../../../../src/components/Attachment/__stand__/Attachment.stand.mdx';
 
@@ -79,7 +78,6 @@ export const StandPage: React.FC = () => {
   };
 
   const standStatus = stand.stand.status;
-  console.log(stand);
 
   const { deprecated, canary } = useMemo(() => {
     const others = stand.stand.otherVersion;

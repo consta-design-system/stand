@@ -16,6 +16,7 @@ export type Stand<Group extends string = string> = {
   version: string;
   docs?: React.FC;
   figma?: string;
+  github?: string;
   sandbox?: string;
   playground?: React.FC;
   description?: string;

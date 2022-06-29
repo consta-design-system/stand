@@ -1,43 +1,86 @@
 import React from 'react';
 import { cn } from '##/utils/bem';
-import { SideLinksProps } from './types';
 import { Button } from '@consta/uikit/Button';
 import { IconForward } from '@consta/uikit/IconForward';
-import { Tabs } from '@consta/uikit/TabsCanary';
+import { Tabs, RenderItemProps } from '@consta/uikit/TabsCanary';
+import { activeItemAtom } from '##/modules/anchor';
+import { useAtom } from '@reatom/react';
+import { useHref } from '##/hooks/useHref';
+import { MenuItem } from '##/hooks/useMenu';
+import { useRouter } from 'react-router5';
+import { IconComponent } from '@consta/uikit/Icon';
+
 import './SideLinks.css';
 
 const cnSideLinks = cn('SideLinks');
 
-export const SideLinks = <ITEM,>(props: SideLinksProps<ITEM>) => {
-    const { items, links } = props;
+type LinkItemProps = {
+    href: string;
+    className?: string;
+    label?: string;
+    target?: string;
+    iconRight?: IconComponent;
+}
 
+const LinkItem = (props: LinkItemProps) => {
+    const { href: hrefProp, label, className, target, iconRight } = props;
+
+    const { href, onClick } = useHref(hrefProp);
+
+    return (
+        <Button 
+            as="a"
+            href={href}
+            view="clear"
+            size="s"
+            target={target}
+            iconRight={iconRight}
+            onClick={onClick}
+            className={className}
+            label={label}
+        />
+    )
+}
+
+
+export const SideLinks = (props: { menu: MenuItem[], links?: MenuItem[] }) => {
+    const { menu, links } = props;
+    const [activeItem] = useAtom(activeItemAtom)
+   
+    const renderItem = (props: RenderItemProps<MenuItem>) => {
+        const { item: { href, label }, checked } = props;
+        return (
+            <LinkItem className={cnSideLinks('ListItem', { checked })} label={label} href={href} />
+        )
+    }
 
     return (
         <div className={cnSideLinks()}>
-            {items && (
+            {menu && menu.length > 0 && (
                 <Tabs
                     linePosition="left"
                     className={cnSideLinks('List')}
-                    items={items}
+                    items={menu}
                     size="s"
+                    value={activeItem}
+                    renderItem={renderItem}
                     onChange={() => {}}
                 />
             )}
             {links && (
                 <div className={cnSideLinks('Links')}>
                     {links?.map(({ label, href }) => (
-                        <Button 
-                            as="a"
-                            href={href}
-                            view="clear"
-                            size="s"
-                            target="_blank"
-                            label={label}
-                            iconRight={IconForward}
-                        />
+                        <LinkItem
+                          iconRight={IconForward}
+                          key={cnSideLinks({ label })}
+                          target="_blank"
+                          label={label}
+                          href={href} />
+
+                        
                     ))}
                 </div>
             )}
         </div>
-    )
+    );
 }

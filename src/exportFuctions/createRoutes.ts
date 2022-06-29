@@ -21,27 +21,27 @@ export const createRoutes = (path = '/', libsLenght = 1) => {
   const routes = [
     {
       name: routesNames.LIBS,
-      path: path,
+      path: `${path}?:hash`,
     },
     {
       name: routesNames.LIBS_LIB,
-      path: '/:libId',
+      path: '/:libId?:hash',
     },
     {
       name: routesNames.LIBS_LIB_STAND,
-      path: '/:standId',
+      path: '/:standId?:hash',
     },
     {
       name: routesNames.LIBS_LIB_STAND_DEV,
-      path: '/dev',
+      path: '/dev?:hash',
     },
     {
       name: routesNames.LIBS_LIB_STAND_DESIGN,
-      path: '/design',
+      path: '/design?:hash',
     },
     {
       name: routesNames.LIBS_LIB_STAND_SANDBOX,
-      path: '/sandbox',
+      path: '/sandbox?:hash',
     },
   ];
 
