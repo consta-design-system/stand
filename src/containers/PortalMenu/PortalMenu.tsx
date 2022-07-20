@@ -1,15 +1,20 @@
-import './PortalMenu.css';
+import '@consta/stand/src/containers/PortalMenu/PortalMenu.css';
 
 import React, { forwardRef, useRef } from 'react';
 
 import { useForkRef } from '@consta/uikit/useForkRef';
-import { cn } from '../../utils/bem';
+import { cn } from '##/utils/bem';
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { Text } from '@consta/uikit/Text';
 
-import { PortalMenuItem } from './PortalMenuItem/PortalMenuItem';
-import { withDefaultGetters } from './helper';
-import { DefaultMenuGroup, DefaultMenuItem, PortalMenuComponent, PortalMenuProps } from './types';
+import { PortalMenuItem } from '##/containers/PortalMenu/PortalMenuItem/PortalMenuItem';
+import { withDefaultGetters } from '##/containers/PortalMenu/helper';
+import {
+  DefaultMenuGroup,
+  DefaultMenuItem,
+  PortalMenuComponent,
+  PortalMenuProps,
+} from '##/containers/PortalMenu/types';
 
 const cnPortalMenu = cn('PortalMenu');
 
@@ -116,4 +121,4 @@ function PortalMenuRender<ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
 
 export const PortalMenu = forwardRef(PortalMenuRender) as PortalMenuComponent;
 
-export * from './types';
+export * from '##/containers/PortalMenu/types';

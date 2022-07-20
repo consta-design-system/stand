@@ -1,14 +1,12 @@
-import './PortalMenuItem.css';
+import '@consta/stand/src/containers/PortalMenu/PortalMenuItem/PortalMenuItem.css';
 
 import React, { useMemo } from 'react';
 
 import { useFlag } from '@consta/uikit/useFlag';
 import { IconArrowDown } from '@consta/uikit/IconArrowDown';
-import { cn } from '../../../utils/bem';
+import { cn } from '##/utils/bem';
 import { Text } from '@consta/uikit/Text';
-import {
-  PortalMenuItemProps,
-} from '../types';
+import { PortalMenuItemProps } from '##/containers/PortalMenu/types';
 import { Link } from '##/componets/Link';
 
 const cnPortalMenuItem = cn('PortalMenuItem');
@@ -60,14 +58,14 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
   const content = () => {
     return (
       <>
-      <div className={cnPortalMenuItem('Text')}>
+        <div className={cnPortalMenuItem('Text')}>
           <Text
             className={cnPortalMenuItem('Label')}
             size="m"
             lineHeight="m"
             view={getItemActive(item) ? 'brand' : 'primary'}
           >
-           {getItemLabel(item)}
+            {getItemLabel(item)}
           </Text>
           {getItemDescription(item) && (
             <Text
@@ -94,30 +92,34 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
             )}
           </div>
         )}
-        </>
-    )
-  }
+      </>
+    );
+  };
 
   return (
     <div className={cnPortalMenuItem(null, [className])}>
       {getItemHref(item) ? (
-        <Link  style={{
-          ['--menu-item-deep' as string]: deep,
-        }}
-        className={cnPortalMenuItem('Button', { active: getItemActive(item) })} to={`${getItemHref(item)}`} params={getItemParams(item)}>
-        {content()}
+        <Link
+          style={{
+            ['--menu-item-deep' as string]: deep,
+          }}
+          className={cnPortalMenuItem('Button', { active: getItemActive(item) })}
+          to={`${getItemHref(item)}`}
+          params={getItemParams(item)}
+        >
+          {content()}
         </Link>
-      ): (
+      ) : (
         <Component
-        style={{
-          ['--menu-item-deep' as string]: deep,
-        }}
-        className={cnPortalMenuItem('Button', { active: getItemActive(item) })}
-        {...(Component === 'button' && { type: 'button' })}
-        onClick={handleClick}
-      >
-        {content()}
-      </Component>
+          style={{
+            ['--menu-item-deep' as string]: deep,
+          }}
+          className={cnPortalMenuItem('Button', { active: getItemActive(item) })}
+          {...(Component === 'button' && { type: 'button' })}
+          onClick={handleClick}
+        >
+          {content()}
+        </Component>
       )}
       {showSubMenu && (
         <div className={cnPortalMenuItem('List')}>

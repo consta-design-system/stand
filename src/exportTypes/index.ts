@@ -11,7 +11,6 @@ export type Stand<Group extends string = string> = {
   image?: (() => React.ReactElement | null) | string;
   logo?: (() => React.ReactElement | null) | string;
   order?: number;
-  standId?: string;
   status: 'deprecated' | 'canary' | 'stable' | 'inWork';
   version: string;
   docs?: React.FC;
@@ -38,11 +37,11 @@ export type CreatedStand = {
   lib: Lib<Group>;
 };
 
-export type PreparedStand = CreatedStand & {
+export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   id: string;
   path: string;
 };
 
 export type LibWithStands = Lib<Group> & {
-  stands: Stand[];
+  stands: PreparedStand[];
 };

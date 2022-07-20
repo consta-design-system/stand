@@ -21,10 +21,11 @@ export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
   );
 };
 
-export const LazyDocs: React.FC<LazyDocsProps> = memo((props) => (
-  <ErrorBoundary fallback={<FallbackError />}>
-    <LazyDocsPreseter {...props} />
-  </ErrorBoundary>
-), (prevProps: LazyDocsProps, nextProps: LazyDocsProps) => (
-  prevProps.id === nextProps.id
-));
+export const LazyDocs: React.FC<LazyDocsProps> = memo(
+  (props) => (
+    <ErrorBoundary fallback={<FallbackError />}>
+      <LazyDocsPreseter {...props} />
+    </ErrorBoundary>
+  ),
+  (prevProps: LazyDocsProps, nextProps: LazyDocsProps) => prevProps.id === nextProps.id,
+);

@@ -11,9 +11,9 @@ export type LinkProps = {
 
 export type UseLinkProps = LinkProps | LinkProps[];
 
-type ReturnItem = [string, React.MouseEventHandler];
+export type ReturnItem = [string, React.MouseEventHandler];
 
-type UseLinkReturn<PROPS> = PROPS extends [] ? ReturnItem[] : ReturnItem;
+export type UseLinkReturn<PROPS> = PROPS extends [] ? ReturnItem[] : ReturnItem;
 
 export const buildLink = (
   router: Router,

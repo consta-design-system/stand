@@ -1,62 +1,55 @@
 import { useRouter, useRoute } from 'react-router5';
-import { routesNames } from '##/modules/router';
+import { Router, State } from 'router5';
+import { buildLink } from '##/hooks/useLink';
 
-type Result = {
-    href: string;
-    onClick?: React.MouseEventHandler
-}
+export type ReturnItem = [string, React.MouseEventHandler | undefined];
+
+export type UseMdxLinkReturn<T> = T extends [] ? ReturnItem[] : ReturnItem;
 
 const buildNavigateParams = (href: string): [string, Record<string, string>] => {
-    const decoded = decodeURI(href).toString().replace(/#*/g, '');
-    const parts = decoded.split('|');
-    let routeParams: Record<string, string> = {};
-    let routeName = '';
-    for (let i = 0; i < parts.length; i++) {
-        const part = parts[i];
-        if (i === 0) {
-            routeName = part;
-            continue;
-        }
-        if (part.includes(':')) {
-            const [key, value] = part.split(':');
-            routeParams[key] = value;
-            continue;
-        }
-        routeParams.hash = part;
+  const decoded = decodeURI(href.slice(2, href.length)).toString();
+  const parts = decoded.split('|');
+  let routeParams: Record<string, string> = {};
+  let routeName = '';
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    if (i === 0) {
+      routeName = part;
+      continue;
     }
-    return [
-        routeName,
-        routeParams,
-    ];
-}
+    if (part.includes(':')) {
+      const [key, value] = part.split(':');
+      routeParams[key] = value;
+      continue;
+    }
+    routeParams.hash = part;
+  }
+  return [routeName, routeParams];
+};
 
-export const useMdxLink = (href: string): Result => {
-    const router = useRouter();
-    const route = useRoute();
+export type useMdxLinkHref = string | string[];
 
-    const handleClick = (e: React.MouseEvent, routeName: string, routeParams: Record<string, string>) => {
-        e.stopPropagation();
-        e.preventDefault();
-        router.navigate(routeName, routeParams)
-    }
-    
-    if (href[0] === '#' && href[1] === '#') {
-        const [routeName, routeParams] = buildNavigateParams(href);
-        const name = routesNames[routeName as keyof typeof routesNames];
-        return {
-            href: router.buildPath(name, routeParams),
-            onClick: (e) => handleClick(e, name, routeParams),
-        }
-    }
-    if(href[0] === '#') {
-        const routeParams = { ...route.route.params, hash: decodeURI(href.replace(/#*/g, '')) };
-        const routeName = route.route.name;
-        return {
-            href: decodeURI(router.buildPath(routeName, routeParams)),
-            onClick: (e) => handleClick(e, routeName, routeParams),
-        }
-    }
-    return {
-        href,
-    };
-}
+const buildMdxLink = (router: Router, route: State, href: string): UseMdxLinkReturn<string> => {
+  if (href[0] === '#' && href[1] === '#') {
+    const [to, params] = buildNavigateParams(href);
+
+    return buildLink(router, { to, params });
+  }
+  if (href[0] === '#') {
+    const params = { ...route.params, hash: decodeURI(href.slice(1, href.length)) };
+    const to = route.name;
+    return buildLink(router, { to, params });
+  }
+  return [href, undefined];
+};
+
+export const useMdxLink = <T extends useMdxLinkHref>(href: T): UseMdxLinkReturn<T> => {
+  const router = useRouter();
+  const { route } = useRoute();
+
+  if (Array.isArray(href)) {
+    return href.map((item) => buildMdxLink(router, route, item)) as UseMdxLinkReturn<T>;
+  } else {
+    return buildMdxLink(router, route, href) as UseMdxLinkReturn<T>;
+  }
+};

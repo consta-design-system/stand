@@ -14,7 +14,7 @@ import {
   PortalMenuPropGetItemSubMenu,
   PortalMenuPropGetItemParams,
   PortalMenuProps,
-} from './types';
+} from '../PortalMenu/types';
 
 // Items
 
@@ -33,9 +33,8 @@ export const defaultGetItemGroupId: PortalMenuPropGetItemGroupId<DefaultMenuItem
   item.groupId;
 export const defaultGetItemSubMenu: PortalMenuPropGetItemSubMenu<DefaultMenuItem> = (item) =>
   item.subMenu;
-export const defaultGetItemHref: PortalMenuPropGetItemHref<DefaultMenuItem> = (item) =>
-  item.href;
-export const defaultGetItemParams: PortalMenuPropGetItemParams<DefaultMenuItem> = (item) => 
+export const defaultGetItemHref: PortalMenuPropGetItemHref<DefaultMenuItem> = (item) => item.href;
+export const defaultGetItemParams: PortalMenuPropGetItemParams<DefaultMenuItem> = (item) =>
   item.params;
 
 // Group

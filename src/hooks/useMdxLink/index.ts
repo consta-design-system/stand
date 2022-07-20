@@ -1,1 +1,1 @@
-export * from '@consta/stand/src/hooks/useMdxLink/useMdxLink';
+export * from '##/hooks/useMdxLink/useMdxLink';

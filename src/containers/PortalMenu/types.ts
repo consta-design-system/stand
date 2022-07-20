@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PropsWithHTMLAttributesAndRef } from '../../utils/types/PropsWithHTMLAttributes';
+import { PropsWithHTMLAttributesAndRef } from '##/utils/types/PropsWithHTMLAttributes';
 // import { Badge } from '../Badge/Badge';
 
 export type PortalMenuOnClick<ITEM> = (args: { e: React.MouseEvent; item: ITEM }) => void;

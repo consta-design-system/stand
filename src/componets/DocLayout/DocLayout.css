@@ -81,11 +81,13 @@
     position: fixed;
     height: calc(100vh - var(--doc-layout-header-height));
     position: fixed;
-    padding: var(--space-xl) var(--space-2xl) var(--space-xl) 0;
-    position: sticky;
-    top: 0;
+    padding: var(--space-2xl) var(--space-2xl) var(--space-xl) 0;
+    position: fixed;
     right: 0;
-    max-height: 100vh;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 
   &-Content {
