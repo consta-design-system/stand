@@ -18,8 +18,6 @@ export const LibPageCard = (props: Props) => {
   const { stand } = props;
   const { title, description, image } = props.stand.stand;
 
-  // console.log(stand.id);
-
   return (
     <div className={cnLibPageCard()}>
       <Image src={image ?? NoImage} className={cnLibPageCard('Image')} />

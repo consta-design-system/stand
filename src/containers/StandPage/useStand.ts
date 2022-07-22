@@ -7,13 +7,11 @@ import { routesNames } from '##/modules/router';
 export const useStand = () => {
   const [stand] = useAtom(standAtom);
 
-  console.log(stand);
-
   const router = useRouter();
 
-  // if (!stand) {
-  //   router.navigate(routesNames.LIBS, {}, { replace: true });
-  // }
+  if (!stand) {
+    router.navigate(routesNames.LIBS, {}, { replace: true });
+  }
 
   return stand;
 };

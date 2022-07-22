@@ -3,17 +3,17 @@ import { Text } from '@consta/uikit/Text';
 import { useMdxLink } from '##/hooks/useMdxLink';
 
 export const A = (props: React.HTMLAttributes<HTMLAnchorElement> & { href: string }) => {
-  const { children, href: hrefProp = '', ...otherProps } = props;
+  const { children, href = '', ...otherProps } = props;
 
-  const { href, onClick } = useMdxLink(hrefProp);
+  const link = useMdxLink(href);
 
   return (
     <Text
       as="a"
-      href={href}
+      href={link[0]}
       view="link"
       style={{ textDecoration: 'none' }}
-      onClick={onClick}
+      onClick={link[1]}
       {...otherProps}
     >
       {children}

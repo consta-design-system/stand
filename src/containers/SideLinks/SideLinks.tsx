@@ -3,11 +3,12 @@ import { cn } from '##/utils/bem';
 import { Button } from '@consta/uikit/Button';
 import { IconForward } from '@consta/uikit/IconForward';
 import { Tabs, RenderItemProps } from '@consta/uikit/TabsCanary';
-import { activeItemAtom } from '##/modules/anchor';
+import { activeItemAtom } from '##/modules/menuMdx';
 import { useAtom } from '@reatom/react';
 import { useMdxLink } from '##/hooks/useMdxLink';
 import { MenuItem } from '##/hooks/useMenu';
 import { IconComponent } from '@consta/uikit/Icon';
+import { useMenu } from '##/hooks/useMenu';
 
 import './SideLinks.css';
 
@@ -41,8 +42,8 @@ const LinkItem = (props: LinkItemProps) => {
   );
 };
 
-export const SideLinks = (props: { menu: MenuItem[]; links?: MenuItem[] }) => {
-  const { menu, links } = props;
+export const SideLinks = () => {
+  const { menu, links } = useMenu();
   const [activeItem] = useAtom(activeItemAtom);
 
   const renderItem = (props: RenderItemProps<MenuItem>) => {
@@ -55,7 +56,7 @@ export const SideLinks = (props: { menu: MenuItem[]; links?: MenuItem[] }) => {
 
   return (
     <div className={cnSideLinks()}>
-      {menu && menu.length > 0 && (
+      {menu.length > 0 && (
         <Tabs
           linePosition="left"
           className={cnSideLinks('List')}

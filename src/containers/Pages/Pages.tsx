@@ -15,10 +15,6 @@ export const Pages: React.FC = () => {
   const { route } = useRoute();
   const router = useRouter();
 
-  console.log('route', route);
-  console.log('router', router);
-  console.log('state', router.getState());
-
   const testStartsWithSegment = startsWithSegment(route.name);
 
   // если библиотека одна то редереким на сраницу библиотеки
