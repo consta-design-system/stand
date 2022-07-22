@@ -116,7 +116,6 @@
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "eslint": "^8.3.0",
-    "eslint-config-react-app": "^7.0.0",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.1",
@@ -171,7 +170,12 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.1",
     "webpack-manifest-plugin": "^4.0.2",
-    "workbox-webpack-plugin": "^6.4.1"
+    "workbox-webpack-plugin": "^6.4.1",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-config-react-app": "^7.0.0",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-prettier": "^4.2.1"
   },
   "homepage": "https://github.com/consta-design-system/stand",
   "browserslist": {
