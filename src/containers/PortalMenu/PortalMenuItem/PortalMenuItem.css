@@ -11,14 +11,14 @@
     background: transparent;
     border: none;
     border-radius: var(--control-radius);
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s;
-    text-decoration: none;
 
     &:hover {
       background: var(--color-control-bg-clear-hover);
     }
-    
+
     &_active {
       background: var(--color-bg-stripe);
     }
