@@ -13,7 +13,7 @@ const isEnvProduction = process.env.NODE_ENV === 'production';
 module.exports = function () {
   return {
     target: 'web',
-    entry: path.resolve(__dirname, 'src', 'index.tsx'),
+    entry: path.resolve(__dirname, 'src', 'root'),
     cache: process.env.NODE_ENV === 'development',
     module: {
       rules: [
@@ -78,7 +78,10 @@ module.exports = function () {
 
       new webpack.ProgressPlugin(),
 
-      new MiniCssExtractPlugin({ filename: 'styles.css' }),
+      new MiniCssExtractPlugin({
+        filename: 'static/[name].[contenthash:8].css',
+        chunkFilename: 'static/[name].[contenthash:8].chunk.css',
+      }),
 
       new CssMinimizerPlugin(),
     ].filter(Boolean),
@@ -87,8 +90,8 @@ module.exports = function () {
       filename: 'index.js',
       path: path.resolve(__dirname, '../../../build'),
       ...(isEnvProduction && {
-        filename: 'static/js/[name].[contenthash:8].js',
-        chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
+        filename: 'static/[name].[contenthash:8].js',
+        chunkFilename: 'static/[name].[contenthash:8].chunk.js',
         assetModuleFilename: 'static/media/[name].[hash][ext]',
       }),
       publicPath: '/',
