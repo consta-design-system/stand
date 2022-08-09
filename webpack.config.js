@@ -66,6 +66,74 @@ module.exports = function () {
             name: 'static/media/[name].[hash:8].[ext]',
           },
         },
+        {
+          test: /\.icon\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                template: (
+                  { template },
+                  opts,
+                  { imports, componentName, props, jsx, exports },
+                ) => {
+                  return template.ast`
+                              ${imports}
+                              import { createIcon } from '@consta/uikit/createIcon';
+
+                              const Icon = (${props}) => {
+                                props = { ...props };
+                                return ${jsx};
+                              };
+
+                              export default createIcon({
+                                m: Icon,
+                                s: Icon,
+                                xs: Icon,
+                                name: 'Icon',
+                              });
+                        `;
+                },
+                plugins: [
+                  '@svgr/plugin-svgo',
+                  '@svgr/plugin-jsx',
+                  '@svgr/plugin-prettier',
+                ],
+                dimensions: false,
+                svgo: true,
+              },
+            },
+          ],
+        },
+        {
+          test: /\.image\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                template: (
+                  { template },
+                  opts,
+                  { imports, componentName, props, jsx, exports },
+                ) => {
+                  return template.ast`
+                              ${imports}
+
+                              const Icon = (${props}) => {
+                                props = { ...props };
+                                return ${jsx};
+                              };
+
+                              export default Icon
+                        `;
+                },
+                plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
+                dimensions: false,
+                svgo: true,
+              },
+            },
+          ],
+        },
       ],
     },
     resolve: {
