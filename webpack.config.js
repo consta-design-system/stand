@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const remark = require('remark-gfm');
+
 const productionMode = process.env.NODE_ENV === 'production';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -50,7 +52,9 @@ module.exports = function () {
           use: [
             {
               loader: '@mdx-js/loader',
-              options: {},
+              options: {
+                remarkPlugins: [remark],
+              },
             },
           ],
         },
