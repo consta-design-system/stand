@@ -2,6 +2,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const isTest = process.env.NODE_ENV === 'test';
 
 module.exports = {
+  comments: false,
   presets: [
     [
       '@babel/preset-env',
@@ -29,12 +30,12 @@ module.exports = {
       },
     ],
     ['@babel/preset-typescript'],
-    // [
-    //   'babel-preset-minify',
-    //   {
-    //     builtIns: false,
-    //   },
-    // ],
+    [
+      'minify',
+      {
+        builtIns: false,
+      },
+    ],
   ],
   plugins: [
     ['@babel/plugin-proposal-class-properties'],
@@ -55,16 +56,6 @@ module.exports = {
       },
     ],
     [
-      'babel-plugin-named-asset-import',
-      {
-        loaderMap: {
-          svg: {
-            ReactComponent: '@svgr/webpack?-svgo,+ref![path]',
-          },
-        },
-      },
-    ],
-    [
       'babel-plugin-module-resolver',
       {
         root: ['./'],
@@ -73,25 +64,5 @@ module.exports = {
         },
       },
     ],
-    // ...(isProduction
-    //   ? [
-    //       // Treat React JSX elements as value types and hoist them to the highest scope
-    //       // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
-    //       '@babel/plugin-transform-react-constant-elements',
-
-    //       // Replaces the React.createElement function with one that is more optimized for production
-    //       // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-inline-elements
-    //       '@babel/plugin-transform-react-inline-elements',
-
-    //       // Remove unnecessary React propTypes from the production build
-    //       // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
-    //       [
-    //         'babel-plugin-transform-react-remove-prop-types',
-    //         {
-    //           removeImport: true,
-    //         },
-    //       ],
-    //     ]
-    //   : ['react-hot-loader/babel']),
   ],
 };

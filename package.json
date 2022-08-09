@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.20",
+  "version": "0.0.23",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -111,7 +111,7 @@
     "build:scripts": "cp -R scripts dist/scripts",
     "build:docs": "cp README.md dist/README.md",
     "build:clear": "rm -rf dist/src/stands",
-    "build": "rm -rf dist && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:scripts && yarn build:templates && yarn build:webpack.config.js && yarn build:docs && yarn build:public && yarn build:index && yarn build:clear",
+    "build": "rm -rf ./dist && rm -rf ./src/stands && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:scripts && yarn build:templates && yarn build:webpack.config.js && yarn build:docs && yarn build:public && yarn build:index && yarn build:clear",
     "stand:start": "NODE_ENV=standDevelopment webpack serve --open --progress --mode development --hot --progress --config webpack.config.js",
     "stylelint-fix": "stylelint --fix"
   },
@@ -143,6 +143,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-preset-minify": "^0.5.2",
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "^6.3.0",
     "eslint": "^8.20.0",

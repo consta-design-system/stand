@@ -1,1 +1,1 @@
-export * from '##/exportAtoms/libs/libs';
+export * from './libs';
