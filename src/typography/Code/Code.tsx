@@ -5,7 +5,7 @@ import { IconCopy } from '@consta/uikit/IconCopy';
 import { cnMixFocus } from '@consta/uikit/MixFocus';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useRef } from 'react';
-import Highlight from 'react-highlight';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { CSSTransition } from 'react-transition-group';
 
 import { cn } from '##/utils/bem';
@@ -76,9 +76,15 @@ export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
   if (className) {
     return (
       <div className={cnCode(null, [className])}>
-        <Highlight {...otherProps} className={className}>
-          {children}
-        </Highlight>
+        <SyntaxHighlighter
+          {...otherProps}
+          style={{}}
+          wrapLongLines
+          language="jsx"
+          className={className}
+        >
+          {children?.toString() ?? ''}
+        </SyntaxHighlighter>
         <CopyButton copied={copied} onClick={handleClick} />
       </div>
     );
