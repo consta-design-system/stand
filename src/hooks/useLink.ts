@@ -34,7 +34,9 @@ export const useLink = <PROPS extends UseLinkProps>(
   const router = useRouter();
 
   if (Array.isArray(props)) {
-    return props.map((item) => buildLink(router, item)) as UseLinkReturn<PROPS>;
+    return props.map((item) =>
+      buildLink(router, item, item.onClick),
+    ) as UseLinkReturn<PROPS>;
   }
-  return buildLink(router, props) as UseLinkReturn<PROPS>;
+  return buildLink(router, props, props.onClick) as UseLinkReturn<PROPS>;
 };

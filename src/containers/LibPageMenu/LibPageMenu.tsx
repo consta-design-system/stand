@@ -1,5 +1,6 @@
 import './LibPageMenu.css';
 
+import { openLeftSide } from '@consta/stand/src/exportAtoms/layout';
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
 import { IconBackward } from '@consta/uikit/IconBackward';
@@ -7,7 +8,7 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';
 import { useFlag } from '@consta/uikit/useFlag';
-import { useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'react-router5';
 
@@ -77,6 +78,8 @@ export const LibPageMenu: React.FC = () => {
   }, []);
 
   const { stands, logo, groups } = lib ?? ({} as LibWithStands);
+
+  const toggleMenu = useAction(openLeftSide.toggle);
 
   const visibleStands = useMemo(() => {
     const reviewItem: PreparedStand | undefined = lib
@@ -166,6 +169,7 @@ export const LibPageMenu: React.FC = () => {
       getGroupLabel={getGroupLabel}
       getItemActive={getItemActive}
       getItemBadge={getItemBadge}
+      onItemClick={toggleMenu}
       getGroupKey={getGroupKey}
       getItemGroupId={getItemGroupId}
       getItemDescription={getItemDescription}

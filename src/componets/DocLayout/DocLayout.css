@@ -89,6 +89,10 @@
   &-Content {
     padding: var(--space-2xl);
 
+    @media screen and (max-width: 899px) {
+      padding: 0;
+    }
+
     @media screen and (min-width: 1364px) {
       padding-right: var(--space-2xl);
       padding-left: calc(var(--doc-layout-side-width) + var(--space-2xl));
@@ -106,6 +110,11 @@
     padding: var(--space-2xl) var(--space-3xl);
     background: var(--color-bg-default);
     border-radius: 10px;
+
+    @media screen and (max-width: 899px) {
+      max-width: 100%;
+      border-radius: 0;
+    }
   }
 
   &-Header {
