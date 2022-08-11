@@ -9,10 +9,11 @@ import {
   ThemeTogglerPropSetValue,
 } from '@consta/uikit/ThemeToggler';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
+import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useAction, useAtom } from '@reatom/react';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { openLeftSide } from '##/exportAtoms/layout';
+import { headerHeight, openLeftSide } from '##/exportAtoms/layout';
 import { getThemeIcon, getThemeKey, themeAtom, themes } from '##/modules/theme';
 
 export const Header = () => {
@@ -21,6 +22,15 @@ export const Header = () => {
   );
 
   const toggleMenu = useAction(openLeftSide.toggle);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  const { height } = useComponentSize(headerRef);
+
+  useEffect(() => {
+    setHeaderHeight(height);
+  }, [height]);
+
+  const setHeaderHeight = useAction(headerHeight.set);
 
   const breakpoints = useBreakpoints({
     l: 1364,
@@ -30,6 +40,7 @@ export const Header = () => {
 
   return (
     <Layout
+      ref={headerRef}
       rowCenter={{
         left: [
           breakpoints.l ? undefined : (

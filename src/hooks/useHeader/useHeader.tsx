@@ -1,9 +1,13 @@
-import { useAction } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
+import { headerHeight } from '##/exportAtoms/layout';
 import { activeItemAtom } from '##/modules/menuMdx';
-import { typographyHeaderConverter } from '##/utils/typographyHeaderConverter';
+import {
+  getStringChildren,
+  typographyHeaderConverter,
+} from '##/utils/typographyHeaderConverter';
 
 type UseHeader = (
   children: React.ReactNode,
@@ -18,8 +22,10 @@ export const useHeader: UseHeader = (children, ref) => {
   const { params } = route.route;
   const setActiveItem = useAction(activeItemAtom.set);
 
+  const [height] = useAtom(headerHeight);
+
   const { id, label } = useMemo(() => {
-    const str = children?.toString() ?? '';
+    const str = getStringChildren(children);
     return typographyHeaderConverter(str);
   }, [children]);
 
@@ -30,7 +36,7 @@ export const useHeader: UseHeader = (children, ref) => {
       if (hash === id) {
         const top = ref.current?.offsetTop ?? 0;
         window.scrollTo({
-          top: top + 10,
+          top: top - height,
           left: 0,
           behavior: 'smooth',
         });
