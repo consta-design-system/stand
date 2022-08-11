@@ -93,6 +93,10 @@
       padding: var(--space-2xl);
     }
 
+    @media screen and (max-width: 899px) {
+      padding: 0;
+    }
+
     @media screen and (min-width: 1364px) {
       padding-right: var(--space-2xl);
       padding-left: calc(var(--doc-layout-side-width) + var(--space-2xl));
