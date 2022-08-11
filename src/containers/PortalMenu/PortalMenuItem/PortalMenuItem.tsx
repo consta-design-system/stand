@@ -30,8 +30,8 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
 
   const handleClick: React.MouseEventHandler = (e) => {
     if ((subMenu && getItemOnClick(item)) || !subMenu) {
+      onClick?.(e);
       if (!getItemHref(item)) {
-        onClick?.(e);
         getItemOnClick(item)?.(e);
       }
     } else {
@@ -104,6 +104,7 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
           })}
           to={`${getItemHref(item)}`}
           params={getItemParams(item)}
+          onClick={handleClick}
         >
           {content()}
         </Link>

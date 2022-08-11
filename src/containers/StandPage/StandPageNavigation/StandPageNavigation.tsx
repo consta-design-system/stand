@@ -34,6 +34,7 @@ export const StandPageNavigation = (props: Props) => {
       items={navigationList}
       onChange={handleClick}
       size="m"
+      fitMode="scroll"
       className={className}
       value={value}
     />

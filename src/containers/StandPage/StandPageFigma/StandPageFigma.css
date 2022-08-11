@@ -1,5 +1,6 @@
 .stand--StandPageFigma {
   --figma-container-height: 0;
+  --figma-container-padding: 0;
   position: relative;
   display: flex;
   overflow: hidden;
@@ -8,6 +9,7 @@
   align-items: center;
   width: 100%;
   min-height: var(--figma-container-height);
+  padding: var(--figma-container-padding);
   background-color: var(--color-bg-secondary);
 
   &-Title {
@@ -39,11 +41,13 @@
 @media screen and (min-width: 900px) {
   .stand--StandPageFigma {
     --figma-container-height: 437px;
+    --figma-container-padding: 0;
   }
 }
 
 @media screen and (max-width: 899px) {
   .stand--StandPageFigma {
     --figma-container-height: 200px;
+    --figma-container-padding: var(--space-l);
   }
 }

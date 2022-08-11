@@ -11,12 +11,20 @@
     align-items: center;
     width: 100%;
     margin-bottom: var(--space-xl);
+
+    @media screen and (max-width: 899px) {
+      flex-wrap: wrap;
+
+      & > .Text:first-child {
+        margin-right: var(--space-xl);
+      }
+    }
   }
 
   &-Badges {
-    & > *:not(:last-child) {
-      margin-right: var(--space-s);
-    }
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
   }
 
   &-Description {
