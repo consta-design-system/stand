@@ -87,7 +87,11 @@
   }
 
   &-Content {
-    padding: var(--space-2xl);
+    padding: 0;
+
+    @media screen and (min-width: 900px) {
+      padding: var(--space-2xl);
+    }
 
     @media screen and (max-width: 899px) {
       padding: 0;
@@ -104,16 +108,17 @@
   }
 
   &-Paper {
-    max-width: 980px;
+    max-width: 100%;
     min-height: 100%;
     margin: 0 auto;
-    padding: var(--space-2xl) var(--space-3xl);
+    padding: var(--space-xl);
     background: var(--color-bg-default);
-    border-radius: 10px;
+    border-radius: 0;
 
-    @media screen and (max-width: 899px) {
-      max-width: 100%;
-      border-radius: 0;
+    @media screen and (min-width: 900px) {
+      max-width: 980px;
+      padding: var(--space-2xl) var(--space-3xl);
+      border-radius: 10px;
     }
   }
 
