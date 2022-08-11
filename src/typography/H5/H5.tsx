@@ -1,5 +1,6 @@
 import './H5.css';
 
+import { CopyButton } from '@consta/stand/src/componets/CopyButton';
 import { Text } from '@consta/uikit/Text';
 import React, { useRef } from 'react';
 
@@ -25,6 +26,7 @@ export const H5 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       lineHeight="m"
       {...otherProps}
     >
+      <CopyButton href={`#${id}`} className={cnH5('CopyButton')} />
       {label}
     </Text>
   );

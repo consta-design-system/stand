@@ -2,6 +2,7 @@ import { useAction, useAtom } from '@reatom/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRoute } from 'react-router5';
 
+import { headerHeight } from '##/exportAtoms/layout';
 import { Stand } from '##/exportTypes';
 import { activeItemAtom, menuMdxAtom } from '##/modules/menuMdx';
 import { standAtom } from '##/modules/stand';
@@ -48,17 +49,19 @@ const getMenuData: GetMenuData = (children) => {
 const scrollDetector = (
   positions: number[],
   scrollToElement: (index: number) => void,
+  offset?: number,
 ) => {
+  const offsetTop = offset ?? 0;
   const y = window.scrollY;
   if (y < positions[0]) {
-    scrollToElement(-1);
-  } else if (y > positions[positions.length - 1]) {
+    scrollToElement(0);
+  } else if (y > positions[positions.length - 1] - offsetTop) {
     scrollToElement(positions.length - 1);
   } else {
     for (let i = 0; i < positions.length - 1; i++) {
       const firstPosition = positions[i];
       const secondPosition = positions[i + 1];
-      if (y >= firstPosition && y < secondPosition) {
+      if (y >= firstPosition - offsetTop && y < secondPosition - offsetTop) {
         scrollToElement(i);
         return;
       }
@@ -81,6 +84,8 @@ export const useMenu: UseMenu = () => {
     () => (menuNode ? getMenuData(menuNode as React.ReactElement) : []),
     [menuNode],
   );
+
+  const [offset] = useAtom(headerHeight);
 
   useEffect(() => {
     setActiveItem(undefined);
@@ -117,14 +122,14 @@ export const useMenu: UseMenu = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', () =>
-      scrollDetector(menuPositions, setActiveIndex),
+      scrollDetector(menuPositions, setActiveIndex, offset),
     );
     return () => {
       window.removeEventListener('scroll', () =>
-        scrollDetector(menuPositions, setActiveIndex),
+        scrollDetector(menuPositions, setActiveIndex, offset),
       );
     };
-  }, [menuPositions]);
+  }, [menuPositions, offset]);
 
   const links: MenuItem[] | undefined = useMemo(() => {
     const array: MenuItem[] = [];

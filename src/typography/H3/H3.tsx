@@ -3,6 +3,7 @@ import './H3.css';
 import { Text } from '@consta/uikit/Text';
 import React, { useRef } from 'react';
 
+import { CopyButton } from '##/componets/CopyButton';
 import { useHeader } from '##/hooks/useHeader';
 import { cn } from '##/utils/bem';
 
@@ -25,6 +26,7 @@ export const H3 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       lineHeight="m"
       {...otherProps}
     >
+      <CopyButton href={`#${id}`} className={cnH3('CopyButton')} />
       {label}
     </Text>
   );

@@ -1,0 +1,6 @@
+.stand--CopyButton {
+  &.Button {
+    position: absolute;
+    left: calc(0% - var(--space-xl));
+  }
+}
