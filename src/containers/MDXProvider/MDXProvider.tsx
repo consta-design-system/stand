@@ -20,6 +20,12 @@ import { Ol } from '##/typography/Ol';
 import { P } from '##/typography/P';
 import { Pre } from '##/typography/Pre';
 import { Strong } from '##/typography/Strong';
+import { Table } from '##/typography/Table';
+import { Tbody } from '##/typography/Tbody';
+import { Td } from '##/typography/Td';
+import { Th } from '##/typography/Th';
+import { Thead } from '##/typography/Thead';
+import { Tr } from '##/typography/Tr';
 import { Ul } from '##/typography/Ul';
 
 export const components = {
@@ -44,6 +50,12 @@ export const components = {
   pre: Pre,
   strong: Strong,
   ul: Ul,
+  table: Table,
+  tbody: Tbody,
+  td: Td,
+  th: Th,
+  tr: Tr,
+  thead: Thead,
 } as MDXComponents;
 
 type Props = {

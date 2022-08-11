@@ -1,0 +1,13 @@
+.stand--Tr {
+  & > th {
+    &:not(:last-child) {
+      border-right: 1px solid var(--color-bg-border);
+    }
+  }
+
+  & > td {
+    &:not(:last-child) {
+      border-right: 1px solid var(--color-bg-border);
+    }
+  }
+}

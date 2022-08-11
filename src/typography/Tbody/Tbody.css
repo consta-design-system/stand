@@ -1,0 +1,9 @@
+.stand--Tbody {
+  & > *:nth-child(even) {
+    background: var(--color-bg-stripe);
+  }
+
+  & > *:not(:last-child) {
+    border-bottom: 1px solid var(--color-bg-border);
+  }
+}

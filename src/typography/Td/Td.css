@@ -1,0 +1,10 @@
+.stand--Td {
+  box-sizing: border-box;
+  height: var(--space-3xl);
+  padding: var(--space-xs) var(--space-s);
+
+  & * {
+    font-size: var(--size-text-s);
+    line-height: var(--line-height-size-s);
+  }
+}
