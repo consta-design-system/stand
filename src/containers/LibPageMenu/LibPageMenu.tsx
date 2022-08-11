@@ -1,6 +1,5 @@
 import './LibPageMenu.css';
 
-import { openLeftSide } from '@consta/stand/src/exportAtoms/layout';
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
 import { IconBackward } from '@consta/uikit/IconBackward';
@@ -13,6 +12,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
+import { openLeftSide } from '##/exportAtoms/layout';
 import { LibWithStands, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
@@ -112,7 +112,7 @@ export const LibPageMenu: React.FC = () => {
 
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>
-      {libs?.length > 0 && (
+      {libs?.length > 1 && (
         <Button
           as="a"
           href={router.buildPath(routesNames.LIBS)}
