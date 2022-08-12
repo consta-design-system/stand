@@ -1,3 +1,16 @@
 .stand--H2 {
+  position: relative;
   margin-bottom: var(--space-m);
+
+  &:hover {
+    & .stand--H2-CopyButton {
+      opacity: 1;
+    }
+  }
+
+  &-CopyButton {
+    top: var(--space-s);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
 }

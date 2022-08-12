@@ -1,0 +1,4 @@
+.stand--Table {
+  margin-bottom: var(--space-m);
+  border: 1px solid var(--color-bg-border);
+}

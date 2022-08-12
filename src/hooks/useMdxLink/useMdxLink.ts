@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRoute, useRouter } from 'react-router5';
 import { Router, State } from 'router5';
 
@@ -36,11 +37,12 @@ const buildMdxLink = (
   router: Router,
   route: State,
   href: string,
+  onClick?: React.MouseEventHandler,
 ): UseMdxLinkReturn<string> => {
   if (href[0] === '#' && href[1] === '#') {
     const [to, params] = buildNavigateParams(href);
 
-    return buildLink(router, { to, params });
+    return buildLink(router, { to, params }, onClick);
   }
   if (href[0] === '#') {
     const params = {
@@ -48,21 +50,22 @@ const buildMdxLink = (
       hash: decodeURI(href.slice(1, href.length)),
     };
     const to = route.name;
-    return buildLink(router, { to, params });
+    return buildLink(router, { to, params }, onClick);
   }
-  return [href, undefined];
+  return [href, onClick];
 };
 
 export const useMdxLink = <T extends useMdxLinkHref>(
   href: T,
+  onClick?: React.MouseEventHandler,
 ): UseMdxLinkReturn<T> => {
   const router = useRouter();
   const { route } = useRoute();
 
   if (Array.isArray(href)) {
     return href.map((item) =>
-      buildMdxLink(router, route, item),
+      buildMdxLink(router, route, item, onClick),
     ) as UseMdxLinkReturn<T>;
   }
-  return buildMdxLink(router, route, href) as UseMdxLinkReturn<T>;
+  return buildMdxLink(router, route, href, onClick) as UseMdxLinkReturn<T>;
 };

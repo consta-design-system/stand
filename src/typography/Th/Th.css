@@ -1,0 +1,7 @@
+.stand--Th {
+  box-sizing: border-box;
+  height: var(--space-4xl);
+  padding: var(--space-xs) var(--space-s);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-bg-border);
+}
