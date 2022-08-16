@@ -30,17 +30,18 @@ const getMenuData: GetMenuData = (children) => {
   } = children;
   const array: MenuItem[] = [];
   if (typeof childrenProp === 'string') {
-    array.push({
-      label: childrenProp,
-      href: decodeURI(href),
-    });
+    href &&
+      array.push({
+        label: childrenProp,
+        href: decodeURI(href),
+      });
   } else if (Array.isArray(childrenProp)) {
     childrenProp.forEach((child) => {
       if (typeof child === 'object') {
         array.push(...getMenuData(child));
       }
     });
-  } else {
+  } else if (childrenProp) {
     array.push(...getMenuData(childrenProp));
   }
   return array;
