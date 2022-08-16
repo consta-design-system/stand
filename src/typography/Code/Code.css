@@ -64,6 +64,11 @@
     }
   }
 
+  &-Param {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
   &-CopyButton {
     position: relative;
     display: inline-flex;
