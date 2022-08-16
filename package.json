@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -95,7 +95,7 @@
     "lint:css": "stylelint ./src/**/*.css --fix",
     "lint": "yarn run lint:js && yarn run lint:css",
     "format:svg": "prettier --write '**/*.svg' --parser html",
-    "pre-push": "yarn run tsc-dry-run",
+    "pre-push": "rm -rf src/stands && yarn run tsc-dry-run",
     "pre-commit": "yarn run lint-staged",
     "pre-build": "node builder/preBuild.js --config=./build.config.js",
     "test": "yarn lint && yarn tsc-dry-run && yarn unit",
