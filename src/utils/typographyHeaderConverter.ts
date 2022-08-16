@@ -10,6 +10,8 @@ const SEPARATOR = '\\';
 const SYMBOLS =
   /\?|{|}|[|]|\s|\'|\"|;|:|\||\\|\/|\!|@|#|\$|%|\^|,|\.|&|\*|-|_|=|\+|\`|\~|<|§|>|\(|\)/g;
 
+const REMOVE_SYMBOLS = /\?|\(|\)|{|}|[|]/g;
+
 export const getStringChildren = (node: React.ReactNode): string => {
   if (typeof node !== 'object') {
     return node?.toString() ?? '';
@@ -24,7 +26,7 @@ export const typographyHeaderConverter = (header: string): Result => {
   return {
     id:
       strId === '' || !strId
-        ? header.replace(SYMBOLS, '-').toLowerCase()
+        ? header.replace(REMOVE_SYMBOLS, '').replace(SYMBOLS, '-').toLowerCase()
         : strId,
     label: array[0],
   };
