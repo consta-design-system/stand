@@ -23,11 +23,11 @@ export const createRoutes = (path = '/libs') => {
     },
     {
       name: routesNames.LIBS_STAND_DESIGN,
-      path: '/dev?:hash',
+      path: '/design?:hash',
     },
     {
       name: routesNames.LIBS_STAND_DEV,
-      path: '/design?:hash',
+      path: '/dev?:hash',
     },
     {
       name: routesNames.LIBS_STAND_SANDBOX,

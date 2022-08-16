@@ -1,5 +1,5 @@
 const fg = require('fast-glob');
-const { readFile, writeFile, ensureDir } = require('fs-extra');
+const { readFile, writeFile, ensureDir, remove } = require('fs-extra');
 
 const { access, F_OK } = require('fs');
 
@@ -42,6 +42,7 @@ const prepareStands = async ({
   standsImportPath,
   standsUrlPath,
 }) => {
+  await remove('node_modules/@consta/stand/src/stands');
   await ensureDir('node_modules/@consta/stand/src/stands/lazyDocs/');
 
   const path = `${srcPath}/**/*.stand.tsx`;

@@ -12,7 +12,7 @@
     width: calc(var(--space-xl) + var(--space-2xl));
     height: calc(var(--space-xl) + var(--space-2xl));
     padding: var(--space-m);
-    background-color: var(--color-bg-secondary);
+    background-color: transparent;
     border: none;
     border-radius: var(--control-radius);
   }
