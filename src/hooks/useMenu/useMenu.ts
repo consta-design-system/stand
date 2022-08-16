@@ -30,17 +30,18 @@ const getMenuData: GetMenuData = (children) => {
   } = children;
   const array: MenuItem[] = [];
   if (typeof childrenProp === 'string') {
-    array.push({
-      label: childrenProp,
-      href: decodeURI(href),
-    });
+    href &&
+      array.push({
+        label: childrenProp,
+        href: decodeURI(href),
+      });
   } else if (Array.isArray(childrenProp)) {
     childrenProp.forEach((child) => {
       if (typeof child === 'object') {
         array.push(...getMenuData(child));
       }
     });
-  } else {
+  } else if (childrenProp) {
     array.push(...getMenuData(childrenProp));
   }
   return array;
@@ -77,13 +78,13 @@ export const useMenu: UseMenu = () => {
   const [stand] = useAtom(standAtom);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [nodes, setNodes] = useState<NodeItem[]>([]);
+  const [menu, setMenu] = useState<MenuItem[]>([]);
 
   const { github, figma } = stand?.stand ?? ({} as Stand);
 
-  const menu: MenuItem[] = useMemo(
-    () => (menuNode ? getMenuData(menuNode as React.ReactElement) : []),
-    [menuNode],
-  );
+  useEffect(() => {
+    setMenu(menuNode ? getMenuData(menuNode as React.ReactElement) : []);
+  }, [menuNode]);
 
   const [offset] = useAtom(headerHeight);
 
@@ -110,7 +111,14 @@ export const useMenu: UseMenu = () => {
             });
         }
       });
-      setNodes(nodeArray);
+      setNodes(
+        nodeArray.sort((a, b) => {
+          if (a.element.offsetTop > b.element.offsetTop) {
+            return 1;
+          }
+          return -1;
+        }),
+      );
     } else {
       setNodes([]);
     }
@@ -119,6 +127,10 @@ export const useMenu: UseMenu = () => {
   useEffect(() => {
     setActiveItem(nodes[activeIndex]?.item);
   }, [activeIndex]);
+
+  const sortedMenu: MenuItem[] = useMemo(() => {
+    return nodes.map((item) => item.item);
+  }, [nodes]);
 
   useEffect(() => {
     window.addEventListener('scroll', () =>
@@ -155,7 +167,7 @@ export const useMenu: UseMenu = () => {
   }, [stand]);
 
   return {
-    menu,
+    menu: sortedMenu,
     links,
   };
 };
