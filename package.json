@@ -119,10 +119,30 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    },
-    "cz-customizable": {
-      "config": "./commitizen.js"
+      "path": "./node_modules/cz-conventional-changelog",
+      "types": {
+        "feat": {
+          "description": "Adding new feature"
+        },
+        "fix": {
+          "description": "Bug fix"
+        },
+        "refactor": {
+          "description": "Editing code without fixing bugs or adding new features"
+        },
+        "docs": {
+          "description": "Documentation Update"
+        },
+        "chore": {
+          "description": "Add / update / customize tools and libraries"
+        },
+        "changelog": {
+          "description": "Add / update / changelog"
+        },
+        "release": {
+          "description": "New release"
+        }
+      }
     }
   },
   "peerDependencies": {},
@@ -147,7 +167,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-preset-minify": "^0.5.2",
     "cz-conventional-changelog": "3.3.0",
-    "cz-customizable": "^6.3.0",
+    "cz-customizable": "^6.9.1",
     "eslint": "^8.20.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",

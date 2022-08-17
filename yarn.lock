@@ -5094,7 +5094,7 @@ cz-conventional-changelog@3.3.0:
   optionalDependencies:
     "@commitlint/load" ">6.1.1"
 
-cz-customizable@^6.3.0:
+cz-customizable@^6.9.1:
   version "6.9.1"
   resolved "https://registry.yarnpkg.com/cz-customizable/-/cz-customizable-6.9.1.tgz#43382980769f8a3a35345a1dddcdfe24c1c88f05"
   integrity sha512-syPyuOyV/+cEXbky8x/MIyWvJmzwhucdI1CA3swydxrMz5ey02HQ1zVDkMmtWT/cpKfELCn7uw2w8WUvXkr56g==

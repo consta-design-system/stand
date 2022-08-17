@@ -16,8 +16,6 @@ module.exports = {
     { value: 'release', name: 'release      New release' },
   ],
 
-  scopes: [{ name: 'custom' }, { name: 'components' }, { name: 'global' }],
-
   messages: {
     type: 'Type of change',
     scope: 'Scope of changes (optional):',
