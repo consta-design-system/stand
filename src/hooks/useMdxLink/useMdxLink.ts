@@ -8,11 +8,21 @@ export type ReturnItem = [string, React.MouseEventHandler | undefined];
 
 export type UseMdxLinkReturn<T> = T extends [] ? ReturnItem[] : ReturnItem;
 
+const getPath = (str: string) => {
+  const p1 = str.split('|');
+  const p2 = str.split('/');
+
+  if (p1.length > p2.length) {
+    return p1;
+  }
+  return p2;
+};
+
 const buildNavigateParams = (
   href: string,
 ): [string, Record<string, string>] => {
   const decoded = decodeURI(href.slice(2, href.length)).toString();
-  const parts = decoded.split('|');
+  const parts = getPath(decoded);
   const routeParams: Record<string, string> = {};
   let routeName = '';
   for (let i = 0; i < parts.length; i++) {
