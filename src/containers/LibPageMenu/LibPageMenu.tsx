@@ -79,13 +79,18 @@ export const LibPageMenu: React.FC = () => {
 
   const { stands, logo, groups } = lib ?? ({} as LibWithStands);
 
-  const toggleMenu = useAction(openLeftSide.toggle);
+  const closeMenu = useAction(openLeftSide.setFalse);
 
   const visibleStands = useMemo(() => {
     const reviewItem: PreparedStand | undefined = lib
       ? {
           id: lib.id,
           path: '',
+          pathAccess: {
+            design: false,
+            dev: false,
+            stand: false,
+          },
           lib,
           stand: {
             id: lib.id,
@@ -169,7 +174,7 @@ export const LibPageMenu: React.FC = () => {
       getGroupLabel={getGroupLabel}
       getItemActive={getItemActive}
       getItemBadge={getItemBadge}
-      onItemClick={toggleMenu}
+      onItemClick={closeMenu}
       getGroupKey={getGroupKey}
       getItemGroupId={getItemGroupId}
       getItemDescription={getItemDescription}

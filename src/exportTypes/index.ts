@@ -40,6 +40,11 @@ export type CreatedStand = {
 export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   id: string;
   path: string;
+  pathAccess: {
+    stand: boolean;
+    dev: boolean;
+    design: boolean;
+  };
 };
 
 export type LibWithStands = Lib<Group> & {
