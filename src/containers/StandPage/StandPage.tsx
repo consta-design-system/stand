@@ -81,10 +81,7 @@ export const StandPage: React.FC = () => {
         routeName === routesNames.LIBS_STAND_DEV) && (
         <LazyDocs key={standPath} id={standPath} />
       )}
-      <StandPageFooter
-        className={cnStandPage('Footer')}
-        onSPAClick={() => {}}
-      />
+      <StandPageFooter className={cnStandPage('Footer')} />
     </div>
   );
 };
