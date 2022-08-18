@@ -53,13 +53,11 @@ export const StandPage: React.FC = () => {
     <div key={standID}>
       <StandPageHeader stand={stand.stand} />
       <StandPageInformer
+        libId={stand.lib.id}
+        stand={stand.stand}
         status={standStatus}
-        deprecated={
-          standStatus === 'deprecated'
-            ? stand.stand.version
-            : deprecated?.version
-        }
-        canary={canary?.version}
+        deprecated={deprecated}
+        canary={canary}
         className={cnStandPage('Informer')}
       />
       <StandPageNavigation className={cnStandPage('Navigation')} />

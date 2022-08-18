@@ -4,13 +4,16 @@ import { Informer } from '@consta/uikit/Informer';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
+import { Link } from '##/componets/Link';
 import { Stand } from '##/exportTypes';
+import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
 type Props = {
   status?: Stand['status'];
-  deprecated?: string;
-  canary?: string;
+  stand: Stand<string>;
+  deprecated?: Stand<string>;
+  canary?: Stand<string>;
   libId?: string;
   className?: string;
 };
@@ -18,7 +21,14 @@ type Props = {
 const cnStandPageInformer = cn('StandPageInformer');
 
 export const StandPageInformer = (props: Props) => {
-  const { status = 'inWork', deprecated, canary, className, libId } = props;
+  const {
+    status = 'inWork',
+    deprecated,
+    canary,
+    stand,
+    className,
+    libId = 'uikit',
+  } = props;
 
   if (status === 'inWork' || (status === 'stable' && !(deprecated || canary))) {
     return null;
@@ -69,8 +79,8 @@ export const StandPageInformer = (props: Props) => {
       return (
         <>
           <Text size="m" lineHeight="xs">
-            Начиная с версии библиотеки <b>{deprecated}</b> от 12.02.2021
-            компонент больше не поддерживается командой.
+            Начиная с версии библиотеки <b>{stand?.version}</b> компонент больше
+            не поддерживается командой.
           </Text>
           <Text size="m" lineHeight="xs">
             Не рекомендуем использовать его в проектах.
@@ -84,15 +94,18 @@ export const StandPageInformer = (props: Props) => {
           {deprecated && (
             <Text size="m" lineHeight="xs">
               Устаревшие (deprecated):{' '}
-              <Text
-                as="a"
-                href={`https://github.com/consta-design-system/${
-                  libId ?? 'uikit'
-                }/tree/${deprecated}`}
-                view="link"
+              <Link
+                to={`${routesNames.LIBS_STAND}`}
+                className={cnStandPageInformer('Link')}
+                params={{
+                  stand:
+                    `${libId}-${deprecated.group}-${deprecated.id}-${deprecated.status}`
+                      .replace(/\W|_/g, '-')
+                      .toLowerCase(),
+                }}
               >
-                {deprecated}
-              </Text>
+                {deprecated.version}
+              </Link>
             </Text>
           )}
           {canary && (
@@ -100,12 +113,10 @@ export const StandPageInformer = (props: Props) => {
               Обновленные (canary):{' '}
               <Text
                 as="a"
-                href={`https://github.com/consta-design-system/${
-                  libId ?? 'uikit'
-                }/tree/${canary}`}
+                href={`https://github.com/consta-design-system/${libId}/tree/${canary}`}
                 view="link"
               >
-                {canary}
+                {canary.version}
               </Text>
             </Text>
           )}

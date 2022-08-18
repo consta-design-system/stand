@@ -2,4 +2,8 @@
   & a {
     text-decoration: none;
   }
+  &-Link {
+    color: var(--color-typo-link);
+    transition: 0.3s ease;
+  }
 }
