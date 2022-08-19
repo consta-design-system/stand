@@ -105,7 +105,7 @@
     }
   }
 
-  & code[class*='language-'] {
+  /* & code[class*='language-'] {
     color: var(--color-typo-primary);
     font-family: var(--font-primary);
     font-size: var(--size-text-m);
@@ -284,5 +284,5 @@
 
   & .italic {
     font-style: italic;
-  }
+  } */
 }
