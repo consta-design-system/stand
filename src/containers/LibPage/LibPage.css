@@ -17,6 +17,7 @@
     width: 100%;
 
     grid-column-gap: var(--gap);
+    grid-row-gap: var(--gap);
 
     grid-template-columns: 1fr;
 

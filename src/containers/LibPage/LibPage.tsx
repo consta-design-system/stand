@@ -3,7 +3,7 @@ import './LibPage.css';
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Group, LibWithStands, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
@@ -29,9 +29,18 @@ export const LibPage: React.FC = () => {
     undefined,
   );
 
+  const sortedItems = useMemo(() => {
+    return groups.map(({ items, ...group }) => {
+      return {
+        ...group,
+        items: items.sort((a, b) => (a.stand.title > b.stand.title ? 1 : -1)),
+      };
+    });
+  }, [groups]);
+
   return (
     <div className={cnLibPage(null, ['theme_gap_medium'])}>
-      {groups.map((group, groupIndex) => (
+      {sortedItems.map((group, groupIndex) => (
         <div key={`${cnLibPage({ groupIndex, group: group.group?.id })}`}>
           <Text
             className={cnLibPage('Title')}
