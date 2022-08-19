@@ -7,6 +7,7 @@
 
   &-List {
     width: 100%;
+    margin-bottom: var(--space-2xl);
 
     & > *:not(:last-child) {
       margin-bottom: var(--space-xl);

@@ -18,6 +18,7 @@ import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
 import { cn } from '##/utils/bem';
+import { sortStands } from '##/utils/sorting';
 
 const mapBadgeProps = {
   stable: undefined,
@@ -79,6 +80,10 @@ export const LibPageMenu: React.FC = () => {
 
   const { stands, logo, groups } = lib ?? ({} as LibWithStands);
 
+  const sortedStands = useMemo(() => {
+    return stands.sort(sortStands);
+  }, [stands]);
+
   const toggleMenu = useAction(openLeftSide.toggle);
 
   const visibleStands = useMemo(() => {
@@ -89,7 +94,7 @@ export const LibPageMenu: React.FC = () => {
           lib,
           stand: {
             id: lib.id,
-            title: 'Обзор',
+            title: 'Обзор компонентов',
             group: 'review',
             status: 'stable',
             version: '',
@@ -97,18 +102,20 @@ export const LibPageMenu: React.FC = () => {
         }
       : undefined;
 
-    return [...(reviewItem ? [reviewItem] : []), ...stands].filter((item) => {
-      if (!showDeprecated && item.stand.status === 'deprecated') {
-        return false;
-      }
-      if (searchValue && searchValue.trim() !== '') {
-        return item.stand.title
-          .toLocaleLowerCase()
-          .includes(searchValue.toLocaleLowerCase());
-      }
-      return true;
-    });
-  }, [showDeprecated, searchValue]);
+    return [...(reviewItem ? [reviewItem] : []), ...sortedStands].filter(
+      (item) => {
+        if (!showDeprecated && item.stand.status === 'deprecated') {
+          return false;
+        }
+        if (searchValue && searchValue.trim() !== '') {
+          return item.stand.title
+            .toLocaleLowerCase()
+            .includes(searchValue.toLocaleLowerCase());
+        }
+        return true;
+      },
+    );
+  }, [showDeprecated, sortedStands]);
 
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>

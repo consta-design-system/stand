@@ -8,6 +8,7 @@ import React, { useMemo } from 'react';
 import { Group, LibWithStands, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { cn } from '##/utils/bem';
+import { sortStands } from '##/utils/sorting';
 
 import { LibPageCard } from './LibPageCard';
 
@@ -21,26 +22,21 @@ export const LibPage: React.FC = () => {
 
   const { stands, groups: groupsProp } = lib ?? ({} as LibWithStands);
 
+  const sortedStands = useMemo(() => {
+    return stands.sort(sortStands);
+  }, [stands]);
+
   const groups = getGroups<PreparedStand, Group>(
-    stands,
+    sortedStands,
     getItemGroupId,
-    [...groupsProp],
+    [...(groupsProp ?? [])],
     getGroupKey,
     undefined,
   );
 
-  const sortedItems = useMemo(() => {
-    return groups.map(({ items, ...group }) => {
-      return {
-        ...group,
-        items: items.sort((a, b) => (a.stand.title > b.stand.title ? 1 : -1)),
-      };
-    });
-  }, [groups]);
-
   return (
     <div className={cnLibPage(null, ['theme_gap_medium'])}>
-      {sortedItems.map((group, groupIndex) => (
+      {groups.map((group, groupIndex) => (
         <div key={`${cnLibPage({ groupIndex, group: group.group?.id })}`}>
           <Text
             className={cnLibPage('Title')}
