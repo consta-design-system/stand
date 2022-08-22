@@ -1,5 +1,6 @@
 import './StandPage.css';
 
+import { StandPageDecorator } from '@consta/stand/src/containers/StandPage/StandPageDecorator';
 import React, { useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
@@ -51,39 +52,41 @@ export const StandPage: React.FC = () => {
   }, [standID]);
 
   return (
-    <div key={standID}>
-      <StandPageHeader stand={stand.stand} />
-      <StandPageInformer
-        libId={stand.lib.id}
-        stand={stand.stand}
-        status={standStatus}
-        deprecated={deprecated}
-        canary={canary}
-        stable={stable}
-        className={cnStandPage('Informer')}
-      />
-      <StandPageNavigation className={cnStandPage('Navigation')} />
-      {stand.stand.figma && routeName === routesNames.LIBS_STAND_DESIGN && (
-        <StandPageFigma
-          className={cnStandPage('Figma')}
-          link={stand.stand.figma}
+    <StandPageDecorator>
+      <div key={standID}>
+        <StandPageHeader stand={stand.stand} />
+        <StandPageInformer
+          libId={stand.lib.id}
+          stand={stand.stand}
+          status={standStatus}
+          deprecated={deprecated}
+          canary={canary}
+          stable={stable}
+          className={cnStandPage('Informer')}
         />
-      )}
-      {routeName === routesNames.LIBS_STAND_SANDBOX &&
-        (stand.stand.sandbox ? (
-          <StandPageSandbox
-            className={cnStandPage('SandBox')}
-            link={stand.stand.sandbox}
+        <StandPageNavigation className={cnStandPage('Navigation')} />
+        {stand.stand.figma && routeName === routesNames.LIBS_STAND_DESIGN && (
+          <StandPageFigma
+            className={cnStandPage('Figma')}
+            link={stand.stand.figma}
           />
-        ) : (
-          'раздел в разработке'
-        ))}
-      {(routeName === routesNames.LIBS_STAND ||
-        routeName === routesNames.LIBS_STAND_DESIGN ||
-        routeName === routesNames.LIBS_STAND_DEV) && (
-        <LazyDocs key={standPath} id={standPath} />
-      )}
-      <StandPageFooter className={cnStandPage('Footer')} />
-    </div>
+        )}
+        {routeName === routesNames.LIBS_STAND_SANDBOX &&
+          (stand.stand.sandbox ? (
+            <StandPageSandbox
+              className={cnStandPage('SandBox')}
+              link={stand.stand.sandbox}
+            />
+          ) : (
+            'раздел в разработке'
+          ))}
+        {(routeName === routesNames.LIBS_STAND ||
+          routeName === routesNames.LIBS_STAND_DESIGN ||
+          routeName === routesNames.LIBS_STAND_DEV) && (
+          <LazyDocs key={standPath} id={standPath} />
+        )}
+        <StandPageFooter className={cnStandPage('Footer')} />
+      </div>
+    </StandPageDecorator>
   );
 };
