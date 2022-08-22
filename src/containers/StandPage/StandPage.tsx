@@ -41,11 +41,12 @@ export const StandPage: React.FC = () => {
   const standStatus = stand.stand.status;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { deprecated, canary } = useMemo(() => {
+  const { deprecated, canary, stable } = useMemo(() => {
     const others = stand.stand.otherVersion;
     return {
       deprecated: others?.find((el) => el.status === 'deprecated'),
       canary: others?.find((el) => el.status === 'canary'),
+      stable: others?.find((el) => el.status === 'stable'),
     };
   }, [standID]);
 
@@ -58,6 +59,7 @@ export const StandPage: React.FC = () => {
         status={standStatus}
         deprecated={deprecated}
         canary={canary}
+        stable={stable}
         className={cnStandPage('Informer')}
       />
       <StandPageNavigation className={cnStandPage('Navigation')} />

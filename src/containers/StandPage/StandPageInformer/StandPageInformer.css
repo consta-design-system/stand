@@ -1,9 +1,17 @@
 .stand--StandPageInformer {
   & a {
     text-decoration: none;
+
+    &.stand--StandPageInformer-Link_deprecated{
+      text-decoration: underline;
+    }
   }
   &-Link {
     color: var(--color-typo-link);
     transition: 0.3s ease;
+    &_deprecated {
+      color: var(--color-typo-primary);
+      text-decoration: underline;
+    }
   }
 }

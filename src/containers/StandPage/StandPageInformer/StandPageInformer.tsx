@@ -12,6 +12,7 @@ import { cn } from '##/utils/bem';
 type Props = {
   status?: Stand['status'];
   stand: Stand<string>;
+  stable?: Stand<string>;
   deprecated?: Stand<string>;
   canary?: Stand<string>;
   libId?: string;
@@ -26,6 +27,7 @@ export const StandPageInformer = (props: Props) => {
     deprecated,
     canary,
     stand,
+    stable,
     className,
     libId = 'uikit',
   } = props;
@@ -85,6 +87,24 @@ export const StandPageInformer = (props: Props) => {
           <Text size="m" lineHeight="xs">
             Не рекомендуем использовать его в проектах.
           </Text>
+          {stable && (
+            <Text size="m" lineHeight="xs">
+              Стабильная версия компонента:{' '}
+              <Link
+                to={`${routesNames.LIBS_STAND}`}
+                className={cnStandPageInformer('Link', { deprecated: true })}
+                params={{
+                  stand:
+                    `${libId}-${stable.group}-${stable.id}-${stable.status}`
+                      .replace(/\W|_/g, '-')
+                      .toLowerCase(),
+                }}
+              >
+                {stable.version}
+              </Link>
+              .
+            </Text>
+          )}
         </>
       );
     }
@@ -111,13 +131,18 @@ export const StandPageInformer = (props: Props) => {
           {canary && (
             <Text size="m" lineHeight="xs">
               Обновленные (canary):{' '}
-              <Text
-                as="a"
-                href={`https://github.com/consta-design-system/${libId}/tree/${canary}`}
-                view="link"
+              <Link
+                to={`${routesNames.LIBS_STAND}`}
+                className={cnStandPageInformer('Link')}
+                params={{
+                  stand:
+                    `${libId}-${canary.group}-${canary.id}-${canary.status}`
+                      .replace(/\W|_/g, '-')
+                      .toLowerCase(),
+                }}
               >
                 {canary.version}
-              </Text>
+              </Link>
             </Text>
           )}
         </>
