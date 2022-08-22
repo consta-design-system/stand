@@ -37,7 +37,11 @@ const addToLib = (stand: PreparedStand, libs: LibWithStands[]) => {
   }
 };
 
-export const prepareStands = (initStands: CreatedStand[], paths: string[]) => {
+export const prepareStands = (
+  initStands: CreatedStand[],
+  paths: string[],
+  lazyAccess: string[],
+) => {
   const stands: Record<string, PreparedStand> = {};
   const libs: LibWithStands[] = [];
 
@@ -58,6 +62,17 @@ export const prepareStands = (initStands: CreatedStand[], paths: string[]) => {
         .replace(/\W|_/g, '-')
         .toLowerCase(),
       path: paths[index],
+      pathAccess: {
+        stand: !!lazyAccess.find(
+          (item) => item === `${paths[index]}.stand.mdx`,
+        ),
+        dev: !!lazyAccess.find(
+          (item) => item === `${paths[index]}.dev.stand.mdx`,
+        ),
+        design: !!lazyAccess.find(
+          (item) => item === `${paths[index]}.design.stand.mdx`,
+        ),
+      },
     }))
     .sort(sort)
     .forEach((stand) => {

@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.26",
+  "version": "0.0.31",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -98,7 +98,7 @@
     "pre-push": "rm -rf src/stands && yarn run tsc-dry-run",
     "pre-commit": "yarn run lint-staged",
     "pre-build": "node builder/preBuild.js --config=./build.config.js",
-    "test": "yarn lint && yarn tsc-dry-run && yarn unit",
+    "test": "rm -rf src/stands && yarn tsc-dry-run",
     "unit": "jest",
     "unit:watch": "jest --watch",
     "unit:clear": "jest --clearCache",

@@ -19,7 +19,10 @@ const FallbackLoading = () => (
 );
 
 export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
-  const Docs = lazy(() => import(`../../stands/lazyDocs/${id}_stand_mdx.tsx`));
+  const Docs = lazy(
+    () =>
+      import(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}_stand_mdx.tsx`),
+  );
 
   return (
     <div className={cnLazyDocs()}>

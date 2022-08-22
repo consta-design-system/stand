@@ -7,4 +7,6 @@ import { prepareStands } from '##/exportFuctions';
 
 #lazyIds#
 
-export const { stands, libs } = prepareStands(standsGenerated, lazyIds);
+#lazyDocsAccess#
+
+export const { stands, libs } = prepareStands(standsGenerated, lazyIds, lazyAccess);

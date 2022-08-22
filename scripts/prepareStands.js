@@ -1,7 +1,7 @@
 const fg = require('fast-glob');
 const { readFile, writeFile, ensureDir, remove } = require('fs-extra');
 
-const { access, F_OK } = require('fs');
+const { access, F_OK, existsSync } = require('fs');
 
 const createlazyDocs = async (srcWithName, standsImportPath, type) => {
   const docsFile = `${srcWithName}${type}`;
@@ -57,6 +57,7 @@ const prepareStands = async ({
   let stands = 'export const standsGenerated: CreatedStand[] = [\n';
   let paths = 'export const pathsGenerated: string[] = [\n';
   let lazyIds = 'export const lazyIds: string[] = [\n';
+  let lazyDocsAccess = 'export const lazyAccess: string[] = [\n';
 
   standsFiles.forEach(async (fileName, index) => {
     const src = fileName.replace(/.tsx/g, '');
@@ -66,20 +67,36 @@ const prepareStands = async ({
     imports += `import stand_${index} from '${projectPath}/${src}';\n`;
     stands += `stand_${index},\n`;
     paths += `'${standsImportPath}/${dir}',\n`;
-    lazyIds += `'${srcWithName.replace(/\W/g, '_')}',\n`;
+    lazyIds += `'${srcWithName}',\n`;
 
-    lazyDocs(srcWithName, standsImportPath);
+    const docsFileStand = `${srcWithName}.stand.mdx`;
+    const docsFileStandDev = `${srcWithName}.dev.stand.mdx`;
+    const docsFileStandDesign = `${srcWithName}.design.stand.mdx`;
+
+    if (existsSync(docsFileStand)) {
+      lazyDocsAccess += `'${docsFileStand}',\n`;
+    }
+    if (existsSync(docsFileStandDev)) {
+      lazyDocsAccess += `'${docsFileStandDev}',\n`;
+    }
+    if (existsSync(docsFileStandDesign)) {
+      lazyDocsAccess += `'${docsFileStandDesign}',\n`;
+    }
+
+    await lazyDocs(srcWithName, standsImportPath);
   });
 
   stands += '];\n';
   paths += '];\n';
   lazyIds += '];\n';
+  lazyDocsAccess += '];\n';
 
   const jsCode = template
     .replace(/#imports#/g, imports)
     .replace(/#stands#/g, stands)
     .replace(/#paths#/g, paths)
-    .replace(/#lazyIds#/g, lazyIds);
+    .replace(/#lazyIds#/g, lazyIds)
+    .replace(/#lazyDocsAccess#/g, lazyDocsAccess);
 
   await writeFile(standsPath, jsCode);
 };
