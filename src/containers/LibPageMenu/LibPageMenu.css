@@ -1,6 +1,10 @@
 .stand--LibPageMenu {
   &-Controls {
-    margin-bottom: var(--space-xs);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding-bottom: var(--space-m);
+    background: var(--color-bg-default);
 
     & > *:not(:last-child) {
       margin-bottom: var(--space-l);
@@ -9,6 +13,10 @@
     & > *:first-child {
       margin-bottom: var(--space-xl);
     }
+  }
+
+  & > div.stand--LibPageMenu-Controls {
+    margin-bottom: 0;
   }
 
   &-Input {
