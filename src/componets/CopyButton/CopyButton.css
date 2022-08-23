@@ -1,11 +1,12 @@
 .stand--CopyButton {
   &.Button {
     position: absolute;
-    left: calc(0% - var(--space-2xl));
+    right: calc(0% - var(--space-2xl));
 
-    @media screen and (max-width: 899px) {
-      left: auto;
-      right: calc(0% - var(--space-2xl));
+
+    @media screen and (min-width: 900px) {
+      left: calc(0% - var(--space-2xl));
+      right: auto;
     }
   }
 }

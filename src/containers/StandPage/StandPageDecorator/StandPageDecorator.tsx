@@ -1,4 +1,3 @@
-import { AppTheme } from '@consta/stand/src/containers/AppTheme';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
@@ -11,9 +10,9 @@ export const StandPageDecorator: React.FC<{ children: React.ReactChild }> = ({
   const stand = useStand();
   const [theme] = useAtom(themeAtom);
 
-  const defaultStandPageDecoration = () => <AppTheme>{children}</AppTheme>;
-  return (
-    stand?.lib.standPageDecoration?.({ children, theme }) ??
-    defaultStandPageDecoration()
-  );
+  const defaultStandPageDecoration = (params: { children: React.ReactChild }) =>
+    params.children as React.ReactElement;
+  const decorator =
+    stand?.lib.standPageDecoration ?? defaultStandPageDecoration;
+  return decorator({ children, theme });
 };

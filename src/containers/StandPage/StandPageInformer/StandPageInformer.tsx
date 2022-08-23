@@ -15,7 +15,6 @@ type Props = {
   stable?: Stand<string>;
   deprecated?: Stand<string>;
   canary?: Stand<string>;
-  libId?: string;
   className?: string;
 };
 
@@ -29,7 +28,6 @@ export const StandPageInformer = (props: Props) => {
     stand,
     stable,
     className,
-    libId = 'uikit',
   } = props;
 
   if (status === 'inWork' || (status === 'stable' && !(deprecated || canary))) {
@@ -94,10 +92,7 @@ export const StandPageInformer = (props: Props) => {
                 to={`${routesNames.LIBS_STAND}`}
                 className={cnStandPageInformer('Link', { deprecated: true })}
                 params={{
-                  stand:
-                    `${libId}-${stable.group}-${stable.id}-${stable.status}`
-                      .replace(/\W|_/g, '-')
-                      .toLowerCase(),
+                  stand: stable.id,
                 }}
               >
                 {stable.version}
@@ -118,10 +113,7 @@ export const StandPageInformer = (props: Props) => {
                 to={`${routesNames.LIBS_STAND}`}
                 className={cnStandPageInformer('Link')}
                 params={{
-                  stand:
-                    `${libId}-${deprecated.group}-${deprecated.id}-${deprecated.status}`
-                      .replace(/\W|_/g, '-')
-                      .toLowerCase(),
+                  stand: deprecated.id,
                 }}
               >
                 {deprecated.version}
@@ -135,10 +127,7 @@ export const StandPageInformer = (props: Props) => {
                 to={`${routesNames.LIBS_STAND}`}
                 className={cnStandPageInformer('Link')}
                 params={{
-                  stand:
-                    `${libId}-${canary.group}-${canary.id}-${canary.status}`
-                      .replace(/\W|_/g, '-')
-                      .toLowerCase(),
+                  stand: canary.id,
                 }}
               >
                 {canary.version}

@@ -18,7 +18,6 @@ import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
 import { cn } from '##/utils/bem';
-import { sortStands } from '##/utils/sorting';
 
 const mapBadgeProps = {
   stable: undefined,
@@ -80,10 +79,6 @@ export const LibPageMenu: React.FC = () => {
 
   const { stands, logo, groups } = lib ?? ({} as LibWithStands);
 
-  const sortedStands = useMemo(() => {
-    return stands.sort(sortStands);
-  }, [stands]);
-
   const closeMenu = useAction(openLeftSide.setFalse);
 
   const visibleStands = useMemo(() => {
@@ -107,20 +102,18 @@ export const LibPageMenu: React.FC = () => {
         }
       : undefined;
 
-    return [...(reviewItem ? [reviewItem] : []), ...sortedStands].filter(
-      (item) => {
-        if (!showDeprecated && item.stand.status === 'deprecated') {
-          return false;
-        }
-        if (searchValue && searchValue.trim() !== '') {
-          return item.stand.title
-            .toLocaleLowerCase()
-            .includes(searchValue.toLocaleLowerCase());
-        }
-        return true;
-      },
-    );
-  }, [showDeprecated, sortedStands]);
+    return [...(reviewItem ? [reviewItem] : []), ...stands].filter((item) => {
+      if (!showDeprecated && item.stand.status === 'deprecated') {
+        return false;
+      }
+      if (searchValue && searchValue.trim() !== '') {
+        return item.stand.title
+          .toLocaleLowerCase()
+          .includes(searchValue.toLocaleLowerCase());
+      }
+      return true;
+    });
+  }, [showDeprecated, stands]);
 
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>

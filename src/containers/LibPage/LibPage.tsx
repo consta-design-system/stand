@@ -3,12 +3,11 @@ import './LibPage.css';
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Group, LibWithStands, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { cn } from '##/utils/bem';
-import { sortStands } from '##/utils/sorting';
 
 import { LibPageCard } from './LibPageCard';
 
@@ -22,12 +21,8 @@ export const LibPage: React.FC = () => {
 
   const { stands, groups: groupsProp } = lib ?? ({} as LibWithStands);
 
-  const sortedStands = useMemo(() => {
-    return stands.sort(sortStands);
-  }, [stands]);
-
   const groups = getGroups<PreparedStand, Group>(
-    sortedStands,
+    stands,
     getItemGroupId,
     [...(groupsProp ?? [])],
     getGroupKey,
