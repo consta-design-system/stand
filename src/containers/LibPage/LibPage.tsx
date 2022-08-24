@@ -24,7 +24,7 @@ export const LibPage: React.FC = () => {
   const groups = getGroups<PreparedStand, Group>(
     stands,
     getItemGroupId,
-    [...groupsProp],
+    [...(groupsProp ?? [])],
     getGroupKey,
     undefined,
   );

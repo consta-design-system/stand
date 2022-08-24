@@ -1,12 +1,22 @@
+import './LazyDocs.css';
+
+import { ProgressSpin } from '@consta/uikit/ProgressSpin';
 import React, { lazy, memo, Suspense } from 'react';
 
 import { ErrorBoundary } from '##/componets/ErrorBoundary';
 import { MDXProvider } from '##/containers/MDXProvider';
+import { cn } from '##/utils/bem';
+
+const cnLazyDocs = cn('LazyDocs');
 
 type LazyDocsProps = { id: string };
 
 const FallbackError = () => <div>раздел в разработке</div>;
-const FallbackLoading = () => <div>Загрузка</div>;
+const FallbackLoading = () => (
+  <div className={cnLazyDocs('Loader')}>
+    <ProgressSpin size="xl" />
+  </div>
+);
 
 export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
   const Docs = lazy(
@@ -15,7 +25,7 @@ export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
   );
 
   return (
-    <div>
+    <div className={cnLazyDocs()}>
       <Suspense fallback={<FallbackLoading />}>
         <MDXProvider>
           <Docs />

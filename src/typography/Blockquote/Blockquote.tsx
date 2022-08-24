@@ -1,7 +1,17 @@
+import './Blockquote.css';
+
 import React from 'react';
 
-export const Blockquote = (props: React.HTMLAttributes<HTMLQuoteElement>) => {
-  const { children, ...otherProps } = props;
+import { cn } from '##/utils/bem';
 
-  return <blockquote {...otherProps}>{children}</blockquote>;
+const cnBlockquote = cn('Blockquote');
+
+export const Blockquote = (props: React.HTMLAttributes<HTMLQuoteElement>) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <blockquote className={cnBlockquote(null, [className])} {...otherProps}>
+      {children}
+    </blockquote>
+  );
 };
