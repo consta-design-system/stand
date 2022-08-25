@@ -94,7 +94,7 @@ export const LibPageMenu: React.FC = () => {
           lib,
           stand: {
             id: lib.id,
-            title: 'Обзор',
+            title: 'Обзор компонентов',
             group: 'review',
             status: 'stable',
             version: '',
@@ -125,7 +125,7 @@ export const LibPageMenu: React.FC = () => {
       }
       return true;
     });
-  }, [showDeprecated, searchValue]);
+  }, [showDeprecated, stands]);
 
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>

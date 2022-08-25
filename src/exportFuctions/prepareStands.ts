@@ -56,7 +56,12 @@ export const prepareStands = (
               el.stand.id === item.stand.id &&
               el.stand.status !== item.stand.status,
           )
-          .map((el) => el.stand),
+          .map(({ stand }) => ({
+            ...stand,
+            id: `${item.lib.id}-${stand.group}-${stand.id}-${stand.status}`
+              .replace(/\W|_/g, '-')
+              .toLowerCase(),
+          })),
       },
       id: `${item.lib.id}-${item.stand.group}-${item.stand.id}-${item.stand.status}`
         .replace(/\W|_/g, '-')

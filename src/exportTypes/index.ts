@@ -1,3 +1,5 @@
+import { ThemePreset } from '@consta/uikit/Theme';
+
 export type Group = {
   id: string;
   title: string;
@@ -31,6 +33,10 @@ export type Lib<GROUP extends Group> = {
   image?: (() => React.ReactElement | null) | string;
   group?: string;
   description?: string;
+  standPageDecoration?: (props: {
+    theme: ThemePreset;
+    children: React.ReactChild;
+  }) => React.ReactElement;
 };
 
 export type CreatedStand = {
