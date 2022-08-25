@@ -107,9 +107,21 @@ export const LibPageMenu: React.FC = () => {
         return false;
       }
       if (searchValue && searchValue.trim() !== '') {
-        return item.stand.title
+        let flag = item.stand.title
           .toLocaleLowerCase()
           .includes(searchValue.toLocaleLowerCase());
+        if (item.stand.alias) {
+          item.stand.alias.forEach((alias) => {
+            if (
+              alias
+                .toLocaleLowerCase()
+                .includes(searchValue.toLocaleLowerCase())
+            ) {
+              flag = true;
+            }
+          });
+        }
+        return flag;
       }
       return true;
     });

@@ -1,13 +1,15 @@
 .stand--PortalMenu {
-  max-height: 100%;
-
   & > *:not(:last-child) {
     margin-bottom: var(--space-m);
   }
 
+  & > *:first-child {
+    padding-top: var(--space-2xl);
+  }
+
   &-List {
     width: 100%;
-    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
 
     & > *:not(:last-child) {
       margin-bottom: var(--space-xl);

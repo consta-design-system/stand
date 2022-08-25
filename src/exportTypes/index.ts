@@ -22,6 +22,7 @@ export type Stand<Group extends string = string> = {
   playground?: React.FC;
   description?: string;
   otherVersion?: Stand<Group>[];
+  alias?: string[];
 };
 
 export type Lib<GROUP extends Group> = {
