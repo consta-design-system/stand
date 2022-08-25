@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -89,7 +89,7 @@
     "access": "public"
   },
   "scripts": {
-    "post-install": "husky install",
+    "postinstall": "husky install",
     "tsc-dry-run": "tsc --noEmit",
     "lint:js": "eslint --ext .js,.jsx,.tsx,.ts --fix . --quiet",
     "lint:css": "stylelint ./src/**/*.css --fix",
