@@ -61,7 +61,10 @@ const buildMdxLink = (
     if (libs?.find((lib) => lib.id === libName)) {
       return buildLink(router, { to, params }, onClick);
     }
-    return [`https://${libName}.${ROOT_DOMEN}/libs/${params.stand}`, undefined];
+    return [
+      `https://${libName}.${ROOT_DOMEN}${router.buildPath(to, params)}`,
+      undefined,
+    ];
   }
   if (href[0] === '#') {
     const params = {
