@@ -1,8 +1,11 @@
+import { LibWithStands } from '@consta/stand/src/exportTypes';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 import { useRoute, useRouter } from 'react-router5';
 import { Router, State } from 'router5';
 
 import { buildLink } from '##/hooks/useLink';
+import { libsAtom } from '##/modules/libs';
 
 export type ReturnItem = [string, React.MouseEventHandler | undefined];
 
@@ -43,16 +46,22 @@ const buildNavigateParams = (
 
 export type useMdxLinkHref = string | string[];
 
+const ROOT_DOMEN = 'consta.design';
+
 const buildMdxLink = (
   router: Router,
   route: State,
   href: string,
-  onClick?: React.MouseEventHandler,
+  onClick: React.MouseEventHandler | undefined,
+  libs?: LibWithStands[],
 ): UseMdxLinkReturn<string> => {
   if (href[0] === '#' && href[1] === '#') {
     const [to, params] = buildNavigateParams(href);
-
-    return buildLink(router, { to, params }, onClick);
+    const libName = (params.stand ?? '').split('-')[0];
+    if (libs?.find((lib) => lib.id === libName)) {
+      return buildLink(router, { to, params }, onClick);
+    }
+    return [`https://${libName}.${ROOT_DOMEN}/libs/${params.stand}`, undefined];
   }
   if (href[0] === '#') {
     const params = {
@@ -70,12 +79,19 @@ export const useMdxLink = <T extends useMdxLinkHref>(
   onClick?: React.MouseEventHandler,
 ): UseMdxLinkReturn<T> => {
   const router = useRouter();
+  const [libs] = useAtom(libsAtom);
   const { route } = useRoute();
 
   if (Array.isArray(href)) {
     return href.map((item) =>
-      buildMdxLink(router, route, item, onClick),
+      buildMdxLink(router, route, item, onClick, libs),
     ) as UseMdxLinkReturn<T>;
   }
-  return buildMdxLink(router, route, href, onClick) as UseMdxLinkReturn<T>;
+  return buildMdxLink(
+    router,
+    route,
+    href,
+    onClick,
+    libs,
+  ) as UseMdxLinkReturn<T>;
 };
