@@ -58,13 +58,13 @@ const buildMdxLink = (
   if (href[0] === '#' && href[1] === '#') {
     const [to, params] = buildNavigateParams(href);
     const libName = (params.stand ?? '').split('-')[0];
-    if (libs?.find((lib) => lib.id === libName)) {
-      return buildLink(router, { to, params }, onClick);
+    if (libName && !libs?.find((lib) => lib.id === libName)) {
+      return [
+        `https://${libName}.${ROOT_DOMEN}${router.buildPath(to, params)}`,
+        undefined,
+      ];
     }
-    return [
-      `https://${libName}.${ROOT_DOMEN}${router.buildPath(to, params)}`,
-      undefined,
-    ];
+    return buildLink(router, { to, params }, onClick);
   }
   if (href[0] === '#') {
     const params = {
