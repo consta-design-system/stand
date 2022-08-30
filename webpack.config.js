@@ -57,6 +57,29 @@ module.exports = function () {
               },
             },
           ],
+          include: [path.resolve(__dirname, './src')],
+          resolve: {
+            alias: {
+              '##': path.resolve(__dirname, './src'),
+            },
+          },
+        },
+        {
+          test: /\.mdx?$/,
+          use: [
+            {
+              loader: '@mdx-js/loader',
+              options: {
+                remarkPlugins: [remark],
+              },
+            },
+          ],
+          exclude: [path.resolve(__dirname, './src')],
+          resolve: {
+            alias: {
+              '##': path.resolve(__dirname, '../../../src'),
+            },
+          },
         },
         {
           test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
@@ -141,9 +164,30 @@ module.exports = function () {
     },
 
     plugins: [
-      new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, 'public', 'index.html'),
-      }),
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            template: path.resolve(__dirname, 'public', 'index.html'),
+          },
+          isEnvProduction
+            ? {
+                minify: {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+                },
+              }
+            : undefined,
+        ),
+      ),
 
       isEnvProduction &&
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),

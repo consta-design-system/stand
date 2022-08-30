@@ -17,6 +17,7 @@ import { LibWithStands, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
+import { deprecatedSwichIsVisibleAtom } from '##/modules/stands';
 import { cn } from '##/utils/bem';
 
 const mapBadgeProps = {
@@ -61,6 +62,7 @@ const cnLibPageMenu = cn('LibPageMenu');
 export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
   const [lib] = useAtom(libAtom);
+  const [deprecatedSwichIsVisible] = useAtom(deprecatedSwichIsVisibleAtom);
   const router = useRouter();
 
   const [searchValue, setSearchValue] = useState<string | undefined | null>(
@@ -160,13 +162,17 @@ export const LibPageMenu: React.FC = () => {
         className={cnLibPageMenu('Input')}
         onChange={({ value }) => setSearchValue(value)}
       />
-      <Switch
-        checked={showDeprecated}
-        size="m"
-        className={cnLibPageMenu('Switch')}
-        onChange={({ checked }) => setShowDeprecated[checked ? 'on' : 'off']()}
-        label="Показывать deprecated"
-      />
+      {deprecatedSwichIsVisible && (
+        <Switch
+          checked={showDeprecated}
+          size="m"
+          className={cnLibPageMenu('Switch')}
+          onChange={({ checked }) =>
+            setShowDeprecated[checked ? 'on' : 'off']()
+          }
+          label="Показывать deprecated"
+        />
+      )}
     </div>
   );
 

@@ -18,7 +18,7 @@ export const StandPageSandbox = (props: Props) => {
   const [isLoading, setIsLoading] = useFlag(true);
 
   if (!link) {
-    return <>раздел в разработке</>;
+    return null;
   }
 
   return (
