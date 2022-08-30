@@ -1,8 +1,8 @@
 .stand--LibPageMenu {
   &-Controls {
     position: sticky;
-    top: 0;
     z-index: 2;
+    top: 0;
     padding-bottom: var(--space-m);
     background: var(--color-bg-default);
 
