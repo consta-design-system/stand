@@ -10,6 +10,7 @@ import { useAction, useAtom } from '@reatom/react';
 import React, { useCallback } from 'react';
 import { useRouter } from 'react-router5';
 
+import { Image } from '##/componets/Image';
 import { PortalMenu } from '##/containers/PortalMenu';
 import { openLeftSide } from '##/exportAtoms/layout';
 import { PreparedStand } from '##/exportTypes';
@@ -109,11 +110,7 @@ export const LibPageMenu: React.FC = () => {
           className={cnLibPageMenu('Button')}
         />
       )}
-      {typeof lib?.logo === 'string' ? (
-        <img alt={lib.id} src={lib.logo} className={cnLibPageMenu('Image')} />
-      ) : (
-        lib?.logo?.()
-      )}
+      {lib?.logo && <Image src={lib.logo} className={cnLibPageMenu('Image')} />}
       <TextField
         type="text"
         value={searchValue}
@@ -144,7 +141,7 @@ export const LibPageMenu: React.FC = () => {
     <PortalMenu
       items={visibleList}
       className={cnLibPageMenu()}
-      groups={[...(lib.groups ?? [])]}
+      groups={[...lib.groups]}
       additionalControls={additionalControls()}
       getItemLabel={getItemLabel}
       getItemHref={getItemHref}

@@ -1,4 +1,5 @@
 import { ThemePreset } from '@consta/uikit/Theme';
+import { MDXComponents } from 'mdx/types';
 
 export type Group = {
   id: string;
@@ -32,10 +33,15 @@ export type Lib<GROUP extends Group> = {
   groups: readonly GROUP[];
   title: string;
   id: string;
-  logo?: (() => React.ReactElement | null) | string;
-  image?: (() => React.ReactElement | null) | string;
+  logo?: (() => React.ReactElement | null) | string | React.FC;
+  image?: (() => React.ReactElement | null) | string | React.FC;
   group?: string;
-  description?: string;
+  description?:
+    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | string;
+  shortDescription?:
+    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | string;
   standPageDecoration?: (props: {
     theme: ThemePreset;
     children: React.ReactChild;
