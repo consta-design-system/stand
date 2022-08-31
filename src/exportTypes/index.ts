@@ -6,6 +6,8 @@ export type Group = {
   order?: number;
 };
 
+export type StandStatus = 'deprecated' | 'canary' | 'stable' | 'inWork';
+
 export type Stand<Group extends string = string> = {
   id: string;
   title: string;
@@ -13,8 +15,8 @@ export type Stand<Group extends string = string> = {
   image?: (() => React.ReactElement | null) | string | React.FC;
   logo?: (() => React.ReactElement | null) | string | React.FC;
   order?: number;
-  status: 'deprecated' | 'canary' | 'stable' | 'inWork';
-  version: string;
+  status?: 'deprecated' | 'canary' | 'stable' | 'inWork';
+  version?: string;
   docs?: React.FC;
   figma?: string;
   github?: string;

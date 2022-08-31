@@ -49,7 +49,12 @@ const getItemDescription = () => undefined;
 const getGroupLabel = (group: { title: string }) => group.title;
 const getGroupKey = (group: { id: string }) => group.id;
 const getItemBadge = (item: PreparedStand) => {
+  if (!item.stand.status) {
+    return undefined;
+  }
+
   const props = mapBadgeProps[item.stand.status];
+
   if (!props) {
     return undefined;
   }

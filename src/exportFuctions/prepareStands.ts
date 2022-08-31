@@ -58,12 +58,16 @@ export const prepareStands = (
           )
           .map(({ stand }) => ({
             ...stand,
-            id: `${item.lib.id}-${stand.group}-${stand.id}-${stand.status}`
+            id: `${item.lib.id}-${stand.group}-${stand.id}${
+              stand.status ? `-${stand.status}` : ''
+            }`
               .replace(/\W|_/g, '-')
               .toLowerCase(),
           })),
       },
-      id: `${item.lib.id}-${item.stand.group}-${item.stand.id}-${item.stand.status}`
+      id: `${item.lib.id}-${item.stand.group}-${item.stand.id}${
+        item.stand.status ? `-${item.stand.status}` : ''
+      }`
         .replace(/\W|_/g, '-')
         .toLowerCase(),
       path: paths[index],
