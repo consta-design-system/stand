@@ -28,7 +28,7 @@ import { Thead } from '##/typography/Thead';
 import { Tr } from '##/typography/Tr';
 import { Ul } from '##/typography/Ul';
 
-export const components = {
+export const components: MDXComponents = {
   a: A,
   blockquote: Blockquote,
   br: Br,
@@ -56,7 +56,7 @@ export const components = {
   th: Th,
   tr: Tr,
   thead: Thead,
-} as MDXComponents;
+};
 
 type Props = {
   disableParentContext?: boolean;

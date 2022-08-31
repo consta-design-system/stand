@@ -71,17 +71,17 @@ export const StandPage: React.FC = () => {
           />
         )}
         {routeName === routesNames.LIBS_STAND_SANDBOX &&
-          (stand.stand.sandbox ? (
+          stand.stand.sandbox && (
             <StandPageSandbox
               className={cnStandPage('SandBox')}
               link={stand.stand.sandbox}
             />
-          ) : (
-            'раздел в разработке'
-          ))}
-        {(routeName === routesNames.LIBS_STAND ||
-          routeName === routesNames.LIBS_STAND_DESIGN ||
-          routeName === routesNames.LIBS_STAND_DEV) && (
+          )}
+        {((routeName === routesNames.LIBS_STAND && stand.pathAccess.stand) ||
+          (routeName === routesNames.LIBS_STAND_DESIGN &&
+            stand.pathAccess.design) ||
+          (routeName === routesNames.LIBS_STAND_DEV &&
+            stand.pathAccess.dev)) && (
           <LazyDocs key={standPath} id={standPath} />
         )}
         <StandPageFooter className={cnStandPage('Footer')} />

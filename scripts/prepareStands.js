@@ -1,5 +1,6 @@
 const fg = require('fast-glob');
 const { readFile, writeFile, ensureDir, remove } = require('fs-extra');
+const { join } = require('path');
 
 const { access, F_OK, existsSync } = require('fs');
 
@@ -45,7 +46,7 @@ const prepareStands = async ({
   await remove('node_modules/@consta/stand/src/stands');
   await ensureDir('node_modules/@consta/stand/src/stands/lazyDocs/');
 
-  const path = `${srcPath}/**/*.stand.tsx`;
+  const path = join(srcPath, '**', '*.stand.{ts,tsx}');
 
   const standsFiles = await fg(path);
 
@@ -60,8 +61,8 @@ const prepareStands = async ({
   let lazyDocsAccess = 'export const lazyAccess: string[] = [\n';
 
   standsFiles.forEach(async (fileName, index) => {
-    const src = fileName.replace(/.tsx/g, '');
-    const srcWithName = fileName.replace(/.stand.tsx/g, '');
+    const src = fileName.replace(/\.(ts|tsx)$/, '');
+    const srcWithName = fileName.replace(/\.stand\.(ts|tsx)$/, '');
     const dir = fileName.replace(/[^\/]+$/g, '');
 
     imports += `import stand_${index} from '${projectPath}/${src}';\n`;

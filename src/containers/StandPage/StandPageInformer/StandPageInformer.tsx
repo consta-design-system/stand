@@ -5,12 +5,12 @@ import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { Link } from '##/componets/Link';
-import { Stand } from '##/exportTypes';
+import { Stand, StandStatus } from '##/exportTypes';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
 type Props = {
-  status?: Stand['status'];
+  status?: StandStatus;
   stand: Stand<string>;
   stable?: Stand<string>;
   deprecated?: Stand<string>;
@@ -20,43 +20,29 @@ type Props = {
 
 const cnStandPageInformer = cn('StandPageInformer');
 
-export const StandPageInformer = (props: Props) => {
-  const {
-    status = 'inWork',
-    deprecated,
-    canary,
-    stand,
-    stable,
-    className,
-  } = props;
+const statusMap = {
+  stable: 'system',
+  canary: 'success',
+  deprecated: 'alert',
+} as const;
 
-  if (status === 'inWork' || (status === 'stable' && !(deprecated || canary))) {
+const statusTitle = {
+  stable: 'У этого компонента есть другие версии',
+  canary: 'Это экспериментальный компонент',
+  deprecated: 'Этот компонент больше не поддерживается!',
+} as const;
+
+export const StandPageInformer = (props: Props) => {
+  const { status, deprecated, canary, stand, stable, className } = props;
+
+  if (
+    !status ||
+    status === 'inWork' ||
+    (status === 'stable' && !(deprecated || canary)) ||
+    !stand.version
+  ) {
     return null;
   }
-
-  const getStatus = () => {
-    if (status === 'stable') {
-      return 'system';
-    }
-    if (status === 'canary') {
-      return 'success';
-    }
-    if (status === 'deprecated') {
-      return 'alert';
-    }
-  };
-
-  const getTitle = () => {
-    if (status === 'deprecated') {
-      return 'Этот компонент больше не поддерживается!';
-    }
-    if (status === 'stable') {
-      return 'У этого компонента есть другие версии';
-    }
-    if (status === 'canary') {
-      return 'Это экспериментальный компонент';
-    }
-  };
 
   const getContent = () => {
     if (status === 'canary') {
@@ -141,11 +127,11 @@ export const StandPageInformer = (props: Props) => {
 
   return (
     <Informer
-      title={getTitle()}
+      title={statusTitle[status]}
       className={cnStandPageInformer(null, [className])}
       view={status === 'deprecated' ? 'filled' : 'bordered'}
       label={getContent()}
-      status={getStatus()}
+      status={statusMap[status]}
       size="s"
     />
   );

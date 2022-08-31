@@ -1,36 +1,33 @@
 import './LibPage.css';
 
-import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
-import { Group, LibWithStands, PreparedStand } from '##/exportTypes';
+import { LibCard } from '##/componets/LibCard';
 import { libAtom } from '##/modules/lib';
 import { cn } from '##/utils/bem';
 
+import { groupsAtom } from './helpers';
 import { LibPageCard } from './LibPageCard';
-
-const getItemGroupId = (item: PreparedStand) => item.stand.group;
-const getGroupKey = (group: Group) => group.id;
 
 const cnLibPage = cn('LibPage');
 
 export const LibPage: React.FC = () => {
+  const [groups] = useAtom(groupsAtom);
   const [lib] = useAtom(libAtom);
 
-  const { stands, groups: groupsProp } = lib ?? ({} as LibWithStands);
-
-  const groups = getGroups<PreparedStand, Group>(
-    stands,
-    getItemGroupId,
-    [...(groupsProp ?? [])],
-    getGroupKey,
-    undefined,
-  );
+  if (!lib) {
+    return null;
+  }
 
   return (
     <div className={cnLibPage(null, ['theme_gap_medium'])}>
+      <LibCard
+        title={lib.title}
+        description={lib.description || lib.shortDescription}
+        image={lib.image}
+      />
       {groups.map((group, groupIndex) => (
         <div key={`${cnLibPage({ groupIndex, group: group.group?.id })}`}>
           <Text

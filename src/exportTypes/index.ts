@@ -1,10 +1,13 @@
 import { ThemePreset } from '@consta/uikit/Theme';
+import { MDXComponents } from 'mdx/types';
 
 export type Group = {
   id: string;
   title: string;
   order?: number;
 };
+
+export type StandStatus = 'deprecated' | 'canary' | 'stable' | 'inWork';
 
 export type Stand<Group extends string = string> = {
   id: string;
@@ -13,8 +16,8 @@ export type Stand<Group extends string = string> = {
   image?: (() => React.ReactElement | null) | string | React.FC;
   logo?: (() => React.ReactElement | null) | string | React.FC;
   order?: number;
-  status: 'deprecated' | 'canary' | 'stable' | 'inWork';
-  version: string;
+  status?: 'deprecated' | 'canary' | 'stable' | 'inWork';
+  version?: string;
   docs?: React.FC;
   figma?: string;
   github?: string;
@@ -23,16 +26,22 @@ export type Stand<Group extends string = string> = {
   description?: string;
   otherVersion?: Stand<Group>[];
   alias?: string[];
+  visibleOnLibPage?: boolean;
 };
 
 export type Lib<GROUP extends Group> = {
   groups: readonly GROUP[];
   title: string;
   id: string;
-  logo?: (() => React.ReactElement | null) | string;
-  image?: (() => React.ReactElement | null) | string;
+  logo?: (() => React.ReactElement | null) | string | React.FC;
+  image?: (() => React.ReactElement | null) | string | React.FC;
   group?: string;
-  description?: string;
+  description?:
+    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | string;
+  shortDescription?:
+    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | string;
   standPageDecoration?: (props: {
     theme: ThemePreset;
     children: React.ReactChild;

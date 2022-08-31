@@ -1,11 +1,10 @@
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
-import { Image } from '##/componets/Image';
-import { Link } from '##/componets/Link';
+import { LibCard } from '##/componets/LibCard';
 import { libsAtom } from '##/modules/libs';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
@@ -49,26 +48,13 @@ export const LibsPage: React.FC = () => {
       </Text>
 
       {libs.map((lib) => (
-        <Fragment key={lib.id}>
-          <Text
-            as="h3"
-            size="3xl"
-            weight="semibold"
-            className={cnMixSpace({ mB: 'm' })}
-          >
-            {lib.title}
-          </Text>
-          {lib.description && (
-            <Text as="p" size="l" className={cnMixSpace({ mB: 'xl' })}>
-              {lib.description}
-            </Text>
-          )}
-          {lib.image && (
-            <Link to={routesNames.LIBS_STAND} params={{ stand: lib.id }}>
-              <Image src={lib.image} className={cnMixSpace({ mB: '3xl' })} />
-            </Link>
-          )}
-        </Fragment>
+        <LibCard
+          key={lib.id}
+          id={lib.id}
+          title={lib.title}
+          description={lib.shortDescription || lib.description}
+          image={lib.image}
+        />
       ))}
     </div>
   );

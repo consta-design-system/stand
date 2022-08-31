@@ -1,11 +1,13 @@
+import { MDXComponents } from 'mdx/types';
+
 declare module '*.docs.mdx' {
-  const MDXComponent: (props: any) => JSX.Element;
+  const MDXComponent: (props: { components?: MDXComponents }) => JSX.Element;
 
   export default MDXComponent;
 }
 
 declare module '*.stand.mdx' {
-  const MDXComponent: (props: any) => JSX.Element;
+  const MDXComponent: (props: { components?: MDXComponents }) => JSX.Element;
 
   export default MDXComponent;
 }

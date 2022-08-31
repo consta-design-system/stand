@@ -4,7 +4,6 @@ import { ProgressSpin } from '@consta/uikit/ProgressSpin';
 import React, { lazy, memo, Suspense } from 'react';
 
 import { ErrorBoundary } from '##/componets/ErrorBoundary';
-import { MDXProvider } from '##/containers/MDXProvider';
 import { cn } from '##/utils/bem';
 
 const cnLazyDocs = cn('LazyDocs');
@@ -27,9 +26,7 @@ export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
   return (
     <div className={cnLazyDocs()}>
       <Suspense fallback={<FallbackLoading />}>
-        <MDXProvider>
-          <Docs />
-        </MDXProvider>
+        <Docs />
       </Suspense>
     </div>
   );
