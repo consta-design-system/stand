@@ -50,6 +50,10 @@ export const prepareStands = (
       ...item,
       stand: {
         ...item.stand,
+        visibleOnLibPage:
+          typeof item.stand.visibleOnLibPage === 'undefined'
+            ? true
+            : item.stand.visibleOnLibPage,
         otherVersion: initStands
           .filter(
             (el) =>
@@ -58,6 +62,10 @@ export const prepareStands = (
           )
           .map(({ stand }) => ({
             ...stand,
+            visibleOnLibPage:
+              typeof item.stand.visibleOnLibPage === 'undefined'
+                ? true
+                : item.stand.visibleOnLibPage,
             id: `${item.lib.id}-${stand.group}-${stand.id}${
               stand.status ? `-${stand.status}` : ''
             }`

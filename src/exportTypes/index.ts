@@ -25,6 +25,7 @@ export type Stand<Group extends string = string> = {
   description?: string;
   otherVersion?: Stand<Group>[];
   alias?: string[];
+  visibleOnLibPage?: boolean;
 };
 
 export type Lib<GROUP extends Group> = {
