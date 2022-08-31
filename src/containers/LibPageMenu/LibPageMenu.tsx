@@ -6,18 +6,22 @@ import { IconBackward } from '@consta/uikit/IconBackward';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';
-import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/react';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
 import { openLeftSide } from '##/exportAtoms/layout';
-import { LibWithStands, PreparedStand } from '##/exportTypes';
+import { PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
-import { deprecatedSwichIsVisibleAtom } from '##/modules/stands';
+import {
+  deprecatedSwichAtom,
+  deprecatedSwichIsVisibleAtom,
+  searchValueAtom,
+  visibleListAtom,
+} from '##/modules/standsMenu';
 import { cn } from '##/utils/bem';
 
 const mapBadgeProps = {
@@ -62,13 +66,18 @@ const cnLibPageMenu = cn('LibPageMenu');
 export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
   const [lib] = useAtom(libAtom);
+  const [deprecatedSwich] = useAtom(deprecatedSwichAtom);
   const [deprecatedSwichIsVisible] = useAtom(deprecatedSwichIsVisibleAtom);
+  const deprecatedSwichSet = useAction(({ checked }: { checked: boolean }) =>
+    deprecatedSwichAtom.set(checked),
+  );
+  const [searchValue] = useAtom(searchValueAtom);
+  const [visibleList] = useAtom(visibleListAtom);
+  const setSearchValue = useAction(({ value }: { value: string | null }) =>
+    searchValueAtom.set(value || ''),
+  );
   const router = useRouter();
 
-  const [searchValue, setSearchValue] = useState<string | undefined | null>(
-    null,
-  );
-  const [showDeprecated, setShowDeprecated] = useFlag(true);
   const getIsActive = useIsActiveRouter();
 
   const getItemActive = (item: PreparedStand) =>
@@ -79,55 +88,7 @@ export const LibPageMenu: React.FC = () => {
     router.navigate(routesNames.LIBS);
   }, []);
 
-  const { stands, logo, groups } = lib ?? ({} as LibWithStands);
-
   const closeMenu = useAction(openLeftSide.setFalse);
-
-  const visibleStands = useMemo(() => {
-    const reviewItem: PreparedStand | undefined = lib
-      ? {
-          id: lib.id,
-          path: '',
-          pathAccess: {
-            design: false,
-            dev: false,
-            stand: false,
-          },
-          lib,
-          stand: {
-            id: lib.id,
-            title: 'Обзор компонентов',
-            group: 'review',
-            status: 'stable',
-            version: '',
-          },
-        }
-      : undefined;
-
-    return [...(reviewItem ? [reviewItem] : []), ...stands].filter((item) => {
-      if (!showDeprecated && item.stand.status === 'deprecated') {
-        return false;
-      }
-      if (searchValue && searchValue.trim() !== '') {
-        let flag = item.stand.title
-          .toLocaleLowerCase()
-          .includes(searchValue.toLocaleLowerCase());
-        if (item.stand.alias) {
-          item.stand.alias.forEach((alias) => {
-            if (
-              alias
-                .toLocaleLowerCase()
-                .includes(searchValue.toLocaleLowerCase())
-            ) {
-              flag = true;
-            }
-          });
-        }
-        return flag;
-      }
-      return true;
-    });
-  }, [showDeprecated, stands]);
 
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>
@@ -143,14 +104,10 @@ export const LibPageMenu: React.FC = () => {
           className={cnLibPageMenu('Button')}
         />
       )}
-      {typeof logo === 'string' ? (
-        <img
-          alt="Consta-UIKit"
-          src={logo?.toString()}
-          className={cnLibPageMenu('Image')}
-        />
+      {typeof lib?.logo === 'string' ? (
+        <img alt={lib.id} src={lib.logo} className={cnLibPageMenu('Image')} />
       ) : (
-        logo?.()
+        lib?.logo?.()
       )}
       <TextField
         type="text"
@@ -160,16 +117,14 @@ export const LibPageMenu: React.FC = () => {
         placeholder="Поиск по компонентам"
         leftSide={IconSearch}
         className={cnLibPageMenu('Input')}
-        onChange={({ value }) => setSearchValue(value)}
+        onChange={setSearchValue}
       />
       {deprecatedSwichIsVisible && (
         <Switch
-          checked={showDeprecated}
+          checked={deprecatedSwich}
           size="m"
           className={cnLibPageMenu('Switch')}
-          onChange={({ checked }) =>
-            setShowDeprecated[checked ? 'on' : 'off']()
-          }
+          onChange={deprecatedSwichSet}
           label="Показывать deprecated"
         />
       )}
@@ -182,9 +137,9 @@ export const LibPageMenu: React.FC = () => {
 
   return (
     <PortalMenu
-      items={visibleStands}
+      items={visibleList}
       className={cnLibPageMenu()}
-      groups={[...(groups ?? [])]}
+      groups={[...(lib.groups ?? [])]}
       additionalControls={additionalControls()}
       getItemLabel={getItemLabel}
       getItemHref={getItemHref}
