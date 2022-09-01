@@ -47,10 +47,11 @@ export const visibleListAtom = createAtom(
       ? {
           id: lib.id,
           path: '',
-          pathAccess: {
+          lazyAccess: {
             design: false,
             dev: false,
             stand: false,
+            image: false,
           },
           lib,
           stand: {

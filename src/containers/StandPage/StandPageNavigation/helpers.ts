@@ -28,13 +28,13 @@ export const getNavigationList = (stand?: PreparedStand): NavigationItem[] => {
   }
   return navigationList.filter((item) => {
     if (item.id === routesNames.LIBS_STAND) {
-      return stand.pathAccess.stand;
+      return stand.lazyAccess.stand;
     }
     if (item.id === routesNames.LIBS_STAND_DESIGN) {
-      return stand.pathAccess.design || !!stand.stand.figma;
+      return stand.lazyAccess.design || !!stand.stand.figma;
     }
     if (item.id === routesNames.LIBS_STAND_DEV) {
-      return stand.pathAccess.dev;
+      return stand.lazyAccess.dev;
     }
     if (item.id === routesNames.LIBS_STAND_SANDBOX) {
       return stand.stand.sandbox;
@@ -49,13 +49,13 @@ export const getGuardItemNavigate = (
   if (!stand) {
     return;
   }
-  if (stand?.pathAccess.stand) {
+  if (stand?.lazyAccess.stand) {
     return routesNames.LIBS_STAND;
   }
-  if (stand?.pathAccess.dev) {
+  if (stand?.lazyAccess.dev) {
     return routesNames.LIBS_STAND_DEV;
   }
-  if (stand?.pathAccess.design || !!stand.stand.figma) {
+  if (stand?.lazyAccess.design || !!stand.stand.figma) {
     return routesNames.LIBS_STAND_DESIGN;
   }
   if (stand.stand.sandbox) {

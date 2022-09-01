@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.32",
+  "version": "0.0.36",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -113,7 +113,8 @@
     "build:scripts": "cp -R scripts dist/scripts",
     "build:docs": "cp README.md dist/README.md",
     "build:clear": "rm -rf dist/src/stands",
-    "build": "rm -rf ./dist && rm -rf ./src/stands && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:scripts && yarn build:templates && yarn build:webpack.config.js && yarn build:docs && yarn build:public && yarn build:index && yarn build:clear",
+    "build:copy-assets": "node scripts/copyAssets.js",
+    "build": "rm -rf ./dist && rm -rf ./src/stands && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:scripts && yarn build:templates && yarn build:webpack.config.js && yarn build:docs && yarn build:public && yarn build:index && yarn build:copy-assets && yarn build:clear",
     "stand:start": "NODE_ENV=standDevelopment webpack serve --open --progress --mode development --hot --progress --config webpack.config.js",
     "stylelint-fix": "stylelint --fix"
   },

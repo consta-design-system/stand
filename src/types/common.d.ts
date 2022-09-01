@@ -1,5 +1,3 @@
-import { MDXComponents } from 'mdx/types';
-
 declare module '*.docs.mdx' {
   const MDXComponent: (props: { components?: MDXComponents }) => JSX.Element;
 
@@ -36,8 +34,8 @@ declare module '*.image.svg' {
     React.SVGProps<SVGSVGElement>
   >;
 
-  const src: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  export default src;
+  const content: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  export default content;
 }
 
 declare module '*.icon.svg' {
@@ -45,6 +43,6 @@ declare module '*.icon.svg' {
 
   export const ReactComponent: React.FC<IconProps>;
 
-  const src: React.FC<IconProps>;
-  export default src;
+  const content: React.FC<IconProps>;
+  export default content;
 }

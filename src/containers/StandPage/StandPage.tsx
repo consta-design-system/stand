@@ -77,11 +77,11 @@ export const StandPage: React.FC = () => {
               link={stand.stand.sandbox}
             />
           )}
-        {((routeName === routesNames.LIBS_STAND && stand.pathAccess.stand) ||
+        {((routeName === routesNames.LIBS_STAND && stand.lazyAccess.stand) ||
           (routeName === routesNames.LIBS_STAND_DESIGN &&
-            stand.pathAccess.design) ||
+            stand.lazyAccess.design) ||
           (routeName === routesNames.LIBS_STAND_DEV &&
-            stand.pathAccess.dev)) && (
+            stand.lazyAccess.dev)) && (
           <LazyDocs key={standPath} id={standPath} />
         )}
         <StandPageFooter className={cnStandPage('Footer')} />

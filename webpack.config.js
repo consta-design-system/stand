@@ -134,22 +134,22 @@ module.exports = function () {
             {
               loader: '@svgr/webpack',
               options: {
-                template: (
-                  { template },
-                  opts,
-                  { imports, componentName, props, jsx, exports },
-                ) => {
-                  return template.ast`
-                              ${imports}
+                // template: (
+                //   { template },
+                //   opts,
+                //   { imports, componentName, props, jsx, exports },
+                // ) => {
+                //   return template.ast`
+                //               ${imports}
 
-                              const Icon = (${props}) => {
-                                props = { ...props };
-                                return ${jsx};
-                              };
+                //               const Image = (${props}) => {
+                //                 props = { ...props };
+                //                 return ${jsx};
+                //               };
 
-                              export default Icon
-                        `;
-                },
+                //               export default Image
+                //         `;
+                // },
                 plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
                 dimensions: false,
                 svgo: true,

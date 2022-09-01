@@ -13,8 +13,6 @@ export type Stand<Group extends string = string> = {
   id: string;
   title: string;
   group: Group;
-  image?: (() => React.ReactElement | null) | string | React.FC;
-  logo?: (() => React.ReactElement | null) | string | React.FC;
   order?: number;
   status?: 'deprecated' | 'canary' | 'stable' | 'inWork';
   version?: string;
@@ -56,10 +54,11 @@ export type CreatedStand = {
 export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   id: string;
   path: string;
-  pathAccess: {
+  lazyAccess: {
     stand: boolean;
     dev: boolean;
     design: boolean;
+    image: boolean;
   };
 };
 

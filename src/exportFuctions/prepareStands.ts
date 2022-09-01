@@ -37,6 +37,42 @@ const addToLib = (stand: PreparedStand, libs: LibWithStands[]) => {
   }
 };
 
+const getLazyAccess = (lazyAccess: string[], path: string) => {
+  const lazyAcces = {
+    stand: false,
+    dev: false,
+    design: false,
+    image: false,
+  };
+
+  for (let index = 0; index < lazyAccess.length; index++) {
+    const item = lazyAccess[index];
+
+    if (item === `${path}.stand.mdx`) {
+      lazyAcces.stand = true;
+    }
+    if (item === `${path}.dev.stand.mdx`) {
+      lazyAcces.dev = true;
+    }
+    if (item === `${path}.design.stand.mdx`) {
+      lazyAcces.design = true;
+    }
+    if (item === `${path}.image.svg`) {
+      lazyAcces.image = true;
+    }
+
+    if (
+      !Object.keys(lazyAcces).find(
+        (key) => lazyAcces[key as keyof typeof lazyAcces] === false,
+      )
+    ) {
+      break;
+    }
+  }
+
+  return lazyAcces;
+};
+
 export const prepareStands = (
   initStands: CreatedStand[],
   paths: string[],
@@ -79,17 +115,7 @@ export const prepareStands = (
         .replace(/\W|_/g, '-')
         .toLowerCase(),
       path: paths[index],
-      pathAccess: {
-        stand: !!lazyAccess.find(
-          (item) => item === `${paths[index]}.stand.mdx`,
-        ),
-        dev: !!lazyAccess.find(
-          (item) => item === `${paths[index]}.dev.stand.mdx`,
-        ),
-        design: !!lazyAccess.find(
-          (item) => item === `${paths[index]}.design.stand.mdx`,
-        ),
-      },
+      lazyAccess: getLazyAccess(lazyAccess, paths[index]),
     }))
     .sort(sort)
     .forEach((stand) => {
