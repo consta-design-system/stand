@@ -39,7 +39,6 @@ export const theme: Record<string, React.CSSProperties> = {
     padding: '1em',
     margin: '.5em 0',
     overflow: 'auto',
-    border: '1px solid var(--color-control-bg-border-default)',
     borderRadius: 'var(--control-radius)',
     backgroundColor: 'var(--color-bg-default)',
   },

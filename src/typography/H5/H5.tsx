@@ -21,9 +21,9 @@ export const H5 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       className={cnH5()}
       id={props.id ?? id}
       as="h5"
-      size="l"
+      size="m"
       weight="semibold"
-      lineHeight="m"
+      lineHeight="xs"
       {...otherProps}
     >
       <CopyButton href={`#${id}`} className={cnH5('CopyButton')} />

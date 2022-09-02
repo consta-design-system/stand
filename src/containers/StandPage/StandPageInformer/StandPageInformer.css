@@ -7,13 +7,18 @@
     }
   }
 
+  & .Informer-Content {
+    & > *:not(:last-child) {
+      margin-bottom: var(--space-xs);
+    }
+  }
+
   &-Link {
     color: var(--color-typo-link);
     transition: 0.3s ease;
-
+    text-decoration: underline;
     &_deprecated {
       color: var(--color-typo-primary);
-      text-decoration: underline;
     }
   }
 }

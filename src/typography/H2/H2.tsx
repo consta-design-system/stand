@@ -21,7 +21,7 @@ export const H2 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       className={cnH2()}
       id={props.id ?? id}
       as="h2"
-      size="3xl"
+      size="2xl"
       weight="semibold"
       lineHeight="m"
       {...otherProps}

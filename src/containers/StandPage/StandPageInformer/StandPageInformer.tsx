@@ -1,5 +1,6 @@
 import './StandPageInformer.css';
 
+import { IconAlert } from '@consta/uikit/IconAlert';
 import { Informer } from '@consta/uikit/Informer';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
@@ -129,9 +130,10 @@ export const StandPageInformer = (props: Props) => {
     <Informer
       title={statusTitle[status]}
       className={cnStandPageInformer(null, [className])}
-      view={status === 'deprecated' ? 'filled' : 'bordered'}
+      view={status !== 'canary' ? 'filled' : 'bordered'}
       label={getContent()}
       status={statusMap[status]}
+      icon={status === 'stable' ? IconAlert : undefined}
       size="s"
     />
   );

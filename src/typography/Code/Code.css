@@ -1,7 +1,7 @@
 .stand--Code {
   position: relative;
   margin-top: var(--space-m);
-  margin-bottom: var(--space-m);
+  margin-bottom: var(--space-l);
 
   &-Copy {
     position: absolute;
@@ -15,6 +15,10 @@
     background-color: transparent;
     border: none;
     border-radius: var(--control-radius);
+  }
+
+  & > pre {
+    border: none;
   }
 
   &-Icon {
@@ -85,10 +89,10 @@
     background-color: var(--color-control-bg-ghost);
     border: none;
     border-radius: var(--control-radius);
-    font-family: var(--font-primary);
-    font-size: var(--control-text-size-xs);
+    font-family: var(--font-mono);
+    font-size: var(--control-text-size-m);
     font-weight: var(--font-weight-text-regular);
-    line-height: var(--control-height-xs);
+    line-height: var(--line-height-text-m);
     cursor: pointer;
     transition:
       background-color 0.15s ease,

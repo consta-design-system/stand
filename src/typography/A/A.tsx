@@ -17,6 +17,8 @@ export const A = (
       view="link"
       style={{ textDecoration: 'none' }}
       onClick={link[1]}
+      size="m"
+      lineHeight="m"
       {...otherProps}
     >
       {children}

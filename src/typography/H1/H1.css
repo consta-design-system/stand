@@ -1,7 +1,6 @@
 .stand--H1 {
   position: relative;
   width: max-content;
-  margin-bottom: var(--space-xl);
 
   &:hover {
     & .stand--H1-CopyButton {
