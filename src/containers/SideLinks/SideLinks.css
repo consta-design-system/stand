@@ -1,46 +1,60 @@
 .stand--SideLinks {
   width: 100%;
 
-  & > *:not(:last-child) {
-    margin-bottom: calc(var(--space-xl) + var(--space-2xs));
-  }
-
-  &-List {
+  &-Header {
     width: 100%;
-    padding-left: var(--space-xs);
+    box-sizing: border-box;
+    padding: calc(var(--space-m) - var(--space-3xs)) var(--space-l);
   }
 
-  & .TabsLine.TabsLine_type_running {
-    left: calc(0% - var(--space-xs));
-  }
+  &-Menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 
-  & .Tabs-List {
-    padding: 0;
-  }
-
-  &-ListItem.Button {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-xs) 0;
-    padding-left: var(--space-2xs);
-    color: var(--color-typo-secondary);
-    background-color: transparent;
-    border: none;
-    font-family: var(--font);
-    font-size: var(--size-text-s);
-    line-height: var(--line-height-text-s);
-    text-align: left;
-    cursor: pointer;
-    transition: color 0.2s;
-
-    &:hover {
-      color: var(--color-typo-primary);
-      background-color: transparent;
+    & > ul > li {
+      & > a {
+        padding-left: calc(var(--space-l) * 1.5);
+      } 
+      & > ul > li > a {
+        padding-left: calc(var(--space-l) * 2);
+      }
     }
 
-    &.stand--SideLinks-ListItem_checked {
+    & .stand--Ul .stand--Ul {
+      margin-left: 0;
+    }
+
+    & a {
+      font-size: var(--size-text-s);
+    }
+
+    & ul, & li {
+      width: 100%;
+    }
+  }
+
+  &-MenuItem.Text {
+    width: 100%;
+    box-sizing: border-box;
+    padding: calc(var(--space-s) - var(--space-3xs)) var(--space-l);
+    color: var(--color-typo-primary);
+  }
+
+  & li {
+    list-style: none;
+    width: 100%;
+   
+    & a {
+      padding-right: var(--space-l);
+      padding-top: calc(var(--space-s) - var(--space-3xs));
+      padding-bottom: calc(var(--space-s) - var(--space-3xs));
+      box-sizing: border-box;
       color: var(--color-typo-primary);
+      display: flex;
+      width: 100%;
     }
   }
 
