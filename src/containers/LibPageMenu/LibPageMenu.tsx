@@ -2,18 +2,21 @@ import './LibPageMenu.css';
 
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
+import { ContextMenu } from '@consta/uikit/ContextMenuCanary';
 import { IconBackward } from '@consta/uikit/IconBackward';
+import { IconBento } from '@consta/uikit/IconBento';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { Switch } from '@consta/uikit/Switch';
+import { Text } from '@consta/uikit/Text';
 import { TextField } from '@consta/uikit/TextField';
+import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useRouter } from 'react-router5';
 
-import { Image } from '##/componets/Image';
 import { PortalMenu } from '##/containers/PortalMenu';
 import { openLeftSide } from '##/exportAtoms/layout';
-import { PreparedStand } from '##/exportTypes';
+import { Group, LibWithStands, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
@@ -74,6 +77,7 @@ export const LibPageMenu: React.FC = () => {
   const [lib] = useAtom(libAtom);
   const [deprecatedSwich] = useAtom(deprecatedSwichAtom);
   const [deprecatedSwichIsVisible] = useAtom(deprecatedSwichIsVisibleAtom);
+  const [showLibs, setShowLibs] = useFlag();
   const deprecatedSwichSet = useAction(({ checked }: { checked: boolean }) =>
     deprecatedSwichAtom.set(checked),
   );
@@ -83,6 +87,8 @@ export const LibPageMenu: React.FC = () => {
     searchValueAtom.set(value || ''),
   );
   const router = useRouter();
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const getIsActive = useIsActiveRouter();
 
@@ -96,8 +102,50 @@ export const LibPageMenu: React.FC = () => {
 
   const closeMenu = useAction(openLeftSide.setFalse);
 
+  const handleLibClick = (params: {
+    e: React.MouseEvent;
+    item: LibWithStands;
+  }) => {
+    const { e, item } = params;
+    e.preventDefault();
+    router.navigate(routesNames.LIBS, { stand: item.id });
+  };
+
+  const getGroupIsOpen = (group: Group) => {
+    let flag = !!group.initialOpen;
+    visibleList.forEach((item) => {
+      if (item.stand.group === group.id && getItemActive(item)) {
+        flag = true;
+      }
+    });
+    return flag;
+  };
+
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>
+      <div className={cnLibPageMenu('Header')}>
+        <Button
+          iconLeft={IconBento}
+          onlyIcon
+          ref={buttonRef}
+          size="s"
+          onClick={setShowLibs.toogle}
+        />
+        <ContextMenu
+          anchorRef={buttonRef}
+          onItemClick={handleLibClick}
+          items={libs}
+          isOpen={showLibs}
+          offset="xs"
+          direction="rightDown"
+          onClickOutside={setShowLibs.off}
+          getItemLabel={(item) => item.title}
+          size="m"
+        />
+        <Text size="xl" lineHeight="m" view="brand" weight="semibold">
+          {lib?.title}
+        </Text>
+      </div>
       {libs?.length > 1 && (
         <Button
           as="a"
@@ -110,7 +158,15 @@ export const LibPageMenu: React.FC = () => {
           className={cnLibPageMenu('Button')}
         />
       )}
-      {lib?.logo && <Image src={lib.logo} className={cnLibPageMenu('Image')} />}
+      {deprecatedSwichIsVisible && (
+        <Switch
+          checked={deprecatedSwich}
+          size="m"
+          className={cnLibPageMenu('Switch')}
+          onChange={deprecatedSwichSet}
+          label="Показывать deprecated"
+        />
+      )}
       <TextField
         type="text"
         value={searchValue}
@@ -121,15 +177,6 @@ export const LibPageMenu: React.FC = () => {
         className={cnLibPageMenu('Input')}
         onChange={setSearchValue}
       />
-      {deprecatedSwichIsVisible && (
-        <Switch
-          checked={deprecatedSwich}
-          size="m"
-          className={cnLibPageMenu('Switch')}
-          onChange={deprecatedSwichSet}
-          label="Показывать deprecated"
-        />
-      )}
     </div>
   );
 
@@ -151,6 +198,8 @@ export const LibPageMenu: React.FC = () => {
       getItemBadge={getItemBadge}
       onItemClick={closeMenu}
       getGroupKey={getGroupKey}
+      withoutGroups={!!searchValue && searchValue.trim() !== ''}
+      getGroupInitialOpen={getGroupIsOpen}
       getItemGroupId={getItemGroupId}
       getItemDescription={getItemDescription}
     />

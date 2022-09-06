@@ -3,7 +3,7 @@
     position: sticky;
     z-index: 2;
     top: 0;
-    padding-bottom: var(--space-m);
+    padding-bottom: var(--space-l);
     background: var(--color-bg-default);
 
     & > *:not(:last-child) {
@@ -11,7 +11,7 @@
     }
 
     & > *:first-child {
-      margin-bottom: var(--space-xl);
+      margin-bottom: var(--space-4xl);
     }
   }
 
@@ -19,11 +19,18 @@
     margin-bottom: 0;
   }
 
-  &-Input {
-    margin-bottom: var(--space-l);
+  &-Switch.Switch {
+    margin-bottom: calc(var(--space-l) * 1.5);
   }
 
-  &-Image {
-    margin-bottom: var(--space-l);
+  &-Header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+    & > *:not(:last-child) {
+      margin-right: var(--space-m);
+    }
   }
 }

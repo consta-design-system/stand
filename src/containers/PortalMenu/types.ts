@@ -17,6 +17,7 @@ type BadgeComponent = React.ReactElement;
 
 export type DefaultMenuGroup = {
   label?: string;
+  initialOpen?: boolean;
   id: string;
 };
 
@@ -68,6 +69,9 @@ export type PortalMenuPropGetGroupKey<GROUP> = (group: GROUP) => string;
 export type PortalMenuPropGetGroupLabel<GROUP> = (
   group: GROUP,
 ) => string | undefined;
+export type PortalMenuPropGetGroupInitialOpen<GROUP> = (
+  group: GROUP,
+) => boolean | undefined;
 
 export type PortalMenuProps<
   ITEM = DefaultMenuItem,
@@ -88,7 +92,9 @@ export type PortalMenuProps<
     getItemHref?: PortalMenuPropGetItemHref<ITEM>;
     getGroupKey?: PortalMenuPropGetGroupKey<GROUP>;
     getGroupLabel?: PortalMenuPropGetGroupLabel<GROUP>;
+    getGroupInitialOpen?: PortalMenuPropGetGroupInitialOpen<GROUP>;
     groups?: GROUP[];
+    withoutGroups?: boolean;
     groupsByItems?: boolean;
   },
   HTMLDivElement
@@ -116,6 +122,25 @@ export type PortalMenuItemProps<ITEM> = {
   className?: string;
   deep?: number;
   item: ITEM;
+  getItemLabel: PortalMenuPropGetItemLabel<ITEM>;
+  getItemActive: PortalMenuPropGetItemActive<ITEM>;
+  getItemDescription: PortalMenuPropGetItemDescription<ITEM>;
+  getItemOnClick: PortalMenuPropGetItemOnClick<ITEM>;
+  getItemBadge: PortalMenuPropGetItemBadge<ITEM>;
+  getItemGroupId: PortalMenuPropGetItemGroupId<ITEM>;
+  getItemSubMenu: PortalMenuPropGetItemSubMenu<ITEM>;
+  getItemHref: PortalMenuPropGetItemHref<ITEM>;
+  getItemParams: PortalMenuPropGetItemParams<ITEM>;
+};
+
+export type PortalMenuGroupProps<ITEM, GROUP> = {
+  onItemClick?: PortalMenuOnClick<ITEM>;
+  group?: GROUP;
+  className?: string;
+  items: ITEM[];
+  withoutGroups?: boolean;
+  getGroupInitialOpen: PortalMenuPropGetGroupInitialOpen<GROUP>;
+  getGroupLabel: PortalMenuPropGetGroupLabel<GROUP>;
   getItemLabel: PortalMenuPropGetItemLabel<ITEM>;
   getItemActive: PortalMenuPropGetItemActive<ITEM>;
   getItemDescription: PortalMenuPropGetItemDescription<ITEM>;

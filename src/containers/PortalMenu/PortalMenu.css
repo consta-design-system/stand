@@ -1,8 +1,4 @@
 .stand--PortalMenu {
-  & > *:not(:last-child) {
-    margin-bottom: var(--space-m);
-  }
-
   & > *:first-child {
     padding-top: var(--space-2xl);
   }
@@ -12,18 +8,7 @@
     padding-bottom: var(--space-2xl);
 
     & > *:not(:last-child) {
-      margin-bottom: var(--space-xl);
+      margin-bottom: var(--space-3xs);
     }
-  }
-
-  &-Header {
-    box-sizing: border-box;
-    width: 100%;
-    margin-bottom: var(--space-2xs);
-    padding-left: var(--space-s);
-    padding-bottom: var(--space-2xs);
-    border-bottom:
-      var(--control-border-width) solid
-      var(--color-control-bg-border-default);
   }
 }

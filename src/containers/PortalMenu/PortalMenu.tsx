@@ -1,12 +1,11 @@
 import './PortalMenu.css';
 
+import { PortalMenuGroup } from '@consta/stand/src/containers/PortalMenu/PortalMenuGroup';
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
-import { Text } from '@consta/uikit/Text';
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
 
 import { withDefaultGetters } from '##/containers/PortalMenu/helper';
-import { PortalMenuItem } from '##/containers/PortalMenu/PortalMenuItem/PortalMenuItem';
 import {
   DefaultMenuGroup,
   DefaultMenuItem,
@@ -16,29 +15,6 @@ import {
 import { cn } from '##/utils/bem';
 
 const cnPortalMenu = cn('PortalMenu');
-
-const renderHeader = (
-  groupLabel: string | number | undefined,
-  first: boolean,
-): React.ReactNode | null => {
-  if (!groupLabel) {
-    if (first) {
-      return null;
-    }
-    return <div className={cnPortalMenu('Divider')} />;
-  }
-  return (
-    <Text
-      className={cnPortalMenu('Header', { first })}
-      size="xs"
-      lineHeight="m"
-      view="ghost"
-      transform="uppercase"
-    >
-      {groupLabel}
-    </Text>
-  );
-};
 
 const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
   props: PortalMenuProps<ITEM, GROUP>,
@@ -52,6 +28,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     groups: groupsProp,
     getGroupKey,
     getGroupLabel,
+    getGroupInitialOpen,
 
     // packages
 
@@ -68,6 +45,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     getItemParams,
 
     groupsByItems,
+    withoutGroups,
     ...otherProps
   } = withDefaultGetters(props);
 
@@ -89,34 +67,25 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     >
       {additionalControls}
       <div className={cnPortalMenu('List')}>
-        {groups.map((group, groupIndex) => (
-          <div
-            className={cnPortalMenu('Group')}
+        {groups.map(({ group, items }, groupIndex) => (
+          <PortalMenuGroup
             key={cnPortalMenu('Group', { groupIndex })}
-          >
-            {renderHeader(
-              groupsByItems
-                ? group.key
-                : group.group && getGroupLabel(group.group),
-              groupIndex === 0,
-            )}
-            {group.items.map((item, itemIndex) => (
-              <PortalMenuItem
-                key={cnPortalMenu('Item', { groupIndex, itemIndex })}
-                item={item}
-                onClick={(e) => onItemClick?.({ e, item })}
-                getItemActive={getItemActive}
-                getItemDescription={getItemDescription}
-                getItemLabel={getItemLabel}
-                getItemOnClick={getItemOnClick}
-                getItemGroupId={getItemGroupId}
-                getItemBadge={getItemBadge}
-                getItemSubMenu={getItemSubMenu}
-                getItemHref={getItemHref}
-                getItemParams={getItemParams}
-              />
-            ))}
-          </div>
+            items={items}
+            group={group}
+            withoutGroups={withoutGroups}
+            getGroupInitialOpen={getGroupInitialOpen}
+            getGroupLabel={getGroupLabel}
+            onItemClick={onItemClick}
+            getItemActive={getItemActive}
+            getItemDescription={getItemDescription}
+            getItemLabel={getItemLabel}
+            getItemOnClick={getItemOnClick}
+            getItemGroupId={getItemGroupId}
+            getItemBadge={getItemBadge}
+            getItemSubMenu={getItemSubMenu}
+            getItemHref={getItemHref}
+            getItemParams={getItemParams}
+          />
         ))}
       </div>
     </div>

@@ -5,6 +5,7 @@ export type Group = {
   id: string;
   title: string;
   order?: number;
+  initialOpen?: boolean;
 };
 
 export type StandStatus = 'deprecated' | 'canary' | 'stable' | 'inWork';
