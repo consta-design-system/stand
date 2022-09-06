@@ -1,0 +1,9 @@
+.stand--LazyVariants {
+  &-Loader {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: var(--space-l);
+  }
+}
