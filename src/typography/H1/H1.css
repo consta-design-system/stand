@@ -9,7 +9,7 @@
   }
 
   &-CopyButton {
-    top: var(--space-s);
+    top: var(--space-xl);
     opacity: 1;
     transition: opacity 0.3s;
 
