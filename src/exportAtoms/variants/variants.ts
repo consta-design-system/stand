@@ -32,14 +32,17 @@ export type Variant<TYPE extends VariantType = VariantType> = {
   options?: Options<TYPE>;
 };
 
+export type VariantsAtomState = Record<string, Variant>;
+
 export const variantsAtom = createAtom(
   {
     add: (payload: Variant) => payload,
     set: (payload: Variant) => payload,
     clear: () => {},
     del: (payload: string) => payload,
+    setState: (payload: VariantsAtomState) => payload,
   },
-  ({ onAction }, state: Record<string, Variant> = {}) => {
+  ({ onAction }, state: VariantsAtomState = {}) => {
     onAction('add', (payload) => {
       if (!(payload.name in state)) {
         state = { ...state, [payload.name]: payload };
@@ -55,6 +58,13 @@ export const variantsAtom = createAtom(
         state = newState;
       }
     });
+    onAction('setState', (payload) => {
+      state = payload;
+    });
+    onAction('clear', () => {
+      state = {};
+    });
+
     return state;
   },
 );
@@ -65,6 +75,10 @@ export const variantsNamesAtom = createAtom(
     onChange('variantsAtom', (newState, oldState = {}) => {
       const newKeys = Object.keys(newState);
       const oldKeys = Object.keys(oldState);
+
+      if (newKeys.length !== oldKeys.length) {
+        state = newKeys;
+      }
 
       for (let index = 0; index < newKeys.length; index++) {
         if (newKeys[index] !== oldKeys[index]) {

@@ -43,6 +43,7 @@ const getLazyAccess = (lazyAccess: string[], path: string) => {
     dev: false,
     design: false,
     image: false,
+    variants: false,
   };
 
   for (let index = 0; index < lazyAccess.length; index++) {
@@ -59,6 +60,9 @@ const getLazyAccess = (lazyAccess: string[], path: string) => {
     }
     if (item === `${path}.image.svg`) {
       lazyAcces.image = true;
+    }
+    if (item === `${path}.variants.tsx`) {
+      lazyAcces.variants = true;
     }
 
     if (

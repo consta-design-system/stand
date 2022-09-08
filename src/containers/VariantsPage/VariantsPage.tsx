@@ -6,9 +6,7 @@ import { libAtom } from '##/modules/lib';
 import { standAtom } from '##/modules/stand';
 import { themeAtom } from '##/modules/theme';
 
-import { VariantsBoard } from './VariantsBoard';
-
-export const Variants: React.FC = () => {
+export const VariantsPage: React.FC = () => {
   const [stand] = useAtom(standAtom);
   const [lib] = useAtom(libAtom);
   const [theme] = useAtom(themeAtom);
@@ -17,12 +15,9 @@ export const Variants: React.FC = () => {
 
   if (stand?.path) {
     return (
-      <div>
-        <Decorator theme={theme}>
-          <LazyVariants id={stand?.path} />
-        </Decorator>
-        <VariantsBoard />
-      </div>
+      <Decorator theme={theme}>
+        <LazyVariants id={stand?.path} />
+      </Decorator>
     );
   }
 

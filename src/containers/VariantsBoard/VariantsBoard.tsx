@@ -1,10 +1,9 @@
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
+import { VariantsField } from '##/containers/VariantsField';
 import { variantsNamesAtom } from '##/exportAtoms/variants';
 import { cn } from '##/utils/bem';
-
-import { VariantsField } from '../VariantsField';
 
 const cnVariantsBoard = cn('VariantsBoard');
 
