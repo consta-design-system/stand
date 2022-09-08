@@ -1,9 +1,30 @@
 .stand--LazyDocs {
-  &-Loader {
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 100%;
-    padding: var(--space-l);
-  }
+    &-Loader {
+        width: 100%;
+        padding: var(--space-l);
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+    }
+
+    & > h1, & > h2, & > h3, & > h4, & > h5, & > h6 {
+        margin-bottom: var(--space-l);
+
+        &:not(:first-child) {
+            margin-top: calc(var(--space-l) * 2.5);
+        }
+    }
+
+    & > p, & > blockquote {
+        margin-bottom: calc(var(--space-l) * 1.5);
+    }
+
+    & > * {
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
