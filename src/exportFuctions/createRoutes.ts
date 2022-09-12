@@ -24,7 +24,7 @@ export const createRoutes = (path = '/libs') => {
     },
     {
       name: routesNames.LIBS_STAND,
-      path: '/:stand?:hash',
+      path: '/:stand?:hash?:variants',
     },
     {
       name: routesNames.LIBS_STAND_DESIGN,

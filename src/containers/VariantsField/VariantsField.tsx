@@ -21,10 +21,11 @@ const createMemoField: CreateMemoField = (component) =>
       // @ts-ignore: исползуеся только тут и только с компонентами Field
       return <Component {...props} />;
     },
-
     (prevProps, nextProps) =>
       // @ts-ignore: исползуеся только тут и только с компонентами Field
-      prevProps?.value === nextProps?.value,
+      prevProps?.value === nextProps?.value &&
+      // @ts-ignore: исползуеся только тут и только с компонентами Field
+      prevProps?.isActive === nextProps?.isActive,
   ) as unknown as typeof component;
 
 const createMemoFieldForSwitch: CreateMemoField = (component) =>
@@ -36,7 +37,9 @@ const createMemoFieldForSwitch: CreateMemoField = (component) =>
     },
     (prevProps, nextProps) =>
       // @ts-ignore: исползуеся только тут и только с компонентами Field
-      prevProps?.checked === nextProps?.checked,
+      prevProps?.checked === nextProps?.checked &&
+      // @ts-ignore: исползуеся только тут и только с компонентами Field
+      prevProps?.isActive === nextProps?.isActive,
   ) as unknown as typeof component;
 
 const TextFieldMemo = createMemoField(TextField);
@@ -48,9 +51,10 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   type,
   name,
   value,
+  isActive,
 }) => {
   const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({ type, value, name }),
+    variantsAtom.set({ type, value: value || undefined, name, isActive }),
   );
 
   return (
@@ -60,6 +64,7 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
       type="text"
       onChange={onChange}
       label={name}
+      size="s"
     />
   );
 };
@@ -68,9 +73,10 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   type,
   name,
   value,
+  isActive,
 }) => {
   const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({ type, value, name }),
+    variantsAtom.set({ type, value: value || undefined, name, isActive }),
   );
 
   return (
@@ -80,6 +86,7 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
       type="number"
       onChange={onChange}
       label={name}
+      size="s"
     />
   );
 };
@@ -88,9 +95,10 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
   type,
   name,
   value,
+  isActive,
 }) => {
   const onChange = useAction(({ value }: { value: Date | null }) =>
-    variantsAtom.set({ type, value, name }),
+    variantsAtom.set({ type, value: value || undefined, name, isActive }),
   );
 
   return (
@@ -100,6 +108,7 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
       type="date"
       onChange={onChange}
       label={name}
+      size="s"
     />
   );
 };
@@ -108,9 +117,10 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
   type,
   name,
   value,
+  isActive,
 }) => {
   const onChange = useAction(({ value }: { value: Date | null }) =>
-    variantsAtom.set({ type, value, name }),
+    variantsAtom.set({ type, value: value || undefined, name, isActive }),
   );
 
   return (
@@ -120,6 +130,7 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
       type="date"
       onChange={onChange}
       label={name}
+      size="s"
     />
   );
 };
@@ -128,9 +139,10 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
   type,
   name,
   value,
+  isActive,
 }) => {
   const onChange = useAction(({ checked: value }: { checked: boolean }) =>
-    variantsAtom.set({ type, value, name }),
+    variantsAtom.set({ type, value, name, isActive }),
   );
 
   return (
@@ -150,9 +162,16 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
   name,
   value,
   options = [],
+  isActive,
 }) => {
   const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({ type, value, name, options }),
+    variantsAtom.set({
+      type,
+      value: value || undefined,
+      name,
+      options,
+      isActive,
+    }),
   );
 
   return (
@@ -164,6 +183,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
       onChange={onChange}
       items={options}
       label={name}
+      size="s"
     />
   );
 };
@@ -182,5 +202,9 @@ export const VariantsField: React.FC<{ name: string }> = ({ name }) => {
 
   const Component = map[variants[name].type];
 
-  return <Component {...variants[name]} />;
+  if (variants[name].isActive) {
+    return <Component {...variants[name]} />;
+  }
+
+  return null;
 };

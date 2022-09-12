@@ -13,9 +13,11 @@ import { routesNames } from '##/modules/router';
 export const App: React.FC = () => {
   useIframeSubscribe();
   const { route } = useRoute();
+
   if (route.name === routesNames.LIBS_VARIANTS) {
     return <VariantsPage />;
   }
+
   return (
     <DocLayout
       leftSide={<Menu />}

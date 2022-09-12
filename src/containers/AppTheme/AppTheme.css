@@ -115,5 +115,5 @@ img {
 
 html.stand--AppTheme {
   color: var(--color-typo-primary);
-  background-color: var(--color-bg-default);
+  background-color: var(--color-bg-secondary);
 }

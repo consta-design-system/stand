@@ -1,0 +1,19 @@
+.stand--VariantsPage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  padding: var(--space-m);
+  background: var(--color-bg-default);
+
+  &-Bg {
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: var(--color-typo-ghost);
+    pointer-events: none;
+    mask-image: url(./VariantsPageBg.svg);
+  }
+}
