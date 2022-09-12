@@ -9,10 +9,10 @@ import { useAtom } from '@reatom/react';
 import React, { useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
-import { useStand } from '##/containers/StandPage/useStand';
 import { useMdxLink } from '##/hooks/useMdxLink';
 import { useMenu } from '##/hooks/useMenu';
 import { menuMdxAtom } from '##/modules/menuMdx';
+import { standAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
 const cnSideLinks = cn('SideLinks');
@@ -48,7 +48,8 @@ const LinkItem = (props: LinkItemProps) => {
 export const SideLinks = () => {
   const { links } = useMenu();
   const [menuMdx] = useAtom(menuMdxAtom);
-  const stand = useStand();
+  const [stand] = useAtom(standAtom);
+
   const { route } = useRoute();
 
   const hash = useMemo(() => {
