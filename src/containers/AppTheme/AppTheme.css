@@ -113,10 +113,7 @@ img {
   outline: none;
 }
 
-html {
-  background-color: var(--color-bg-default);
-}
-
-.stand--AppTheme {
+html.stand--AppTheme {
   color: var(--color-typo-primary);
+  background-color: var(--color-bg-secondary);
 }

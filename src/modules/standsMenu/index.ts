@@ -52,6 +52,7 @@ export const visibleListAtom = createAtom(
             dev: false,
             stand: false,
             image: false,
+            variants: false,
           },
           lib,
           stand: {

@@ -3,32 +3,19 @@ import { Button } from '@consta/uikit/Button';
 import { IconHamburger } from '@consta/uikit/IconHamburger';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { ThemePreset } from '@consta/uikit/Theme';
-import {
-  ThemeToggler,
-  ThemeTogglerPropSetValue,
-} from '@consta/uikit/ThemeToggler';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
-import { useAction, useAtom } from '@reatom/react';
+import { useAction } from '@reatom/react';
 import React, { useEffect, useRef } from 'react';
 
+import { ThemeToggler } from '##/containers/ThemeToggler';
 import { headerHeight, openLeftSide } from '##/exportAtoms/layout';
-import { getThemeIcon, getThemeKey, themeAtom, themes } from '##/modules/theme';
 
 export const Header = () => {
-  const setTheme: ThemeTogglerPropSetValue<ThemePreset> = useAction((props) =>
-    themeAtom.set(props.value),
-  );
-
   const toggleMenu = useAction(openLeftSide.toggle);
   const headerRef = useRef<HTMLDivElement>(null);
 
   const { height } = useComponentSize(headerRef);
-
-  useEffect(() => {
-    setHeaderHeight(height);
-  }, [height]);
 
   const setHeaderHeight = useAction(headerHeight.set);
 
@@ -36,7 +23,9 @@ export const Header = () => {
     l: 1364,
   });
 
-  const [theme] = useAtom(themeAtom);
+  useEffect(() => {
+    setHeaderHeight(height);
+  }, [height]);
 
   return (
     <Layout
@@ -57,16 +46,7 @@ export const Header = () => {
           </Text>,
         ],
         center: '',
-        right: (
-          <ThemeToggler
-            getItemKey={getThemeKey}
-            getItemLabel={getThemeKey}
-            getItemIcon={getThemeIcon}
-            items={themes}
-            onChange={setTheme}
-            value={theme}
-          />
-        ),
+        right: <ThemeToggler />,
       }}
     />
   );

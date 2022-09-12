@@ -1886,12 +1886,12 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@reatom/core@^2.0.17":
+"@reatom/core@^2.0.20":
   version "2.0.20"
   resolved "https://registry.yarnpkg.com/@reatom/core/-/core-2.0.20.tgz#4280488578456a7048e8c373a8e31ffc3a7afb49"
   integrity sha512-a5+GDeSKH8KRyP34eP6TuxRVfrRQXyJZAJoYRyd4xUUU7tZT/fGAbjovAMKctgilGeGCzDpnG8WiRypPZWqPug==
 
-"@reatom/react@^2.0.15":
+"@reatom/react@^2.0.19":
   version "2.0.19"
   resolved "https://registry.yarnpkg.com/@reatom/react/-/react-2.0.19.tgz#2f7575167248a8762735b7955e1f7eb57f6bd2c3"
   integrity sha512-vwjM1IaDL6qZeYTP2yWqjQhMrjCLvmrl51nzU8lm3nQmILvwZlFzXkooNQc6UpaKJHs2Q8Rrgd7Xsufi9OjBtg==

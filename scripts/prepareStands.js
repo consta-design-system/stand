@@ -44,11 +44,28 @@ const createlazyImage = async (srcWithName, standsImportPath) => {
   });
 };
 
+const createlazyVariants = async (srcWithName, standsImportPath) => {
+  const file = `${srcWithName}.variants.tsx`;
+
+  access(file, F_OK, async (err) => {
+    if (!err) {
+      const lazyDocsFileName = `${file.replace(/\W/g, '_')}.tsx`;
+      const jsCode = `import Variants from '../${standsImportPath}/${file}';\nexport default Variants;\n`;
+
+      await writeFile(
+        `node_modules/@consta/stand/src/stands/lazyDocs/${lazyDocsFileName}`,
+        jsCode,
+      );
+    }
+  });
+};
+
 const createLazy = async (srcWithName, standsImportPath) => {
   await createlazyDocs(srcWithName, standsImportPath, '.stand.mdx');
   await createlazyDocs(srcWithName, standsImportPath, '.dev.stand.mdx');
   await createlazyDocs(srcWithName, standsImportPath, '.design.stand.mdx');
   await createlazyImage(srcWithName, standsImportPath);
+  await createlazyVariants(srcWithName, standsImportPath);
 };
 
 const prepareStands = async ({
@@ -91,6 +108,7 @@ const prepareStands = async ({
     const docsFileStandDev = `${srcWithName}.dev.stand.mdx`;
     const docsFileStandDesign = `${srcWithName}.design.stand.mdx`;
     const image = `${srcWithName}.image.svg`;
+    const variants = `${srcWithName}.variants.tsx`;
 
     if (existsSync(docsFileStand)) {
       lazyDocsAccess += `'${docsFileStand}',\n`;
@@ -103,6 +121,9 @@ const prepareStands = async ({
     }
     if (existsSync(image)) {
       lazyDocsAccess += `'${image}',\n`;
+    }
+    if (existsSync(variants)) {
+      lazyDocsAccess += `'${variants}',\n`;
     }
 
     await createLazy(srcWithName, standsImportPath);

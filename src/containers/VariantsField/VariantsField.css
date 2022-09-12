@@ -1,0 +1,17 @@
+.stand--VariantsField {
+  width: 100%;
+  margin-bottom: var(--space-m);
+
+  &_type {
+    &_boolean {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+
+      .Switch-Label {
+        margin-right: var(--offset);
+        margin-left: 0;
+      }
+    }
+  }
+}

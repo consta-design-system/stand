@@ -1,0 +1,121 @@
+.stand--StandPageVariats {
+  --stand-page-variants-board-width: 200px;
+  position: relative;
+  height: 420px;
+  background-color: var(--color-bg-default);
+
+  &_fullScreen {
+    --stand-page-variants-board-width: 280px;
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: auto;
+  }
+
+  @media screen and (min-width: 900px) {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  &-Body {
+    height: 100%;
+
+    @media screen and (min-width: 900px) {
+      flex: auto;
+    }
+  }
+
+  &-Header {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: var(--space-xs);
+
+    &_fullScreen {
+      padding: var(--space-xs);
+    }
+  }
+
+  &-Component {
+    width: 100%;
+    height: calc(100% - var(--control-height-m));
+    border: none;
+
+    &_fullScreen {
+      height: calc(100% - var(--control-height-m) - var(--space-xs) * 2);
+    }
+  }
+
+  &-BoardWrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    &_open {
+      pointer-events: all;
+    }
+
+    @media screen and (min-width: 900px) {
+      position: relative;
+      overflow: hidden;
+      pointer-events: all;
+    }
+  }
+
+  &-Overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: transparent;
+    pointer-events: none;
+
+    &_visible {
+      pointer-events: all;
+    }
+
+    @media screen and (min-width: 900px) {
+      display: none;
+    }
+  }
+
+  &-Board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    width: var(--stand-page-variants-board-width);
+    height: 100%;
+    padding-right: var(--space-l);
+    background: var(--color-bg-default);
+    border-right: 1px solid var(--color-bg-border);
+    opacity: 0;
+    transition: transform 0.25s, opacity 0.25s;
+    transform: translateX(calc(var(--stand-page-variants-board-width) * -1));
+
+    &_open {
+      opacity: 1;
+      box-shadow: var(--shadow-layer);
+      transform: translateX(0);
+    }
+
+    &_fullScreen {
+      padding: var(--space-2xl);
+    }
+
+    @media screen and (min-width: 900px) {
+      position: static;
+      flex: none;
+      opacity: 1;
+      box-shadow: none;
+      transform: none;
+    }
+  }
+}
