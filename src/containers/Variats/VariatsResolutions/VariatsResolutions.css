@@ -1,0 +1,5 @@
+.stand--VariatsResolutions {
+  &-Menu {
+    z-index: 102;
+  }
+}

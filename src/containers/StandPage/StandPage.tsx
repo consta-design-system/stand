@@ -5,6 +5,7 @@ import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
 import { LazyDocs } from '##/componets/LazyDocs';
+import { Variats } from '##/containers/Variats';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
@@ -14,7 +15,6 @@ import { StandPageHeader } from './StandPageHeader';
 import { StandPageInformer } from './StandPageInformer';
 import { StandPageNavigation } from './StandPageNavigation';
 import { StandPageSandbox } from './StandPageSandbox';
-import { StandPageVariats } from './StandPageVariats';
 import { useStand } from './useStand';
 
 const cnStandPage = cn('StandPage');
@@ -79,7 +79,7 @@ export const StandPage: React.FC = memo(() => {
             />
           )}
         {routeName === routesNames.LIBS_STAND && stand.lazyAccess.variants && (
-          <StandPageVariats stand={route.route.params.stand as string} />
+          <Variats stand={route.route.params.stand as string} />
         )}
         {((routeName === routesNames.LIBS_STAND && stand.lazyAccess.stand) ||
           (routeName === routesNames.LIBS_STAND_DESIGN &&
