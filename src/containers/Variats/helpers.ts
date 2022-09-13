@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'react-router5';
 
 import { variantsAtom } from '##/exportAtoms/variants';
 import { routesNames } from '##/modules/router';
-import { themeAtom } from '##/modules/theme';
+import { htmlModsAtom, themeAtom } from '##/modules/theme';
 
 export const useIframeBridge = () => {
   const clear = useAction(variantsAtom.clear);
@@ -42,6 +42,8 @@ export const useIframeBridge = () => {
 export const useFullScreen = () => {
   const router = useRouter();
   const route = useRoute();
+  const addHtmlMod = useAction(htmlModsAtom.add);
+  const delHtmlMod = useAction(htmlModsAtom.del);
 
   const open = !!route.route.params.variants;
 
@@ -54,5 +56,34 @@ export const useFullScreen = () => {
     });
   };
 
+  useEffect(() => {
+    if (open) {
+      addHtmlMod({ name: 'noScroll', value: true });
+    } else {
+      addHtmlMod({ name: 'noScroll', value: false });
+    }
+
+    return () => delHtmlMod('noScroll');
+  }, [open]);
+
   return [open, toggle] as const;
 };
+
+export const resolutions = [
+  {
+    label: 'Телефон',
+    value: 320,
+  },
+  {
+    label: 'Планшет',
+    value: 960,
+  },
+  {
+    label: 'Ноутбук',
+    value: 1333,
+  },
+  {
+    label: 'Без ограничений',
+    value: 1333,
+  },
+];

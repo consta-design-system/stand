@@ -10,25 +10,30 @@ export type VariantType =
   | 'date-time'
   | 'number';
 
-type Value<TYPE extends VariantType> =
+type Value<TYPE extends VariantType, OPTION extends string> =
   | (TYPE extends 'boolean'
       ? boolean
       : TYPE extends 'date' | 'date-time'
       ? Date
       : TYPE extends 'number'
       ? number
+      : TYPE extends 'select'
+      ? OPTION
       : string)
   | undefined;
 
-type Options<TYPE extends VariantType> = TYPE extends 'select'
-  ? string[]
-  : never;
+// type Options<TYPE extends VariantType> = TYPE extends 'select'
+//   ? string[] | readonly string[]
+//   : never;
 
-export type Variant<TYPE extends VariantType = VariantType> = {
+export type Variant<
+  TYPE extends VariantType = VariantType,
+  OPTION extends string = string,
+> = {
   type: TYPE;
   name: string;
-  value: Value<TYPE>;
-  options?: Options<TYPE>;
+  value: Value<TYPE, OPTION>;
+  options?: TYPE extends 'select' ? (OPTION[] | readonly OPTION[]) : never;
   isActive: boolean;
 };
 
@@ -111,7 +116,10 @@ export const variantsNamesAtom = createAtom(
   },
 );
 
-export const useVariant = <TYPE extends VariantType>(
+export const useVariant = <
+  TYPE extends VariantType,
+  OPTION extends string = string,
+>(
   variant: Variant<TYPE>,
 ) => {
   const [variants, { set, del, setActive }] = useAtom(variantsAtom);
@@ -129,7 +137,7 @@ export const useVariant = <TYPE extends VariantType>(
     return undefined;
   }
 
-  return variants[variant.name]?.value as Value<TYPE>;
+  return variants[variant.name]?.value as Value<TYPE, OPTION>;
 };
 
 export const useBoolean = (
@@ -138,12 +146,12 @@ export const useBoolean = (
   isActive: boolean = true,
 ) => useVariant({ type: 'boolean', name, value, isActive });
 
-export const useSelect = (
+export const useSelect = <OPTION extends string>(
   name: string,
-  options: string[],
-  value?: string,
+  options: OPTION[] | readonly OPTION[],
+  value?: OPTION,
   isActive: boolean = true,
-) => useVariant({ type: 'select', name, value, options, isActive });
+) => useVariant({ type: 'select', name, value, options, isActive }) as OPTION;
 
 export const useText = (
   name: string,

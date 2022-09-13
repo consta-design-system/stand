@@ -1,11 +1,11 @@
-.stand--StandPageVariats {
-  --stand-page-variants-board-width: 200px;
+.stand--Variats {
+  --variats-board-width: 200px;
   position: relative;
   height: 420px;
   background-color: var(--color-bg-default);
 
   &_fullScreen {
-    --stand-page-variants-board-width: 280px;
+    --variats-board-width: 280px;
     position: fixed;
     z-index: 101;
     top: 0;
@@ -39,13 +39,19 @@
   }
 
   &-Component {
-    width: 100%;
     height: calc(100% - var(--control-height-m));
-    border: none;
 
     &_fullScreen {
       height: calc(100% - var(--control-height-m) - var(--space-xs) * 2);
     }
+  }
+
+  &-Iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    border: none;
   }
 
   &-BoardWrapper {
@@ -70,10 +76,10 @@
 
   &-Overlay {
     position: absolute;
-    top: 0;
     right: 0;
     left: 0;
     bottom: 0;
+    height: calc(100% - var(--control-height-m));
     background: transparent;
     pointer-events: none;
 
@@ -81,8 +87,8 @@
       pointer-events: all;
     }
 
-    @media screen and (min-width: 900px) {
-      display: none;
+    &_fullScreen {
+      height: calc(100% - var(--control-height-m) - var(--space-xs) * 2);
     }
   }
 
@@ -91,14 +97,14 @@
     top: 0;
     left: 0;
     overflow-y: auto;
-    width: var(--stand-page-variants-board-width);
+    width: var(--variats-board-width);
     height: 100%;
     padding-right: var(--space-l);
     background: var(--color-bg-default);
     border-right: 1px solid var(--color-bg-border);
     opacity: 0;
     transition: transform 0.25s, opacity 0.25s;
-    transform: translateX(calc(var(--stand-page-variants-board-width) * -1));
+    transform: translateX(calc(var(--variats-board-width) * -1));
 
     &_open {
       opacity: 1;
@@ -117,5 +123,9 @@
       box-shadow: none;
       transform: none;
     }
+  }
+
+  &-ResolutionsMenu {
+    z-index: 102;
   }
 }

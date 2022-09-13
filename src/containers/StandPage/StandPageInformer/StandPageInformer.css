@@ -15,8 +15,9 @@
 
   &-Link {
     color: var(--color-typo-link);
-    transition: 0.3s ease;
     text-decoration: underline;
+    transition: 0.3s ease;
+
     &_deprecated {
       color: var(--color-typo-primary);
     }

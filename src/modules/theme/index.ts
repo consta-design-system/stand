@@ -39,3 +39,26 @@ export const themeAtom = createAtom(
     return state;
   },
 );
+
+export const htmlModsAtom = createAtom(
+  {
+    add: (payload: { name: string; value: string | boolean | undefined }) =>
+      payload,
+    del: (payload: string) => payload,
+  },
+  ({ onAction }, state: Record<string, string | boolean | undefined> = {}) => {
+    onAction('add', ({ name, value }) => {
+      state = { ...state, [name]: value };
+    });
+
+    onAction('del', (payload) => {
+      if (payload in state) {
+        const newState = { ...state };
+        delete newState[payload];
+        state = newState;
+      }
+    });
+
+    return state;
+  },
+);
