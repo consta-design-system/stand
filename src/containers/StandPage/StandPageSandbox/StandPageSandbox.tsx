@@ -6,18 +6,20 @@ import React from 'react';
 
 import { cn } from '##/utils/bem';
 
+const DEFAULT_SANDBOX_LINK = 'https://codesandbox.io/embed';
+
 type Props = {
-  link?: string;
+  id?: string;
   className?: string;
 };
 
 const cnStandPageSandbox = cn('StandPageSandbox');
 
 export const StandPageSandbox = (props: Props) => {
-  const { link, className } = props;
+  const { id, className } = props;
   const [isLoading, setIsLoading] = useFlag(true);
 
-  if (!link) {
+  if (!id) {
     return null;
   }
 
@@ -26,7 +28,7 @@ export const StandPageSandbox = (props: Props) => {
       <iframe
         onLoad={setIsLoading.off}
         className={cnStandPageSandbox('Frame')}
-        src={link}
+        src={`${DEFAULT_SANDBOX_LINK}/${id}`}
         allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       />
