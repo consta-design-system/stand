@@ -1,10 +1,10 @@
 .stand--StandPage {
   &-Navigation {
-    margin-bottom: var(--space-3xl);
+    margin-bottom: calc(var(--space-l) * 2.5);
   }
 
   &-Informer {
-    margin-bottom: var(--space-3xl);
+    margin-bottom: calc(var(--space-l) * 2.5);
   }
 
   &-Figma {

@@ -1,4 +1,8 @@
 .stand--Blockquote {
-  padding-left: var(--space-xs);
-  border-left: var(--space-2xs) solid var(--color-bg-border);
+  padding: var(--space-2xs) var(--space-m);
+  background: var(--color-bg-secondary);
+  border-left: var(--space-2xs) solid var(--color-bg-system);
+  border-radius: var(--control-radius);
+  font-size: var(--size-text-m);
+  line-height: var(--line-height-text-m);
 }

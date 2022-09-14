@@ -1,15 +1,18 @@
 import './SideLinks.css';
 
+import { A } from '@consta/stand/src/typography/A';
 import { Button } from '@consta/uikit/Button';
 import { IconComponent } from '@consta/uikit/Icon';
 import { IconForward } from '@consta/uikit/IconForward';
-import { RenderItemProps, Tabs } from '@consta/uikit/TabsCanary';
+import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useRoute } from 'react-router5';
 
 import { useMdxLink } from '##/hooks/useMdxLink';
-import { MenuItem, useMenu } from '##/hooks/useMenu';
-import { activeItemAtom } from '##/modules/menuMdx';
+import { useMenu } from '##/hooks/useMenu';
+import { menuMdxAtom } from '##/modules/menuMdx';
+import { standAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
 const cnSideLinks = cn('SideLinks');
@@ -43,36 +46,46 @@ const LinkItem = (props: LinkItemProps) => {
 };
 
 export const SideLinks = () => {
-  const { menu, links } = useMenu();
-  const [activeItem] = useAtom(activeItemAtom);
+  const { links } = useMenu();
+  const [menuMdx] = useAtom(menuMdxAtom);
+  const [stand] = useAtom(standAtom);
 
-  const renderItem = (props: RenderItemProps<MenuItem>) => {
-    const {
-      item: { href, label },
-      checked,
-    } = props;
-    return (
-      <LinkItem
-        className={cnSideLinks('ListItem', { checked })}
-        label={label}
-        href={href}
-      />
-    );
-  };
+  const { route } = useRoute();
+
+  const hash = useMemo(() => {
+    return `${route.params?.hash}`;
+  }, [route.params]);
+
+  const activeLinkStyle = `.stand--SideLinks-Menu a[href$="${encodeURI(
+    hash,
+  )}"] {
+    color: var(--color-typo-brand);
+  }`;
 
   return (
     <div className={cnSideLinks()}>
-      {menu.length > 0 && (
-        <Tabs
-          linePosition="left"
-          className={cnSideLinks('List')}
-          items={menu}
-          size="s"
-          value={activeItem}
-          renderItem={renderItem}
-          onChange={() => {}}
-        />
-      )}
+      <style>{activeLinkStyle}</style>
+      <Text
+        size="xs"
+        lineHeight="s"
+        view="ghost"
+        transform="uppercase"
+        weight="semibold"
+        className={cnSideLinks('Header')}
+      >
+        Содержание
+      </Text>
+      <div className={cnSideLinks('Menu')}>
+        {stand && (
+          <A
+            className={cnSideLinks('MenuItem')}
+            href={`#${stand.stand.title.toLowerCase()}`}
+          >
+            {stand.stand.title}
+          </A>
+        )}
+        {menuMdx}
+      </div>
       {links && (
         <div className={cnSideLinks('Links')}>
           {links?.map(({ label, href }) => (

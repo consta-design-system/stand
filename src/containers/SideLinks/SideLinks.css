@@ -1,45 +1,61 @@
 .stand--SideLinks {
   width: 100%;
 
-  & > *:not(:last-child) {
-    margin-bottom: calc(var(--space-xl) + var(--space-2xs));
-  }
-
-  &-List {
+  &-Header {
+    box-sizing: border-box;
     width: 100%;
-    padding-left: var(--space-xs);
+    padding: calc(var(--space-m) - var(--space-3xs)) var(--space-l);
   }
 
-  & .TabsLine.TabsLine_type_running {
-    left: calc(0% - var(--space-xs));
-  }
+  &-Menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
 
-  & .Tabs-List {
-    padding: 0;
-  }
+    & > ul > li {
+      & > a {
+        padding-left: calc(var(--space-l) * 1.5);
+      }
 
-  &-ListItem.Button {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-xs) 0;
-    padding-left: var(--space-2xs);
-    color: var(--color-typo-secondary);
-    background-color: transparent;
-    border: none;
-    font-family: var(--font);
-    font-size: var(--size-text-s);
-    line-height: var(--line-height-text-s);
-    text-align: left;
-    cursor: pointer;
-    transition: color 0.2s;
-
-    &:hover {
-      color: var(--color-typo-primary);
-      background-color: transparent;
+      & > ul > li > a {
+        padding-left: calc(var(--space-l) * 2);
+      }
     }
 
-    &.stand--SideLinks-ListItem_checked {
+    & .stand--Ul .stand--Ul {
+      margin-left: 0;
+    }
+
+    & a {
+      font-size: var(--size-text-s);
+    }
+
+    & ul,
+    & li {
+      width: 100%;
+    }
+  }
+
+  &-MenuItem.Text {
+    box-sizing: border-box;
+    width: 100%;
+    padding: calc(var(--space-s) - var(--space-3xs)) var(--space-l);
+    color: var(--color-typo-primary);
+  }
+
+  & li {
+    width: 100%;
+    list-style: none;
+
+    & a {
+      display: flex;
+      box-sizing: border-box;
+      width: 100%;
+      padding-top: calc(var(--space-s) - var(--space-3xs));
+      padding-right: var(--space-l);
+      padding-bottom: calc(var(--space-s) - var(--space-3xs));
       color: var(--color-typo-primary);
     }
   }

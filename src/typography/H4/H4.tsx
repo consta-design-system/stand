@@ -23,7 +23,7 @@ export const H4 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       as="h4"
       size="xl"
       weight="semibold"
-      lineHeight="m"
+      lineHeight="xs"
       {...otherProps}
     >
       <CopyButton href={`#${id}`} className={cnH4('CopyButton')} />

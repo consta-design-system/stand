@@ -5,6 +5,7 @@ export type RouterItem = {
 
 const routesNames = {
   LIBS: 'LIBS',
+  LIBS_VARIANTS: 'LIBS.VARIANTS',
   LIBS_STAND: 'LIBS.STAND',
   LIBS_STAND_DESIGN: 'LIBS.STAND.DESIGN',
   LIBS_STAND_DEV: 'LIBS.STAND.DEV',
@@ -18,8 +19,12 @@ export const createRoutes = (path = '/libs') => {
       path: `${path}?:hash`,
     },
     {
+      name: routesNames.LIBS_VARIANTS,
+      path: `/variants/:stand`,
+    },
+    {
       name: routesNames.LIBS_STAND,
-      path: '/:stand?:hash',
+      path: '/:stand?:hash?:variants',
     },
     {
       name: routesNames.LIBS_STAND_DESIGN,

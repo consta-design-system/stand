@@ -6,6 +6,7 @@ import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { Stand } from '##/exportTypes';
+import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
 
 type Props = {
@@ -55,9 +56,7 @@ export const StandPageHeader = (props: Props) => {
   return (
     <div className={cnStandPageHeader(null, [className])}>
       <div className={cnStandPageHeader('Top')}>
-        <Text weight="semibold" size="4xl" lineHeight="m">
-          {title}
-        </Text>
+        <H1>{title}</H1>
         <div className={cnStandPageHeader('Badges')}>
           {getStatus(status) && (
             <Badge

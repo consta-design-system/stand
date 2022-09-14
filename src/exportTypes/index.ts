@@ -60,6 +60,7 @@ export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
     dev: boolean;
     design: boolean;
     image: boolean;
+    variants: boolean;
   };
 };
 

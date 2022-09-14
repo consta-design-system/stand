@@ -1,7 +1,6 @@
 .stand--H5 {
   position: relative;
   width: max-content;
-  margin-bottom: var(--space-m);
 
   &:hover {
     & .stand--H5-CopyButton {
@@ -10,7 +9,7 @@
   }
 
   &-CopyButton {
-    top: var(--space-2xs);
+    top: var(--space-3xs);
     opacity: 1;
     transition: opacity 0.3s;
 

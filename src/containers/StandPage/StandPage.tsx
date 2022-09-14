@@ -1,10 +1,11 @@
 import './StandPage.css';
 
 import { StandPageDecorator } from '@consta/stand/src/containers/StandPage/StandPageDecorator';
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
 import { LazyDocs } from '##/componets/LazyDocs';
+import { Variats } from '##/containers/Variats';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
@@ -27,7 +28,7 @@ const standPathMap = {
 const getStandPath = (routerName: string, standID: string) =>
   `${standID}${standPathMap[routerName]}`;
 
-export const StandPage: React.FC = () => {
+export const StandPage: React.FC = memo(() => {
   const stand = useStand();
   const standID = stand?.path;
   const route = useRoute();
@@ -77,6 +78,9 @@ export const StandPage: React.FC = () => {
               link={stand.stand.sandbox}
             />
           )}
+        {routeName === routesNames.LIBS_STAND && stand.lazyAccess.variants && (
+          <Variats stand={route.route.params.stand as string} />
+        )}
         {((routeName === routesNames.LIBS_STAND && stand.lazyAccess.stand) ||
           (routeName === routesNames.LIBS_STAND_DESIGN &&
             stand.lazyAccess.design) ||
@@ -88,4 +92,4 @@ export const StandPage: React.FC = () => {
       </div>
     </StandPageDecorator>
   );
-};
+});
