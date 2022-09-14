@@ -23,7 +23,9 @@ export const VariantsPage: React.FC = () => {
       <Decorator theme={theme}>
         <div className={cnVariantsPage()}>
           <div className={cnVariantsPage('Bg')} />
-          <LazyVariants id={stand?.path} />
+          <div className={cnVariantsPage('Component')}>
+            <LazyVariants id={stand?.path} />
+          </div>
         </div>
       </Decorator>
     );

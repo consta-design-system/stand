@@ -1,11 +1,7 @@
 .stand--VariantsPage {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-width: 100vw;
   min-height: 100vh;
-  padding: var(--space-m);
   background: var(--color-bg-default);
 
   &-Bg {
@@ -15,5 +11,15 @@
     background: var(--color-typo-ghost);
     pointer-events: none;
     mask-image: url(./VariantsPageBg.svg);
+  }
+
+  &-Component {
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-m);
   }
 }
