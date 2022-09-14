@@ -75,7 +75,7 @@ export const StandPage: React.FC = memo(() => {
           stand.stand.sandbox && (
             <StandPageSandbox
               className={cnStandPage('SandBox')}
-              link={stand.stand.sandbox}
+              id={stand.stand.sandbox}
             />
           )}
         {routeName === routesNames.LIBS_STAND && stand.lazyAccess.variants && (
