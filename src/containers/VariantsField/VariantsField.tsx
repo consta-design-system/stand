@@ -181,7 +181,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
       getItemLabel={getItem}
       value={value}
       onChange={onChange}
-      items={options}
+      items={options as string[]}
       label={name}
       size="s"
     />
