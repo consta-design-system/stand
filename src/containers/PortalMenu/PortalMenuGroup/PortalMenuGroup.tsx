@@ -4,7 +4,7 @@ import { PortalMenuGroupProps } from '@consta/stand/src/containers/PortalMenu/ty
 import { Collapse } from '@consta/uikit/Collapse';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useFlag } from '@consta/uikit/useFlag';
-import React, { useEffect, useRef } from 'react';
+import React, { createRef, useEffect, useMemo } from 'react';
 
 import { cn } from '##/utils/bem';
 
@@ -36,13 +36,17 @@ export const PortalMenuGroup = <ITEM, GROUP>(
 
   const [isOpen, setIsOpen] = useFlag();
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  // const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (group) {
       setIsOpen[getGroupInitialOpen(group) ? 'on' : 'off']();
     }
   }, [group]);
+
+  const containerRef = useMemo(() => {
+    return createRef<HTMLDivElement>();
+  }, [group, withoutGroups]);
 
   const { height } = useComponentSize(containerRef);
 

@@ -112,36 +112,39 @@ export const LibPageMenu: React.FC = () => {
   };
 
   const getGroupIsOpen = (group: Group) => {
-    let flag = !!group.initialOpen;
-    visibleList.forEach((item) => {
-      if (item.stand.group === group.id && getItemActive(item)) {
-        flag = true;
-      }
-    });
-    return flag;
+    return !!visibleList.find(
+      (item) =>
+        (item.stand.group === group.id && getItemActive(item)) ||
+        group.initialOpen,
+    );
   };
 
   const additionalControls = () => (
     <div className={cnLibPageMenu('Controls')}>
       <div className={cnLibPageMenu('Header')}>
-        <Button
-          iconLeft={IconBento}
-          onlyIcon
-          ref={buttonRef}
-          size="s"
-          onClick={setShowLibs.toogle}
-        />
-        <ContextMenu
-          anchorRef={buttonRef}
-          onItemClick={handleLibClick}
-          items={libs}
-          isOpen={showLibs}
-          offset="xs"
-          direction="rightDown"
-          onClickOutside={setShowLibs.off}
-          getItemLabel={(item) => item.title}
-          size="m"
-        />
+        {libs?.length > 1 && (
+          <>
+            <Button
+              iconLeft={IconBento}
+              onlyIcon
+              ref={buttonRef}
+              size="s"
+              onClick={setShowLibs.toogle}
+            />
+            <ContextMenu
+              anchorRef={buttonRef}
+              onItemClick={handleLibClick}
+              items={libs}
+              isOpen={showLibs}
+              offset="xs"
+              direction="rightDown"
+              onClickOutside={setShowLibs.off}
+              getItemLabel={(item) => item.title}
+              size="m"
+            />
+          </>
+        )}
+
         <Text size="xl" lineHeight="m" view="brand" weight="semibold">
           {lib?.title}
         </Text>
