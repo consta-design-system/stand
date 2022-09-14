@@ -13,7 +13,7 @@
     top: var(--doc-layout-header-height);
     top: 0;
     left: 0;
-    overflow-y: auto;
+    overflow-y: overlay;
     width: calc(100vw - var(--space-2xl));
     max-width: var(--doc-layout-side-width);
     height: 100vh;
@@ -75,7 +75,7 @@
     position: fixed;
     top: var(--doc-layout-header-height);
     right: 0;
-    overflow-y: auto;
+    overflow-y: overlay;
     width: var(--doc-layout-side-width);
     height: calc(100vh - var(--doc-layout-header-height));
     padding: var(--space-2xl) var(--space-2xl) var(--space-xl) 0;

@@ -1,0 +1,30 @@
+.stand--PortalMenuGroup {
+    & .Collapse-LabelText {
+        text-transform: uppercase;
+        color: var(--color-typo-ghost);
+        font-size: var(--size-text-xs);
+        line-height: var(--line-height-text-s);
+        font-weight: var(--font-weight-text-semibold);
+    }
+
+    & .Collapse-Label {
+        border-bottom: 1px solid var(--color-bg-border);
+    }
+
+    & .Collapse-Content {
+        padding: 0;
+    }
+
+    & .Collapse-Icon {
+        color: var(--color-typo-ghost);
+    }
+
+    & .Collapse-Body_isOpen {
+        max-height: var(--portal-collapse-height);
+    }
+
+    &-List {
+        width: 100%;
+
+    }
+}

@@ -1,12 +1,10 @@
 import './PortalMenu.css';
 
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
-import { Text } from '@consta/uikit/Text';
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
 
 import { withDefaultGetters } from '##/containers/PortalMenu/helper';
-import { PortalMenuItem } from '##/containers/PortalMenu/PortalMenuItem/PortalMenuItem';
 import {
   DefaultMenuGroup,
   DefaultMenuItem,
@@ -15,30 +13,10 @@ import {
 } from '##/containers/PortalMenu/types';
 import { cn } from '##/utils/bem';
 
-const cnPortalMenu = cn('PortalMenu');
+import { PortalMenuGroup } from './PortalMenuGroup';
+import { PortalMenuItem } from './PortalMenuItem';
 
-const renderHeader = (
-  groupLabel: string | number | undefined,
-  first: boolean,
-): React.ReactNode | null => {
-  if (!groupLabel) {
-    if (first) {
-      return null;
-    }
-    return <div className={cnPortalMenu('Divider')} />;
-  }
-  return (
-    <Text
-      className={cnPortalMenu('Header', { first })}
-      size="xs"
-      lineHeight="m"
-      view="ghost"
-      transform="uppercase"
-    >
-      {groupLabel}
-    </Text>
-  );
-};
+const cnPortalMenu = cn('PortalMenu');
 
 const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
   props: PortalMenuProps<ITEM, GROUP>,
@@ -52,6 +30,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     groups: groupsProp,
     getGroupKey,
     getGroupLabel,
+    getGroupInitialOpen,
 
     // packages
 
@@ -68,6 +47,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     getItemParams,
 
     groupsByItems,
+    withoutGroups,
     ...otherProps
   } = withDefaultGetters(props);
 
@@ -89,22 +69,16 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     >
       {additionalControls}
       <div className={cnPortalMenu('List')}>
-        {groups.map((group, groupIndex) => (
-          <div
-            className={cnPortalMenu('Group')}
-            key={cnPortalMenu('Group', { groupIndex })}
-          >
-            {renderHeader(
-              groupsByItems
-                ? group.key
-                : group.group && getGroupLabel(group.group),
-              groupIndex === 0,
-            )}
-            {group.items.map((item, itemIndex) => (
-              <PortalMenuItem
-                key={cnPortalMenu('Item', { groupIndex, itemIndex })}
-                item={item}
-                onClick={(e) => onItemClick?.({ e, item })}
+        {groups.map(({ group, items }, groupIndex) => {
+          if (!withoutGroups && group) {
+            return (
+              <PortalMenuGroup
+                key={cnPortalMenu('Group', { groupIndex })}
+                items={items}
+                group={group}
+                getGroupInitialOpen={getGroupInitialOpen}
+                getGroupLabel={getGroupLabel}
+                onItemClick={onItemClick}
                 getItemActive={getItemActive}
                 getItemDescription={getItemDescription}
                 getItemLabel={getItemLabel}
@@ -115,9 +89,26 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
                 getItemHref={getItemHref}
                 getItemParams={getItemParams}
               />
-            ))}
-          </div>
-        ))}
+            );
+          }
+
+          return items.map((item, itemIndex) => (
+            <PortalMenuItem
+              key={cnPortalMenu('Item', { itemIndex })}
+              item={item}
+              onClick={(e) => onItemClick?.({ e, item })}
+              getItemActive={getItemActive}
+              getItemDescription={getItemDescription}
+              getItemLabel={getItemLabel}
+              getItemOnClick={getItemOnClick}
+              getItemGroupId={getItemGroupId}
+              getItemBadge={getItemBadge}
+              getItemSubMenu={getItemSubMenu}
+              getItemHref={getItemHref}
+              getItemParams={getItemParams}
+            />
+          ));
+        })}
       </div>
     </div>
   );
