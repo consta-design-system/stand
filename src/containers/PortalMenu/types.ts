@@ -138,7 +138,6 @@ export type PortalMenuGroupProps<ITEM, GROUP> = {
   group?: GROUP;
   className?: string;
   items: ITEM[];
-  withoutGroups?: boolean;
   getGroupInitialOpen: PortalMenuPropGetGroupInitialOpen<GROUP>;
   getGroupLabel: PortalMenuPropGetGroupLabel<GROUP>;
   getItemLabel: PortalMenuPropGetItemLabel<ITEM>;

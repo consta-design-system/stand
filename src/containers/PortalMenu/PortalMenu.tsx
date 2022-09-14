@@ -1,6 +1,5 @@
 import './PortalMenu.css';
 
-import { PortalMenuGroup } from '@consta/stand/src/containers/PortalMenu/PortalMenuGroup';
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
@@ -13,6 +12,9 @@ import {
   PortalMenuProps,
 } from '##/containers/PortalMenu/types';
 import { cn } from '##/utils/bem';
+
+import { PortalMenuGroup } from './PortalMenuGroup';
+import { PortalMenuItem } from './PortalMenuItem';
 
 const cnPortalMenu = cn('PortalMenu');
 
@@ -67,26 +69,46 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
     >
       {additionalControls}
       <div className={cnPortalMenu('List')}>
-        {groups.map(({ group, items }, groupIndex) => (
-          <PortalMenuGroup
-            key={cnPortalMenu('Group', { groupIndex })}
-            items={items}
-            group={group}
-            withoutGroups={withoutGroups}
-            getGroupInitialOpen={getGroupInitialOpen}
-            getGroupLabel={getGroupLabel}
-            onItemClick={onItemClick}
-            getItemActive={getItemActive}
-            getItemDescription={getItemDescription}
-            getItemLabel={getItemLabel}
-            getItemOnClick={getItemOnClick}
-            getItemGroupId={getItemGroupId}
-            getItemBadge={getItemBadge}
-            getItemSubMenu={getItemSubMenu}
-            getItemHref={getItemHref}
-            getItemParams={getItemParams}
-          />
-        ))}
+        {groups.map(({ group, items }, groupIndex) => {
+          if (!withoutGroups && group) {
+            return (
+              <PortalMenuGroup
+                key={cnPortalMenu('Group', { groupIndex })}
+                items={items}
+                group={group}
+                getGroupInitialOpen={getGroupInitialOpen}
+                getGroupLabel={getGroupLabel}
+                onItemClick={onItemClick}
+                getItemActive={getItemActive}
+                getItemDescription={getItemDescription}
+                getItemLabel={getItemLabel}
+                getItemOnClick={getItemOnClick}
+                getItemGroupId={getItemGroupId}
+                getItemBadge={getItemBadge}
+                getItemSubMenu={getItemSubMenu}
+                getItemHref={getItemHref}
+                getItemParams={getItemParams}
+              />
+            );
+          }
+
+          return items.map((item, itemIndex) => (
+            <PortalMenuItem
+              key={cnPortalMenu('Item', { itemIndex })}
+              item={item}
+              onClick={(e) => onItemClick?.({ e, item })}
+              getItemActive={getItemActive}
+              getItemDescription={getItemDescription}
+              getItemLabel={getItemLabel}
+              getItemOnClick={getItemOnClick}
+              getItemGroupId={getItemGroupId}
+              getItemBadge={getItemBadge}
+              getItemSubMenu={getItemSubMenu}
+              getItemHref={getItemHref}
+              getItemParams={getItemParams}
+            />
+          ));
+        })}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { PortalMenuGroupProps } from '@consta/stand/src/containers/PortalMenu/ty
 import { Collapse } from '@consta/uikit/Collapse';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useFlag } from '@consta/uikit/useFlag';
-import React, { createRef, useEffect, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { cn } from '##/utils/bem';
 
@@ -31,12 +31,11 @@ export const PortalMenuGroup = <ITEM, GROUP>(
     getItemParams,
     getItemSubMenu,
     onItemClick,
-    withoutGroups,
   } = props;
 
   const [isOpen, setIsOpen] = useFlag();
 
-  // const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (group) {
@@ -44,64 +43,41 @@ export const PortalMenuGroup = <ITEM, GROUP>(
     }
   }, [group]);
 
-  const containerRef = useMemo(() => {
-    return createRef<HTMLDivElement>();
-  }, [group, withoutGroups]);
-
   const { height } = useComponentSize(containerRef);
 
   return (
     <div className={cnPortalMenuGroup(null, [className])}>
-      {group && !withoutGroups ? (
-        <Collapse
-          iconPosition="right"
-          size="m"
-          directionIcon="down"
-          closeDirectionIcon="up"
-          label={group ? getGroupLabel(group) ?? '' : ''}
-          isOpen={isOpen}
-          onClick={setIsOpen.toogle}
-          style={{
-            ['--portal-collapse-height' as string]: `${height}px`,
-          }}
-        >
-          <div className={cnPortalMenuGroup('List')} ref={containerRef}>
-            {items.map((item, itemIndex) => (
-              <PortalMenuItem
-                key={cnPortalMenuGroup('Item', { itemIndex })}
-                item={item}
-                onClick={(e) => onItemClick?.({ e, item })}
-                getItemActive={getItemActive}
-                getItemDescription={getItemDescription}
-                getItemLabel={getItemLabel}
-                getItemOnClick={getItemOnClick}
-                getItemGroupId={getItemGroupId}
-                getItemBadge={getItemBadge}
-                getItemSubMenu={getItemSubMenu}
-                getItemHref={getItemHref}
-                getItemParams={getItemParams}
-              />
-            ))}
-          </div>
-        </Collapse>
-      ) : (
-        items.map((item, itemIndex) => (
-          <PortalMenuItem
-            key={cnPortalMenuGroup('Item', { itemIndex })}
-            item={item}
-            onClick={(e) => onItemClick?.({ e, item })}
-            getItemActive={getItemActive}
-            getItemDescription={getItemDescription}
-            getItemLabel={getItemLabel}
-            getItemOnClick={getItemOnClick}
-            getItemGroupId={getItemGroupId}
-            getItemBadge={getItemBadge}
-            getItemSubMenu={getItemSubMenu}
-            getItemHref={getItemHref}
-            getItemParams={getItemParams}
-          />
-        ))
-      )}
+      <Collapse
+        iconPosition="right"
+        size="m"
+        directionIcon="down"
+        closeDirectionIcon="up"
+        label={group ? getGroupLabel(group) ?? '' : ''}
+        isOpen={isOpen}
+        onClick={setIsOpen.toogle}
+        style={{
+          ['--portal-collapse-height' as string]: `${height}px`,
+        }}
+      >
+        <div className={cnPortalMenuGroup('List')} ref={containerRef}>
+          {items.map((item, itemIndex) => (
+            <PortalMenuItem
+              key={cnPortalMenuGroup('Item', { itemIndex })}
+              item={item}
+              onClick={(e) => onItemClick?.({ e, item })}
+              getItemActive={getItemActive}
+              getItemDescription={getItemDescription}
+              getItemLabel={getItemLabel}
+              getItemOnClick={getItemOnClick}
+              getItemGroupId={getItemGroupId}
+              getItemBadge={getItemBadge}
+              getItemSubMenu={getItemSubMenu}
+              getItemHref={getItemHref}
+              getItemParams={getItemParams}
+            />
+          ))}
+        </div>
+      </Collapse>
     </div>
   );
 };
