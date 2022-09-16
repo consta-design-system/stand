@@ -7,6 +7,7 @@ import { TextField } from '@consta/uikit/TextField';
 import { useAction, useAtom } from '@reatom/react';
 import React, { memo } from 'react';
 
+import { useZIndex } from '##/containers/Variants/helpers';
 import { Variant, variantsAtom, VariantType } from '##/exportAtoms/variants';
 import { cn } from '##/utils/bem';
 
@@ -25,7 +26,9 @@ const createMemoField: CreateMemoField = (component) =>
       // @ts-ignore: исползуеся только тут и только с компонентами Field
       prevProps?.value === nextProps?.value &&
       // @ts-ignore: исползуеся только тут и только с компонентами Field
-      prevProps?.isActive === nextProps?.isActive,
+      prevProps?.isActive === nextProps?.isActive &&
+      // @ts-ignore: исползуеся только тут и только с компонентами Field
+      prevProps?.style === nextProps?.style,
   ) as unknown as typeof component;
 
 const createMemoFieldForSwitch: CreateMemoField = (component) =>
@@ -39,7 +42,9 @@ const createMemoFieldForSwitch: CreateMemoField = (component) =>
       // @ts-ignore: исползуеся только тут и только с компонентами Field
       prevProps?.checked === nextProps?.checked &&
       // @ts-ignore: исползуеся только тут и только с компонентами Field
-      prevProps?.isActive === nextProps?.isActive,
+      prevProps?.isActive === nextProps?.isActive &&
+      // @ts-ignore: исползуеся только тут и только с компонентами Field
+      prevProps?.style === nextProps?.style,
   ) as unknown as typeof component;
 
 const TextFieldMemo = createMemoField(TextField);
@@ -109,6 +114,7 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
       onChange={onChange}
       label={name}
       size="s"
+      style={{ zIndex: useZIndex() }}
     />
   );
 };
@@ -131,6 +137,7 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
       onChange={onChange}
       label={name}
       size="s"
+      style={{ zIndex: useZIndex() }}
     />
   );
 };
@@ -184,6 +191,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
       items={options as string[]}
       label={name}
       size="s"
+      style={{ zIndex: useZIndex() }}
     />
   );
 };

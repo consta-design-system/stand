@@ -1,4 +1,4 @@
-import './VariatsResolutions.css';
+import './VariantsResolutions.css';
 
 import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenuCanary';
@@ -8,11 +8,12 @@ import React, { useEffect, useRef } from 'react';
 
 import { cn } from '##/utils/bem';
 
+import { useZIndex } from '../helpers';
 import { resolutionsLabels, useResolutions } from './helpers';
 
-const cnVariatsResolutions = cn('VariatsResolutions');
+const cnVariantsResolutions = cn('VariantsResolutions');
 
-export const VariatsResolutions: React.FC<{
+export const VariantsResolutions: React.FC<{
   onOpen: (open: boolean) => void;
   onSelect: (value: number) => void;
 }> = ({ onSelect, onOpen }) => {
@@ -32,6 +33,8 @@ export const VariatsResolutions: React.FC<{
     onSelect(0);
   }, [resolutions.length]);
 
+  const zIndex = useZIndex();
+
   if (!resolutions.length) {
     return null;
   }
@@ -45,7 +48,7 @@ export const VariatsResolutions: React.FC<{
         ref={refResolutionsButton}
       />
       <ContextMenu
-        className={cnVariatsResolutions('Menu')}
+        className={cnVariantsResolutions('Menu')}
         getItemLabel={(item) => resolutionsLabels[item]}
         items={resolutions}
         anchorRef={refResolutionsButton}
@@ -53,6 +56,7 @@ export const VariatsResolutions: React.FC<{
         onClickOutside={setOpenResolutionsMenu.off}
         direction="downStartRight"
         onItemClick={({ item }) => onSelect(item)}
+        style={{ zIndex }}
       />
     </>
   );

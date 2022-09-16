@@ -1,11 +1,11 @@
 import './StandPage.css';
 
 import { StandPageDecorator } from '@consta/stand/src/containers/StandPage/StandPageDecorator';
+import { Variants } from '@consta/stand/src/containers/Variants';
 import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
 import { LazyDocs } from '##/componets/LazyDocs';
-import { Variats } from '##/containers/Variats';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
@@ -79,7 +79,7 @@ export const StandPage: React.FC = memo(() => {
             />
           )}
         {routeName === routesNames.LIBS_STAND && stand.lazyAccess.variants && (
-          <Variats stand={route.route.params.stand as string} />
+          <Variants stand={route.route.params.stand as string} />
         )}
         {((routeName === routesNames.LIBS_STAND && stand.lazyAccess.stand) ||
           (routeName === routesNames.LIBS_STAND_DESIGN &&

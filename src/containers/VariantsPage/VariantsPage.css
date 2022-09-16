@@ -2,24 +2,34 @@
   position: relative;
   min-width: 100vw;
   min-height: 100vh;
-  background: var(--color-bg-default);
 
   &-Bg {
-    position: absolute;
-    min-width: 100vw;
-    min-height: 100vh;
-    background: var(--color-typo-ghost);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
     pointer-events: none;
-    mask-image: url(./VariantsPageBg.svg);
+
+    &_type {
+      &_color {
+        background: var(--color-bg-default);
+      }
+
+      &_image {
+        background: var(--color-typo-ghost);
+        mask-image: url(./VariantsPageBg.svg);
+      }
+    }
   }
 
   &-Component {
     position: absolute;
-    min-width: 100vw;
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
     padding: var(--space-m);
   }
 }

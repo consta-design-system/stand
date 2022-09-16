@@ -1,11 +1,12 @@
-.stand--Variats {
-  --variats-board-width: 200px;
+.stand--Variants {
+  --variants-board-width: 200px;
+  --variants-height: 420px;
   position: relative;
-  height: 420px;
+  height: var(--variants-height);
   background-color: var(--color-bg-default);
 
   &_fullScreen {
-    --variats-board-width: 280px;
+    --variants-board-width: 280px;
     position: fixed;
     z-index: 101;
     top: 0;
@@ -18,6 +19,12 @@
   @media screen and (min-width: 900px) {
     display: flex;
     flex-direction: row-reverse;
+  }
+
+  &-Fake {
+    &_fullScreen {
+      height: var(--variants-height);
+    }
   }
 
   &-Body {
@@ -97,14 +104,14 @@
     top: 0;
     left: 0;
     overflow-y: auto;
-    width: var(--variats-board-width);
+    width: var(--variants-board-width);
     height: 100%;
     padding-right: var(--space-l);
     background: var(--color-bg-default);
     border-right: 1px solid var(--color-bg-border);
     opacity: 0;
     transition: transform 0.25s, opacity 0.25s;
-    transform: translateX(calc(var(--variats-board-width) * -1));
+    transform: translateX(calc(var(--variants-board-width) * -1));
 
     &_open {
       opacity: 1;

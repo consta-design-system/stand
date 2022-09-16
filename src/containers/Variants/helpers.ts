@@ -1,5 +1,5 @@
 import { reatomContext, useAction } from '@reatom/react';
-import { useContext, useEffect, useRef } from 'react';
+import { createContext, useContext, useEffect, useRef } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
 import { variantsAtom } from '##/exportAtoms/variants';
@@ -87,3 +87,9 @@ export const resolutions = [
     value: 1333,
   },
 ];
+
+export const ZIndexContext = createContext<number | undefined>(undefined);
+
+export function useZIndex() {
+  return useContext(ZIndexContext);
+}
