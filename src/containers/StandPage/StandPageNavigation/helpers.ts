@@ -1,64 +1,43 @@
-import { PreparedStand } from '##/exportTypes';
-import { routesNames } from '##/modules/router';
+import { useMemo } from 'react';
+
+import { useStand } from '##/containers/StandPage/helpers';
+import { PreparedStand, StandTab } from '##/exportTypes';
 
 export type NavigationItem = {
-  label: string;
   id: string;
+  label: string;
+  sandbox?: boolean | undefined;
+  figma?: boolean | undefined;
 };
 
-const navigationList: NavigationItem[] = [
-  {
-    label: 'Обзор',
-    id: routesNames.LIBS_STAND,
-  },
-  {
-    label: 'Дизайнеру',
-    id: routesNames.LIBS_STAND_DESIGN,
-  },
-  {
-    label: 'Разработчику',
-    id: routesNames.LIBS_STAND_DEV,
-  },
-  { label: 'Песочница', id: routesNames.LIBS_STAND_SANDBOX },
-];
+const navigationItemVisible = (stand: PreparedStand, tab: StandTab) => {
+  if (!tab.id && stand?.lazyAccess.stand) {
+    return true;
+  }
+  if (tab.id && stand?.lazyAccess[tab.id]) {
+    return true;
+  }
+  if (tab.figma) {
+    return true;
+  }
+  if (tab.sandbox) {
+    return true;
+  }
+};
 
-export const getNavigationList = (stand?: PreparedStand): NavigationItem[] => {
-  if (!stand) {
+export const useNavigationList = (): NavigationItem[] => {
+  const stand = useStand();
+
+  const standTabs = stand?.lib.standTabs;
+
+  const navigationList = useMemo(() => {
+    if (stand && standTabs) {
+      return standTabs.filter((item) => navigationItemVisible(stand, item));
+    }
     return [];
-  }
-  return navigationList.filter((item) => {
-    if (item.id === routesNames.LIBS_STAND) {
-      return stand.lazyAccess.stand;
-    }
-    if (item.id === routesNames.LIBS_STAND_DESIGN) {
-      return stand.lazyAccess.design || !!stand.stand.figma;
-    }
-    if (item.id === routesNames.LIBS_STAND_DEV) {
-      return stand.lazyAccess.dev;
-    }
-    if (item.id === routesNames.LIBS_STAND_SANDBOX) {
-      return stand.stand.sandbox;
-    }
-    return false;
-  });
+  }, [stand?.id]);
+
+  return navigationList;
 };
 
-export const getGuardItemNavigate = (
-  stand: PreparedStand | undefined,
-): string | undefined => {
-  if (!stand) {
-    return;
-  }
-  if (stand?.lazyAccess.stand) {
-    return routesNames.LIBS_STAND;
-  }
-  if (stand?.lazyAccess.dev) {
-    return routesNames.LIBS_STAND_DEV;
-  }
-  if (stand?.lazyAccess.design || !!stand.stand.figma) {
-    return routesNames.LIBS_STAND_DESIGN;
-  }
-  if (stand.stand.sandbox) {
-    return routesNames.LIBS_STAND_SANDBOX;
-  }
-};
+export const getNavigationItemId = (item: NavigationItem) => `${item.id}`;

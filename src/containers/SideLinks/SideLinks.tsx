@@ -1,6 +1,5 @@
 import './SideLinks.css';
 
-import { A } from '@consta/stand/src/typography/A';
 import { Button } from '@consta/uikit/Button';
 import { IconComponent } from '@consta/uikit/Icon';
 import { IconForward } from '@consta/uikit/IconForward';
@@ -13,6 +12,7 @@ import { useMdxLink } from '##/hooks/useMdxLink';
 import { useMenu } from '##/hooks/useMenu';
 import { menuMdxAtom } from '##/modules/menuMdx';
 import { standAtom } from '##/modules/stand';
+import { A } from '##/typography/A';
 import { cn } from '##/utils/bem';
 
 const cnSideLinks = cn('SideLinks');

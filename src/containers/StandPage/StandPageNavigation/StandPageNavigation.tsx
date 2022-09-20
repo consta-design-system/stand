@@ -2,12 +2,10 @@ import { Tabs } from '@consta/uikit/TabsCanary';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
-import { useStand } from '../useStand';
-import {
-  getGuardItemNavigate,
-  getNavigationList,
-  NavigationItem,
-} from './helpers';
+import { useStand } from '##/containers/StandPage/helpers';
+import { routesNames } from '##/modules/router';
+
+import { NavigationItem, useNavigationList } from './helpers';
 
 type Props = {
   className?: string;
@@ -19,30 +17,35 @@ export const StandPageNavigation = (props: Props) => {
   const route = useRoute();
   const stand = useStand();
 
-  const navigationList = useMemo(() => getNavigationList(stand), [stand?.id]);
+  const navigationList = useNavigationList();
 
   const value = useMemo(
     () =>
-      navigationList.find(
-        (item) => item.id === route.route.name,
-      ) as NavigationItem,
+      navigationList.find((item) => {
+        if (item.id) {
+          return item.id === route.route.params.tab;
+        }
+        return routesNames.LIBS_STAND === route.route.name;
+      }) as NavigationItem,
     [route],
   );
 
   const handleClick = ({ value }: { value: NavigationItem }) => {
-    router.navigate(value.id, { stand: stand?.id });
+    if (value.id) {
+      router.navigate(routesNames.LIBS_STAND_TAB, {
+        stand: stand?.id,
+        tab: value.id,
+      });
+    } else {
+      router.navigate(routesNames.LIBS_STAND, {
+        stand: stand?.id,
+      });
+    }
   };
 
   useEffect(() => {
     if (navigationList.length === 1) {
-      const guardRouteName = getGuardItemNavigate(stand);
-      if (guardRouteName && route.route.name !== guardRouteName) {
-        router.navigate(
-          guardRouteName,
-          { stand: stand?.id },
-          { replace: true },
-        );
-      }
+      handleClick({ value: navigationList[0] });
     }
   }, [stand?.id]);
 

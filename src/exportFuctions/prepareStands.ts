@@ -1,4 +1,9 @@
-import { CreatedStand, LibWithStands, PreparedStand } from '##/exportTypes';
+import {
+  CreatedStand,
+  LibWithStands,
+  PreparedStand,
+  StandTab,
+} from '##/exportTypes';
 
 const sort = (a: CreatedStand, b: CreatedStand) => {
   if (a.stand.order && b.stand.order) {
@@ -37,40 +42,42 @@ const addToLib = (stand: PreparedStand, libs: LibWithStands[]) => {
   }
 };
 
-const getLazyAccess = (lazyAccess: string[], path: string) => {
-  const lazyAcces = {
-    stand: false,
-    dev: false,
-    design: false,
-    image: false,
-    variants: false,
-  };
+const getLazyAccess = (
+  lazyAccess: string[],
+  path: string,
+  tabs?: StandTab[],
+) => {
+  const lazyAcces: Record<string, boolean> = {};
 
-  for (let index = 0; index < lazyAccess.length; index++) {
-    const item = lazyAccess[index];
+  if (!tabs) {
+    return lazyAcces;
+  }
+
+  for (
+    let lazyAccesIndex = 0;
+    lazyAccesIndex < lazyAccess.length;
+    lazyAccesIndex++
+  ) {
+    const item = lazyAccess[lazyAccesIndex];
+
+    for (let tabsIndex = 0; tabsIndex < tabs.length; tabsIndex++) {
+      const tab = tabs[tabsIndex];
+
+      if (tab.id && item === `${path}.${tab.id}.stand.mdx`) {
+        lazyAcces[tab.id] = true;
+      }
+    }
 
     if (item === `${path}.stand.mdx`) {
       lazyAcces.stand = true;
     }
-    if (item === `${path}.dev.stand.mdx`) {
-      lazyAcces.dev = true;
-    }
-    if (item === `${path}.design.stand.mdx`) {
-      lazyAcces.design = true;
-    }
+
     if (item === `${path}.image.svg`) {
       lazyAcces.image = true;
     }
+
     if (item === `${path}.variants.tsx`) {
       lazyAcces.variants = true;
-    }
-
-    if (
-      !Object.keys(lazyAcces).find(
-        (key) => lazyAcces[key as keyof typeof lazyAcces] === false,
-      )
-    ) {
-      break;
     }
   }
 
@@ -119,7 +126,7 @@ export const prepareStands = (
         .replace(/\W|_/g, '-')
         .toLowerCase(),
       path: paths[index],
-      lazyAccess: getLazyAccess(lazyAccess, paths[index]),
+      lazyAccess: getLazyAccess(lazyAccess, paths[index], item.lib.standTabs),
     }))
     .sort(sort)
     .forEach((stand) => {

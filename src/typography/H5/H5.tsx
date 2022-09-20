@@ -1,9 +1,9 @@
 import './H5.css';
 
-import { CopyButton } from '@consta/stand/src/componets/CopyButton';
 import { Text } from '@consta/uikit/Text';
 import React, { useRef } from 'react';
 
+import { CopyButton } from '##/componets/CopyButton';
 import { useHeader } from '##/hooks/useHeader';
 import { cn } from '##/utils/bem';
 

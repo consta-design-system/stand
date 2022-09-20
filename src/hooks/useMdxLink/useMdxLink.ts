@@ -1,9 +1,9 @@
-import { LibWithStands } from '@consta/stand/src/exportTypes';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 import { useRoute, useRouter } from 'react-router5';
 import { Router, State } from 'router5';
 
+import { LibWithStands } from '##/exportTypes';
 import { buildLink } from '##/hooks/useLink';
 import { libsAtom } from '##/modules/libs';
 

@@ -1,4 +1,4 @@
-import '@consta/stand/src/containers/PortalMenu/PortalMenuItem/PortalMenuItem.css';
+import './PortalMenuItem.css';
 
 import { IconArrowDown } from '@consta/uikit/IconArrowDown';
 import { Text } from '@consta/uikit/Text';

@@ -1,11 +1,11 @@
 import './PortalMenuGroup.css';
 
-import { PortalMenuGroupProps } from '@consta/stand/src/containers/PortalMenu/types';
 import { Collapse } from '@consta/uikit/Collapse';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useEffect, useRef } from 'react';
 
+import { PortalMenuGroupProps } from '##/containers/PortalMenu/types';
 import { cn } from '##/utils/bem';
 
 import { PortalMenuItem } from '../PortalMenuItem/PortalMenuItem';

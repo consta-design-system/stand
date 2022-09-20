@@ -60,12 +60,24 @@ const createlazyVariants = async (srcWithName, standsImportPath) => {
   });
 };
 
-const createLazy = async (srcWithName, standsImportPath) => {
-  await createlazyDocs(srcWithName, standsImportPath, '.stand.mdx');
-  await createlazyDocs(srcWithName, standsImportPath, '.dev.stand.mdx');
-  await createlazyDocs(srcWithName, standsImportPath, '.design.stand.mdx');
-  await createlazyImage(srcWithName, standsImportPath);
-  await createlazyVariants(srcWithName, standsImportPath);
+const createLazy = async (srcWithName, standsImportPath, standTabs) => {
+  const promises = [
+    createlazyDocs(srcWithName, standsImportPath, '.stand.mdx'),
+    createlazyImage(srcWithName, standsImportPath),
+    createlazyVariants(srcWithName, standsImportPath),
+  ];
+
+  for (let index = 0; index < standTabs.length; index++) {
+    promises.push(
+      createlazyDocs(
+        srcWithName,
+        standsImportPath,
+        `.${standTabs[index]}.stand.mdx`,
+      ),
+    );
+  }
+
+  await Promise.all(promises);
 };
 
 const prepareStands = async ({
@@ -76,6 +88,7 @@ const prepareStands = async ({
   standsPath,
   standsImportPath,
   standsUrlPath,
+  standTabs,
 }) => {
   await remove('node_modules/@consta/stand/src/stands');
   await ensureDir('node_modules/@consta/stand/src/stands/lazyDocs/');
@@ -105,20 +118,13 @@ const prepareStands = async ({
     lazyIds += `'${srcWithName}',\n`;
 
     const docsFileStand = `${srcWithName}.stand.mdx`;
-    const docsFileStandDev = `${srcWithName}.dev.stand.mdx`;
-    const docsFileStandDesign = `${srcWithName}.design.stand.mdx`;
     const image = `${srcWithName}.image.svg`;
     const variants = `${srcWithName}.variants.tsx`;
 
     if (existsSync(docsFileStand)) {
       lazyDocsAccess += `'${docsFileStand}',\n`;
     }
-    if (existsSync(docsFileStandDev)) {
-      lazyDocsAccess += `'${docsFileStandDev}',\n`;
-    }
-    if (existsSync(docsFileStandDesign)) {
-      lazyDocsAccess += `'${docsFileStandDesign}',\n`;
-    }
+
     if (existsSync(image)) {
       lazyDocsAccess += `'${image}',\n`;
     }
@@ -126,7 +132,16 @@ const prepareStands = async ({
       lazyDocsAccess += `'${variants}',\n`;
     }
 
-    await createLazy(srcWithName, standsImportPath);
+    for (let index = 0; index < standTabs.length; index++) {
+      const tab = standTabs[index];
+      const docsFileStandTab = `${srcWithName}.${tab}.stand.mdx`;
+
+      if (existsSync(docsFileStandTab)) {
+        lazyDocsAccess += `'${docsFileStandTab}',\n`;
+      }
+    }
+
+    await createLazy(srcWithName, standsImportPath, standTabs);
   });
 
   stands += '];\n';

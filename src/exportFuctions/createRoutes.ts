@@ -7,9 +7,7 @@ const routesNames = {
   LIBS: 'LIBS',
   LIBS_VARIANTS: 'LIBS.VARIANTS',
   LIBS_STAND: 'LIBS.STAND',
-  LIBS_STAND_DESIGN: 'LIBS.STAND.DESIGN',
-  LIBS_STAND_DEV: 'LIBS.STAND.DEV',
-  LIBS_STAND_SANDBOX: 'LIBS.STAND.SANDBOX',
+  LIBS_STAND_TAB: 'LIBS.STAND.TAB',
 };
 
 export const createRoutes = (path = '/libs') => {
@@ -27,16 +25,8 @@ export const createRoutes = (path = '/libs') => {
       path: '/:stand?:hash?:variants',
     },
     {
-      name: routesNames.LIBS_STAND_DESIGN,
-      path: '/design?:hash',
-    },
-    {
-      name: routesNames.LIBS_STAND_DEV,
-      path: '/dev?:hash',
-    },
-    {
-      name: routesNames.LIBS_STAND_SANDBOX,
-      path: '/sandbox?:hash',
+      name: routesNames.LIBS_STAND_TAB,
+      path: '/:tab?:hash',
     },
   ];
 

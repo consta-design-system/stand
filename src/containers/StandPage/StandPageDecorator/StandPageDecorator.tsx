@@ -1,7 +1,7 @@
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
-import { useStand } from '##/containers/StandPage/useStand';
+import { useStand } from '##/containers/StandPage/helpers';
 import { themeAtom } from '##/modules/theme';
 
 export const StandPageDecorator: React.FC<{ children: React.ReactChild }> = ({

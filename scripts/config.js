@@ -7,4 +7,5 @@ module.exports = {
     'node_modules/@consta/stand/templates/stands.ts.template',
   standsPath: 'node_modules/@consta/stand/src/stands/index.ts',
   standsImportPath: '../../../../..',
+  standTabs: ['dev', 'design'],
 };

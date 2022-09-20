@@ -28,6 +28,13 @@ export type Stand<Group extends string = string> = {
   visibleOnLibPage?: boolean;
 };
 
+export type StandTab = {
+  id: string;
+  label: string;
+  sandbox?: boolean;
+  figma?: boolean;
+};
+
 export type Lib<GROUP extends Group> = {
   groups: readonly GROUP[];
   title: string;
@@ -45,6 +52,7 @@ export type Lib<GROUP extends Group> = {
     theme: ThemePreset;
     children: React.ReactChild;
   }) => React.ReactElement;
+  standTabs?: StandTab[];
 };
 
 export type CreatedStand = {
@@ -55,13 +63,7 @@ export type CreatedStand = {
 export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   id: string;
   path: string;
-  lazyAccess: {
-    stand: boolean;
-    dev: boolean;
-    design: boolean;
-    image: boolean;
-    variants: boolean;
-  };
+  lazyAccess: Record<string, boolean>;
 };
 
 export type LibWithStands = Lib<Group> & {
