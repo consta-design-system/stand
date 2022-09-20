@@ -17,10 +17,10 @@ const navigationItemVisible = (stand: PreparedStand, tab: StandTab) => {
   if (tab.id && stand?.lazyAccess[tab.id]) {
     return true;
   }
-  if (tab.figma) {
+  if (tab.figma && stand?.stand.figma) {
     return true;
   }
-  if (tab.sandbox) {
+  if (tab.sandbox && stand?.stand.sandbox) {
     return true;
   }
 };
