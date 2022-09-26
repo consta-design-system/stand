@@ -81,7 +81,12 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   isActive,
 }) => {
   const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({ type, value: value || undefined, name, isActive }),
+    variantsAtom.set({
+      type,
+      value: value !== undefined ? Number(value) : undefined,
+      name,
+      isActive,
+    }),
   );
 
   return (

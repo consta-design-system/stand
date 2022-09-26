@@ -10,7 +10,7 @@ export type VariantType =
   | 'date-time'
   | 'number';
 
-type Value<TYPE extends VariantType, OPTION extends string> =
+type Value<TYPE extends VariantType, OPTION extends string | number> =
   | (TYPE extends 'boolean'
       ? boolean
       : TYPE extends 'date' | 'date-time'
@@ -22,19 +22,33 @@ type Value<TYPE extends VariantType, OPTION extends string> =
       : string)
   | undefined;
 
-// type Options<TYPE extends VariantType> = TYPE extends 'select'
-//   ? string[] | readonly string[]
-//   : never;
-
 export type Variant<
   TYPE extends VariantType = VariantType,
-  OPTION extends string = string,
+  OPTION extends string | number = string,
 > = {
   type: TYPE;
   name: string;
   value: Value<TYPE, OPTION>;
-  options?: TYPE extends 'select' ? (OPTION[] | readonly OPTION[]) : never;
+  options?: OPTION[] | readonly OPTION[];
   isActive: boolean;
+};
+
+type WithUndefindValue = <T extends unknown>(
+  value: T,
+) => Exclude<T, 'undefined'> | undefined;
+
+const valueWithUndefined: WithUndefindValue = (value) => {
+  return value !== 'undefined'
+    ? (value as Exclude<typeof value, 'undefined'>)
+    : undefined;
+};
+
+type OptionsWithUndefined = <T extends unknown>(
+  value: readonly T[] | T[],
+) => Array<T | 'undefined'>;
+
+const optionsWithUndefined: OptionsWithUndefined = (options) => {
+  return ['undefined', ...options];
 };
 
 export type VariantsAtomState = Record<string, Variant>;
@@ -117,15 +131,15 @@ export const variantsNamesAtom = createAtom(
 );
 
 export const useVariant = <
-  TYPE extends VariantType,
-  OPTION extends string = string,
+  TYPE extends VariantType = VariantType,
+  OPTION extends string | number = string,
 >(
-  variant: Variant<TYPE>,
+  variant: Variant<TYPE, OPTION>,
 ) => {
   const [variants, { set, del, setActive }] = useAtom(variantsAtom);
 
   useEffect(() => {
-    set(variant);
+    set(variant as Variant);
     return () => del(variant.name);
   }, []);
 
@@ -144,14 +158,32 @@ export const useBoolean = (
   name: string,
   value?: boolean,
   isActive: boolean = true,
-) => useVariant({ type: 'boolean', name, value, isActive });
+) => useVariant({ type: 'boolean', name, value, isActive }) || false;
 
-export const useSelect = <OPTION extends string>(
+export const useSelect = <OPTION extends string | number>(
   name: string,
   options: OPTION[] | readonly OPTION[],
-  value?: OPTION,
+  value: OPTION | undefined = undefined,
   isActive: boolean = true,
-) => useVariant({ type: 'select', name, value, options, isActive }) as OPTION;
+) => {
+  const isInitValueUndefined = typeof value === 'undefined';
+
+  const optionsPrepare = isInitValueUndefined
+    ? optionsWithUndefined(options)
+    : options;
+
+  const returnedValue = useVariant({
+    type: 'select',
+    name,
+    value: isInitValueUndefined ? 'undefined' : value,
+    options: optionsPrepare,
+    isActive,
+  });
+
+  return isInitValueUndefined
+    ? valueWithUndefined(returnedValue)
+    : (returnedValue as Exclude<OPTION, 'undefined'>);
+};
 
 export const useText = (
   name: string,
