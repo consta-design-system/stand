@@ -20,12 +20,12 @@ const renderImage = (id?: Lib<Group>['id'], image?: Lib<Group>['image']) => {
     return null;
   }
   if (!id) {
-    return <Image src={image} className={cnMixSpace({ mB: '3xl' })} />;
+    return <Image src={image} className={cnMixSpace({ mB: '3xl', mT: 'l' })} />;
   }
 
   return (
     <Link to={routesNames.LIBS_STAND} params={{ stand: id }}>
-      <Image src={image} className={cnMixSpace({ mB: '3xl' })} />
+      <Image src={image} className={cnMixSpace({ mB: '3xl', mT: 'l' })} />
     </Link>
   );
 };
@@ -38,8 +38,9 @@ export const LibCard = (props: LibCardProps) => {
       <Text
         as="h3"
         size="3xl"
+        lineHeight="m"
         weight="semibold"
-        className={cnMixSpace({ mB: 'm' })}
+        className={cnMixSpace({ mB: 'l' })}
       >
         {title}
       </Text>

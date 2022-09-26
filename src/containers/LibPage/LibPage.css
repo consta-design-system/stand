@@ -1,6 +1,6 @@
 .stand--LibPage {
   &-Title {
-    margin-bottom: 0.4em;
+    margin-bottom: var(--space-xl);
   }
 
   &-Wrapper {
@@ -11,13 +11,18 @@
     }
   }
 
+  & > *:not(:last-child) {
+    margin-bottom: calc(var(--space-l) * 2.5);
+  }
+
   &-Section {
-    --gap: var(--space-l);
+    --row-gap: var(--space-l);
+    --column-gap: var(--space-xl);
     display: grid;
     width: 100%;
 
-    grid-column-gap: var(--gap);
-    grid-row-gap: var(--gap);
+    grid-column-gap: var(--column-gap);
+    grid-row-gap: var(--row-gap);
 
     grid-template-columns: 1fr;
 
