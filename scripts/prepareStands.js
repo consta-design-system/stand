@@ -80,6 +80,23 @@ const createLazy = async (srcWithName, standsImportPath, standTabs) => {
   await Promise.all(promises);
 };
 
+const getComponentDir = (dir) => {
+  const [dirStand, name] = dir.match(/.*\/(.*)\/__stand__\//) || [];
+
+  if (dirStand && name) {
+    const dirComponent = dirStand.replace('/__stand__/', '');
+
+    if (
+      existsSync(`${dirComponent}/${name}.tsx`) ||
+      existsSync(`${dirComponent}/${name}.ts`)
+    ) {
+      return dirComponent;
+    }
+  }
+
+  return '';
+};
+
 const prepareStands = async ({
   srcPath,
   packagePath,
@@ -106,16 +123,20 @@ const prepareStands = async ({
   let paths = 'export const pathsGenerated: string[] = [\n';
   let lazyIds = 'export const lazyIds: string[] = [\n';
   let lazyDocsAccess = 'export const lazyAccess: string[] = [\n';
+  let componentsDirs = 'export const componentDirs: string[] = [\n';
 
   standsFiles.forEach(async (fileName, index) => {
     const src = fileName.replace(/\.(ts|tsx)$/, '');
     const srcWithName = fileName.replace(/\.stand\.(ts|tsx)$/, '');
     const dir = fileName.replace(/[^\/]+$/g, '');
 
+    // console.log(componentFolder, dir);
+
     imports += `import stand_${index} from '${projectPath}/${src}';\n`;
     stands += `stand_${index},\n`;
     paths += `'${standsImportPath}/${dir}',\n`;
     lazyIds += `'${srcWithName}',\n`;
+    componentsDirs += `'${getComponentDir(dir)}',\n`;
 
     const docsFileStand = `${srcWithName}.stand.mdx`;
     const image = `${srcWithName}.image.svg`;
@@ -148,13 +169,15 @@ const prepareStands = async ({
   paths += '];\n';
   lazyIds += '];\n';
   lazyDocsAccess += '];\n';
+  componentsDirs += '];\n';
 
   const jsCode = template
     .replace(/#imports#/g, imports)
     .replace(/#stands#/g, stands)
     .replace(/#paths#/g, paths)
     .replace(/#lazyIds#/g, lazyIds)
-    .replace(/#lazyDocsAccess#/g, lazyDocsAccess);
+    .replace(/#lazyDocsAccess#/g, lazyDocsAccess)
+    .replace(/#componentsDirs#/g, componentsDirs);
 
   await writeFile(standsPath, jsCode);
 };
