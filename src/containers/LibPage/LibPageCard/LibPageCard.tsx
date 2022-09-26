@@ -33,8 +33,8 @@ export const LibPageCard = (props: Props) => {
           className={cnLibPageCard('Title')}
           size="l"
           view="link"
-          decoration="underline"
-          lineHeight="m"
+          weight="semibold"
+          lineHeight="xs"
         >
           {title}
         </Text>
