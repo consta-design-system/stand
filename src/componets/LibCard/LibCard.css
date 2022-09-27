@@ -1,0 +1,36 @@
+.stand--LibCard {
+    padding: var(--space-xl) var(--space-l);
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--color-bg-default);
+    border:
+      var(--control-border-width)
+      solid 
+      var(--color-bg-border);
+    border-radius: var(--control-radius);
+
+    & a {
+        text-decoration: none;
+    }
+  
+    &-Title  {
+        width: 100%;
+        flex-wrap: wrap;
+        display: flex;
+        gap: var(--space-xs);
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-Buttons {
+        margin-top: var(--space-2xl);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .Button_view_clear {
+            color: var(--color-typo-link);
+        }
+    }
+}

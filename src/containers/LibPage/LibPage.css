@@ -15,32 +15,37 @@
     margin-bottom: calc(var(--space-l) * 2.5);
   }
 
-  &-Section {
-    --row-gap: var(--space-l);
-    --column-gap: var(--space-xl);
-    display: grid;
-    width: 100%;
+  &-Lib {
+    & > *:not(:last-child) {
+      margin-bottom: var(--space-l);
+    }
+  }
 
+  &-Section {
+    width: 100%;
+    --row-gap: var(--space-xl);
+    --column-gap: var(--space-l);
+    display: grid;
     grid-column-gap: var(--column-gap);
     grid-row-gap: var(--row-gap);
-
     grid-template-columns: 1fr;
 
-    @media screen and (min-width: 460px) {
-      grid-template-columns: 1fr 1fr;
+    &_view {
+      &_card {
+        @media screen and (min-width: 460px) {
+          grid-template-columns: 1fr 1fr;
+        }
+    
+        @media screen and (min-width: 860px) {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+      }
+      &_list-item {
+        --row-gap: var(--space-l);
+
+      }
     }
 
-    @media screen and (min-width: 720px) {
-      --gap: var(--space-2xl);
-    }
-
-    @media screen and (min-width: 860px) {
-      --gap: var(--space-3xl);
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    @media screen and (min-width: 1280px) {
-      --gap: var(--space-4xl);
-    }
+   
   }
 }

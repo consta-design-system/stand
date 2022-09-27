@@ -1,18 +1,36 @@
 .stand--LibPageCard {
   width: 100%;
   box-sizing: border-box;
-  padding: var(--space-m);
+  background: var(--color-bg-default);
   border:
     var(--control-border-width)
     solid 
     var(--color-bg-border);
   border-radius: var(--control-radius);
 
+  &-Description {
+    margin-top: var(--space-xs);
+  }
+
+  &_view {
+    &_card {
+      padding: var(--space-xl) var(--space-l) var(--space-l);
+    }
+
+    &_list-item {
+      padding: var(--space-xl) var(--space-l);
+    }
+
+    &_lib-card {
+      padding: var(--space-xl) var(--space-l);
+    }
+  }
+
   &-Image {
     overflow: hidden;
     width: 100%;
     height: 120px;
-    margin-bottom: var(--space-m);
+    margin-top: var(--space-xl);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,7 +42,6 @@
 
   &-Title {
     cursor: pointer;
-    margin-bottom: var(--space-xs);
     &:hover {
       text-decoration: underline;
     }

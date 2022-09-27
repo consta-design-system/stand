@@ -1,3 +1,5 @@
+import './LibsPage.css';
+
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
@@ -28,34 +30,41 @@ export const LibsPage: React.FC = () => {
 
   return (
     <div className={cnLibsPage()}>
-      <Text
-        className={cnMixSpace({ mB: '2xl' })}
-        as="h1"
-        weight="semibold"
-        size="4xl"
-        lineHeight="m"
-      >
-        Обзор
-      </Text>
+      <div className={cnLibsPage('Title')}>
+        <Text
+          className={cnMixSpace({ mB: 'l' })}
+          as="h1"
+          weight="bold"
+          size="3xl"
+          lineHeight="m"
+        >
+          Библиотеки
+        </Text>
 
-      <Text
-        as="h2"
-        size="3xl"
-        weight="semibold"
-        className={cnMixSpace({ mB: 'xl' })}
-      >
-        Библиотеки компонентов
-      </Text>
+        <Text size="m" lineHeight="m" className={cnMixSpace({ mB: 'xl' })}>
+          Библиотеки дизайн-системы Consta для разработчиков написаны на React и
+          хранятся в репозиториях на GitHub — в открытом доступе.
+          <br />
+          <br />
+          Все сущности из этих библиотек (например, элементы интерфейса)
+          существуют в виде макетов, их можно найти в соответствующих{' '}
+          <Text
+            view="link"
+            size="m"
+            lineHeight="m"
+            as="a"
+            href="https://www.figma.com/community/file/853774806786762374"
+          >
+            библиотеках в Figma
+          </Text>
+        </Text>
+      </div>
 
-      {libs.map((lib) => (
-        <LibCard
-          key={lib.id}
-          id={lib.id}
-          title={lib.title}
-          description={lib.shortDescription || lib.description}
-          image={lib.image}
-        />
-      ))}
+      <div className={cnLibsPage('Section')}>
+        {libs.map((lib) => (
+          <LibCard lib={lib} />
+        ))}
+      </div>
     </div>
   );
 };
