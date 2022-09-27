@@ -4,7 +4,7 @@ import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
-import { LibCard } from '##/componets/LibCard';
+import { LibDescription } from '##/componets/LibDescription';
 import { libAtom } from '##/modules/lib';
 import { cn } from '##/utils/bem';
 
@@ -23,31 +23,40 @@ export const LibPage: React.FC = () => {
 
   return (
     <div className={cnLibPage(null, ['theme_gap_medium'])}>
-      <LibCard
-        title={lib.title}
-        description={lib.description || lib.shortDescription}
-        image={lib.image}
-      />
-      {groups.map((group, groupIndex) => (
-        <div key={`${cnLibPage({ groupIndex, group: group.group?.id })}`}>
-          <Text
-            className={cnLibPage('Title')}
-            size="3xl"
-            lineHeight="xs"
-            weight="bold"
-          >
-            {group.group?.title}
-          </Text>
-          <div className={cnLibPage('Section')}>
-            {group.items.map((stand, index) => (
-              <LibPageCard
-                key={`${cnLibPage({ index, stand: stand.id })}`}
-                stand={stand}
-              />
-            ))}
+      <div className={cnLibPage('Lib')}>
+        <Text size="3xl" lineHeight="m" weight="bold">
+          {lib.title}
+        </Text>
+        {(lib.shortDescription || lib.description) && (
+          <LibDescription
+            description={lib.shortDescription ?? lib.description}
+          />
+        )}
+      </div>
+      {groups.map((group, groupIndex) => {
+        const view = group.group?.view ?? 'list-item';
+        return (
+          <div key={`${cnLibPage({ groupIndex, group: group.group?.id })}`}>
+            <Text
+              className={cnLibPage('Title')}
+              size="3xl"
+              lineHeight="xs"
+              weight="bold"
+            >
+              {group.group?.title}
+            </Text>
+            <div className={cnLibPage('Section', { view })}>
+              {group.items.map((stand, index) => (
+                <LibPageCard
+                  view={view}
+                  key={`${cnLibPage({ index, stand: stand.id })}`}
+                  stand={stand}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

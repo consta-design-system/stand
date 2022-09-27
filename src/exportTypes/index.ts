@@ -6,6 +6,7 @@ export type Group = {
   title: string;
   order?: number;
   initialOpen?: boolean;
+  view?: 'lib-card' | 'card' | 'list-item';
 };
 
 export type StandStatus = 'deprecated' | 'canary' | 'stable' | 'inWork';
@@ -42,6 +43,7 @@ export type Lib<GROUP extends Group> = {
   logo?: (() => React.ReactElement | null) | string | React.FC;
   image?: (() => React.ReactElement | null) | string | React.FC;
   group?: string;
+  status?: 'deprecated' | 'stable' | 'inWork';
   description?:
     | ((props: { components?: MDXComponents }) => JSX.Element)
     | string;

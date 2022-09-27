@@ -1,51 +1,74 @@
+import './LibCard.css';
+
+import { Badge } from '@consta/uikit/Badge';
+import { Button } from '@consta/uikit/Button';
+import { IconForward } from '@consta/uikit/IconForward';
+import { IconLink } from '@consta/uikit/IconLink';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
-import { Image } from '##/componets/Image';
 import { LibDescription } from '##/componets/LibDescription';
 import { Link } from '##/componets/Link';
 import { Group, Lib } from '##/exportTypes';
 import { routesNames } from '##/modules/router';
+import { cn } from '##/utils/bem';
+
+const badgeMap = {
+  deprecated: 'Не развивается',
+  inWork: 'В работе',
+} as const;
 
 type LibCardProps = {
-  title: Lib<Group>['title'];
-  description: Lib<Group>['description'];
-  id?: Lib<Group>['id'];
-  image: Lib<Group>['image'];
+  lib: Lib<Group>;
 };
 
-const renderImage = (id?: Lib<Group>['id'], image?: Lib<Group>['image']) => {
-  if (!image) {
-    return null;
-  }
-  if (!id) {
-    return <Image src={image} className={cnMixSpace({ mB: '3xl', mT: 'l' })} />;
-  }
-
-  return (
-    <Link to={routesNames.LIBS_STAND} params={{ stand: id }}>
-      <Image src={image} className={cnMixSpace({ mB: '3xl', mT: 'l' })} />
-    </Link>
-  );
-};
+const cnLibCard = cn('LibCard');
 
 export const LibCard = (props: LibCardProps) => {
-  const { id, title, description, image } = props;
+  const { lib } = props;
+  const { title, description, id, repositoryUrl, status } = lib;
 
   return (
-    <div>
+    <div className={cnLibCard()}>
       <Text
-        as="h3"
-        size="3xl"
-        lineHeight="m"
+        as="h5"
+        size="l"
+        lineHeight="xs"
         weight="semibold"
-        className={cnMixSpace({ mB: 'l' })}
+        className={cnLibCard('Title', [cnMixSpace({ mB: 's' })])}
       >
         {title}
+        {status && status !== 'stable' && (
+          <Badge
+            label={badgeMap[status]}
+            view="filled"
+            size="s"
+            status="system"
+          />
+        )}
       </Text>
       <LibDescription description={description} />
-      {renderImage(id, image)}
+      <div className={cnLibCard('Buttons')}>
+        <Link to={routesNames.LIBS_STAND} params={{ stand: id }}>
+          <Button
+            size="s"
+            iconRight={IconForward}
+            view="ghost"
+            label="Документация"
+          />
+        </Link>
+        {repositoryUrl && (
+          <Button
+            size="s"
+            as="a"
+            href={repositoryUrl}
+            iconLeft={IconLink}
+            view="clear"
+            label="Открыть на GitHub"
+          />
+        )}
+      </div>
     </div>
   );
 };
