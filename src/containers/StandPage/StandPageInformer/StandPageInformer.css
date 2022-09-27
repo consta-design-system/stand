@@ -1,25 +1,17 @@
 .stand--StandPageInformer {
-  & a {
-    text-decoration: none;
-
-    &.stand--StandPageInformer-Link_deprecated {
-      text-decoration: underline;
-    }
-  }
-
   & .Informer-Content {
     & > *:not(:last-child) {
       margin-bottom: var(--space-xs);
     }
   }
 
+  & .Informer-Title {
+    line-height: var(--line-height-text-xs);
+  }
+
   &-Link {
     color: var(--color-typo-link);
     text-decoration: underline;
     transition: 0.3s ease;
-
-    &_deprecated {
-      color: var(--color-typo-primary);
-    }
   }
 }

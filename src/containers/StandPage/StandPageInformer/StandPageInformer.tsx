@@ -21,16 +21,10 @@ type Props = {
 
 const cnStandPageInformer = cn('StandPageInformer');
 
-const statusMap = {
-  stable: 'system',
-  canary: 'success',
-  deprecated: 'alert',
-} as const;
-
 const statusTitle = {
-  stable: 'У этого компонента есть другие версии',
-  canary: 'Это экспериментальный компонент',
-  deprecated: 'Этот компонент больше не поддерживается!',
+  stable: 'У этого компонента есть другая версия',
+  canary: 'Это совсем новый компонент',
+  deprecated: 'Этот компонент больше не поддерживается',
 } as const;
 
 export const StandPageInformer = (props: Props) => {
@@ -47,55 +41,64 @@ export const StandPageInformer = (props: Props) => {
 
   const getContent = () => {
     if (status === 'canary') {
+      if (!stable) {
+        return null;
+      }
       return (
         <>
-          Компонент имеет нестабильный API. Вы можете внести предложения{' '}
-          <Text
-            view="link"
-            size="m"
-            lineHeight="xs"
-            as="a"
-            href="https://github.com/consta-design-system/uikit/issues/new/choose"
-          >
-            в обсуждении на GitHub
+          <Text size="s" lineHeight="m">
+            В будущем он заменит стабильную версию. Всё уже работает, но
+            параметры могут немного поменяться.{' '}
+            <Text
+              view="link"
+              size="s"
+              lineHeight="m"
+              as="a"
+              href="https://github.com/consta-design-system/uikit/issues/new/choose"
+            >
+              Обсудить на GitHub
+            </Text>
+          </Text>
+          <Text size="s" lineHeight="m">
+            Стабильная версия —{' '}
+            <Link
+              to={`${routesNames.LIBS_STAND}`}
+              className={cnStandPageInformer('Link')}
+              params={{
+                stand: stable.id,
+              }}
+            >
+              {`v${stable.version} Stable`}
+            </Link>
           </Text>
         </>
       );
     }
     if (status === 'deprecated') {
+      if (!stable) {
+        return null;
+      }
       return (
-        <>
-          <Text size="m" lineHeight="xs">
-            Начиная с версии библиотеки <b>{stand?.version}</b> компонент больше
-            не поддерживается командой.
-          </Text>
-          <Text size="m" lineHeight="xs">
-            Не рекомендуем использовать его в проектах.
-          </Text>
-          {stable && (
-            <Text size="m" lineHeight="xs">
-              Стабильная версия компонента:{' '}
-              <Link
-                to={`${routesNames.LIBS_STAND}`}
-                className={cnStandPageInformer('Link', { deprecated: true })}
-                params={{
-                  stand: stable.id,
-                }}
-              >
-                {stable.version}
-              </Link>
-              .
-            </Text>
-          )}
-        </>
+        <Text size="s" lineHeight="m">
+          Лучше использовать актуальную версию —{' '}
+          <Link
+            to={`${routesNames.LIBS_STAND}`}
+            className={cnStandPageInformer('Link')}
+            params={{
+              stand: stable.id,
+            }}
+          >
+            {`v${stable.version} Stable`}
+          </Link>
+        </Text>
       );
     }
     if (status === 'stable') {
       return (
         <>
           {deprecated && (
-            <Text size="m" lineHeight="xs">
-              Устаревшие (deprecated):{' '}
+            <Text size="s" lineHeight="m">
+              Устаревшая —{' '}
               <Link
                 to={`${routesNames.LIBS_STAND}`}
                 className={cnStandPageInformer('Link')}
@@ -103,13 +106,13 @@ export const StandPageInformer = (props: Props) => {
                   stand: deprecated.id,
                 }}
               >
-                {deprecated.version}
+                {`v${deprecated.version} Deprecated`}
               </Link>
             </Text>
           )}
           {canary && (
-            <Text size="m" lineHeight="xs">
-              Обновленные (canary):{' '}
+            <Text size="s" lineHeight="m">
+              Новая —{' '}
               <Link
                 to={`${routesNames.LIBS_STAND}`}
                 className={cnStandPageInformer('Link')}
@@ -117,7 +120,7 @@ export const StandPageInformer = (props: Props) => {
                   stand: canary.id,
                 }}
               >
-                {canary.version}
+                {`v${canary.version} Canary`}
               </Link>
             </Text>
           )}
@@ -130,10 +133,10 @@ export const StandPageInformer = (props: Props) => {
     <Informer
       title={statusTitle[status]}
       className={cnStandPageInformer(null, [className])}
-      view={status !== 'canary' ? 'filled' : 'bordered'}
+      view="filled"
       label={getContent()}
-      status={statusMap[status]}
-      icon={status === 'stable' ? IconAlert : undefined}
+      status="system"
+      icon={IconAlert}
       size="s"
     />
   );
