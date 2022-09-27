@@ -88,6 +88,7 @@ export const prepareStands = (
   initStands: CreatedStand[],
   paths: string[],
   lazyAccess: string[],
+  componentDirs: string[],
 ) => {
   const stands: Record<string, PreparedStand> = {};
   const libs: LibWithStands[] = [];
@@ -127,6 +128,7 @@ export const prepareStands = (
         .toLowerCase(),
       path: paths[index],
       lazyAccess: getLazyAccess(lazyAccess, paths[index], item.lib.standTabs),
+      componentDir: componentDirs[index] || undefined,
     }))
     .sort(sort)
     .forEach((stand) => {

@@ -53,6 +53,7 @@ export type Lib<GROUP extends Group> = {
     children: React.ReactChild;
   }) => React.ReactElement;
   standTabs?: StandTab[];
+  repositoryUrl?: string;
 };
 
 export type CreatedStand = {
@@ -64,6 +65,7 @@ export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   id: string;
   path: string;
   lazyAccess: Record<string, boolean>;
+  componentDir?: string;
 };
 
 export type LibWithStands = Lib<Group> & {

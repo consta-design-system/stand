@@ -1,26 +1,25 @@
 import './StandPageFooter.css';
 
-import { Button } from '@consta/uikit/Button';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { cn } from '##/utils/bem';
 
+import { useFooter } from './helpers';
+
 type Props = {
-  onSPAClick?: (status: 'success' | 'cancel') => void;
-  githubLink?: string;
   className?: string;
 };
-
-const defaultLink = 'https://github.com/consta-design-system/uikit';
 
 const cnStandPageFooter = cn('StandPageFooter');
 
 export const StandPageFooter = (props: Props) => {
-  const { onSPAClick, githubLink, className } = props;
+  const { className } = props;
+  const { componentUrl, docsUrl } = useFooter();
+
   return (
     <div className={cnStandPageFooter(null, [className])}>
-      {onSPAClick && (
+      {/* {onSPAClick && (
         <div className={cnStandPageFooter('SPA')}>
           <Text size="2xl" lineHeight="m" weight="semibold">
             Полезная информация?
@@ -40,7 +39,7 @@ export const StandPageFooter = (props: Props) => {
             />
           </div>
         </div>
-      )}
+      )} */}
       <div className={cnStandPageFooter('Container')}>
         <Text size="2xl" lineHeight="m" weight="bold" view="brand">
           Открытая дизайн-система
@@ -50,19 +49,34 @@ export const StandPageFooter = (props: Props) => {
             Consta — open source с первого дня так <br />
             что, давай, контрибьють, не стесняйся
           </Text>
-          <Text size="m" lineHeight="m">
-            Эта статья{' '}
-            <Text
-              as="a"
-              view="link"
-              href={githubLink ?? defaultLink}
-              size="m"
-              lineHeight="m"
-            >
-              в репозитории
-            </Text>{' '}
-            на Github
-          </Text>
+          {(componentUrl || docsUrl) && (
+            <div>
+              {componentUrl && (
+                <Text
+                  as="a"
+                  view="link"
+                  href={componentUrl}
+                  size="m"
+                  lineHeight="m"
+                  display="block"
+                >
+                  Этот компонент на GitHub
+                </Text>
+              )}
+              {docsUrl && (
+                <Text
+                  display="block"
+                  as="a"
+                  view="link"
+                  href={docsUrl}
+                  size="m"
+                  lineHeight="m"
+                >
+                  Эта страница на GitHub
+                </Text>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
