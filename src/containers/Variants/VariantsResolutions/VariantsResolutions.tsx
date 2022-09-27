@@ -1,7 +1,7 @@
 import './VariantsResolutions.css';
 
 import { Button } from '@consta/uikit/Button';
-import { ContextMenu } from '@consta/uikit/ContextMenuCanary';
+import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconLaptop } from '@consta/uikit/IconLaptop';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useEffect, useRef } from 'react';

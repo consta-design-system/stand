@@ -2,7 +2,7 @@ import './LibPageMenu.css';
 
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
-import { ContextMenu } from '@consta/uikit/ContextMenuCanary';
+import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconBackward } from '@consta/uikit/IconBackward';
 import { IconBento } from '@consta/uikit/IconBento';
 import { IconSearch } from '@consta/uikit/IconSearch';

@@ -1,6 +1,6 @@
 import './VariantsField.css';
 
-import { DatePicker } from '@consta/uikit/DatePickerCanary';
+import { DatePicker } from '@consta/uikit/DatePicker';
 import { Select } from '@consta/uikit/Select';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';

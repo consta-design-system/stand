@@ -1,4 +1,4 @@
-import { Tabs } from '@consta/uikit/TabsCanary';
+import { Tabs } from '@consta/uikit/Tabs';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
