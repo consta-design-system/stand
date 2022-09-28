@@ -69,6 +69,7 @@
   }
 
   &-Param {
+    display: inline-block;
     white-space: pre-wrap;
     word-break: break-word;
   }
