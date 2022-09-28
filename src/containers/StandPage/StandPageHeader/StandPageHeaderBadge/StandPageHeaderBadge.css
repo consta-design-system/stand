@@ -1,0 +1,5 @@
+.stand--StandPageHeaderBadge {
+  &-Tooltip {
+    max-width: 220px;
+  }
+}
