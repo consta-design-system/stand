@@ -1,11 +1,17 @@
 .stand--H3 {
   position: relative;
   width: max-content;
+  max-width: 100%;
 
   &:hover {
     & .stand--H3-CopyButton {
       opacity: 1;
     }
+  }
+
+  &,
+  & * {
+    white-space: pre-wrap;
   }
 
   &-CopyButton {

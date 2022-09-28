@@ -1,11 +1,17 @@
 .stand--H6 {
   position: relative;
   width: max-content;
+  max-width: 100%;
 
   &:hover {
     & .stand--H6-CopyButton {
       opacity: 1;
     }
+  }
+
+  &,
+  & * {
+    white-space: pre-wrap;
   }
 
   &-CopyButton {
