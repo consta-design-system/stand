@@ -16,7 +16,7 @@ const resolutionsValues = [0, 320, 960, 1333];
 
 const breakpointsForHook = transoformResolutionsForHook(resolutionsValues);
 
-export const resolutionsLabels: Record<number, string> = {
+const resolutionsLabels: Record<number, string> = {
   0: 'Без ограничений',
   320: 'Телефон',
   960: 'Планшет',
@@ -39,3 +39,6 @@ export const useResolutions = () => {
     ),
   );
 };
+
+export const getItemLabel = (item: number) => resolutionsLabels[item];
+export const getItemKey = (item: number) => item;

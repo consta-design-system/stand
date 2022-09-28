@@ -2,7 +2,7 @@ import { CreatedStand, Group, Lib, Stand, StandTab } from '##/exportTypes';
 
 const defaultStandTabs: StandTab[] = [
   { id: '', label: 'Обзор' },
-  { id: 'dev', label: 'Разрабодчикам' },
+  { id: 'dev', label: 'Разработчикам' },
   { id: 'design', label: 'Дизайнерам', figma: true },
   { id: 'sandbox', label: 'Песочница', sandbox: true },
 ];

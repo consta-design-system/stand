@@ -9,7 +9,7 @@ import React, { useEffect, useRef } from 'react';
 import { cn } from '##/utils/bem';
 
 import { useZIndex } from '../helpers';
-import { resolutionsLabels, useResolutions } from './helpers';
+import { getItemKey, getItemLabel, useResolutions } from './helpers';
 
 const cnVariantsResolutions = cn('VariantsResolutions');
 
@@ -49,7 +49,8 @@ export const VariantsResolutions: React.FC<{
       />
       <ContextMenu
         className={cnVariantsResolutions('Menu')}
-        getItemLabel={(item) => resolutionsLabels[item]}
+        getItemLabel={getItemLabel}
+        getItemKey={getItemKey}
         items={resolutions}
         anchorRef={refResolutionsButton}
         isOpen={openResolutionsMenu}
