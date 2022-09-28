@@ -1,7 +1,7 @@
 import './StandPageHeader.css';
 
-import { Badge } from '@consta/uikit/Badge';
-import { IconYoutube } from '@consta/uikit/IconYoutube';
+import { StandPageHeaderBadge } from '@consta/stand/src/containers/StandPage/StandPageHeader/StandPageHeaderBadge';
+import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
@@ -26,6 +26,16 @@ const getLabel = (status: Stand['status']): string | undefined => {
   if (status === 'stable') {
     return 'Стабильный';
   }
+  if (status === 'inWork') {
+    return 'В работе';
+  }
+};
+
+const tooltipMessage = {
+  stable: 'Это основная версия компонента, рекомендуем использовать',
+  deprecated: 'Это устаревшая версия компонента, лучше использовать стабильную',
+  canary: 'Это совсем новый компонент, параметры могут поменяться',
+  inWork: 'Этот компонент пока находится в разработке',
 };
 
 const getStatus = (status: Stand['status']) => {
@@ -58,21 +68,20 @@ export const StandPageHeader = (props: Props) => {
       <div className={cnStandPageHeader('Top')}>
         <H1>{title}</H1>
         <div className={cnStandPageHeader('Badges')}>
-          {getStatus(status) && (
-            <Badge
+          {status && getStatus(status) && (
+            <StandPageHeaderBadge
               size="l"
               label={getLabel(status)}
               status={getStatus(status)}
               view={getView(status)}
+              tooltipText={tooltipMessage[status]}
             />
           )}
           {version && (
-            <Badge
-              size="l"
+            <StandPageHeaderBadge
               label={`Доступен с ${version}`}
-              icon={IconYoutube}
-              status="system"
-              view="stroked"
+              icon={IconQuestion}
+              tooltipText="В этой версии Consta компонент был впервые опубликован"
             />
           )}
         </div>
