@@ -41,13 +41,12 @@ export const StandPageFooter = (props: Props) => {
         </div>
       )} */}
       <div className={cnStandPageFooter('Container')}>
-        <Text size="2xl" lineHeight="m" weight="bold" view="brand">
+        <Text size="l" lineHeight="l" weight="bold">
           Открытая дизайн-система
         </Text>
         <div className={cnStandPageFooter('Links')}>
           <Text size="m" lineHeight="m">
-            Consta — open source с первого дня так <br />
-            что, давай, контрибьють, не стесняйся
+            Предлагайте доработки - будем рады контрибьюторам
           </Text>
           {(componentUrl || docsUrl) && (
             <div>

@@ -88,7 +88,7 @@ export const StandPageInformer = (props: Props) => {
               stand: stable.id,
             }}
           >
-            {`v${stable.version} Stable`}
+            Stable
           </Link>
         </Text>
       );
@@ -106,7 +106,7 @@ export const StandPageInformer = (props: Props) => {
                   stand: deprecated.id,
                 }}
               >
-                {`v${deprecated.version} Deprecated`}
+                Deprecated
               </Link>
             </Text>
           )}
@@ -120,7 +120,7 @@ export const StandPageInformer = (props: Props) => {
                   stand: canary.id,
                 }}
               >
-                {`v${canary.version} Canary`}
+                Canary
               </Link>
             </Text>
           )}
