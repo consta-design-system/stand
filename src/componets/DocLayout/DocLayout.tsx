@@ -7,6 +7,8 @@ import React, { useEffect } from 'react';
 import { openLeftSide } from '##/exportAtoms/layout';
 import { cn } from '##/utils/bem';
 
+import { DocLayoutRightSide } from './DocLayoutRightSide';
+
 const cnDocLayout = cn('DocLayout');
 
 export const DocLayout: React.FC<{
@@ -19,7 +21,6 @@ export const DocLayout: React.FC<{
 
   const breakpoints = useBreakpoints({
     l: 1364,
-    xl: 1690,
   });
 
   useEffect(() => {
@@ -42,9 +43,7 @@ export const DocLayout: React.FC<{
       <div className={cnDocLayout('Content')}>
         <div className={cnDocLayout('Paper')}>{props.children}</div>
       </div>
-      {breakpoints.xl && (
-        <div className={cnDocLayout('RightSide')}>{props.rightSide}</div>
-      )}
+      <DocLayoutRightSide>{props.rightSide}</DocLayoutRightSide>
     </div>
   );
 };

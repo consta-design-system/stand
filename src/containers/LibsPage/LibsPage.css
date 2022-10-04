@@ -1,27 +1,27 @@
 .stand--LibsPage {
-    & > *:not(:last-child) {
-        margin-bottom: calc(var(--space-l) * 2.5);
+  & > *:not(:last-child) {
+    margin-bottom: calc(var(--space-l) * 2.5);
+  }
+
+  & a {
+    text-decoration: none;
+  }
+
+  &-Section {
+    --row-gap: var(--space-xl);
+    --column-gap: var(--space-l);
+    display: grid;
+    width: 100%;
+    grid-column-gap: var(--column-gap);
+    grid-row-gap: var(--row-gap);
+    grid-template-columns: 1fr;
+
+    @media screen and (min-width: 460px) {
+      grid-template-columns: 1fr;
     }
 
-    & a {
-        text-decoration: none;
+    @media screen and (min-width: 860px) {
+      grid-template-columns: 1fr 1fr;
     }
-
-    &-Section {
-        width: 100%;
-        display: grid;
-        --row-gap: var(--space-xl);
-        --column-gap: var(--space-l);
-        grid-column-gap: var(--column-gap);
-        grid-row-gap: var(--row-gap);
-        grid-template-columns: 1fr;
-
-        @media screen and (min-width: 460px) {
-            grid-template-columns: 1fr;
-        }
-
-        @media screen and (min-width: 860px) {
-            grid-template-columns: 1fr 1fr;
-          }
-    }
+  }
 }

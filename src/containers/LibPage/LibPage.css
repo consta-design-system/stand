@@ -22,10 +22,10 @@
   }
 
   &-Section {
-    width: 100%;
     --row-gap: var(--space-xl);
     --column-gap: var(--space-l);
     display: grid;
+    width: 100%;
     grid-column-gap: var(--column-gap);
     grid-row-gap: var(--row-gap);
     grid-template-columns: 1fr;
@@ -35,17 +35,15 @@
         @media screen and (min-width: 460px) {
           grid-template-columns: 1fr 1fr;
         }
-    
+
         @media screen and (min-width: 860px) {
           grid-template-columns: 1fr 1fr 1fr;
         }
       }
+
       &_list-item {
         --row-gap: var(--space-l);
-
       }
     }
-
-   
   }
 }

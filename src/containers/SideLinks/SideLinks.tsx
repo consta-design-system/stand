@@ -1,104 +1,70 @@
 import './SideLinks.css';
 
 import { Button } from '@consta/uikit/Button';
-import { IconComponent } from '@consta/uikit/Icon';
 import { IconForward } from '@consta/uikit/IconForward';
-import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
-import React, { useMemo } from 'react';
-import { useRoute } from 'react-router5';
+import React from 'react';
 
-import { useMdxLink } from '##/hooks/useMdxLink';
-import { useMenu } from '##/hooks/useMenu';
-import { menuMdxAtom } from '##/modules/menuMdx';
-import { standAtom } from '##/modules/stand';
-import { A } from '##/typography/A';
+import { MdxMenuTransfer } from '##/containers/MdxMenuTransfer';
+import {
+  componentRepositoryUrlAtom,
+  figmaAtom,
+  issueRepositoryUrlAtom,
+} from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
 const cnSideLinks = cn('SideLinks');
 
 type LinkItemProps = {
-  href: string;
-  className?: string;
-  label?: string;
-  target?: string;
-  iconRight?: IconComponent;
+  href?: string;
+  label: string;
 };
 
-const LinkItem = (props: LinkItemProps) => {
-  const { href: hrefProp, label, className, target, iconRight } = props;
-
-  const [href, onClick] = useMdxLink(hrefProp);
-
+const LinkItem = ({ href, label }: LinkItemProps) => {
   return (
     <Button
       as="a"
       href={href}
-      view="clear"
+      view="ghost"
       size="s"
-      target={target}
-      iconRight={iconRight}
-      onClick={onClick}
-      className={className}
+      target="_blank"
+      iconRight={IconForward}
       label={label}
+      width="full"
     />
   );
 };
 
-export const SideLinks = () => {
-  const { links } = useMenu();
-  const [menuMdx] = useAtom(menuMdxAtom);
-  const [stand] = useAtom(standAtom);
-
-  const { route } = useRoute();
-
-  const hash = useMemo(() => {
-    return `${route.params?.hash}`;
-  }, [route.params]);
-
-  const activeLinkStyle = `.stand--SideLinks-Menu a[href$="${encodeURI(
-    hash,
-  )}"] {
-    color: var(--color-typo-brand);
-  }`;
+const Links = () => {
+  const links: LinkItemProps[] = [
+    {
+      label: 'Открыть в Figma',
+      href: useAtom(figmaAtom)[0],
+    },
+    {
+      label: 'Открыть на GitHub',
+      href: useAtom(componentRepositoryUrlAtom)[0],
+    },
+    {
+      label: 'Сообщить о проблеме',
+      href: useAtom(issueRepositoryUrlAtom)[0],
+    },
+  ].filter((item) => Boolean(item.href));
 
   return (
+    <div className={cnSideLinks('Links')}>
+      {links.map((props, index) => (
+        <LinkItem key={cnSideLinks({ index })} {...props} />
+      ))}
+    </div>
+  );
+};
+
+export const SideLinks = () => {
+  return (
     <div className={cnSideLinks()}>
-      <style>{activeLinkStyle}</style>
-      <Text
-        size="xs"
-        lineHeight="s"
-        view="ghost"
-        transform="uppercase"
-        weight="semibold"
-        className={cnSideLinks('Header')}
-      >
-        Содержание
-      </Text>
-      <div className={cnSideLinks('Menu')}>
-        {stand && (
-          <A
-            className={cnSideLinks('MenuItem')}
-            href={`#${stand.stand.title.toLowerCase()}`}
-          >
-            {stand.stand.title}
-          </A>
-        )}
-        {menuMdx}
-      </div>
-      {links && (
-        <div className={cnSideLinks('Links')}>
-          {links?.map(({ label, href }) => (
-            <LinkItem
-              iconRight={IconForward}
-              key={cnSideLinks({ label })}
-              target="_blank"
-              label={label}
-              href={href}
-            />
-          ))}
-        </div>
-      )}
+      <MdxMenuTransfer />
+      <Links />
     </div>
   );
 };

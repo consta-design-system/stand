@@ -1,36 +1,33 @@
 .stand--LibCard {
-    padding: var(--space-xl) var(--space-l);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-xl) var(--space-l);
+  background: var(--color-bg-default);
+  border: var(--control-border-width) solid var(--color-bg-border);
+  border-radius: var(--control-radius);
+
+  & a {
+    text-decoration: none;
+  }
+
+  &-Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    box-sizing: border-box;
-    background: var(--color-bg-default);
-    border:
-      var(--control-border-width)
-      solid 
-      var(--color-bg-border);
-    border-radius: var(--control-radius);
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
 
-    & a {
-        text-decoration: none;
-    }
-  
-    &-Title  {
-        width: 100%;
-        flex-wrap: wrap;
-        display: flex;
-        gap: var(--space-xs);
-        align-items: center;
-        justify-content: space-between;
-    }
+  &-Buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: var(--space-2xl);
 
-    &-Buttons {
-        margin-top: var(--space-2xl);
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        & .Button_view_clear {
-            color: var(--color-typo-link);
-        }
+    & .Button_view_clear {
+      color: var(--color-typo-link);
     }
+  }
 }

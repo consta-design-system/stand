@@ -84,6 +84,17 @@ const getLazyAccess = (
   return lazyAcces;
 };
 
+const generateStandId = (
+  lib: string,
+  group: string,
+  stand: string,
+  status?: string,
+) => {
+  return `${lib}--${group}--${stand}${status ? `--${status}` : ''}`
+    .replace(/\W|_/g, '-')
+    .toLowerCase();
+};
+
 export const prepareStands = (
   initStands: CreatedStand[],
   paths: string[],
@@ -114,18 +125,20 @@ export const prepareStands = (
               typeof item.stand.visibleOnLibPage === 'undefined'
                 ? true
                 : item.stand.visibleOnLibPage,
-            id: `${item.lib.id}-${stand.group}-${stand.id}${
-              stand.status ? `-${stand.status}` : ''
-            }`
-              .replace(/\W|_/g, '-')
-              .toLowerCase(),
+            id: generateStandId(
+              item.lib.id,
+              item.stand.group,
+              item.stand.id,
+              item.stand.status,
+            ),
           })),
       },
-      id: `${item.lib.id}-${item.stand.group}-${item.stand.id}${
-        item.stand.status ? `-${item.stand.status}` : ''
-      }`
-        .replace(/\W|_/g, '-')
-        .toLowerCase(),
+      id: generateStandId(
+        item.lib.id,
+        item.stand.group,
+        item.stand.id,
+        item.stand.status,
+      ),
       path: paths[index],
       lazyAccess: getLazyAccess(lazyAccess, paths[index], item.lib.standTabs),
       componentDir: componentDirs[index] || undefined,

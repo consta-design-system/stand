@@ -57,7 +57,7 @@ const buildMdxLink = (
 ): UseMdxLinkReturn<string> => {
   if (href[0] === '#' && href[1] === '#') {
     const [to, params] = buildNavigateParams(href);
-    const libName = (params.stand ?? '').split('-')[0];
+    const libName = (params.stand ?? '').split('--')[0];
     if (libName && !libs?.find((lib) => lib.id === libName)) {
       return [
         `https://${libName}.${ROOT_DOMEN}${router.buildPath(to, params)}`,

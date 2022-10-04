@@ -71,21 +71,6 @@
     }
   }
 
-  &-RightSide {
-    position: fixed;
-    top: var(--doc-layout-header-height);
-    right: 0;
-    overflow-y: overlay;
-    width: var(--doc-layout-side-width);
-    height: calc(100vh - var(--doc-layout-header-height));
-    padding: var(--space-2xl) var(--space-2xl) var(--space-xl) 0;
-
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-  }
-
   &-Content {
     padding: 0;
 

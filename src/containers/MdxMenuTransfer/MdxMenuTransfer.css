@@ -1,0 +1,23 @@
+.stand--MdxMenuTransfer {
+  &-Header {
+    margin-bottom: var(--space-m);
+  }
+
+  &-Menu {
+    & li {
+      list-style: none;
+
+      & a {
+        display: inline-block;
+        padding-bottom: var(--space-m);
+        color: var(--color-typo-primary);
+        font-size: var(--size-text-s);
+        line-height: var(--line-height-text-m);
+
+        &:hover {
+          color: var(--color-typo-link);
+        }
+      }
+    }
+  }
+}

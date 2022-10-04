@@ -1,0 +1,27 @@
+.stand--DocLayoutRightSide {
+  right: 0;
+  width: var(--doc-layout-side-width);
+  padding: var(--space-2xl) var(--space-2xl) var(--space-2xl) 0;
+
+  &_position {
+    &_absolute {
+      position: absolute;
+      top: var(--top);
+    }
+
+    &_fixedDown {
+      position: fixed;
+      bottom: 0;
+    }
+
+    &_fixedUp {
+      position: fixed;
+      top: var(--doc-layout-header-height);
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}

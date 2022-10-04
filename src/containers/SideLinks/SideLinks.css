@@ -1,70 +1,11 @@
 .stand--SideLinks {
-  width: 100%;
-
-  &-Header {
-    box-sizing: border-box;
-    width: 100%;
-    padding: calc(var(--space-m) - var(--space-3xs)) var(--space-l);
-  }
-
-  &-Menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-
-    & > ul > li {
-      & > a {
-        padding-left: calc(var(--space-l) * 1.5);
-      }
-
-      & > ul > li > a {
-        padding-left: calc(var(--space-l) * 2);
-      }
-    }
-
-    & .stand--Ul .stand--Ul {
-      margin-left: 0;
-    }
-
-    & a {
-      font-size: var(--size-text-s);
-    }
-
-    & ul,
-    & li {
-      width: 100%;
-    }
-  }
-
-  &-MenuItem.Text {
-    box-sizing: border-box;
-    width: 100%;
-    padding: calc(var(--space-s) - var(--space-3xs)) var(--space-l);
-    color: var(--color-typo-primary);
-  }
-
-  & li {
-    width: 100%;
-    list-style: none;
-
-    & a {
-      display: flex;
-      box-sizing: border-box;
-      width: 100%;
-      padding-top: calc(var(--space-s) - var(--space-3xs));
-      padding-right: var(--space-l);
-      padding-bottom: calc(var(--space-s) - var(--space-3xs));
-      color: var(--color-typo-primary);
-    }
-  }
-
-  &-Links {
-    width: 100%;
-
-    & > *:not(:last-child) {
+  &-Links .Button {
+    &:not(:last-child) {
       margin-bottom: calc(var(--space-xs) + var(--space-2xs));
+    }
+
+    & .Button-Label {
+      text-align: left;
     }
   }
 }
