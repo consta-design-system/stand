@@ -50,7 +50,8 @@ const createlazyVariants = async (srcWithName, standsImportPath) => {
   access(file, F_OK, async (err) => {
     if (!err) {
       const lazyDocsFileName = `${file.replace(/\W/g, '_')}.tsx`;
-      const jsCode = `import Variants from '../${standsImportPath}/${file}';\nexport default Variants;\n`;
+
+      const jsCode = `import Variants from '../${standsImportPath}/${srcWithName}.variants';\nexport default Variants;\n`;
 
       await writeFile(
         `node_modules/@consta/stand/src/stands/lazyDocs/${lazyDocsFileName}`,

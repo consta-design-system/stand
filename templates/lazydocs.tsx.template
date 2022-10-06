@@ -1,5 +1,5 @@
 import React from 'react';
-import { components } from '##/containers/MDXProvider';
+import { components } from '../../../src/containers/MDXProvider';
 #imports#
 const Component: React.FC = () => {
   return <Docs components={components} />;

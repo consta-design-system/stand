@@ -1,5 +1,5 @@
-import { CreatedStand } from '##/exportTypes';
-import { prepareStands } from '##/exportFuctions';
+import { CreatedStand } from '../../src/exportTypes';
+import { prepareStands } from '../../src/exportFuctions';
 
 #imports#
 
