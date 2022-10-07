@@ -22,8 +22,8 @@ export const Menu: React.FC = () => {
   }
 
   if (
-    routeName === routesNames.LIBS_STAND ||
-    testStartsWithSegment(routesNames.LIBS_STAND)
+    routeName === routesNames.LIBS_LIB ||
+    testStartsWithSegment(routesNames.LIBS_LIB)
   ) {
     return <LibPageMenu />;
   }

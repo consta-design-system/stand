@@ -12,7 +12,7 @@ import { TextField } from '@consta/uikit/TextField';
 import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/react';
 import React, { useCallback, useRef } from 'react';
-import { useRouter } from 'react-router5';
+import { useRoute, useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
 import { openLeftSide } from '##/exportAtoms/layout';
@@ -65,9 +65,10 @@ const getItemBadge = (item: PreparedStand) => {
 
   return <Badge {...props} size="s" />;
 };
-const getItemHref = () => routesNames.LIBS_STAND;
+const getItemHref = () => routesNames.LIBS_LIB_STAND;
 const getItemParmas = (item: PreparedStand): Record<string, string> => ({
   stand: item.id,
+  lib: item.lib.id,
 });
 
 const cnLibPageMenu = cn('LibPageMenu');
@@ -75,6 +76,7 @@ const cnLibPageMenu = cn('LibPageMenu');
 export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
   const [lib] = useAtom(libAtom);
+
   const [deprecatedSwich] = useAtom(deprecatedSwichAtom);
   const [deprecatedSwichIsVisible] = useAtom(deprecatedSwichIsVisibleAtom);
   const [showLibs, setShowLibs] = useFlag();
@@ -87,18 +89,30 @@ export const LibPageMenu: React.FC = () => {
     searchValueAtom.set(value || ''),
   );
   const router = useRouter();
+  const route = useRoute();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const getIsActive = useIsActiveRouter();
 
   const getItemActive = (item: PreparedStand) =>
-    getIsActive(routesNames.LIBS_STAND, { stand: item.id });
+    getIsActive(routesNames.LIBS_LIB_STAND, {
+      stand: item.id,
+      lib: item.lib.id,
+    });
 
   const back = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     router.navigate(routesNames.LIBS);
   }, []);
+
+  const navigateToReview = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      router.navigate(routesNames.LIBS_LIB, { lib: lib?.id });
+    },
+    [lib?.id],
+  );
 
   const closeMenu = useAction(openLeftSide.setFalse);
 
@@ -108,7 +122,7 @@ export const LibPageMenu: React.FC = () => {
   }) => {
     const { e, item } = params;
     e.preventDefault();
-    router.navigate(routesNames.LIBS, { stand: item.id });
+    router.navigate(routesNames.LIBS_LIB, { lib: item.id });
   };
 
   const getGroupIsOpen = (group: Group) => {
@@ -120,67 +134,82 @@ export const LibPageMenu: React.FC = () => {
   };
 
   const additionalControls = () => (
-    <div className={cnLibPageMenu('Controls')}>
-      <div className={cnLibPageMenu('Header')}>
-        {libs?.length > 1 && (
-          <>
-            <Button
-              iconLeft={IconBento}
-              onlyIcon
-              ref={buttonRef}
-              size="s"
-              onClick={setShowLibs.toogle}
-            />
-            <ContextMenu
-              anchorRef={buttonRef}
-              onItemClick={handleLibClick}
-              items={libs}
-              isOpen={showLibs}
-              offset="xs"
-              direction="rightDown"
-              onClickOutside={setShowLibs.off}
-              getItemLabel={(item) => item.title}
-              size="m"
-            />
-          </>
-        )}
+    <>
+      <div className={cnLibPageMenu('Controls')}>
+        <div className={cnLibPageMenu('Header')}>
+          {libs?.length > 1 && (
+            <>
+              <Button
+                iconLeft={IconBento}
+                onlyIcon
+                ref={buttonRef}
+                size="s"
+                onClick={setShowLibs.toogle}
+              />
+              <ContextMenu
+                anchorRef={buttonRef}
+                onItemClick={handleLibClick}
+                items={libs}
+                isOpen={showLibs}
+                offset="xs"
+                direction="rightDown"
+                onClickOutside={setShowLibs.off}
+                getItemLabel={(item) => item.title}
+                size="m"
+              />
+            </>
+          )}
 
-        <Text size="xl" lineHeight="m" view="brand" weight="semibold">
-          {lib?.title}
-        </Text>
+          <Text size="xl" lineHeight="m" view="brand" weight="semibold">
+            {lib?.title}
+          </Text>
+        </div>
+        {libs?.length > 1 && (
+          <Button
+            as="a"
+            href={router.buildPath(routesNames.LIBS)}
+            label="К списку библиотек"
+            iconLeft={IconBackward}
+            size="xs"
+            view="clear"
+            onClick={back}
+            className={cnLibPageMenu('Button')}
+          />
+        )}
+        {deprecatedSwichIsVisible && (
+          <Switch
+            checked={deprecatedSwich}
+            size="m"
+            className={cnLibPageMenu('Switch')}
+            onChange={deprecatedSwichSet}
+            label="Показывать deprecated"
+          />
+        )}
+        <TextField
+          type="text"
+          value={searchValue}
+          size="s"
+          width="full"
+          placeholder="Поиск по компонентам"
+          leftSide={IconSearch}
+          className={cnLibPageMenu('Input')}
+          onChange={setSearchValue}
+        />
       </div>
-      {libs?.length > 1 && (
-        <Button
-          as="a"
-          href={router.buildPath(routesNames.LIBS)}
-          label="К списку библиотек"
-          iconLeft={IconBackward}
-          size="xs"
-          view="clear"
-          onClick={back}
-          className={cnLibPageMenu('Button')}
-        />
-      )}
-      {deprecatedSwichIsVisible && (
-        <Switch
-          checked={deprecatedSwich}
-          size="m"
-          className={cnLibPageMenu('Switch')}
-          onChange={deprecatedSwichSet}
-          label="Показывать deprecated"
-        />
-      )}
-      <TextField
-        type="text"
-        value={searchValue}
-        size="s"
-        width="full"
-        placeholder="Поиск по компонентам"
-        leftSide={IconSearch}
-        className={cnLibPageMenu('Input')}
-        onChange={setSearchValue}
-      />
-    </div>
+      <Text
+        as="a"
+        href={router.buildPath(routesNames.LIBS_LIB, { lib: lib?.id })}
+        size="m"
+        view={route.route.name === routesNames.LIBS_LIB ? 'brand' : 'primary'}
+        onClick={navigateToReview}
+        display="block"
+        className={cnLibPageMenu('ButtonToReview', {
+          active: route.route.name === routesNames.LIBS_LIB,
+        })}
+      >
+        Обзор
+      </Text>
+    </>
   );
 
   if (!lib) {

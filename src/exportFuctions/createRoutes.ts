@@ -6,8 +6,9 @@ export type RouterItem = {
 const routesNames = {
   LIBS: 'LIBS',
   LIBS_VARIANTS: 'LIBS.VARIANTS',
-  LIBS_STAND: 'LIBS.STAND',
-  LIBS_STAND_TAB: 'LIBS.STAND.TAB',
+  LIBS_LIB: 'LIBS.LIB',
+  LIBS_LIB_STAND: 'LIBS.LIB.STAND',
+  LIBS_LIB_STAND_TAB: 'LIBS.LIB.STAND.TAB',
 };
 
 export const createRoutes = (path = '/libs') => {
@@ -18,14 +19,18 @@ export const createRoutes = (path = '/libs') => {
     },
     {
       name: routesNames.LIBS_VARIANTS,
-      path: `/variants/:stand`,
+      path: `/variants/:lib/:stand`,
     },
     {
-      name: routesNames.LIBS_STAND,
-      path: '/:stand?:hash?:variants',
+      name: routesNames.LIBS_LIB,
+      path: `/:lib?:hash`,
     },
     {
-      name: routesNames.LIBS_STAND_TAB,
+      name: routesNames.LIBS_LIB_STAND,
+      path: '/:stand?:variants?:hash',
+    },
+    {
+      name: routesNames.LIBS_LIB_STAND_TAB,
       path: '/:tab?:hash',
     },
   ];

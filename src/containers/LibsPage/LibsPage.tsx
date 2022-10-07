@@ -21,8 +21,8 @@ export const LibsPage: React.FC = () => {
   useEffect(() => {
     if (libs.length <= 1) {
       router.navigate(
-        routesNames.LIBS_STAND,
-        { stand: libs[0].id },
+        routesNames.LIBS_LIB,
+        { lib: libs[0].id },
         { replace: true },
       );
     }
@@ -62,7 +62,7 @@ export const LibsPage: React.FC = () => {
 
       <div className={cnLibsPage('Section')}>
         {libs.map((lib) => (
-          <LibCard lib={lib} />
+          <LibCard lib={lib} key={lib.id} />
         ))}
       </div>
     </div>

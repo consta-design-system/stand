@@ -20,7 +20,10 @@ import { VariantsResolutions } from './VariantsResolutions';
 
 const cnVariants = cn('Variants');
 
-export const Variants: React.FC<{ stand: string }> = ({ stand }) => {
+export const Variants: React.FC<{ stand: string; lib: string }> = ({
+  stand,
+  lib,
+}) => {
   const router = useRouter();
   const [openBoard, setOpenBoard] = useFlag();
   const [openResolutionsMenu, setOpenResolutionsMenu] = useState<boolean>();
@@ -31,7 +34,7 @@ export const Variants: React.FC<{ stand: string }> = ({ stand }) => {
   const ref = useIframeBridge();
   const refBoard = useRef<HTMLDivElement>(null);
 
-  const src = router.buildPath(routesNames.LIBS_VARIANTS, { stand });
+  const src = router.buildPath(routesNames.LIBS_VARIANTS, { stand, lib });
 
   useClickOutside({
     isActive: !isDesctop,

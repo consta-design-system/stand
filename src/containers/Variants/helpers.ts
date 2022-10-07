@@ -47,11 +47,9 @@ export const useFullScreen = () => {
 
   const open = !!route.route.params.variants;
 
-  const stand = route.route.params.stand as string;
-
   const toggle = () => {
-    router.navigate(routesNames.LIBS_STAND, {
-      stand,
+    router.navigate(routesNames.LIBS_LIB_STAND, {
+      ...route.route.params,
       variants: open ? undefined : true,
     });
   };

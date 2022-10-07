@@ -17,6 +17,7 @@ type Props = {
   deprecated?: Stand<string>;
   canary?: Stand<string>;
   className?: string;
+  lib: string;
 };
 
 const cnStandPageInformer = cn('StandPageInformer');
@@ -28,7 +29,7 @@ const statusTitle = {
 } as const;
 
 export const StandPageInformer = (props: Props) => {
-  const { status, deprecated, canary, stand, stable, className } = props;
+  const { status, deprecated, canary, stand, stable, className, lib } = props;
 
   if (
     !status ||
@@ -62,10 +63,11 @@ export const StandPageInformer = (props: Props) => {
           <Text size="s" lineHeight="m">
             Стабильная версия —{' '}
             <Link
-              to={`${routesNames.LIBS_STAND}`}
+              to={`${routesNames.LIBS_LIB_STAND}`}
               className={cnStandPageInformer('Link')}
               params={{
                 stand: stable.id,
+                lib,
               }}
             >
               {`v${stable.version} Stable`}
@@ -82,10 +84,11 @@ export const StandPageInformer = (props: Props) => {
         <Text size="s" lineHeight="m">
           Лучше использовать актуальную версию —{' '}
           <Link
-            to={`${routesNames.LIBS_STAND}`}
+            to={`${routesNames.LIBS_LIB_STAND}`}
             className={cnStandPageInformer('Link')}
             params={{
               stand: stable.id,
+              lib,
             }}
           >
             Stable
@@ -100,10 +103,11 @@ export const StandPageInformer = (props: Props) => {
             <Text size="s" lineHeight="m">
               Устаревшая —{' '}
               <Link
-                to={`${routesNames.LIBS_STAND}`}
+                to={`${routesNames.LIBS_LIB_STAND}`}
                 className={cnStandPageInformer('Link')}
                 params={{
                   stand: deprecated.id,
+                  lib,
                 }}
               >
                 Deprecated
@@ -114,10 +118,11 @@ export const StandPageInformer = (props: Props) => {
             <Text size="s" lineHeight="m">
               Новая —{' '}
               <Link
-                to={`${routesNames.LIBS_STAND}`}
+                to={`${routesNames.LIBS_LIB_STAND}`}
                 className={cnStandPageInformer('Link')}
                 params={{
                   stand: canary.id,
+                  lib,
                 }}
               >
                 Canary

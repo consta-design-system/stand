@@ -3,10 +3,15 @@ import { State } from 'router5';
 
 import { routerAtom, routesNames } from '##/modules/router';
 import { standsAtom } from '##/modules/stands';
+import { generateStandId } from '##/utils/generateStandId';
 
 export const standAtom = createAtom({ routerAtom, standsAtom }, ({ get }) => {
-  const standId = get('routerAtom').route?.params.stand as string | undefined;
-  const stand = standId ? get('standsAtom')[standId] : undefined;
+  const router = get('routerAtom');
+  const standId = router.route?.params.stand as string | undefined;
+  const libId = router.route?.params.lib as string | undefined;
+  const stand = standId
+    ? get('standsAtom')[generateStandId(libId, standId)]
+    : undefined;
 
   return stand;
 });
@@ -43,11 +48,11 @@ export const getDocsUrl = (
   if (!repositoryUrl) {
     return;
   }
-  if (router.name === routesNames.LIBS_STAND) {
+  if (router.name === routesNames.LIBS_LIB_STAND) {
     return `${repositoryUrl}/tree/master/${path}.stand.mdx`;
   }
   if (
-    router.name === routesNames.LIBS_STAND_TAB &&
+    router.name === routesNames.LIBS_LIB_STAND_TAB &&
     router.params.tab &&
     lazyAccess[router.params.tab]
   ) {

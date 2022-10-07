@@ -1,22 +1,11 @@
 import { createAtom } from '@reatom/core';
 
-import { standAtom } from '##/modules/stand';
-
 import { libsAtom } from '../libs';
 import { routerAtom } from '../router';
 
-export const libAtom = createAtom(
-  { routerAtom, libsAtom, standAtom },
-  ({ get }) => {
-    const stand = get('standAtom');
+export const libAtom = createAtom({ routerAtom, libsAtom }, ({ get }) => {
+  const libArr = get('libsAtom');
+  const libId = get('routerAtom').route?.params.lib as string | undefined;
 
-    if (stand) {
-      return stand.lib;
-    }
-
-    const libId = get('routerAtom').route?.params.stand as string | undefined;
-    const libArr = get('libsAtom');
-
-    return libId ? libArr.find((item) => item.id === libId) : undefined;
-  },
-);
+  return libId ? libArr.find((item) => item.id === libId) : undefined;
+});

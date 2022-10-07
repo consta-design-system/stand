@@ -16,14 +16,12 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
     item,
     onClick,
     className,
-    deep = 0,
     getItemActive,
     getItemLabel,
     getItemDescription,
     getItemBadge,
     getItemSubMenu,
     getItemOnClick,
-    getItemGroupId,
     getItemParams,
     getItemHref,
   } = props;
@@ -50,8 +48,6 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
     e.stopPropagation();
     setShowSubMenu.toogle();
   };
-
-  const nextDeep = deep + 1;
 
   const content = () => (
     <>
@@ -96,9 +92,6 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
     <div className={cnPortalMenuItem(null, [className])}>
       {getItemHref(item) ? (
         <Link
-          style={{
-            ['--menu-item-deep' as string]: deep,
-          }}
           className={cnPortalMenuItem('Button', {
             active: getItemActive(item),
           })}
@@ -110,9 +103,6 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
         </Link>
       ) : (
         <Component
-          style={{
-            ['--menu-item-deep' as string]: deep,
-          }}
           className={cnPortalMenuItem('Button', {
             active: getItemActive(item),
           })}
@@ -121,27 +111,6 @@ export const PortalMenuItem = <ITEM,>(props: PortalMenuItemProps<ITEM>) => {
         >
           {content()}
         </Component>
-      )}
-      {showSubMenu && (
-        <div className={cnPortalMenuItem('List')}>
-          {subMenu?.map((element, index) => (
-            <PortalMenuItem
-              item={element}
-              onClick={onClick}
-              deep={nextDeep}
-              key={cnPortalMenuItem({ nextDeep, index })}
-              getItemActive={getItemActive}
-              getItemLabel={getItemLabel}
-              getItemSubMenu={getItemSubMenu}
-              getItemOnClick={getItemOnClick}
-              getItemBadge={getItemBadge}
-              getItemDescription={getItemDescription}
-              getItemGroupId={getItemGroupId}
-              getItemHref={getItemHref}
-              getItemParams={getItemParams}
-            />
-          ))}
-        </div>
       )}
     </div>
   );

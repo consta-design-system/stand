@@ -24,7 +24,10 @@ export const LibPageCard = (props: Props) => {
 
   return (
     <div className={cnLibPageCard({ view })}>
-      <Link to={routesNames.LIBS_STAND} params={{ stand: stand.id }}>
+      <Link
+        to={routesNames.LIBS_LIB_STAND}
+        params={{ stand: stand.id, lib: stand.lib.id }}
+      >
         <Text
           className={cnLibPageCard('Title')}
           size="l"

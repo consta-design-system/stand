@@ -54,6 +54,7 @@ export const StandPage: React.FC = memo(() => {
       <div key={standID}>
         <StandPageHeader stand={stand.stand} />
         <StandPageInformer
+          lib={route.route.params.lib as string}
           stand={stand.stand}
           status={standStatus}
           deprecated={deprecated}
@@ -63,7 +64,10 @@ export const StandPage: React.FC = memo(() => {
         />
         <StandPageNavigation className={cnStandPage('Navigation')} />
         {tab?.id === '' && stand.lazyAccess.variants && (
-          <Variants stand={route.route.params.stand as string} />
+          <Variants
+            stand={route.route.params.stand as string}
+            lib={route.route.params.lib as string}
+          />
         )}
         {tab?.figma && stand.stand.figma && (
           <StandPageFigma

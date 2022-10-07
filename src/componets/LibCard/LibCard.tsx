@@ -50,7 +50,7 @@ export const LibCard = (props: LibCardProps) => {
       </Text>
       <LibDescription description={description} />
       <div className={cnLibCard('Buttons')}>
-        <Link to={routesNames.LIBS_STAND} params={{ stand: id }}>
+        <Link to={routesNames.LIBS_LIB} params={{ lib: id }}>
           <Button
             size="s"
             iconRight={IconForward}

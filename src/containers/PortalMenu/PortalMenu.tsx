@@ -116,4 +116,4 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
 
 export const PortalMenu = forwardRef(PortalMenuRender) as PortalMenuComponent;
 
-export * from '##/containers/PortalMenu/types';
+export * from './types';

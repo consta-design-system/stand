@@ -1,7 +1,6 @@
 import { createAtom } from '@reatom/core';
 import { createStringAtom } from '@reatom/core/primitives/createStringAtom';
 
-import { PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 
 const localStorageDeprecatedSwich = 'deprecatedSwich';
@@ -43,32 +42,7 @@ export const visibleListAtom = createAtom(
     const searchValue = get('searchValueAtom');
     const showDeprecated = get('deprecatedSwichAtom');
 
-    const reviewItem: PreparedStand | undefined = lib
-      ? {
-          id: lib.id,
-          path: '',
-          lazyAccess: {
-            design: false,
-            dev: false,
-            stand: false,
-            image: false,
-            variants: false,
-          },
-          lib,
-          stand: {
-            id: lib.id,
-            title: 'Обзор компонентов',
-            group: 'review',
-            status: 'stable',
-            version: '',
-          },
-        }
-      : undefined;
-
-    return [
-      ...(reviewItem ? [reviewItem] : []),
-      ...(lib?.stands ? lib.stands : []),
-    ].filter((item) => {
+    return [...(lib?.stands ? lib.stands : [])].filter((item) => {
       if (!showDeprecated && item.stand.status === 'deprecated') {
         return false;
       }
