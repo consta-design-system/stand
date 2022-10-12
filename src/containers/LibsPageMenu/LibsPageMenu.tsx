@@ -8,7 +8,7 @@ import { routesNames } from '##/modules/router';
 const getItemLabel = (item: { title: string }) => item.title;
 const getItemGroupId = (item: { group?: string }) => item.group;
 const getItemDescription = () => undefined;
-const getItemHref = () => routesNames.LIBS_LIB_STAND;
+const getItemHref = () => routesNames.LIBS_LIB;
 const getItemParams = (lib: { id: string }) => ({
   lib: lib.id,
 });
