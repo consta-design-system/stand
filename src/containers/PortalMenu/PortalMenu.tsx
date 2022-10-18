@@ -25,6 +25,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
   const {
     className,
     additionalControls,
+    filters,
 
     // groups
     groups: groupsProp,
@@ -110,6 +111,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
           ));
         })}
       </div>
+      {filters}
     </div>
   );
 };
