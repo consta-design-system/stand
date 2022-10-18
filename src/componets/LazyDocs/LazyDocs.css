@@ -23,6 +23,10 @@
   & > p,
   & > blockquote {
     margin-bottom: calc(var(--space-l) * 1.5);
+
+    & + ul {
+      margin-top: calc(0 - var(--space-m));
+    }
   }
 
   & > * {

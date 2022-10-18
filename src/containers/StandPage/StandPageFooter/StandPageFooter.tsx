@@ -46,7 +46,7 @@ export const StandPageFooter = (props: Props) => {
         </Text>
         <div className={cnStandPageFooter('Links')}>
           <Text size="m" lineHeight="m">
-            Предлагайте доработки - будем рады контрибьюторам
+            Предлагайте доработки — будем рады контрибьюторам.
           </Text>
           {(componentUrl || docsUrl) && (
             <div>

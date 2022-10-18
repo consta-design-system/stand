@@ -59,7 +59,7 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   isActive,
 }) => {
   const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({ type, value: value || undefined, name, isActive }),
+    variantsAtom.set({ type, value: value ?? undefined, name, isActive }),
   );
 
   return (
@@ -108,7 +108,7 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
   isActive,
 }) => {
   const onChange = useAction(({ value }: { value: Date | null }) =>
-    variantsAtom.set({ type, value: value || undefined, name, isActive }),
+    variantsAtom.set({ type, value: value ?? undefined, name, isActive }),
   );
 
   return (
@@ -131,7 +131,7 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
   isActive,
 }) => {
   const onChange = useAction(({ value }: { value: Date | null }) =>
-    variantsAtom.set({ type, value: value || undefined, name, isActive }),
+    variantsAtom.set({ type, value: value ?? undefined, name, isActive }),
   );
 
   return (
@@ -179,7 +179,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
   const onChange = useAction(({ value }: { value: string | null }) =>
     variantsAtom.set({
       type,
-      value: value || undefined,
+      value: value ?? undefined,
       name,
       options,
       isActive,

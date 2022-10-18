@@ -2,6 +2,7 @@ import { useAtom } from '@reatom/react';
 import React from 'react';
 
 import { PortalMenu } from '##/containers/PortalMenu';
+import { useScrollToActive } from '##/hooks/useScrollToActive';
 import { libsAtom } from '##/modules/libs';
 import { routesNames } from '##/modules/router';
 
@@ -15,6 +16,8 @@ const getItemParams = (lib: { id: string }) => ({
 
 export const LibsPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
+
+  useScrollToActive();
 
   return (
     <PortalMenu

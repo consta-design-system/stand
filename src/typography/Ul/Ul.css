@@ -1,5 +1,5 @@
 .stand--Ul {
-  margin-bottom: var(--space-m);
+  margin-bottom: var(--space-l);
 
   & .stand--Ul {
     margin-bottom: 0;
