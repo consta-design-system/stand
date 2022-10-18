@@ -9,6 +9,17 @@
     margin-top: var(--space-xs);
   }
 
+  &-Top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    & > a {
+      text-decoration: none;
+    }
+  }
+
   &_view {
     &_card {
       padding: var(--space-xl) var(--space-l) var(--space-l);
@@ -27,7 +38,7 @@
     display: flex;
     overflow: hidden;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height: 120px;
     margin-top: var(--space-xl);

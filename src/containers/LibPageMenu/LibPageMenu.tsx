@@ -17,6 +17,7 @@ import { useRoute, useRouter } from 'react-router5';
 import { PortalMenu } from '##/containers/PortalMenu';
 import { openLeftSide } from '##/exportAtoms/layout';
 import { Group, LibWithStands, PreparedStand } from '##/exportTypes';
+import { useScrollToActive } from '##/hooks/useScrollToActive';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
@@ -92,6 +93,8 @@ export const LibPageMenu: React.FC = () => {
   const route = useRoute();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useScrollToActive();
 
   const getIsActive = useIsActiveRouter();
 

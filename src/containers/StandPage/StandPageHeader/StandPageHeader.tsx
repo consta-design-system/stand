@@ -1,10 +1,10 @@
 import './StandPageHeader.css';
 
-import { StandPageHeaderBadge } from '@consta/stand/src/containers/StandPage/StandPageHeader/StandPageHeaderBadge';
 import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
+import { StandPageHeaderBadge } from '##/containers/StandPage/StandPageHeader/StandPageHeaderBadge';
 import { Stand } from '##/exportTypes';
 import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
@@ -16,7 +16,7 @@ type Props = {
 
 const cnStandPageHeader = cn('StandPageHeader');
 
-const getLabel = (status: Stand['status']): string | undefined => {
+export const getLabel = (status: Stand['status']): string | undefined => {
   if (status === 'deprecated') {
     return 'deprecated';
   }
@@ -38,7 +38,7 @@ const tooltipMessage = {
   inWork: 'Этот компонент пока находится в разработке',
 };
 
-const getStatus = (status: Stand['status']) => {
+export const getStatus = (status: Stand['status']) => {
   if (status === 'deprecated') {
     return 'error';
   }
@@ -50,7 +50,7 @@ const getStatus = (status: Stand['status']) => {
   }
 };
 
-const getView = (status: Stand['status']) => {
+export const getView = (status: Stand['status']) => {
   if (status === 'deprecated' || status === 'stable') {
     return 'stroked';
   }
