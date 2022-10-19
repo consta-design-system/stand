@@ -21,9 +21,9 @@ import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
 import {
-  canarySwichAtom,
-  deprecatedSwichAtom,
-  inWorkSwichAtom,
+  canarySwitchAtom,
+  deprecatedSwitchAtom,
+  inWorkSwitchAtom,
   isShowFiltersAtom,
   searchValueAtom,
   visibleListAtom,
@@ -79,19 +79,19 @@ export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
   const [lib] = useAtom(libAtom);
 
-  const [deprecatedSwich] = useAtom(deprecatedSwichAtom);
-  const [canarySwich] = useAtom(canarySwichAtom);
-  const [inWorkSwich] = useAtom(inWorkSwichAtom);
+  const [deprecatedSwitch] = useAtom(deprecatedSwitchAtom);
+  const [canarySwitch] = useAtom(canarySwitchAtom);
+  const [inWorkSwitch] = useAtom(inWorkSwitchAtom);
   const [isShowFilters] = useAtom(isShowFiltersAtom);
   const [showLibs, setShowLibs] = useFlag();
-  const deprecatedSwichSet = useAction(({ checked }: { checked: boolean }) =>
-    deprecatedSwichAtom.set(checked),
+  const deprecatedSwitchSet = useAction(({ checked }: { checked: boolean }) =>
+    deprecatedSwitchAtom.set(checked),
   );
-  const canarySwichSet = useAction(({ checked }: { checked: boolean }) =>
-    canarySwichAtom.set(checked),
+  const canarySwitchSet = useAction(({ checked }: { checked: boolean }) =>
+    canarySwitchAtom.set(checked),
   );
-  const inWorkSwichSet = useAction(({ checked }: { checked: boolean }) =>
-    inWorkSwichAtom.set(checked),
+  const inWorkSwitchSet = useAction(({ checked }: { checked: boolean }) =>
+    inWorkSwitchAtom.set(checked),
   );
   const [searchValue] = useAtom(searchValueAtom);
   const [visibleList] = useAtom(visibleListAtom);
@@ -220,30 +220,30 @@ export const LibPageMenu: React.FC = () => {
           <div className={cnLibPageMenu('FiltersItem')}>
             <Badge label="Deprecated" view="stroked" size="s" status="error" />
             <Switch
-              checked={deprecatedSwich}
+              checked={deprecatedSwitch}
               size="m"
               className={cnLibPageMenu('Switch')}
-              onChange={deprecatedSwichSet}
+              onChange={deprecatedSwitchSet}
               label="Показывать"
             />
           </div>
           <div className={cnLibPageMenu('FiltersItem')}>
             <Badge label="Canary" view="stroked" size="s" status="success" />
             <Switch
-              checked={canarySwich}
+              checked={canarySwitch}
               size="m"
               className={cnLibPageMenu('Switch')}
-              onChange={canarySwichSet}
+              onChange={canarySwitchSet}
               label="Показывать"
             />
           </div>
           <div className={cnLibPageMenu('FiltersItem')}>
             <Badge label="В работе" view="stroked" size="s" status="warning" />
             <Switch
-              checked={inWorkSwich}
+              checked={inWorkSwitch}
               size="m"
               className={cnLibPageMenu('Switch')}
-              onChange={inWorkSwichSet}
+              onChange={inWorkSwitchSet}
               label="Показывать"
             />
           </div>
