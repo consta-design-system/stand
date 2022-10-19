@@ -1,6 +1,5 @@
 import './StandPageHeader.css';
 
-import { StandPageHeaderBadge } from '@consta/stand/src/containers/StandPage/StandPageHeader/StandPageHeaderBadge';
 import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
@@ -8,6 +7,8 @@ import React from 'react';
 import { Stand } from '##/exportTypes';
 import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
+
+import { StandPageHeaderBadge } from './StandPageHeaderBadge';
 
 type Props = {
   stand: Stand;
