@@ -80,6 +80,7 @@ export type PortalMenuProps<
   {
     onItemClick?: PortalMenuOnClick<ITEM>;
     additionalControls?: React.ReactElement;
+    filters?: React.ReactElement;
     items: ITEM[];
     getItemLabel?: PortalMenuPropGetItemLabel<ITEM>;
     getItemActive?: PortalMenuPropGetItemActive<ITEM>;

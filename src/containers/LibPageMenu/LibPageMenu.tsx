@@ -22,8 +22,10 @@ import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
 import {
-  deprecatedSwichAtom,
-  deprecatedSwichIsVisibleAtom,
+  canarySwitchAtom,
+  deprecatedSwitchAtom,
+  inWorkSwitchAtom,
+  isShowFiltersAtom,
   searchValueAtom,
   visibleListAtom,
 } from '##/modules/standsMenu';
@@ -78,11 +80,19 @@ export const LibPageMenu: React.FC = () => {
   const [libs] = useAtom(libsAtom);
   const [lib] = useAtom(libAtom);
 
-  const [deprecatedSwich] = useAtom(deprecatedSwichAtom);
-  const [deprecatedSwichIsVisible] = useAtom(deprecatedSwichIsVisibleAtom);
+  const [deprecatedSwitch] = useAtom(deprecatedSwitchAtom);
+  const [canarySwitch] = useAtom(canarySwitchAtom);
+  const [inWorkSwitch] = useAtom(inWorkSwitchAtom);
+  const [isShowFilters] = useAtom(isShowFiltersAtom);
   const [showLibs, setShowLibs] = useFlag();
-  const deprecatedSwichSet = useAction(({ checked }: { checked: boolean }) =>
-    deprecatedSwichAtom.set(checked),
+  const deprecatedSwitchSet = useAction(({ checked }: { checked: boolean }) =>
+    deprecatedSwitchAtom.set(checked),
+  );
+  const canarySwitchSet = useAction(({ checked }: { checked: boolean }) =>
+    canarySwitchAtom.set(checked),
+  );
+  const inWorkSwitchSet = useAction(({ checked }: { checked: boolean }) =>
+    inWorkSwitchAtom.set(checked),
   );
   const [searchValue] = useAtom(searchValueAtom);
   const [visibleList] = useAtom(visibleListAtom);
@@ -179,15 +189,6 @@ export const LibPageMenu: React.FC = () => {
             className={cnLibPageMenu('Button')}
           />
         )}
-        {deprecatedSwichIsVisible && (
-          <Switch
-            checked={deprecatedSwich}
-            size="m"
-            className={cnLibPageMenu('Switch')}
-            onChange={deprecatedSwichSet}
-            label="Показывать deprecated"
-          />
-        )}
         <TextField
           type="text"
           value={searchValue}
@@ -215,6 +216,45 @@ export const LibPageMenu: React.FC = () => {
     </>
   );
 
+  const filters = () => {
+    return (
+      <div className={cnLibPageMenu('Filters')}>
+        <div className={cnLibPageMenu('Overlay')}>
+          <div className={cnLibPageMenu('FiltersItem')}>
+            <Badge label="Deprecated" view="stroked" size="s" status="error" />
+            <Switch
+              checked={deprecatedSwitch}
+              size="m"
+              className={cnLibPageMenu('Switch')}
+              onChange={deprecatedSwitchSet}
+              label="Показывать"
+            />
+          </div>
+          <div className={cnLibPageMenu('FiltersItem')}>
+            <Badge label="Canary" view="stroked" size="s" status="success" />
+            <Switch
+              checked={canarySwitch}
+              size="m"
+              className={cnLibPageMenu('Switch')}
+              onChange={canarySwitchSet}
+              label="Показывать"
+            />
+          </div>
+          <div className={cnLibPageMenu('FiltersItem')}>
+            <Badge label="В работе" view="stroked" size="s" status="warning" />
+            <Switch
+              checked={inWorkSwitch}
+              size="m"
+              className={cnLibPageMenu('Switch')}
+              onChange={inWorkSwitchSet}
+              label="Показывать"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   if (!lib) {
     return null;
   }
@@ -236,6 +276,7 @@ export const LibPageMenu: React.FC = () => {
       withoutGroups={!!searchValue && searchValue.trim() !== ''}
       getGroupInitialOpen={getGroupIsOpen}
       getItemGroupId={getItemGroupId}
+      filters={isShowFilters ? filters() : undefined}
       getItemDescription={getItemDescription}
     />
   );

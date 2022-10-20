@@ -9,6 +9,8 @@ import { Stand } from '##/exportTypes';
 import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
 
+import { StandPageHeaderBadge } from './StandPageHeaderBadge';
+
 type Props = {
   stand: Stand;
   className?: string;

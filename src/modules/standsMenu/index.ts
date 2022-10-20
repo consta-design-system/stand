@@ -2,48 +2,60 @@ import { createAtom } from '@reatom/core';
 import { createStringAtom } from '@reatom/core/primitives/createStringAtom';
 
 import { libAtom } from '##/modules/lib';
+import { createBooleanSyncLocalStorageAtom } from '##/primitives/createBooleanSyncLocalStorageAtom';
 
-const localStorageDeprecatedSwich = 'deprecatedSwich';
+const localStorageDeprecatedSwitch = 'deprecatedSwitch';
+const localStorageCanarySwitch = 'canarySwitch';
+const localStorageInWorkSwitch = 'inWorkSwitch';
 
-export const deprecatedSwichIsVisibleAtom = createAtom(
-  { libAtom },
-  ({ get }) => {
-    const lib = get('libAtom');
+export const isShowFiltersAtom = createAtom({ libAtom }, ({ get }) => {
+  const lib = get('libAtom');
 
-    if (!lib?.stands) {
-      return false;
-    }
+  if (!lib?.stands) {
+    return false;
+  }
 
-    return lib.stands.find((item) => item.stand.status === 'deprecated');
-  },
-);
+  return lib.stands.find((item) => item.stand.status !== 'stable');
+});
 
 export const searchValueAtom = createStringAtom();
 
-export const deprecatedSwichAtom = createAtom(
-  { set: (payload: boolean) => payload },
-  (
-    { onAction },
-    state = !!localStorage.getItem(localStorageDeprecatedSwich),
-  ) => {
-    onAction('set', (payload) => {
-      localStorage.setItem(localStorageDeprecatedSwich, payload ? 'Y' : '');
-      state = payload;
-    });
+export const deprecatedSwitchAtom = createBooleanSyncLocalStorageAtom(
+  localStorageDeprecatedSwitch,
+  true,
+);
 
-    return state;
-  },
+export const canarySwitchAtom = createBooleanSyncLocalStorageAtom(
+  localStorageCanarySwitch,
+  true,
+);
+
+export const inWorkSwitchAtom = createBooleanSyncLocalStorageAtom(
+  localStorageInWorkSwitch,
+  true as boolean,
 );
 
 export const visibleListAtom = createAtom(
-  { libAtom, searchValueAtom, deprecatedSwichAtom },
+  {
+    libAtom,
+    searchValueAtom,
+    deprecatedSwitchAtom,
+    canarySwitchAtom,
+    inWorkSwitchAtom,
+  },
   ({ get }) => {
     const lib = get('libAtom');
     const searchValue = get('searchValueAtom');
-    const showDeprecated = get('deprecatedSwichAtom');
+    const showDeprecated = get('deprecatedSwitchAtom');
+    const showCanary = get('canarySwitchAtom');
+    const showInWork = get('inWorkSwitchAtom');
 
     return [...(lib?.stands ? lib.stands : [])].filter((item) => {
-      if (!showDeprecated && item.stand.status === 'deprecated') {
+      if (
+        (!showDeprecated && item.stand.status === 'deprecated') ||
+        (!showCanary && item.stand.status === 'canary') ||
+        (!showInWork && item.stand.status === 'inWork')
+      ) {
         return false;
       }
       if (searchValue && searchValue.trim() !== '') {
