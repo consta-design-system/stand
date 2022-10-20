@@ -4,7 +4,6 @@ import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
-import { StandPageHeaderBadge } from '##/containers/StandPage/StandPageHeader/StandPageHeaderBadge';
 import { Stand } from '##/exportTypes';
 import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';

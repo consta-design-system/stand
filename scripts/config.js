@@ -5,7 +5,8 @@ module.exports = {
   projectPath: '../../../../..',
   standsTemaplatePath:
     'node_modules/@consta/stand/templates/stands.ts.template',
-  standsPath: 'node_modules/@consta/stand/src/stands/index.ts',
-  standsImportPath: '../../../../..',
+  lazyMdxTemaplatePath:
+    'node_modules/@consta/stand/templates/lazydocs.tsx.template',
+  standsPath: 'node_modules/@consta/stand/src/stands',
   standTabs: ['dev', 'design'],
 };

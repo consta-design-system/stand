@@ -4,13 +4,16 @@ const { join } = require('path');
 
 const { access, F_OK, existsSync } = require('fs');
 
-const createlazyDocs = async (srcWithName, standsImportPath, type) => {
+const createlazyDocs = async (
+  srcWithName,
+  standsImportPath,
+  type,
+  tempale,
+  outDir,
+) => {
   const docsFile = `${srcWithName}${type}`;
 
-  const template = await readFile(
-    'node_modules/@consta/stand/templates/lazydocs.tsx.template',
-    'utf8',
-  );
+  const template = await readFile(tempale, 'utf8');
 
   access(docsFile, F_OK, async (err) => {
     if (!err) {
@@ -20,15 +23,12 @@ const createlazyDocs = async (srcWithName, standsImportPath, type) => {
 
       const jsCode = template.replace(/#imports#/g, imports);
 
-      await writeFile(
-        `node_modules/@consta/stand/src/stands/lazyDocs/${lazyDocsFileName}`,
-        jsCode,
-      );
+      await writeFile(`${outDir}${lazyDocsFileName}`, jsCode);
     }
   });
 };
 
-const createlazyImage = async (srcWithName, standsImportPath) => {
+const createlazyImage = async (srcWithName, standsImportPath, outDir) => {
   const file = `${srcWithName}.image.svg`;
 
   access(file, F_OK, async (err) => {
@@ -36,15 +36,12 @@ const createlazyImage = async (srcWithName, standsImportPath) => {
       const lazyDocsFileName = `${file.replace(/\W/g, '_')}.tsx`;
       const jsCode = `import Image from '../${standsImportPath}/${file}';\nexport default Image;\n`;
 
-      await writeFile(
-        `node_modules/@consta/stand/src/stands/lazyDocs/${lazyDocsFileName}`,
-        jsCode,
-      );
+      await writeFile(`${outDir}${lazyDocsFileName}`, jsCode);
     }
   });
 };
 
-const createlazyVariants = async (srcWithName, standsImportPath) => {
+const createlazyVariants = async (srcWithName, standsImportPath, outDir) => {
   const file = `${srcWithName}.variants.tsx`;
 
   access(file, F_OK, async (err) => {
@@ -53,19 +50,30 @@ const createlazyVariants = async (srcWithName, standsImportPath) => {
 
       const jsCode = `import Variants from '../${standsImportPath}/${srcWithName}.variants';\nexport default Variants;\n`;
 
-      await writeFile(
-        `node_modules/@consta/stand/src/stands/lazyDocs/${lazyDocsFileName}`,
-        jsCode,
-      );
+      await writeFile(`${outDir}${lazyDocsFileName}`, jsCode);
     }
   });
 };
 
-const createLazy = async (srcWithName, standsImportPath, standTabs) => {
+const createLazy = async (
+  srcWithName,
+  standsImportPath,
+  standTabs,
+  lazyMdxTemaplatePath,
+  standsPath,
+) => {
+  const lazyMdxPath = `${standsPath}/lazyDocs/`;
+
   const promises = [
-    createlazyDocs(srcWithName, standsImportPath, '.stand.mdx'),
-    createlazyImage(srcWithName, standsImportPath),
-    createlazyVariants(srcWithName, standsImportPath),
+    createlazyDocs(
+      srcWithName,
+      standsImportPath,
+      '.stand.mdx',
+      lazyMdxTemaplatePath,
+      lazyMdxPath,
+    ),
+    createlazyImage(srcWithName, standsImportPath, lazyMdxPath),
+    createlazyVariants(srcWithName, standsImportPath, lazyMdxPath),
   ];
 
   for (let index = 0; index < standTabs.length; index++) {
@@ -74,6 +82,8 @@ const createLazy = async (srcWithName, standsImportPath, standTabs) => {
         srcWithName,
         standsImportPath,
         `.${standTabs[index]}.stand.mdx`,
+        lazyMdxTemaplatePath,
+        lazyMdxPath,
       ),
     );
   }
@@ -104,9 +114,9 @@ const prepareStands = async ({
   projectPath,
   standsTemaplatePath,
   standsPath,
-  standsImportPath,
   standsUrlPath,
   standTabs,
+  lazyMdxTemaplatePath,
 }) => {
   await remove('node_modules/@consta/stand/src/stands');
   await ensureDir('node_modules/@consta/stand/src/stands/lazyDocs/');
@@ -131,11 +141,9 @@ const prepareStands = async ({
     const srcWithName = fileName.replace(/\.stand\.(ts|tsx)$/, '');
     const dir = fileName.replace(/[^\/]+$/g, '');
 
-    // console.log(componentFolder, dir);
-
     imports += `import stand_${index} from '${projectPath}/${src}';\n`;
     stands += `stand_${index},\n`;
-    paths += `'${standsImportPath}/${dir}',\n`;
+    paths += `'${projectPath}/${dir}',\n`;
     lazyIds += `'${srcWithName}',\n`;
     componentsDirs += `'${getComponentDir(dir)}',\n`;
 
@@ -163,7 +171,13 @@ const prepareStands = async ({
       }
     }
 
-    await createLazy(srcWithName, standsImportPath, standTabs);
+    await createLazy(
+      srcWithName,
+      projectPath,
+      standTabs,
+      lazyMdxTemaplatePath,
+      standsPath,
+    );
   });
 
   stands += '];\n';
@@ -180,7 +194,7 @@ const prepareStands = async ({
     .replace(/#lazyDocsAccess#/g, lazyDocsAccess)
     .replace(/#componentsDirs#/g, componentsDirs);
 
-  await writeFile(standsPath, jsCode);
+  await writeFile(`${standsPath}/index.ts`, jsCode);
 };
 
 module.exports = {
