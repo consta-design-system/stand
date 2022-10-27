@@ -1,8 +1,4 @@
 .stand--LibsPage {
-  & > *:not(:last-child) {
-    margin-bottom: calc(var(--space-l) * 2.5);
-  }
-
   & a {
     text-decoration: none;
   }
@@ -15,6 +11,10 @@
     grid-column-gap: var(--column-gap);
     grid-row-gap: var(--row-gap);
     grid-template-columns: 1fr;
+
+    &:not(:last-child) {
+      margin-bottom: calc(var(--space-l) * 2.5);
+    }
 
     @media screen and (min-width: 460px) {
       grid-template-columns: 1fr;

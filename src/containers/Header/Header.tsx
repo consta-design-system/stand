@@ -1,18 +1,74 @@
+import './Header.css';
+
 import { Layout } from '@consta/header/Layout';
 import { Button } from '@consta/uikit/Button';
 import { IconHamburger } from '@consta/uikit/IconHamburger';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { Text } from '@consta/uikit/Text';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useAction } from '@reatom/react';
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 
 import { ThemeToggler } from '##/containers/ThemeToggler';
-import { headerHeight, openLeftSide } from '##/exportAtoms/layout';
+import { headerHeight, openPrimaryMenuAtom } from '##/exportAtoms/layout';
+import { cn } from '##/utils/bem';
 
-export const Header = () => {
-  const toggleMenu = useAction(openLeftSide.toggle);
+import { HeaderDesktopMenu } from './HeaderDesktopMenu';
+import { HeaderLogo } from './HeaderLogo';
+
+const cnHeader = cn('Header');
+
+const MenuToggler = () => {
+  const toggleMenu = useAction(openPrimaryMenuAtom.toggle);
+  const breakpoints = useBreakpoints({
+    m: 900,
+  });
+
+  return (
+    <Button
+      view="clear"
+      iconLeft={IconHamburger}
+      className={breakpoints.m ? cnMixSpace({ mR: 's' }) : undefined}
+      onClick={toggleMenu}
+      size="s"
+    />
+  );
+};
+
+const LeftButton = (breakpoints: { m: boolean; l: boolean }) => {
+  if (breakpoints.l) {
+    return null;
+  }
+  if (breakpoints.m) {
+    return <MenuToggler key="MenuToggler" />;
+  }
+  return <ThemeToggler key="ThemeToggler" />;
+};
+
+const Left = (breakpoints: { m: boolean; l: boolean }) => {
+  return (
+    <>
+      <LeftButton {...breakpoints} />
+      {breakpoints.m && <HeaderLogo />}
+    </>
+  );
+};
+
+const Center = (breakpoints: { m: boolean }) => {
+  if (breakpoints.m) {
+    return <HeaderDesktopMenu />;
+  }
+  return <HeaderLogo />;
+};
+
+const Right = (breakpoints: { m: boolean }) => {
+  if (breakpoints.m) {
+    return <ThemeToggler />;
+  }
+  return <MenuToggler key="dddd" />;
+};
+
+export const Header = memo(() => {
   const headerRef = useRef<HTMLDivElement>(null);
 
   const { height } = useComponentSize(headerRef);
@@ -20,6 +76,7 @@ export const Header = () => {
   const setHeaderHeight = useAction(headerHeight.set);
 
   const breakpoints = useBreakpoints({
+    m: 900,
     l: 1364,
   });
 
@@ -29,25 +86,13 @@ export const Header = () => {
 
   return (
     <Layout
+      className={cnHeader()}
       ref={headerRef}
       rowCenter={{
-        left: [
-          breakpoints.l ? undefined : (
-            <Button
-              key="Button"
-              view="clear"
-              iconLeft={IconHamburger}
-              className={cnMixSpace({ mR: 's' })}
-              onClick={toggleMenu}
-            />
-          ),
-          <Text key="Logo" size="l" weight="bold">
-            Consta
-          </Text>,
-        ],
-        center: '',
-        right: <ThemeToggler />,
+        left: <Left {...breakpoints} />,
+        center: <Center {...breakpoints} />,
+        right: <Right {...breakpoints} />,
       }}
     />
   );
-};
+});

@@ -1,5 +1,6 @@
 import './LibsPage.css';
 
+import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
@@ -16,6 +17,14 @@ const cnLibsPage = cn('LibsPage');
 export const LibsPage: React.FC = () => {
   const [libs] = useAtom(libsAtom);
   const router = useRouter();
+
+  const groups = getGroups(
+    libs,
+    (lib) => lib.group,
+    undefined,
+    undefined,
+    undefined,
+  );
 
   // если библиотека одна то редереким на сраницу библиотеки
   useEffect(() => {
@@ -41,7 +50,7 @@ export const LibsPage: React.FC = () => {
           Библиотеки
         </Text>
 
-        <Text size="m" lineHeight="m" className={cnMixSpace({ mB: 'xl' })}>
+        <Text size="m" lineHeight="m" className={cnMixSpace({ mB: '4xl' })}>
           Библиотеки дизайн-системы Consta для разработчиков написаны на React и
           хранятся в репозиториях на GitHub — в открытом доступе.
           <br />
@@ -60,11 +69,23 @@ export const LibsPage: React.FC = () => {
         </Text>
       </div>
 
-      <div className={cnLibsPage('Section')}>
-        {libs.map((lib) => (
-          <LibCard lib={lib} key={lib.id} />
-        ))}
-      </div>
+      {groups.map((group) => (
+        <>
+          <Text
+            className={cnMixSpace({ mB: 'l' })}
+            as="h2"
+            size="2xl"
+            lineHeight="m"
+          >
+            {group.key}
+          </Text>
+          <div className={cnLibsPage('Section')}>
+            {group.items.map((lib) => (
+              <LibCard lib={lib} key={lib.id} />
+            ))}
+          </div>
+        </>
+      ))}
     </div>
   );
 };

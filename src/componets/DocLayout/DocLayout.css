@@ -7,12 +7,11 @@
   padding-top: var(--doc-layout-header-height);
   background: var(--color-bg-secondary);
 
-  &-LeftSide {
+  &-Menu {
     position: fixed;
     z-index: var(--doc-layout-leftside-z-index);
     top: var(--doc-layout-header-height);
     top: 0;
-    left: 0;
     overflow-y: overlay;
     width: calc(100vw - var(--space-2xl));
     max-width: var(--doc-layout-side-width);
@@ -22,7 +21,31 @@
     border-right: 1px solid var(--color-bg-border);
     box-shadow: 0 0 0 var(--color-shadow-modal-1);
     transition: transform 0.2s, box-shadow 0.2s;
-    transform: translateX(calc(var(--doc-layout-side-width) * -1));
+
+    &_type {
+      &_primary {
+        right: 0;
+        transform: translateX(calc(var(--doc-layout-side-width)));
+
+        @media screen and (min-width: 900px) {
+          right: auto;
+          left: 0;
+          transform: translateX(calc(var(--doc-layout-side-width) * -1));
+        }
+
+        @media screen and (min-width: 1364px) {
+          z-index: auto;
+          top: var(--doc-layout-header-height);
+          height: calc(100vh - var(--doc-layout-header-height));
+          transform: translateX(0);
+        }
+      }
+
+      &_secondary {
+        left: 0;
+        transform: translateX(calc(var(--doc-layout-side-width) * -1));
+      }
+    }
 
     &::-webkit-scrollbar-track {
       background-color: var(--color-bg-default);
@@ -40,13 +63,6 @@
 
     &_open {
       box-shadow: var(--shadow-modal);
-      transform: translateX(0);
-    }
-
-    @media screen and (min-width: 1364px) {
-      z-index: auto;
-      top: var(--doc-layout-header-height);
-      height: calc(100vh - var(--doc-layout-header-height));
       transform: translateX(0);
     }
   }
@@ -72,14 +88,8 @@
   }
 
   &-Content {
-    padding: 0;
-
     @media screen and (min-width: 900px) {
       padding: var(--space-2xl);
-    }
-
-    @media screen and (max-width: 899px) {
-      padding: 0;
     }
 
     @media screen and (min-width: 1364px) {
@@ -100,6 +110,10 @@
     background: var(--color-bg-default);
     border-radius: 0;
 
+    &_withSecondaryMenu {
+      border-radius: 16px 16px 0 0;
+    }
+
     @media screen and (min-width: 900px) {
       max-width: 980px;
       padding: calc(var(--space-l) * 2.5) var(--space-3xl);
@@ -115,5 +129,16 @@
     width: 100%;
     grid-column-start: 1;
     grid-column-end: 4;
+  }
+
+  &-SecondaryMenuButton.Text {
+    display: inline-flex;
+    align-items: center;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-l);
+    margin-left: var(--space-xl);
+    color: var(--color-typo-link);
+    cursor: pointer;
+    gap: var(--space-m);
   }
 }

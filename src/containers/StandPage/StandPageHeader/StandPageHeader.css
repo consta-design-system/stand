@@ -31,4 +31,8 @@
     width: 100%;
     margin-bottom: calc(var(--space-l) * 1.5);
   }
+
+  &-Tooltip {
+    max-width: 220px;
+  }
 }

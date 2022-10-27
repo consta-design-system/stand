@@ -8,46 +8,29 @@ import {
   PortalMenuPropGetGroupKey,
   PortalMenuPropGetGroupLabel,
   PortalMenuPropGetItemActive,
-  PortalMenuPropGetItemBadge,
-  PortalMenuPropGetItemDescription,
   PortalMenuPropGetItemGroupId,
   PortalMenuPropGetItemHref,
   PortalMenuPropGetItemLabel,
-  PortalMenuPropGetItemOnClick,
-  PortalMenuPropGetItemParams,
-  PortalMenuPropGetItemSubMenu,
+  PortalMenuPropGetItemRightSide,
   PortalMenuProps,
 } from '../PortalMenu/types';
 
 // Items
 
-export const defaultGetItemLabel: PortalMenuPropGetItemLabel<
-  DefaultMenuItem
-> = (item) => item.label;
-export const defaultGetItemActive: PortalMenuPropGetItemActive<
-  DefaultMenuItem
-> = (item) => item.active;
-export const defaultGetItemDescription: PortalMenuPropGetItemDescription<
-  DefaultMenuItem
-> = (item) => item.description;
-export const defaultGetItemOnClick: PortalMenuPropGetItemOnClick<
-  DefaultMenuItem
-> = (item) => item.onClick;
-export const defaultGetItemBadge: PortalMenuPropGetItemBadge<
-  DefaultMenuItem
-> = (item) => item.badge;
-export const defaultGetItemGroupId: PortalMenuPropGetItemGroupId<
-  DefaultMenuItem
-> = (item) => item.groupId;
-export const defaultGetItemSubMenu: PortalMenuPropGetItemSubMenu<
-  DefaultMenuItem
-> = (item) => item.subMenu;
-export const defaultGetItemHref: PortalMenuPropGetItemHref<DefaultMenuItem> = (
+const defaultGetItemLabel: PortalMenuPropGetItemLabel<DefaultMenuItem> = (
   item,
-) => item.href;
-export const defaultGetItemParams: PortalMenuPropGetItemParams<
+) => item.label;
+const defaultGetItemActive: PortalMenuPropGetItemActive<DefaultMenuItem> = (
+  item,
+) => item.active;
+const defaultGetItemRightSide: PortalMenuPropGetItemRightSide<
   DefaultMenuItem
-> = (item) => item.params;
+> = (item) => item.rightSide;
+const defaultGetItemGroupId: PortalMenuPropGetItemGroupId<DefaultMenuItem> = (
+  item,
+) => item.groupId;
+const defaultGetItemHref: PortalMenuPropGetItemHref<DefaultMenuItem> = (item) =>
+  item.href;
 
 // Group
 
@@ -69,13 +52,9 @@ export function withDefaultGetters<
     ...props,
     getItemLabel: props.getItemLabel ?? defaultGetItemLabel,
     getItemActive: props.getItemActive ?? defaultGetItemActive,
-    getItemDescription: props.getItemDescription ?? defaultGetItemDescription,
-    getItemOnClick: props.getItemOnClick ?? defaultGetItemOnClick,
-    getItemBadge: props.getItemBadge ?? defaultGetItemBadge,
+    getItemRightSide: props.getItemRightSide ?? defaultGetItemRightSide,
     getItemGroupId: props.getItemGroupId ?? defaultGetItemGroupId,
-    getItemSubMenu: props.getItemSubMenu ?? defaultGetItemSubMenu,
     getItemHref: props.getItemHref ?? defaultGetItemHref,
-    getItemParams: props.getItemParams ?? defaultGetItemParams,
     getGroupKey: props.getGroupKey ?? defaultGetGroupKey,
     getGroupLabel: props.getGroupLabel ?? defaultGetGroupLabel,
     getGroupInitialOpen:

@@ -24,6 +24,7 @@ export const ThemeToggler: React.FC<
       items={themes}
       onChange={setTheme}
       value={theme}
+      size="s"
     />
   );
 };

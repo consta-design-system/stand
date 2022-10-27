@@ -47,8 +47,4 @@
     justify-content: flex-start;
     align-items: flex-start;
   }
-
-  &-Description {
-    margin-top: var(--space-2xs);
-  }
 }

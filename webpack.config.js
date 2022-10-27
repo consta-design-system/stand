@@ -117,11 +117,7 @@ module.exports = function () {
                               });
                         `;
                 },
-                plugins: [
-                  '@svgr/plugin-svgo',
-                  '@svgr/plugin-jsx',
-                  '@svgr/plugin-prettier',
-                ],
+                plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
                 dimensions: false,
                 svgo: true,
               },

@@ -9,7 +9,7 @@ export const createBooleanSyncLocalStorageAtom = (
     set: (payload: boolean) => boolean;
     on: () => true;
     off: () => false;
-    toggle: (state: boolean) => boolean;
+    toggle: () => boolean;
   }
 > => {
   initialValue &&
@@ -21,7 +21,7 @@ export const createBooleanSyncLocalStorageAtom = (
       set: (payload: boolean) => payload,
       on: () => true,
       off: () => false,
-      toggle: (state: boolean) => !state,
+      toggle: () => false,
     },
     ({ onAction }, state = localStorage.getItem(localStorageName) === 'Y') => {
       onAction('set', (payload) => {
@@ -39,9 +39,9 @@ export const createBooleanSyncLocalStorageAtom = (
         state = false;
       });
 
-      onAction('toggle', (payload) => {
-        localStorage.setItem(localStorageName, !payload ? 'Y' : 'N');
-        state = !payload;
+      onAction('toggle', () => {
+        localStorage.setItem(localStorageName, !state ? 'Y' : 'N');
+        state = !state;
       });
 
       return state;

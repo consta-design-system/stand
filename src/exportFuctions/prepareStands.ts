@@ -6,23 +6,30 @@ import {
 } from '##/exportTypes';
 import { generateStandId } from '##/utils/generateStandId';
 
-const sort = (a: CreatedStand, b: CreatedStand) => {
-  if (a.stand.order && b.stand.order) {
-    return a.stand.order - b.stand.order;
+const sort = (
+  a: { order?: number; title: string },
+  b: { order?: number; title: string },
+) => {
+  if (a.order && b.order) {
+    return a.order - b.order;
   }
-  if (a.stand.order) {
+  if (a.order) {
     return -1;
   }
-  if (b.stand.order) {
+  if (b.order) {
     return 1;
   }
-  if (a.stand.id < b.stand.id) {
+  if (a.title < b.title) {
     return -1;
   }
-  if (a.stand.id > b.stand.id) {
+  if (a.title > b.title) {
     return 1;
   }
   return 0;
+};
+
+const sortStands = (a: CreatedStand, b: CreatedStand) => {
+  return sort(a.stand, b.stand);
 };
 
 const addToLib = (stand: PreparedStand, libs: LibWithStands[]) => {
@@ -123,7 +130,7 @@ export const prepareStands = (
       lazyAccess: getLazyAccess(lazyAccess, paths[index], item.lib.standTabs),
       componentDir: componentDirs[index] || undefined,
     }))
-    .sort(sort)
+    .sort(sortStands)
     .forEach((stand) => {
       stands[generateStandId(stand.lib.id, stand.id)] = stand as PreparedStand;
       addToLib(stand as PreparedStand, libs);
@@ -137,5 +144,5 @@ export const prepareStands = (
     ) as LibWithStands;
   });
 
-  return { stands, libs };
+  return { stands, libs: libs.sort(sort) };
 };

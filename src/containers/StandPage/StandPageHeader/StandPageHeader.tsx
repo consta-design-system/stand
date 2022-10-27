@@ -1,14 +1,21 @@
 import './StandPageHeader.css';
 
+import { Badge } from '@consta/uikit/Badge';
 import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { Text } from '@consta/uikit/Text';
+import { withTooltip } from '@consta/uikit/withTooltip';
 import React from 'react';
 
 import { Stand } from '##/exportTypes';
+import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
 import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
 
-import { StandPageHeaderBadge } from './StandPageHeaderBadge';
+const BadgeWithTooltip = withTooltip({
+  isInteractive: false,
+  mode: 'mouseover',
+  direction: 'downCenter',
+})(Badge);
 
 type Props = {
   stand: Stand;
@@ -17,38 +24,11 @@ type Props = {
 
 const cnStandPageHeader = cn('StandPageHeader');
 
-export const getLabel = (status: Stand['status']): string | undefined => {
-  if (status === 'deprecated') {
-    return 'deprecated';
-  }
-  if (status === 'canary') {
-    return 'canary';
-  }
-  if (status === 'stable') {
-    return 'Стабильный';
-  }
-  if (status === 'inWork') {
-    return 'В работе';
-  }
-};
-
 const tooltipMessage = {
   stable: 'Это основная версия компонента, рекомендуем использовать',
   deprecated: 'Это устаревшая версия компонента, лучше использовать стабильную',
   canary: 'Это совсем новый компонент, параметры могут поменяться',
   inWork: 'Этот компонент пока находится в разработке',
-};
-
-export const getStatus = (status: Stand['status']) => {
-  if (status === 'deprecated') {
-    return 'error';
-  }
-  if (status === 'canary') {
-    return 'success';
-  }
-  if (status === 'stable') {
-    return 'normal';
-  }
 };
 
 export const getView = (status: Stand['status']) => {
@@ -68,24 +48,50 @@ export const StandPageHeader = (props: Props) => {
     <div className={cnStandPageHeader(null, [className])}>
       <div className={cnStandPageHeader('Top')}>
         <H1>{title}</H1>
-        <div className={cnStandPageHeader('Badges')}>
-          {status && getStatus(status) && (
-            <StandPageHeaderBadge
-              size="l"
-              label={getLabel(status)}
-              status={getStatus(status)}
-              view={getView(status)}
-              tooltipText={tooltipMessage[status]}
-            />
-          )}
-          {version && (
-            <StandPageHeaderBadge
-              label={`Доступен с ${version}`}
-              icon={IconQuestion}
-              tooltipText="В этой версии Consta компонент был впервые опубликован"
-            />
-          )}
-        </div>
+        {(status || version) && (
+          <div className={cnStandPageHeader('Badges')}>
+            {status && (
+              <BadgeWithTooltip
+                size="l"
+                label={badgeLabelStatusMap[status]}
+                status={badgeStatusMap[status]}
+                view="stroked"
+                icon={IconQuestion}
+                tooltipProps={{
+                  content: (
+                    <Text
+                      className={cnStandPageHeader('Tooltip')}
+                      size="xs"
+                      lineHeight="xs"
+                    >
+                      {tooltipMessage[status]}
+                    </Text>
+                  ),
+                }}
+              />
+            )}
+            {version && (
+              <BadgeWithTooltip
+                size="l"
+                label={`Доступен с ${version}`}
+                status="system"
+                icon={IconQuestion}
+                view="stroked"
+                tooltipProps={{
+                  content: (
+                    <Text
+                      className={cnStandPageHeader('Tooltip')}
+                      size="xs"
+                      lineHeight="xs"
+                    >
+                      В этой версии Consta компонент был впервые опубликован
+                    </Text>
+                  ),
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
       {description && (
         <Text

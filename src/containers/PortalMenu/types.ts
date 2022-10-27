@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { PropsWithHTMLAttributesAndRef } from '##/utils/types/PropsWithHTMLAttributes';
-// import { Badge } from '../Badge/Badge';
 
 export type PortalMenuOnClick<ITEM> = (args: {
   e: React.MouseEvent;
@@ -13,8 +12,6 @@ export type PortalMenuPropSortGroup = (
   b: string | number,
 ) => number;
 
-type BadgeComponent = React.ReactElement;
-
 export type DefaultMenuGroup = {
   label?: string;
   initialOpen?: boolean;
@@ -25,13 +22,9 @@ export type DefaultMenuItem = {
   key: string;
   label: string;
   active?: boolean;
-  description?: string;
   groupId?: string;
-  onClick?: React.EventHandler<React.MouseEvent>;
-  badge?: BadgeComponent;
-  href?: string;
-  params?: Record<string, string>;
-  subMenu?: DefaultMenuItem[];
+  href: string;
+  rightSide: React.ReactElement;
 };
 
 // Items
@@ -47,18 +40,16 @@ export type PortalMenuPropGetItemDescription<ITEM> = (
 export type PortalMenuPropGetItemOnClick<ITEM> = (
   item: ITEM,
 ) => React.EventHandler<React.MouseEvent> | undefined;
-export type PortalMenuPropGetItemBadge<ITEM> = (
+export type PortalMenuPropGetItemRightSide<ITEM> = (
   item: ITEM,
-) => BadgeComponent | undefined;
+) => React.ReactElement | undefined;
 export type PortalMenuPropGetItemGroupId<ITEM> = (
   item: ITEM,
 ) => string | undefined;
 export type PortalMenuPropGetItemSubMenu<ITEM> = (
   item: ITEM,
 ) => ITEM[] | undefined;
-export type PortalMenuPropGetItemHref<ITEM> = (
-  item: ITEM,
-) => string | undefined;
+export type PortalMenuPropGetItemHref<ITEM> = (item: ITEM) => string;
 export type PortalMenuPropGetItemParams<ITEM> = (
   item: ITEM,
 ) => Record<string, string> | undefined;
@@ -84,12 +75,8 @@ export type PortalMenuProps<
     items: ITEM[];
     getItemLabel?: PortalMenuPropGetItemLabel<ITEM>;
     getItemActive?: PortalMenuPropGetItemActive<ITEM>;
-    getItemDescription?: PortalMenuPropGetItemDescription<ITEM>;
-    getItemOnClick?: PortalMenuPropGetItemOnClick<ITEM>;
-    getItemBadge?: PortalMenuPropGetItemBadge<ITEM>;
+    getItemRightSide?: PortalMenuPropGetItemRightSide<ITEM>;
     getItemGroupId?: PortalMenuPropGetItemGroupId<ITEM>;
-    getItemSubMenu?: PortalMenuPropGetItemSubMenu<ITEM>;
-    getItemParams?: PortalMenuPropGetItemParams<ITEM>;
     getItemHref?: PortalMenuPropGetItemHref<ITEM>;
     getGroupKey?: PortalMenuPropGetGroupKey<GROUP>;
     getGroupLabel?: PortalMenuPropGetGroupLabel<GROUP>;
@@ -118,36 +105,24 @@ export type PortalMenuComponent = <
   props: PortalMenuProps<ITEM, GROUP>,
 ) => React.ReactElement | null;
 
-export type PortalMenuItemProps<ITEM> = {
+export type PortalMenuItemProps = {
   onClick?: React.MouseEventHandler;
   className?: string;
-  deep?: number;
-  item: ITEM;
-  getItemLabel: PortalMenuPropGetItemLabel<ITEM>;
-  getItemActive: PortalMenuPropGetItemActive<ITEM>;
-  getItemDescription: PortalMenuPropGetItemDescription<ITEM>;
-  getItemOnClick: PortalMenuPropGetItemOnClick<ITEM>;
-  getItemBadge: PortalMenuPropGetItemBadge<ITEM>;
-  getItemGroupId: PortalMenuPropGetItemGroupId<ITEM>;
-  getItemSubMenu: PortalMenuPropGetItemSubMenu<ITEM>;
-  getItemHref: PortalMenuPropGetItemHref<ITEM>;
-  getItemParams: PortalMenuPropGetItemParams<ITEM>;
+  label: string;
+  active?: boolean;
+  rightSide?: React.ReactElement;
+  href: string;
 };
 
-export type PortalMenuGroupProps<ITEM, GROUP> = {
+export type PortalMenuGroupProps<ITEM> = {
   onItemClick?: PortalMenuOnClick<ITEM>;
-  group?: GROUP;
   className?: string;
   items: ITEM[];
-  getGroupInitialOpen: PortalMenuPropGetGroupInitialOpen<GROUP>;
-  getGroupLabel: PortalMenuPropGetGroupLabel<GROUP>;
+  initialOpen?: boolean;
+  label?: string;
   getItemLabel: PortalMenuPropGetItemLabel<ITEM>;
   getItemActive: PortalMenuPropGetItemActive<ITEM>;
-  getItemDescription: PortalMenuPropGetItemDescription<ITEM>;
-  getItemOnClick: PortalMenuPropGetItemOnClick<ITEM>;
-  getItemBadge: PortalMenuPropGetItemBadge<ITEM>;
+  getItemRightSide: PortalMenuPropGetItemRightSide<ITEM>;
   getItemGroupId: PortalMenuPropGetItemGroupId<ITEM>;
-  getItemSubMenu: PortalMenuPropGetItemSubMenu<ITEM>;
   getItemHref: PortalMenuPropGetItemHref<ITEM>;
-  getItemParams: PortalMenuPropGetItemParams<ITEM>;
 };

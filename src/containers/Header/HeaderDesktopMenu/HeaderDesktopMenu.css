@@ -1,0 +1,11 @@
+.stand--HeaderDesktopMenu {
+  width: 100%;
+  height: var(--header-height);
+  margin: 0 auto;
+
+  & .che--Menu-List {
+    @media screen and (min-width: 1364px) {
+      justify-content: center;
+    }
+  }
+}

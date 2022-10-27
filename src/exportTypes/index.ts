@@ -27,6 +27,7 @@ export type Stand<Group extends string = string> = {
   otherVersion?: Stand<Group>[];
   alias?: string[];
   visibleOnLibPage?: boolean;
+  visibleOnHeader?: boolean;
 };
 
 export type StandTab = {
@@ -56,6 +57,7 @@ export type Lib<GROUP extends Group> = {
   }) => React.ReactElement;
   standTabs?: StandTab[];
   repositoryUrl?: string;
+  order?: number;
 };
 
 export type CreatedStand = {

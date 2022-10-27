@@ -101,3 +101,17 @@ export const figmaAtom = createAtom({ standAtom }, ({ get }) => {
 
   return stand?.stand.figma;
 });
+
+export const badgeLabelStatusMap = {
+  deprecated: 'deprecated',
+  canary: 'canary',
+  stable: 'Стабильный',
+  inWork: 'В работе',
+};
+
+export const badgeStatusMap = {
+  deprecated: 'error',
+  canary: 'success',
+  stable: 'normal',
+  inWork: undefined,
+} as const;

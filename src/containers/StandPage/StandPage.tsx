@@ -4,11 +4,11 @@ import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
 import { LazyDocs } from '##/componets/LazyDocs';
+import { PageDecorator } from '##/containers/PageDecorator';
 import { Variants } from '##/containers/Variants';
 import { cn } from '##/utils/bem';
 
 import { getStandPath, useStand } from './helpers';
-import { StandPageDecorator } from './StandPageDecorator';
 import { StandPageFigma } from './StandPageFigma';
 import { StandPageFooter } from './StandPageFooter';
 import { StandPageHeader } from './StandPageHeader';
@@ -50,7 +50,7 @@ export const StandPage: React.FC = memo(() => {
   }, [standID]);
 
   return (
-    <StandPageDecorator>
+    <PageDecorator>
       <div key={standID}>
         <StandPageHeader stand={stand.stand} />
         <StandPageInformer
@@ -84,6 +84,6 @@ export const StandPage: React.FC = memo(() => {
         {standPath && <LazyDocs key={standPath} id={standPath} />}
         <StandPageFooter className={cnStandPage('Footer')} />
       </div>
-    </StandPageDecorator>
+    </PageDecorator>
   );
 });

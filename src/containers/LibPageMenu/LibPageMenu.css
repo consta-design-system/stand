@@ -1,4 +1,8 @@
 .stand--LibPageMenu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   &-Controls {
     position: sticky;
     z-index: 2;
@@ -11,7 +15,7 @@
     }
 
     & > *:first-child {
-      margin-bottom: var(--space-4xl);
+      margin-bottom: var(--space-2xl);
     }
   }
 
@@ -76,5 +80,16 @@
     padding-top: calc(var(--space-s) + var(--space-3xs));
     padding-right: var(--space-xl);
     padding-bottom: calc(var(--space-s) + var(--space-3xs));
+  }
+
+  & .stand--PortalMenu-List {
+    flex: 1;
+  }
+
+  &-ButtonLibs {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    gap: var(--space-xs);
   }
 }

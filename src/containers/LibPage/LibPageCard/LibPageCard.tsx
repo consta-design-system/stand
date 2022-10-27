@@ -1,20 +1,16 @@
 import './LibPageCard.css';
 
+import { Badge } from '@consta/uikit/Badge';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { Image } from '##/componets/Image';
 import { LazyImage } from '##/componets/LazyImage';
 import { Link } from '##/componets/Link';
-import {
-  getLabel,
-  getStatus,
-  getView,
-} from '##/containers/StandPage/StandPageHeader';
-import { StandPageHeaderBadge } from '##/containers/StandPage/StandPageHeader/StandPageHeaderBadge';
 import { Group, PreparedStand } from '##/exportTypes';
 import NoImage from '##/images/NoImage.image.svg';
 import { routesNames } from '##/modules/router';
+import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
 type Props = {
@@ -45,12 +41,12 @@ export const LibPageCard = (props: Props) => {
             {title}
           </Text>
         </Link>
-        {status !== 'stable' && (
-          <StandPageHeaderBadge
+        {status && status !== 'stable' && (
+          <Badge
             size="xs"
-            label={getLabel(status)}
-            status={getStatus(status)}
-            view={getView(status)}
+            label={badgeLabelStatusMap[status]}
+            status={badgeStatusMap[status]}
+            view="stroked"
           />
         )}
       </div>
