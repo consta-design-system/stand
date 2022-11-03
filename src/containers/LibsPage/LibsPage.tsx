@@ -4,7 +4,7 @@ import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
 import { LibCard } from '##/componets/LibCard';
@@ -70,7 +70,7 @@ export const LibsPage: React.FC = () => {
       </div>
 
       {groups.map((group) => (
-        <>
+        <Fragment key={group.key}>
           <Text
             className={cnMixSpace({ mB: 'l' })}
             as="h2"
@@ -81,10 +81,10 @@ export const LibsPage: React.FC = () => {
           </Text>
           <div className={cnLibsPage('Section')}>
             {group.items.map((lib) => (
-              <LibCard lib={lib} key={lib.id} />
+              <LibCard lib={lib} key={`${group.key}-${lib.id}`} />
             ))}
           </div>
-        </>
+        </Fragment>
       ))}
     </div>
   );

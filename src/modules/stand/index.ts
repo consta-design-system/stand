@@ -73,10 +73,10 @@ export const docsRepositoryUrlAtom = createAtom(
     const {
       lazyAccess,
       lib: { repositoryUrl },
-      path,
+      repositoryPath,
     } = stand;
 
-    return getDocsUrl(repositoryUrl, router.route, lazyAccess, path);
+    return getDocsUrl(repositoryUrl, router.route, lazyAccess, repositoryPath);
   },
 );
 

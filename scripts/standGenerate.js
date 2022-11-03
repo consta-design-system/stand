@@ -1,8 +1,9 @@
 const { resolve } = require('path');
 const { Command, flags } = require('@oclif/command');
 const logSymbols = require('log-symbols');
+const { remove } = require('fs-extra');
 
-const { prepareStands } = require('./prepareStands');
+const { prepareStands, prepareRoutes } = require('./prepareStands');
 
 class GenerateCommand extends Command {
   async safeInvokeHook(hook) {
@@ -32,9 +33,13 @@ class GenerateCommand extends Command {
     }
 
     try {
+      await remove(config.standsPath);
       await Promise.all([
         prepareStands(config).then(() =>
-          this.log(logSymbols.success, 'stand info generated'),
+          this.log(logSymbols.success, 'stand generated'),
+        ),
+        prepareRoutes(config).then(() =>
+          this.log(logSymbols.success, 'routes generated'),
         ),
       ]);
     } catch (err) {

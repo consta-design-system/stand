@@ -7,13 +7,16 @@ import { prepareStands } from '../../src/exportFuctions';
 
 #lazyIds#
 
+#repositoryPaths#
+
 #lazyDocsAccess#
 
 #componentsDirs#
 
-export const { stands, libs } = prepareStands(
+export const { stands, libs, pages } = prepareStands(
   standsGenerated,
   lazyIds,
   lazyAccess,
   componentDirs,
+  repositoryPaths,
 );

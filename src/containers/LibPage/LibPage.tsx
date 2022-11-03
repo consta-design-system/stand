@@ -5,17 +5,16 @@ import { useAtom } from '@reatom/react';
 import React from 'react';
 
 import { LibDescription } from '##/componets/LibDescription';
-import { libAtom } from '##/modules/lib';
 import { cn } from '##/utils/bem';
 
-import { groupsAtom } from './helpers';
+import { groupsAtom, useLib } from './helpers';
 import { LibPageCard } from './LibPageCard';
 
 const cnLibPage = cn('LibPage');
 
 export const LibPage: React.FC = () => {
   const [groups] = useAtom(groupsAtom);
-  const [lib] = useAtom(libAtom);
+  const lib = useLib();
 
   if (!lib) {
     return null;

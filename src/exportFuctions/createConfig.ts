@@ -1,4 +1,11 @@
-import { CreatedStand, Group, Lib, Stand, StandTab } from '##/exportTypes';
+import {
+  CreatedStand,
+  Group,
+  Lib,
+  PageConfig,
+  Stand,
+  StandTab,
+} from '##/exportTypes';
 
 const defaultStandTabs: StandTab[] = [
   { id: '', label: 'Обзор' },
@@ -11,6 +18,11 @@ export const createConfig = <GROUP extends Group>(libProps: Lib<GROUP>) => {
   const createStand = (standProps: Stand<GROUP['id']>): CreatedStand => ({
     stand: standProps,
     lib: { standTabs: defaultStandTabs, ...libProps },
+    type: 'stand',
   });
-  return { createStand };
+  const createPage = (pageConfig: PageConfig) => ({
+    ...pageConfig,
+    type: 'page',
+  });
+  return { createStand, createPage };
 };

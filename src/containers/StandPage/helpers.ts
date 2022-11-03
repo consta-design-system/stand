@@ -1,4 +1,5 @@
 import { useAtom } from '@reatom/react';
+import { useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
 import { PreparedStand } from '##/exportTypes';
@@ -10,9 +11,11 @@ export const useStand = () => {
 
   const router = useRouter();
 
-  if (!stand) {
-    router.navigate(routesNames.LIBS, {}, { replace: true });
-  }
+  useEffect(() => {
+    if (!stand) {
+      router.navigate(routesNames.LIBS, {}, { replace: true });
+    }
+  }, [stand]);
 
   return stand;
 };

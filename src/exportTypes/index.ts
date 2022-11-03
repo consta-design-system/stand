@@ -63,15 +63,24 @@ export type Lib<GROUP extends Group> = {
 export type CreatedStand = {
   stand: Stand;
   lib: Lib<Group>;
+  type: 'stand';
 };
 
 export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   id: string;
   path: string;
+  repositoryPath: string;
   lazyAccess: Record<string, boolean>;
   componentDir?: string;
+  type: string;
 };
 
 export type LibWithStands = Lib<Group> & {
   stands: PreparedStand[];
 };
+
+export type PageConfig = {
+  routeName: string;
+};
+
+export type CreatedPage = PageConfig & { type: 'page' };

@@ -1,5 +1,5 @@
 const fg = require('fast-glob');
-const { readFile, writeFile, ensureDir, remove } = require('fs-extra');
+const { readFile, writeFile, ensureDir } = require('fs-extra');
 const { join } = require('path');
 
 const { access, F_OK, existsSync } = require('fs');
@@ -28,7 +28,7 @@ const createlazyDocs = async (
   });
 };
 
-const createlazyImage = async (srcWithName, standsImportPath, outDir) => {
+const createLazyImage = async (srcWithName, standsImportPath, outDir) => {
   const file = `${srcWithName}.image.svg`;
 
   access(file, F_OK, async (err) => {
@@ -41,7 +41,7 @@ const createlazyImage = async (srcWithName, standsImportPath, outDir) => {
   });
 };
 
-const createlazyVariants = async (srcWithName, standsImportPath, outDir) => {
+const createLazyVariants = async (srcWithName, standsImportPath, outDir) => {
   const file = `${srcWithName}.variants.tsx`;
 
   access(file, F_OK, async (err) => {
@@ -49,6 +49,20 @@ const createlazyVariants = async (srcWithName, standsImportPath, outDir) => {
       const lazyDocsFileName = `${file.replace(/\W/g, '_')}.tsx`;
 
       const jsCode = `import Variants from '../${standsImportPath}/${srcWithName}.variants';\nexport default Variants;\n`;
+
+      await writeFile(`${outDir}${lazyDocsFileName}`, jsCode);
+    }
+  });
+};
+
+const createLazyPage = async (srcWithName, standsImportPath, outDir) => {
+  const file = `${srcWithName}.page.tsx`;
+
+  access(file, F_OK, async (err) => {
+    if (!err) {
+      const lazyDocsFileName = `${file.replace(/\W/g, '_')}.tsx`;
+
+      const jsCode = `import Page from '../${standsImportPath}/${srcWithName}.page';\nexport default Page;\n`;
 
       await writeFile(`${outDir}${lazyDocsFileName}`, jsCode);
     }
@@ -72,8 +86,9 @@ const createLazy = async (
       lazyMdxTemaplatePath,
       lazyMdxPath,
     ),
-    createlazyImage(srcWithName, standsImportPath, lazyMdxPath),
-    createlazyVariants(srcWithName, standsImportPath, lazyMdxPath),
+    createLazyImage(srcWithName, standsImportPath, lazyMdxPath),
+    createLazyPage(srcWithName, standsImportPath, lazyMdxPath),
+    createLazyVariants(srcWithName, standsImportPath, lazyMdxPath),
   ];
 
   for (let index = 0; index < standTabs.length; index++) {
@@ -101,11 +116,23 @@ const getComponentDir = (dir) => {
       existsSync(`${dirComponent}/${name}.tsx`) ||
       existsSync(`${dirComponent}/${name}.ts`)
     ) {
-      return dirComponent;
+      return `src/${dirComponent.replace(/(.*)src\//, '')}`;
     }
   }
 
   return '';
+};
+
+const prepareRoutes = async ({ routesPath, projectPath, standsPath }) => {
+  await ensureDir(standsPath);
+  let jsCode;
+  if (routesPath) {
+    jsCode = `export * from '${projectPath}${routesPath}';\n`;
+  } else {
+    jsCode = `export const routes = [];\n`;
+  }
+
+  await writeFile(`${standsPath}/router.ts`, jsCode);
 };
 
 const prepareStands = async ({
@@ -118,20 +145,17 @@ const prepareStands = async ({
   standTabs,
   lazyMdxTemaplatePath,
 }) => {
-  await remove('node_modules/@consta/stand/src/stands');
-  await ensureDir('node_modules/@consta/stand/src/stands/lazyDocs/');
+  await ensureDir(`${standsPath}/lazyDocs/`);
 
   const path = join(srcPath, '**', '*.stand.{ts,tsx}');
 
   const standsFiles = await fg(path);
 
-  console.info(standsFiles);
-
   const template = await readFile(standsTemaplatePath, 'utf8');
 
   let imports = '';
   let stands = 'export const standsGenerated: CreatedStand[] = [\n';
-  let paths = 'export const pathsGenerated: string[] = [\n';
+  let repositoryPaths = 'export const repositoryPaths: string[] = [\n';
   let lazyIds = 'export const lazyIds: string[] = [\n';
   let lazyDocsAccess = 'export const lazyAccess: string[] = [\n';
   let componentsDirs = 'export const componentDirs: string[] = [\n';
@@ -143,13 +167,18 @@ const prepareStands = async ({
 
     imports += `import stand_${index} from '${projectPath}/${src}';\n`;
     stands += `stand_${index},\n`;
-    paths += `'${projectPath}/${dir}',\n`;
+    repositoryPaths += `'${`src/${srcWithName.replace(/(.*)src\//, '')}`}',\n`;
     lazyIds += `'${srcWithName}',\n`;
     componentsDirs += `'${getComponentDir(dir)}',\n`;
 
     const docsFileStand = `${srcWithName}.stand.mdx`;
     const image = `${srcWithName}.image.svg`;
     const variants = `${srcWithName}.variants.tsx`;
+    const page = `${srcWithName}.page.tsx`;
+
+    if (existsSync(page)) {
+      lazyDocsAccess += `'${page}',\n`;
+    }
 
     if (existsSync(docsFileStand)) {
       lazyDocsAccess += `'${docsFileStand}',\n`;
@@ -181,7 +210,7 @@ const prepareStands = async ({
   });
 
   stands += '];\n';
-  paths += '];\n';
+  repositoryPaths += '];\n';
   lazyIds += '];\n';
   lazyDocsAccess += '];\n';
   componentsDirs += '];\n';
@@ -189,7 +218,7 @@ const prepareStands = async ({
   const jsCode = template
     .replace(/#imports#/g, imports)
     .replace(/#stands#/g, stands)
-    .replace(/#paths#/g, paths)
+    .replace(/#repositoryPaths#/g, repositoryPaths)
     .replace(/#lazyIds#/g, lazyIds)
     .replace(/#lazyDocsAccess#/g, lazyDocsAccess)
     .replace(/#componentsDirs#/g, componentsDirs);
@@ -199,4 +228,5 @@ const prepareStands = async ({
 
 module.exports = {
   prepareStands,
+  prepareRoutes,
 };

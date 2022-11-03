@@ -1,4 +1,5 @@
 import {
+  CreatedPage,
   CreatedStand,
   LibWithStands,
   PreparedStand,
@@ -92,49 +93,72 @@ const getLazyAccess = (
   return lazyAcces;
 };
 
+const isStand = (stand: CreatedStand | CreatedPage): stand is CreatedStand =>
+  stand.type === 'stand';
+
+const isPage = (stand: CreatedStand | CreatedPage): stand is CreatedPage =>
+  stand.type === 'page';
+
 export const prepareStands = (
-  initStands: CreatedStand[],
+  init: CreatedStand[] | CreatedPage[],
   paths: string[],
   lazyAccess: string[],
   componentDirs: string[],
+  repositoryPaths: string[],
 ) => {
+  const initStands: (CreatedStand & { id: string })[] = [];
+  const initPages: (CreatedPage & { path: string })[] = [];
+
+  for (let index = 0; index < init.length; index++) {
+    const item = init[index];
+    if (isStand(item)) {
+      const stand = {
+        ...item,
+        stand: {
+          ...item.stand,
+          visibleOnLibPage:
+            typeof item.stand.visibleOnLibPage === 'undefined'
+              ? true
+              : item.stand.visibleOnLibPage,
+          otherVersion: initStands
+            .filter(
+              (el) =>
+                el.stand.id === item.stand.id &&
+                el.stand.status !== item.stand.status,
+            )
+            .map(({ stand }) => ({
+              ...stand,
+              visibleOnLibPage:
+                typeof item.stand.visibleOnLibPage === 'undefined'
+                  ? true
+                  : item.stand.visibleOnLibPage,
+              id: generateStandId(stand.group, stand.id, stand.status),
+            })),
+        },
+        id: generateStandId(item.stand.group, item.stand.id, item.stand.status),
+        path: paths[index],
+        repositoryPath: repositoryPaths[index],
+        lazyAccess: getLazyAccess(lazyAccess, paths[index], item.lib.standTabs),
+        componentDir: componentDirs[index] || undefined,
+      };
+      initStands.push(stand);
+    }
+    if (isPage(item)) {
+      const page = {
+        ...item,
+        path: paths[index],
+      };
+      initPages.push(page);
+    }
+  }
+
   const stands: Record<string, PreparedStand> = {};
   const libs: LibWithStands[] = [];
 
-  initStands
-    .map((item, index) => ({
-      ...item,
-      stand: {
-        ...item.stand,
-        visibleOnLibPage:
-          typeof item.stand.visibleOnLibPage === 'undefined'
-            ? true
-            : item.stand.visibleOnLibPage,
-        otherVersion: initStands
-          .filter(
-            (el) =>
-              el.stand.id === item.stand.id &&
-              el.stand.status !== item.stand.status,
-          )
-          .map(({ stand }) => ({
-            ...stand,
-            visibleOnLibPage:
-              typeof item.stand.visibleOnLibPage === 'undefined'
-                ? true
-                : item.stand.visibleOnLibPage,
-            id: generateStandId(stand.group, stand.id, stand.status),
-          })),
-      },
-      id: generateStandId(item.stand.group, item.stand.id, item.stand.status),
-      path: paths[index],
-      lazyAccess: getLazyAccess(lazyAccess, paths[index], item.lib.standTabs),
-      componentDir: componentDirs[index] || undefined,
-    }))
-    .sort(sortStands)
-    .forEach((stand) => {
-      stands[generateStandId(stand.lib.id, stand.id)] = stand as PreparedStand;
-      addToLib(stand as PreparedStand, libs);
-    });
+  initStands.sort(sortStands).forEach((stand) => {
+    stands[generateStandId(stand.lib.id, stand.id)] = stand as PreparedStand;
+    addToLib(stand as PreparedStand, libs);
+  });
 
   const standsKeys = Object.keys(stands);
 
@@ -144,5 +168,7 @@ export const prepareStands = (
     ) as LibWithStands;
   });
 
-  return { stands, libs: libs.sort(sort) };
+  console.log({ stands, initPages });
+
+  return { stands, libs: libs.sort(sort), pages: initPages };
 };
