@@ -26,35 +26,41 @@ export const LibPageCard = (props: Props) => {
 
   return (
     <div className={cnLibPageCard({ view })}>
-      <div className={cnLibPageCard('Top')}>
-        <Link
-          to={routesNames.LIBS_LIB_STAND}
-          params={{ stand: stand.id, lib: stand.lib.id }}
-        >
-          <Text
-            className={cnLibPageCard('Title')}
-            size="l"
-            view="link"
-            weight="semibold"
-            lineHeight="xs"
+      <div className={cnLibPageCard('Content')}>
+        <div className={cnLibPageCard('Top')}>
+          <Link
+            to={routesNames.LIBS_LIB_STAND}
+            params={{ stand: stand.id, lib: stand.lib.id }}
           >
-            {title}
+            <Text
+              className={cnLibPageCard('Title')}
+              size="l"
+              view="link"
+              weight="semibold"
+              lineHeight="xs"
+            >
+              {title}
+            </Text>
+          </Link>
+          {status && status !== 'stable' && (
+            <Badge
+              size="xs"
+              label={badgeLabelStatusMap[status]}
+              status={badgeStatusMap[status]}
+              view="stroked"
+            />
+          )}
+        </div>
+        {description && (
+          <Text
+            size="m"
+            lineHeight="m"
+            className={cnLibPageCard('Description')}
+          >
+            {description}
           </Text>
-        </Link>
-        {status && status !== 'stable' && (
-          <Badge
-            size="xs"
-            label={badgeLabelStatusMap[status]}
-            status={badgeStatusMap[status]}
-            view="stroked"
-          />
         )}
       </div>
-      {description && (
-        <Text size="m" lineHeight="m" className={cnLibPageCard('Description')}>
-          {description}
-        </Text>
-      )}
       {view !== 'list-item' &&
         (stand.lazyAccess.image ? (
           <LazyImage id={stand.path} className={cnLibPageCard('Image')} />

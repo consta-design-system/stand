@@ -15,7 +15,7 @@
   }
 
   &-CopyButton {
-    top: var(--space-s);
+    top: calc(var(--space-2xs) + var(--space-3xs));
     opacity: 1;
     transition: opacity 0.3s;
 
