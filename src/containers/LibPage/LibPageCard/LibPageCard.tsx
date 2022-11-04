@@ -6,8 +6,8 @@ import React from 'react';
 
 import { Image } from '##/componets/Image';
 import { LazyImage } from '##/componets/LazyImage';
-import { Link } from '##/componets/Link';
 import { Group, PreparedStand } from '##/exportTypes';
+import { useLink } from '##/hooks/useLink';
 import NoImage from '##/images/NoImage.image.svg';
 import { routesNames } from '##/modules/router';
 import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
@@ -23,25 +23,27 @@ const cnLibPageCard = cn('LibPageCard');
 export const LibPageCard = (props: Props) => {
   const { stand, view = 'card' } = props;
   const { title, description, status } = props.stand.stand;
+  const [href, onClick] = useLink({
+    to: routesNames.LIBS_LIB_STAND,
+    params: { stand: stand.id, lib: stand.lib.id },
+  });
 
   return (
     <div className={cnLibPageCard({ view })}>
       <div className={cnLibPageCard('Content')}>
         <div className={cnLibPageCard('Top')}>
-          <Link
-            to={routesNames.LIBS_LIB_STAND}
-            params={{ stand: stand.id, lib: stand.lib.id }}
+          <Text
+            className={cnLibPageCard('Title')}
+            size="l"
+            view="link"
+            weight="semibold"
+            lineHeight="xs"
+            as="a"
+            href={href}
+            onClick={onClick}
           >
-            <Text
-              className={cnLibPageCard('Title')}
-              size="l"
-              view="link"
-              weight="semibold"
-              lineHeight="xs"
-            >
-              {title}
-            </Text>
-          </Link>
+            {title}
+          </Text>
           {status && status !== 'stable' && (
             <Badge
               size="xs"

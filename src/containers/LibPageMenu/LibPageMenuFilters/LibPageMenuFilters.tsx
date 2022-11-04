@@ -24,7 +24,7 @@ export const LibPageMenuFilters = () => {
       <div className={cnLibPageMenuFilters('Overlay')}>
         {filters.map(({ label, status, value, onClick }) => {
           return (
-            <div className={cnLibPageMenuFilters('Item')}>
+            <div className={cnLibPageMenuFilters('Item')} key={label}>
               <Badge
                 label={label}
                 view="stroked"

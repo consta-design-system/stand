@@ -9,8 +9,8 @@ import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { LibDescription } from '##/componets/LibDescription';
-import { Link } from '##/componets/Link';
 import { Group, Lib } from '##/exportTypes';
+import { useLink } from '##/hooks/useLink';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
@@ -26,8 +26,14 @@ type LibCardProps = {
 const cnLibCard = cn('LibCard');
 
 export const LibCard = (props: LibCardProps) => {
-  const { lib } = props;
-  const { title, description, id, repositoryUrl, status } = lib;
+  const {
+    lib: { title, description, id, repositoryUrl, status },
+  } = props;
+
+  const [href, onClick] = useLink({
+    to: routesNames.LIBS_LIB,
+    params: { lib: id },
+  });
 
   return (
     <div className={cnLibCard()}>
@@ -50,14 +56,15 @@ export const LibCard = (props: LibCardProps) => {
       </Text>
       <LibDescription description={description} />
       <div className={cnLibCard('Buttons')}>
-        <Link to={routesNames.LIBS_LIB} params={{ lib: id }}>
-          <Button
-            size="s"
-            iconRight={IconForward}
-            view="ghost"
-            label="Документация"
-          />
-        </Link>
+        <Button
+          as="a"
+          href={href}
+          onClick={onClick}
+          size="s"
+          iconRight={IconForward}
+          view="ghost"
+          label="Документация"
+        />
         {repositoryUrl && (
           <Button
             size="s"

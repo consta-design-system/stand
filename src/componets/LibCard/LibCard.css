@@ -20,11 +20,23 @@
   }
 
   &-Buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
     margin-top: var(--space-2xl);
+
+    @media screen and (min-width: 460px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    & .Button:first-child {
+      margin-right: var(--space-s);
+      margin-bottom: var(--space-s);
+
+      @media screen and (min-width: 460px) {
+        margin-right: 0;
+        margin-bottom: 0;
+      }
+    }
 
     & .Button_view_clear {
       color: var(--color-typo-link);
