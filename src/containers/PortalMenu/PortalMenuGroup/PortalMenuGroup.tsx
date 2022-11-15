@@ -3,7 +3,7 @@ import './PortalMenuGroup.css';
 import { Collapse } from '@consta/uikit/Collapse';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useFlag } from '@consta/uikit/useFlag';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { PortalMenuGroupProps } from '##/containers/PortalMenu/types';
 import { cn } from '##/utils/bem';
@@ -30,6 +30,12 @@ export const PortalMenuGroup = <ITEM,>(props: PortalMenuGroupProps<ITEM>) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { height } = useComponentSize(containerRef);
+
+  useEffect(() => {
+    if (initialOpen) {
+      setIsOpen.on();
+    }
+  }, [initialOpen]);
 
   return (
     <div className={cnPortalMenuGroup(null, [className])}>
