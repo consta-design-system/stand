@@ -2,7 +2,7 @@ import { useAtom } from '@reatom/react';
 import React, { forwardRef } from 'react';
 
 import { VariantsField } from '##/containers/VariantsField';
-import { variantsNamesAtom } from '##/exportAtoms/variants';
+import { variantsNamesAtom } from '##/modules/variants';
 import { cn } from '##/utils/bem';
 
 const cnVariantsBoard = cn('VariantsBoard');

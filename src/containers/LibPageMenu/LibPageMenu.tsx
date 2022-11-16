@@ -12,16 +12,13 @@ import { useRoute, useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
 import { PortalMenuItem } from '##/containers/PortalMenu/PortalMenuItem';
-import {
-  openPrimaryMenuAtom,
-  openSecondaryMenuAtom,
-} from '##/exportAtoms/layout';
-import { Group, PreparedStand } from '##/exportTypes';
 import { useScrollToActive } from '##/hooks/useScrollToActive';
+import { openPrimaryMenuAtom, openSecondaryMenuAtom } from '##/modules/layout';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
 import { searchValueAtom, visibleListAtom } from '##/modules/standsMenu';
+import { Group, PreparedStand } from '##/types';
 import { cn } from '##/utils/bem';
 
 import { LibPageMenuFilters } from './LibPageMenuFilters';

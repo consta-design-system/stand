@@ -5,11 +5,8 @@ import React, { memo, useCallback } from 'react';
 import { useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
-import {
-  openPrimaryMenuAtom,
-  openSecondaryMenuAtom,
-} from '##/exportAtoms/layout';
 import { headerMenuAtom, MenuItem } from '##/modules/header';
+import { openPrimaryMenuAtom, openSecondaryMenuAtom } from '##/modules/layout';
 
 export const MobileMainMenu = memo(() => {
   const [menu] = useAtom(headerMenuAtom);

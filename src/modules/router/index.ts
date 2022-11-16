@@ -1,11 +1,10 @@
+import { createRoutes } from '@consta/stand/src/createFuctions';
 import createRouter from 'router5';
 import browserPlugin from 'router5-plugin-browser';
 
-import { plugin } from '##/exportAtoms/router';
-import { createRoutes } from '##/exportFuctions';
 import { store } from '##/modules/app';
 
-export { routerAtom } from '##/exportAtoms/router';
+import { plugin } from './router';
 
 export const { routesNames, routes } = createRoutes();
 
@@ -17,4 +16,5 @@ router.start();
 // router.subscribe((state) => console.log(state));
 
 export { router };
+export { routerAtom } from './router';
 export * from './useIsActiveRouter';

@@ -5,9 +5,9 @@ import { reatomContext, useAction, useAtom } from '@reatom/react';
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
-import { variantsAtom, VariantsAtomState } from '##/exportAtoms/variants';
 import { routesNames } from '##/modules/router';
 import { themeAtom } from '##/modules/theme';
+import { variantsAtom, VariantsAtomState } from '##/modules/variants';
 
 export const useIframeSubscribe = () => {
   const [variants] = useAtom(variantsAtom);

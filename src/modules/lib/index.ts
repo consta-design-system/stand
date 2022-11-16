@@ -1,7 +1,7 @@
 import { createAtom } from '@reatom/core';
 
-import { libsAtom } from '../libs';
-import { routerAtom } from '../router';
+import { libsAtom } from '##/modules/libs';
+import { routerAtom } from '##/modules/router';
 
 export const libAtom = createAtom({ routerAtom, libsAtom }, ({ get }) => {
   const libArr = get('libsAtom');

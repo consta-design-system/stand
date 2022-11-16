@@ -2,9 +2,9 @@ import { reatomContext, useAction } from '@reatom/react';
 import { createContext, useContext, useEffect, useRef } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
-import { variantsAtom } from '##/exportAtoms/variants';
 import { routesNames } from '##/modules/router';
 import { htmlModsAtom, themeAtom } from '##/modules/theme';
+import { variantsAtom } from '##/modules/variants';
 
 export const useIframeBridge = () => {
   const clear = useAction(variantsAtom.clear);

@@ -5,7 +5,7 @@ import {
   PageConfig,
   Stand,
   StandTab,
-} from '##/exportTypes';
+} from '##/types';
 
 const defaultStandTabs: StandTab[] = [
   { id: '', label: 'Обзор' },

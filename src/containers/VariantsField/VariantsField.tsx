@@ -8,7 +8,7 @@ import { useAction, useAtom } from '@reatom/react';
 import React, { memo } from 'react';
 
 import { useZIndex } from '##/containers/Variants/helpers';
-import { Variant, variantsAtom, VariantType } from '##/exportAtoms/variants';
+import { Variant, variantsAtom, VariantType } from '##/modules/variants';
 import { cn } from '##/utils/bem';
 
 const cnVariantsField = cn('VariantsField');

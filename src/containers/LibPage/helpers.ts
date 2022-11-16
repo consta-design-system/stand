@@ -4,9 +4,9 @@ import { useAtom } from '@reatom/react';
 import { useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
-import { Group, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
 import { routesNames } from '##/modules/router';
+import { Group, PreparedStand } from '##/types';
 
 export const groupsAtom = createAtom({ libAtom }, ({ get }) => {
   const lib = get('libAtom');

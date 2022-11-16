@@ -10,7 +10,7 @@ import { useAction } from '@reatom/react';
 import React, { memo, useEffect, useRef } from 'react';
 
 import { ThemeToggler } from '##/containers/ThemeToggler';
-import { headerHeight, openPrimaryMenuAtom } from '##/exportAtoms/layout';
+import { headerHeight, openPrimaryMenuAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
 
 import { HeaderDesktopMenu } from './HeaderDesktopMenu';

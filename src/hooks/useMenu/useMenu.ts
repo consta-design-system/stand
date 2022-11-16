@@ -2,10 +2,10 @@ import { useAction, useAtom } from '@reatom/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRoute } from 'react-router5';
 
-import { headerHeight } from '##/exportAtoms/layout';
-import { Stand } from '##/exportTypes';
+import { headerHeight } from '##/modules/layout';
 import { activeItemAtom, menuMdxAtom } from '##/modules/menuMdx';
 import { standAtom } from '##/modules/stand';
+import { Stand } from '##/types';
 
 export type MenuItem = {
   label: string;

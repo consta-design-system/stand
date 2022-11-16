@@ -2,7 +2,7 @@ import { useAction, useAtom } from '@reatom/react';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
-import { headerHeight } from '##/exportAtoms/layout';
+import { headerHeight } from '##/modules/layout';
 import { activeItemAtom } from '##/modules/menuMdx';
 import {
   getStringChildren,

@@ -4,7 +4,7 @@ import {
   LibWithStands,
   PreparedStand,
   StandTab,
-} from '##/exportTypes';
+} from '##/types';
 import { generateStandId } from '##/utils/generateStandId';
 
 const sort = (
@@ -167,8 +167,6 @@ export const prepareStands = (
       (item) => item.id === stands[key].lib.id,
     ) as LibWithStands;
   });
-
-  console.log({ stands, initPages });
 
   return { stands, libs: libs.sort(sort), pages: initPages };
 };

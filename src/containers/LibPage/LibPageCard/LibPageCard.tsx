@@ -6,11 +6,11 @@ import React from 'react';
 
 import { Image } from '##/componets/Image';
 import { LazyImage } from '##/componets/LazyImage';
-import { Group, PreparedStand } from '##/exportTypes';
 import { useLink } from '##/hooks/useLink';
 import NoImage from '##/images/NoImage.image.svg';
 import { routesNames } from '##/modules/router';
 import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
+import { Group, PreparedStand } from '##/types';
 import { cn } from '##/utils/bem';
 
 type Props = {

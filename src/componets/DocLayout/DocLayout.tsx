@@ -9,12 +9,9 @@ import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
 
 import { MobileMainMenu } from '##/containers/MobileMainMenu';
-import {
-  openPrimaryMenuAtom,
-  openSecondaryMenuAtom,
-} from '##/exportAtoms/layout';
 import IconRightPanel from '##/icons/RightPanel.icon.svg';
 import { headerWithMenuAtom } from '##/modules/header';
+import { openPrimaryMenuAtom, openSecondaryMenuAtom } from '##/modules/layout';
 import { routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
