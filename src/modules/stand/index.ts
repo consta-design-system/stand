@@ -1,43 +1,40 @@
-import { createAtom } from '@reatom/core';
+import { atom } from '@reatom/core';
 import { State } from 'router5';
 
 import { routerAtom, routesNames } from '##/modules/router';
 import { standsAtom } from '##/modules/stands';
 import { generateStandId } from '##/utils/generateStandId';
 
-export const standAtom = createAtom({ routerAtom, standsAtom }, ({ get }) => {
-  const router = get('routerAtom');
+export const standAtom = atom((ctx) => {
+  const router = ctx.spy(routerAtom);
   const standId = router.route?.params.stand as string | undefined;
   const libId = router.route?.params.lib as string | undefined;
   const stand = standId
-    ? get('standsAtom')[generateStandId(libId, standId)]
+    ? ctx.spy(standsAtom)[generateStandId(libId, standId)]
     : undefined;
 
   return stand;
 });
 
-export const componentRepositoryUrlAtom = createAtom(
-  { standAtom },
-  ({ get }) => {
-    const stand = get('standAtom');
+export const componentRepositoryUrlAtom = atom((ctx) => {
+  const stand = ctx.spy(standAtom);
 
-    if (!stand) {
-      return;
-    }
+  if (!stand) {
+    return;
+  }
 
-    const {
-      componentDir,
-      lib: { repositoryUrl },
-    } = stand;
+  const {
+    componentDir,
+    lib: { repositoryUrl },
+  } = stand;
 
-    const componentUrl =
-      componentDir &&
-      repositoryUrl &&
-      `${repositoryUrl}/tree/master/${componentDir}`;
+  const componentUrl =
+    componentDir &&
+    repositoryUrl &&
+    `${repositoryUrl}/tree/master/${componentDir}`;
 
-    return componentUrl;
-  },
-);
+  return componentUrl;
+});
 
 export const getDocsUrl = (
   repositoryUrl: string | undefined,
@@ -60,28 +57,25 @@ export const getDocsUrl = (
   }
 };
 
-export const docsRepositoryUrlAtom = createAtom(
-  { routerAtom, standAtom },
-  ({ get }) => {
-    const router = get('routerAtom');
-    const stand = get('standAtom');
+export const docsRepositoryUrlAtom = atom((ctx) => {
+  const router = ctx.spy(routerAtom);
+  const stand = ctx.spy(standAtom);
 
-    if (!stand || !router.route) {
-      return;
-    }
+  if (!stand || !router.route) {
+    return;
+  }
 
-    const {
-      lazyAccess,
-      lib: { repositoryUrl },
-      repositoryPath,
-    } = stand;
+  const {
+    lazyAccess,
+    lib: { repositoryUrl },
+    repositoryPath,
+  } = stand;
 
-    return getDocsUrl(repositoryUrl, router.route, lazyAccess, repositoryPath);
-  },
-);
+  return getDocsUrl(repositoryUrl, router.route, lazyAccess, repositoryPath);
+});
 
-export const issueRepositoryUrlAtom = createAtom({ standAtom }, ({ get }) => {
-  const stand = get('standAtom');
+export const issueRepositoryUrlAtom = atom((ctx) => {
+  const stand = ctx.spy(standAtom);
 
   if (!stand) {
     return;
@@ -91,16 +85,10 @@ export const issueRepositoryUrlAtom = createAtom({ standAtom }, ({ get }) => {
     lib: { repositoryUrl },
   } = stand;
 
-  const componentUrl = repositoryUrl && `${repositoryUrl}/issues/new/choose`;
-
-  return componentUrl;
+  return repositoryUrl && `${repositoryUrl}/issues/new/choose`;
 });
 
-export const figmaAtom = createAtom({ standAtom }, ({ get }) => {
-  const stand = get('standAtom');
-
-  return stand?.stand.figma;
-});
+export const figmaAtom = atom((ctx) => ctx.spy(standAtom)?.stand.figma);
 
 export const badgeLabelStatusMap = {
   deprecated: 'deprecated',

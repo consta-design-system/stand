@@ -2,7 +2,7 @@ import './LibPageMenuFilters.css';
 
 import { Badge } from '@consta/uikit/Badge';
 import { Switch } from '@consta/uikit/Switch';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { filtersAtom } from '##/modules/standsMenu';

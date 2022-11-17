@@ -1,4 +1,4 @@
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React, { forwardRef } from 'react';
 
 import { VariantsField } from '##/containers/VariantsField';

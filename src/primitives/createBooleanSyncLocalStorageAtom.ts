@@ -1,50 +1,28 @@
-import { AtomSelfBinded, createAtom } from '@reatom/core';
+import { atom } from '@reatom/core';
+import { withReducers } from '@reatom/primitives';
 
 export const createBooleanSyncLocalStorageAtom = (
   localStorageName: string,
-  initialValue: boolean | undefined,
-): AtomSelfBinded<
-  boolean,
-  {
-    set: (payload: boolean) => boolean;
-    on: () => true;
-    off: () => false;
-    toggle: () => boolean;
-  }
-> => {
+  initialValue: boolean = false,
+) => {
   initialValue &&
     !localStorage.getItem(localStorageName) &&
     localStorage.setItem(localStorageName, initialValue ? 'Y' : 'N');
 
-  return createAtom(
-    {
-      set: (payload: boolean) => payload,
-      on: () => true,
-      off: () => false,
-      toggle: () => false,
-    },
-    ({ onAction }, state = localStorage.getItem(localStorageName) === 'Y') => {
-      onAction('set', (payload) => {
-        localStorage.setItem(localStorageName, payload ? 'Y' : 'N');
-        state = payload;
-      });
-
-      onAction('on', () => {
+  return atom(initialValue).pipe(
+    withReducers({
+      on: () => {
         localStorage.setItem(localStorageName, 'Y');
-        state = true;
-      });
-
-      onAction('off', () => {
+        return true;
+      },
+      off: () => {
         localStorage.setItem(localStorageName, 'N');
-        state = false;
-      });
-
-      onAction('toggle', () => {
+        return false;
+      },
+      toggle: (state) => {
         localStorage.setItem(localStorageName, !state ? 'Y' : 'N');
-        state = !state;
-      });
-
-      return state;
-    },
+        return !state;
+      },
+    }),
   );
 };

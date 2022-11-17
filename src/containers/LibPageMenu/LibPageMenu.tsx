@@ -6,7 +6,7 @@ import { IconArrowLeft } from '@consta/uikit/IconArrowLeft';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { Text } from '@consta/uikit/Text';
 import { TextField } from '@consta/uikit/TextField';
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo, useCallback } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
@@ -65,8 +65,8 @@ export const LibPageMenu = memo(() => {
 
   const [searchValue] = useAtom(searchValueAtom);
   const [visibleList] = useAtom(visibleListAtom);
-  const setSearchValue = useAction(({ value }: { value: string | null }) =>
-    searchValueAtom.set(value || ''),
+  const setSearchValue = useAction((ctx, { value }: { value: string | null }) =>
+    searchValueAtom(ctx, value || ''),
   );
   const router = useRouter();
   const route = useRoute();

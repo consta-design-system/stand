@@ -1,4 +1,4 @@
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo, useCallback } from 'react';
 import { useRouter } from 'react-router5';
 

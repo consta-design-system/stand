@@ -3,7 +3,7 @@ import './DocLayout.css';
 import { Button } from '@consta/uikit/Button';
 import { Text } from '@consta/uikit/Text';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
-import { useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useCallback, useEffect } from 'react';
 import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
@@ -31,6 +31,8 @@ export const DocLayout: React.FC<{
     openSecondaryMenuAtom,
   );
 
+  const openSecondaryMenuSetTrue = useAction(openSecondaryMenuAtom.setTrue);
+
   const [headerWithMenu] = useAtom(headerWithMenuAtom);
 
   const breakpoints = useBreakpoints({
@@ -39,8 +41,8 @@ export const DocLayout: React.FC<{
   });
 
   const closeAllMenu = useCallback(() => {
-    setOpenSecondaryMenu.setFalse();
-    setOpenPrimaryMenu.setFalse();
+    setOpenSecondaryMenu(false);
+    setOpenPrimaryMenu(false);
   }, []);
 
   const replaseMenu = headerWithMenu && !breakpoints.m;
@@ -50,10 +52,10 @@ export const DocLayout: React.FC<{
 
   useEffect(() => {
     if (breakpoints.m) {
-      setOpenSecondaryMenu.setFalse();
+      setOpenSecondaryMenu(false);
     }
     if (breakpoints.l) {
-      setOpenPrimaryMenu.setFalse();
+      setOpenPrimaryMenu(false);
     }
   }, [breakpoints.l, breakpoints.m]);
 
@@ -91,13 +93,13 @@ export const DocLayout: React.FC<{
             className={cnDocLayout('SecondaryMenuButton')}
             size="s"
             weight="semibold"
-            onClick={setOpenSecondaryMenu.setTrue}
+            onClick={openSecondaryMenuSetTrue}
           >
             <Button size="s" iconLeft={IconRightPanel} iconSize="m" />
             Обзор
           </Text>
         )}
-        <div className={cnDocLayout('Paper', { withSecondaryMenu })}>
+        <div className={cnDocLayout('Paper', { withSecondaryMenu }, [])}>
           {props.children}
         </div>
       </div>

@@ -1,8 +1,8 @@
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRoute } from 'react-router5';
 
-import { headerHeight } from '##/modules/layout';
+import { headerHeightAtom } from '##/modules/layout';
 import { activeItemAtom, menuMdxAtom } from '##/modules/menuMdx';
 import { standAtom } from '##/modules/stand';
 import { Stand } from '##/types';
@@ -71,7 +71,7 @@ const scrollDetector = (
 };
 
 export const useMenu: UseMenu = () => {
-  const setActiveItem = useAction(activeItemAtom.set);
+  const setActiveItem = useAction(activeItemAtom);
   const [menuNode] = useAtom(menuMdxAtom);
   const route = useRoute();
   const { path } = route.route;
@@ -86,7 +86,7 @@ export const useMenu: UseMenu = () => {
     setMenu(menuNode ? getMenuData(menuNode as React.ReactElement) : []);
   }, [menuNode]);
 
-  const [offset] = useAtom(headerHeight);
+  const [offset] = useAtom(headerHeightAtom);
 
   useEffect(() => {
     setActiveItem(undefined);

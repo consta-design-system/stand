@@ -1,5 +1,5 @@
-import { createAtom } from '@reatom/core';
-import { useAtom } from '@reatom/react';
+import { action, atom } from '@reatom/core';
+import { useAction, useAtom } from '@reatom/npm-react';
 import { useEffect } from 'react';
 
 export type VariantType =
@@ -57,78 +57,56 @@ const propIsEqual = <T extends Object>(
   variantOld: T,
   variantNew: T,
   prop: keyof T,
-) => {
-  return variantOld[prop] === variantNew[prop];
-};
+) => variantOld?.[prop] === variantNew?.[prop];
 
-export const variantsAtom = createAtom(
-  {
-    add: (payload: Variant) => payload,
-    set: (payload: Variant) => payload,
-    clear: () => {},
-    del: (payload: string) => payload,
-    setState: (payload: VariantsAtomState) => payload,
-    setActive: (payload: { name: string; isActive: boolean }) => payload,
-  },
-  ({ onAction }, state: VariantsAtomState = {}) => {
-    onAction('setActive', ({ name, isActive }) => {
-      if (name in state && state[name].isActive !== isActive) {
-        state = { ...state, [name]: { ...state[name], isActive } };
-      }
-    });
-    onAction('set', (payload) => {
-      if (!(payload.name in state)) {
-        state = { ...state, [payload.name]: payload };
-      }
+export const variantsAtom = atom<VariantsAtomState>({});
 
-      if (
-        !propIsEqual(state[payload.name], payload, 'isActive') ||
-        !propIsEqual(state[payload.name], payload, 'value')
-      ) {
-        state = { ...state, [payload.name]: payload };
-      }
-    });
-    onAction('del', (payload) => {
-      if (payload in state) {
-        const newState = { ...state };
-        delete newState[payload];
-        state = newState;
-      }
-    });
-    onAction('setState', (payload) => {
-      state = payload;
-    });
-    onAction('clear', () => {
-      state = {};
-    });
+export const variantsActionSetActive = action(
+  (ctx, { name, isActive }: { name: string; isActive: boolean }) => {
+    const state = ctx.get(variantsAtom);
 
-    return state;
+    if (name in state && state[name].isActive !== isActive) {
+      variantsAtom(ctx, { ...state, [name]: { ...state[name], isActive } });
+    }
   },
 );
 
-export const variantsNamesAtom = createAtom(
-  { variantsAtom },
-  ({ onChange }, state: string[] = []) => {
-    onChange('variantsAtom', (newState, oldState = {}) => {
-      const newKeys = Object.keys(newState);
-      const oldKeys = Object.keys(oldState);
+export const variantsActionSet = action((ctx, payload: Variant) => {
+  const state = ctx.get(variantsAtom);
 
-      if (newKeys.length !== oldKeys.length) {
-        state = newKeys;
-      }
+  if (!(payload.name in state)) {
+    variantsAtom(ctx, { ...state, [payload.name]: payload });
+  }
 
-      for (let index = 0; index < newKeys.length; index++) {
-        if (newKeys[index] !== oldKeys[index]) {
-          state = newKeys;
-          break;
-        }
-        continue;
-      }
-    });
+  if (
+    !propIsEqual(state[payload.name], payload, 'isActive') ||
+    !propIsEqual(state[payload.name], payload, 'value')
+  ) {
+    variantsAtom(ctx, { ...state, [payload.name]: payload });
+  }
+});
 
-    return state;
-  },
+export const variantsActionDel = action((ctx, payload: string) => {
+  const state = ctx.get(variantsAtom);
+
+  if (payload in state) {
+    const newState = { ...state };
+    delete newState[payload];
+    variantsAtom(ctx, newState);
+  }
+});
+
+export const variantsActionSetState = action(
+  (ctx, payload: VariantsAtomState) => variantsAtom(ctx, payload),
 );
+
+export const variantsActionClear = action((ctx) => variantsAtom(ctx, {}));
+
+export const variantsNamesAtom = atom((ctx) => {
+  const variants = ctx.spy(variantsAtom);
+
+  return Object.keys(variants);
+});
 
 export const useVariant = <
   TYPE extends VariantType = VariantType,
@@ -136,7 +114,10 @@ export const useVariant = <
 >(
   variant: Variant<TYPE, OPTION>,
 ) => {
-  const [variants, { set, del, setActive }] = useAtom(variantsAtom);
+  const [variants] = useAtom(variantsAtom);
+  const set = useAction(variantsActionSet);
+  const setActive = useAction(variantsActionSetActive);
+  const del = useAction(variantsActionDel);
 
   useEffect(() => {
     set(variant as Variant);

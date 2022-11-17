@@ -1,3 +1,3 @@
-import { createStore } from '@reatom/core';
+import { createCtx } from '@reatom/core';
 
-export const store = createStore();
+export const ctx = createCtx();

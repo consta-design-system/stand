@@ -1,7 +1,7 @@
 import './AppTheme.css';
 
 import { cnTheme, Theme } from '@consta/uikit/Theme';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React, { useEffect } from 'react';
 
 import { htmlModsAtom, themeAtom } from '##/modules/theme';

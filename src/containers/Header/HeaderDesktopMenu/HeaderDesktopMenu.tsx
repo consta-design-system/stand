@@ -1,7 +1,7 @@
 import './HeaderDesktopMenu.css';
 
 import { Menu } from '@consta/header/Menu';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 import { useRouter } from 'react-router5';
 

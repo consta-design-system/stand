@@ -3,7 +3,7 @@ import './LibsPage.css';
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React, { Fragment, useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
