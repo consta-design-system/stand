@@ -1,15 +1,14 @@
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
-import { createAtom } from '@reatom/core';
-import { useAtom } from '@reatom/react';
+import { atom } from '@reatom/core';
+import { useAtom } from '@reatom/npm-react';
 import { useEffect } from 'react';
-import { useRouter } from 'react-router5';
 
-import { Group, PreparedStand } from '##/exportTypes';
 import { libAtom } from '##/modules/lib';
-import { routesNames } from '##/modules/router';
+import { routesNames, useNavigate } from '##/modules/router';
+import { Group, PreparedStand } from '##/types';
 
-export const groupsAtom = createAtom({ libAtom }, ({ get }) => {
-  const lib = get('libAtom');
+export const groupsAtom = atom((ctx) => {
+  const lib = ctx.spy(libAtom);
 
   if (!lib?.stands) {
     return [];
@@ -31,11 +30,11 @@ export const groupsAtom = createAtom({ libAtom }, ({ get }) => {
 export const useLib = () => {
   const [lib] = useAtom(libAtom);
 
-  const router = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!lib) {
-      router.navigate(routesNames.LIBS, {}, { replace: true });
+      navigate({ name: routesNames.LIBS, params: {}, opts: { replace: true } });
     }
   }, [lib]);
 

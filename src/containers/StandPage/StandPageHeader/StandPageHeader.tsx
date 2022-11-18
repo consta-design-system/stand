@@ -6,8 +6,8 @@ import { Text } from '@consta/uikit/Text';
 import { withTooltip } from '@consta/uikit/withTooltip';
 import React from 'react';
 
-import { Stand } from '##/exportTypes';
 import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
+import { Stand } from '##/types';
 import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
 

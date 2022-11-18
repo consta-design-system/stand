@@ -1,20 +1,23 @@
+import '@reatom/core';
+
+import { createRoutes } from '@consta/stand/src/createFuctions';
+import { useAction } from '@reatom/npm-react';
+import { navigateToAction, plugin } from 'reatom-router5';
 import createRouter from 'router5';
 import browserPlugin from 'router5-plugin-browser';
 
-import { plugin } from '##/exportAtoms/router';
-import { createRoutes } from '##/exportFuctions';
-import { store } from '##/modules/app';
-
-export { routerAtom } from '##/exportAtoms/router';
+import { ctx } from '##/modules/app';
 
 export const { routesNames, routes } = createRoutes();
 
 const router = createRouter(routes, { defaultRoute: routesNames.LIBS });
 
-router.usePlugin(browserPlugin());
-router.usePlugin(plugin(store));
+router.usePlugin(browserPlugin(), plugin(ctx));
+
 router.start();
-// router.subscribe((state) => console.log(state));
+
+export const useNavigate = () => useAction(navigateToAction);
 
 export { router };
+export * from 'reatom-router5';
 export * from './useIsActiveRouter';

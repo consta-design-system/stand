@@ -1,8 +1,7 @@
-import { libsAtom } from '##/exportAtoms/libs';
-import { store } from '##/modules/app';
+import { atom } from '@reatom/core';
+
 // @ts-ignore: При сборке стенды осутствуют
 import { libs } from '##/stands';
+import { LibWithStands } from '##/types';
 
-store.dispatch(libsAtom.set(libs));
-
-export { libsAtom };
+export const libsAtom = atom<LibWithStands[]>(libs);

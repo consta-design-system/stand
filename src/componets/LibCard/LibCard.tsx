@@ -9,9 +9,9 @@ import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { LibDescription } from '##/componets/LibDescription';
-import { Group, Lib } from '##/exportTypes';
 import { useLink } from '##/hooks/useLink';
 import { routesNames } from '##/modules/router';
+import { Group, Lib } from '##/types';
 import { cn } from '##/utils/bem';
 
 const badgeMap = {

@@ -1,6 +1,6 @@
 import './VariantsPage.css';
 
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { LazyVariants } from '##/componets/LazyVariants';

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useStand } from '##/containers/StandPage/helpers';
-import { PreparedStand, StandTab } from '##/exportTypes';
+import { PreparedStand, StandTab } from '##/types';
 
 export type NavigationItem = {
   id: string;

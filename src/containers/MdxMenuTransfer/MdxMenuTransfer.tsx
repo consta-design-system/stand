@@ -1,7 +1,7 @@
 import './MdxMenuTransfer.css';
 
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React, { useMemo } from 'react';
 import { useRoute } from 'react-router5';
 

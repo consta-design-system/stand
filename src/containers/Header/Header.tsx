@@ -6,11 +6,11 @@ import { IconHamburger } from '@consta/uikit/IconHamburger';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
-import { useAction } from '@reatom/react';
+import { useAction } from '@reatom/npm-react';
 import React, { memo, useEffect, useRef } from 'react';
 
 import { ThemeToggler } from '##/containers/ThemeToggler';
-import { headerHeight, openPrimaryMenuAtom } from '##/exportAtoms/layout';
+import { headerHeightAtomSet, openPrimaryMenuAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
 
 import { HeaderDesktopMenu } from './HeaderDesktopMenu';
@@ -20,6 +20,7 @@ const cnHeader = cn('Header');
 
 const MenuToggler = () => {
   const toggleMenu = useAction(openPrimaryMenuAtom.toggle);
+
   const breakpoints = useBreakpoints({
     m: 900,
   });
@@ -73,7 +74,7 @@ export const Header = memo(() => {
 
   const { height } = useComponentSize(headerRef);
 
-  const setHeaderHeight = useAction(headerHeight.set);
+  const setHeaderHeight = useAction(headerHeightAtomSet);
 
   const breakpoints = useBreakpoints({
     m: 900,

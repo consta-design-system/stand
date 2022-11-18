@@ -6,8 +6,8 @@ import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
 import { Link } from '##/componets/Link';
-import { Stand, StandStatus } from '##/exportTypes';
 import { routesNames } from '##/modules/router';
+import { Stand, StandStatus } from '##/types';
 import { cn } from '##/utils/bem';
 
 type Props = {

@@ -6,7 +6,7 @@ import {
   presetGpnDefault,
   ThemePreset,
 } from '@consta/uikit/Theme';
-import { createAtom } from '@reatom/core';
+import { action, atom } from '@reatom/core';
 
 export const themes = [presetGpnDark, presetGpnDefault];
 
@@ -28,37 +28,32 @@ const localStorageSavedTheme = themes.find(
 
 const initialState = localStorageSavedTheme || presetGpnDefault;
 
-export const themeAtom = createAtom(
-  { set: (payload: ThemePreset) => payload },
-  ({ onAction }, state = initialState) => {
-    onAction('set', (payload) => {
-      localStorage.setItem(localStorageItem, payload.color.primary);
-      state = payload;
-    });
+export const themeAtom = atom<ThemePreset>(initialState);
 
-    return state;
+export const themeActionSet = action((ctx, payload: ThemePreset) => {
+  themeAtom(ctx, payload);
+  localStorage.setItem(localStorageItem, payload.color.primary);
+});
+
+export const htmlModsAtom = atom<Record<string, string | boolean | undefined>>(
+  {},
+);
+
+export const htmlModsActionAdd = action(
+  (ctx, payload: { name: string; value: string | boolean | undefined }) => {
+    htmlModsAtom(ctx, {
+      ...ctx.get(htmlModsAtom),
+      [payload.name]: payload.value,
+    });
   },
 );
 
-export const htmlModsAtom = createAtom(
-  {
-    add: (payload: { name: string; value: string | boolean | undefined }) =>
-      payload,
-    del: (payload: string) => payload,
-  },
-  ({ onAction }, state: Record<string, string | boolean | undefined> = {}) => {
-    onAction('add', ({ name, value }) => {
-      state = { ...state, [name]: value };
-    });
+export const htmlModsActionDel = action((ctx, name: string) => {
+  const state = ctx.get(htmlModsAtom);
+  if (name in state) {
+    const newState = { ...state };
+    delete newState[name];
 
-    onAction('del', (payload) => {
-      if (payload in state) {
-        const newState = { ...state };
-        delete newState[payload];
-        state = newState;
-      }
-    });
-
-    return state;
-  },
-);
+    htmlModsAtom(ctx, newState);
+  }
+});

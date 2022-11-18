@@ -3,17 +3,23 @@ import {
   ThemeToggler as ThemeTogglerConsta,
   ThemeTogglerPropSetValue,
 } from '@consta/uikit/ThemeToggler';
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React from 'react';
 
-import { getThemeIcon, getThemeKey, themeAtom, themes } from '##/modules/theme';
+import {
+  getThemeIcon,
+  getThemeKey,
+  themeActionSet,
+  themeAtom,
+  themes,
+} from '##/modules/theme';
 
 export const ThemeToggler: React.FC<
   Omit<React.HTMLAttributes<HTMLButtonElement>, 'children'>
 > = (props) => {
   const [theme] = useAtom(themeAtom);
-  const setTheme: ThemeTogglerPropSetValue<ThemePreset> = useAction((props) =>
-    themeAtom.set(props.value),
+  const setTheme = useAction((ctx, props: { value: ThemePreset }) =>
+    themeActionSet(ctx, props.value),
   );
   return (
     <ThemeTogglerConsta

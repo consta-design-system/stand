@@ -4,11 +4,16 @@ import { DatePicker } from '@consta/uikit/DatePicker';
 import { Select } from '@consta/uikit/Select';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo } from 'react';
 
 import { useZIndex } from '##/containers/Variants/helpers';
-import { Variant, variantsAtom, VariantType } from '##/exportAtoms/variants';
+import {
+  Variant,
+  variantsActionSet,
+  variantsAtom,
+  VariantType,
+} from '##/modules/variants';
 import { cn } from '##/utils/bem';
 
 const cnVariantsField = cn('VariantsField');
@@ -58,8 +63,8 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({ type, value: value ?? undefined, name, isActive }),
+  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+    variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
   return (
@@ -80,8 +85,8 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({
+  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+    variantsActionSet(ctx, {
       type,
       value: value !== undefined ? Number(value) : undefined,
       name,
@@ -107,8 +112,8 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction(({ value }: { value: Date | null }) =>
-    variantsAtom.set({ type, value: value ?? undefined, name, isActive }),
+  const onChange = useAction((ctx, { value }: { value: Date | null }) =>
+    variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
   return (
@@ -130,8 +135,8 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction(({ value }: { value: Date | null }) =>
-    variantsAtom.set({ type, value: value ?? undefined, name, isActive }),
+  const onChange = useAction((ctx, { value }: { value: Date | null }) =>
+    variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
   return (
@@ -153,8 +158,8 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction(({ checked: value }: { checked: boolean }) =>
-    variantsAtom.set({ type, value, name, isActive }),
+  const onChange = useAction((ctx, { checked: value }: { checked: boolean }) =>
+    variantsActionSet(ctx, { type, value, name, isActive }),
   );
 
   return (
@@ -176,8 +181,8 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
   options = [],
   isActive,
 }) => {
-  const onChange = useAction(({ value }: { value: string | null }) =>
-    variantsAtom.set({
+  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+    variantsActionSet(ctx, {
       type,
       value: value ?? undefined,
       name,

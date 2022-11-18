@@ -2,7 +2,7 @@ import './SideLinks.css';
 
 import { Button } from '@consta/uikit/Button';
 import { IconForward } from '@consta/uikit/IconForward';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { MdxMenuTransfer } from '##/containers/MdxMenuTransfer';

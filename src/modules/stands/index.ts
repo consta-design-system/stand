@@ -1,8 +1,9 @@
-import { standsAtom } from '##/exportAtoms/stands';
-import { store } from '##/modules/app';
+import { atom } from '@reatom/core';
+
 // @ts-ignore: При сборке стенды осутствуют
 import { stands } from '##/stands';
+import { PreparedStand } from '##/types';
 
-store.dispatch(standsAtom.set(stands));
+const standsAtom = atom<Record<string, PreparedStand>>(stands);
 
 export { standsAtom };

@@ -6,22 +6,19 @@ import { IconArrowLeft } from '@consta/uikit/IconArrowLeft';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { Text } from '@consta/uikit/Text';
 import { TextField } from '@consta/uikit/TextField';
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo, useCallback } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
 import { PortalMenuItem } from '##/containers/PortalMenu/PortalMenuItem';
-import {
-  openPrimaryMenuAtom,
-  openSecondaryMenuAtom,
-} from '##/exportAtoms/layout';
-import { Group, PreparedStand } from '##/exportTypes';
 import { useScrollToActive } from '##/hooks/useScrollToActive';
+import { openPrimaryMenuAtom, openSecondaryMenuAtom } from '##/modules/layout';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
 import { searchValueAtom, visibleListAtom } from '##/modules/standsMenu';
+import { Group, PreparedStand } from '##/types';
 import { cn } from '##/utils/bem';
 
 import { LibPageMenuFilters } from './LibPageMenuFilters';
@@ -68,8 +65,8 @@ export const LibPageMenu = memo(() => {
 
   const [searchValue] = useAtom(searchValueAtom);
   const [visibleList] = useAtom(visibleListAtom);
-  const setSearchValue = useAction(({ value }: { value: string | null }) =>
-    searchValueAtom.set(value || ''),
+  const setSearchValue = useAction((ctx, { value }: { value: string | null }) =>
+    searchValueAtom(ctx, value || ''),
   );
   const router = useRouter();
   const route = useRoute();

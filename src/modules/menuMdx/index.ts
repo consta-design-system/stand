@@ -1,15 +1,11 @@
-import { createPrimitiveAtom } from '@reatom/core/primitives';
+import { atom } from '@reatom/core';
 import React from 'react';
 
-export const menuMdxAtom = createPrimitiveAtom<React.ReactNode | undefined>(
-  undefined,
-);
+export const menuMdxAtom = atom<React.ReactNode | undefined>(undefined);
 
 type AnchordItem = {
   label: string;
   href: string;
 };
 
-export const activeItemAtom = createPrimitiveAtom<AnchordItem | undefined>(
-  undefined,
-);
+export const activeItemAtom = atom<AnchordItem | undefined>(undefined);

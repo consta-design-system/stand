@@ -1,16 +1,13 @@
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo, useCallback } from 'react';
 import { useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
-import {
-  openPrimaryMenuAtom,
-  openSecondaryMenuAtom,
-} from '##/exportAtoms/layout';
-import { LibWithStands } from '##/exportTypes';
 import { useScrollToActive } from '##/hooks/useScrollToActive';
+import { openPrimaryMenuAtom, openSecondaryMenuAtom } from '##/modules/layout';
 import { libsAtom } from '##/modules/libs';
 import { routesNames } from '##/modules/router';
+import { LibWithStands } from '##/types';
 
 const getItemLabel = (item: { title: string }) => item.title;
 const getItemGroupId = (item: { group?: string }) => item.group;

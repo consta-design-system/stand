@@ -1,8 +1,8 @@
-import { useAction, useAtom } from '@reatom/react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
-import { headerHeight } from '##/exportAtoms/layout';
+import { headerHeightAtom } from '##/modules/layout';
 import { activeItemAtom } from '##/modules/menuMdx';
 import {
   getStringChildren,
@@ -20,9 +20,9 @@ type UseHeader = (
 export const useHeader: UseHeader = (children, ref) => {
   const route = useRoute();
   const { params } = route.route;
-  const setActiveItem = useAction(activeItemAtom.set);
+  const setActiveItem = useAction(activeItemAtom);
 
-  const [height] = useAtom(headerHeight);
+  const [height] = useAtom(headerHeightAtom);
 
   const { id, label } = useMemo(() => {
     const str = getStringChildren(children);

@@ -1,10 +1,10 @@
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import { useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
-import { PreparedStand } from '##/exportTypes';
 import { routesNames } from '##/modules/router';
 import { standAtom } from '##/modules/stand';
+import { PreparedStand } from '##/types';
 
 export const useStand = () => {
   const [stand] = useAtom(standAtom);

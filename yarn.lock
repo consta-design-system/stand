@@ -2058,15 +2058,40 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@reatom/core@^2.0.20":
-  version "2.0.20"
-  resolved "https://registry.yarnpkg.com/@reatom/core/-/core-2.0.20.tgz#4280488578456a7048e8c373a8e31ffc3a7afb49"
-  integrity sha512-a5+GDeSKH8KRyP34eP6TuxRVfrRQXyJZAJoYRyd4xUUU7tZT/fGAbjovAMKctgilGeGCzDpnG8WiRypPZWqPug==
+"@reatom/core@>=3.1.0", "@reatom/core@^3.1.3":
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/@reatom/core/-/core-3.1.6.tgz#550e8bdc5affa815a54034927a2d514000a4f9f0"
+  integrity sha512-IZ//Q54yQDYjLi+HJQKLvyi+DvM0LM5oHTmzTfzXEdl6PXFkXkZY52dItOblZk1wggCJZODSy8mYI+YXymb/iw==
 
-"@reatom/react@^2.0.19":
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/@reatom/react/-/react-2.0.19.tgz#2f7575167248a8762735b7955e1f7eb57f6bd2c3"
-  integrity sha512-vwjM1IaDL6qZeYTP2yWqjQhMrjCLvmrl51nzU8lm3nQmILvwZlFzXkooNQc6UpaKJHs2Q8Rrgd7Xsufi9OjBtg==
+"@reatom/effects@>=3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@reatom/effects/-/effects-3.1.0.tgz#d2e65c8d1d867ef118dd5dfb09b3c63c965a4419"
+  integrity sha512-kYcLIWXkQJL4Ip8/LyMzJd2spPtGJ7YkEndz7nz3ju1IvWv33QsYornHl9roR6UczuVVd5DWHI573rjytt8K4A==
+  dependencies:
+    "@reatom/core" ">=3.1.0"
+
+"@reatom/lens@>=3.1.0":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@reatom/lens/-/lens-3.1.4.tgz#df21b0119bef6572d5a40fb69bcedaa48d09e998"
+  integrity sha512-URP/JCTdsdHAJ5buQwled14UbX23EaSYOiNT8stxc53z+vzXx4CszSBOep9Y8iOjNj9ii/yt7Io8I05mMtXWhg==
+  dependencies:
+    "@reatom/core" ">=3.1.0"
+    "@reatom/effects" ">=3.1.0"
+
+"@reatom/npm-react@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@reatom/npm-react/-/npm-react-3.1.1.tgz#75beb2b2b968c5978e73bb5b7bb5b1d64d43644f"
+  integrity sha512-xjzGeVW6VypVAo1eDuZ6F8IE9cAJkZFH5MxpjIwL4Jrw/2pcKrLl4V53ml4LRIKFIJcREPGUuusRajnm4/P8Rg==
+  dependencies:
+    "@reatom/core" ">=3.1.0"
+    "@reatom/lens" ">=3.1.0"
+
+"@reatom/primitives@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@reatom/primitives/-/primitives-3.1.0.tgz#e3763c1c9e60bb0727865ee663b7b155997b15df"
+  integrity sha512-FLwpZwmtepkkuhIYi75VE6heIfmv1NlzXDl1mDRkwh43Gdn1gYjxKn/6BfRbSb+Vr3ungprR9Tdrm9Ekp0wMSQ==
+  dependencies:
+    "@reatom/core" ">=3.1.0"
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
@@ -13067,14 +13092,6 @@ react-dev-utils@^12.0.0:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-react-dom@^18.0.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
-  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
-  dependencies:
-    loose-envify "^1.1.0"
-    scheduler "^0.23.0"
-
 react-dropzone@11.3.4:
   version "11.3.4"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-11.3.4.tgz#aeb098df5c4491e165042c9f0b5e2e7185484740"
@@ -13328,6 +13345,11 @@ reading-time@^1.1.3:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/reading-time/-/reading-time-1.5.0.tgz#d2a7f1b6057cb2e169beaf87113cc3411b5bc5bb"
   integrity sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==
+
+reatom-router5@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/reatom-router5/-/reatom-router5-3.0.0.tgz#843a0e58117bb1323f93e92f4cbfc2195b42a8a3"
+  integrity sha512-bMsPU+hDC+rsMefgyWl4+Tyh9l39+w6xcQtFesvXPq/90NFkOaz8r9nMWt+cwmxo9fD9kP7h93KqDkW7m4w34w==
 
 rechoir@^0.7.0:
   version "0.7.1"

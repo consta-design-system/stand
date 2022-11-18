@@ -1,11 +1,11 @@
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 import { useRoute, useRouter } from 'react-router5';
 import { Router, State } from 'router5';
 
-import { LibWithStands } from '##/exportTypes';
 import { buildLink } from '##/hooks/useLink';
 import { libsAtom } from '##/modules/libs';
+import { LibWithStands } from '##/types';
 
 export type ReturnItem = [string, React.MouseEventHandler | undefined];
 

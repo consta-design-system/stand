@@ -1,7 +1,7 @@
 import './LibPage.css';
 
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/react';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { LibDescription } from '##/componets/LibDescription';

@@ -1,25 +1,29 @@
-import { reatomContext, useAction } from '@reatom/react';
+import { reatomContext, useAction } from '@reatom/npm-react';
 import { createContext, useContext, useEffect, useRef } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
-import { variantsAtom } from '##/exportAtoms/variants';
 import { routesNames } from '##/modules/router';
-import { htmlModsAtom, themeAtom } from '##/modules/theme';
+import {
+  htmlModsActionAdd,
+  htmlModsActionDel,
+  themeAtom,
+} from '##/modules/theme';
+import { variantsActionClear, variantsAtom } from '##/modules/variants';
 
 export const useIframeBridge = () => {
-  const clear = useAction(variantsAtom.clear);
+  const clear = useAction(variantsActionClear);
   const store = useContext(reatomContext);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    const unsubscribeVariantsAtom = store.subscribe(variantsAtom, (state) => {
+    const unsubscribeVariantsAtom = store?.subscribe(variantsAtom, (state) => {
       iframeRef.current?.contentWindow?.postMessage({
         type: 'to-iframe-variantsAtom',
         payload: state,
       });
     });
 
-    const unsubscribeThemeAtom = store.subscribe(themeAtom, (state) => {
+    const unsubscribeThemeAtom = store?.subscribe(themeAtom, (state) => {
       iframeRef.current?.contentWindow?.postMessage({
         type: 'to-iframe-themeAtom',
         payload: state,
@@ -27,13 +31,15 @@ export const useIframeBridge = () => {
     });
 
     return () => {
-      unsubscribeVariantsAtom();
-      unsubscribeThemeAtom();
+      unsubscribeVariantsAtom?.();
+      unsubscribeThemeAtom?.();
     };
   }, []);
 
   useEffect(() => {
-    return clear;
+    return () => {
+      clear();
+    };
   }, []);
 
   return iframeRef;
@@ -42,8 +48,8 @@ export const useIframeBridge = () => {
 export const useFullScreen = () => {
   const router = useRouter();
   const route = useRoute();
-  const addHtmlMod = useAction(htmlModsAtom.add);
-  const delHtmlMod = useAction(htmlModsAtom.del);
+  const addHtmlMod = useAction(htmlModsActionAdd);
+  const delHtmlMod = useAction(htmlModsActionDel);
 
   const open = !!route.route.params.variants;
 
