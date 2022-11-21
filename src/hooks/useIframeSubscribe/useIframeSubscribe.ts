@@ -6,14 +6,14 @@ import { useContext, useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
 import { routesNames } from '##/modules/router';
-import { themeActionSet } from '##/modules/theme';
+import { themeAtom } from '##/modules/theme';
 import { variantsAtom, VariantsAtomState } from '##/modules/variants';
 
 export const useIframeSubscribe = () => {
   const [variants] = useAtom(variantsAtom);
   const store = useContext(reatomContext);
   const setVariantsAtom = useDebounce(useAction(variantsAtom), 50);
-  const setThemeAtom = useAction(themeActionSet);
+  const setThemeAtom = useAction(themeAtom);
   const router = useRouter();
 
   const variantsRef = useMutableRef(variants);

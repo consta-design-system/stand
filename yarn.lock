@@ -2070,6 +2070,13 @@
   dependencies:
     "@reatom/core" ">=3.1.0"
 
+"@reatom/hooks@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@reatom/hooks/-/hooks-3.1.0.tgz#3499b206e0a48fad3428eca113c186e77ea6c483"
+  integrity sha512-VbhuQwGC0J27CNyC4uIqPFEuW/cc2MrCXMDiX4GD0Ug9KmOvUny9xECo8094nJpSIg2onJAmPcpuJIYCGyfEKw==
+  dependencies:
+    "@reatom/core" ">=3.1.0"
+
 "@reatom/lens@>=3.1.0":
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@reatom/lens/-/lens-3.1.4.tgz#df21b0119bef6572d5a40fb69bcedaa48d09e998"

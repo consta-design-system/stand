@@ -18,7 +18,7 @@ export const canarySwitchAtom = createBooleanSyncLocalStorageAtom(
 
 export const inWorkSwitchAtom = createBooleanSyncLocalStorageAtom(
   'inWorkSwitch',
-  true as boolean,
+  true,
 );
 
 export type fiterItem = {

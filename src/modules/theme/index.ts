@@ -7,6 +7,7 @@ import {
   ThemePreset,
 } from '@consta/uikit/Theme';
 import { action, atom } from '@reatom/core';
+import { onUpdate } from '@reatom/hooks';
 
 export const themes = [presetGpnDark, presetGpnDefault];
 
@@ -20,20 +21,17 @@ export const getThemeKey = (theme: ThemePreset) => theme.color.primary;
 export const getThemeIcon = (theme: ThemePreset) =>
   iconsMap[theme.color.primary];
 
-const localStorageItem = 'theme';
+const KEY = 'theme';
 
-const localStorageSavedTheme = themes.find(
-  (item) => item.color.primary === localStorage.getItem(localStorageItem),
+const snapTheme = themes.find(
+  (item) => item.color.primary === localStorage.getItem(KEY),
 );
 
-const initialState = localStorageSavedTheme || presetGpnDefault;
+export const themeAtom = atom<ThemePreset>(snapTheme || presetGpnDefault);
 
-export const themeAtom = atom<ThemePreset>(initialState);
-
-export const themeActionSet = action((ctx, payload: ThemePreset) => {
-  themeAtom(ctx, payload);
-  localStorage.setItem(localStorageItem, payload.color.primary);
-});
+onUpdate(themeAtom, (ctx, value) =>
+  localStorage.setItem(KEY, value.color.primary),
+);
 
 export const htmlModsAtom = atom<Record<string, string | boolean | undefined>>(
   {},

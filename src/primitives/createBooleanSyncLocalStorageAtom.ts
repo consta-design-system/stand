@@ -1,28 +1,20 @@
-import { atom } from '@reatom/core';
-import { withReducers } from '@reatom/primitives';
+import { onUpdate } from '@reatom/hooks';
+import { reatomBoolean } from '@reatom/primitives';
 
 export const createBooleanSyncLocalStorageAtom = (
   localStorageName: string,
   initialValue: boolean = false,
 ) => {
-  initialValue &&
-    !localStorage.getItem(localStorageName) &&
-    localStorage.setItem(localStorageName, initialValue ? 'Y' : 'N');
+  const snap = localStorage.getItem(localStorageName);
+  const init = snap ? snap === 'Y' : initialValue;
 
-  return atom(initialValue).pipe(
-    withReducers({
-      on: () => {
-        localStorage.setItem(localStorageName, 'Y');
-        return true;
-      },
-      off: () => {
-        localStorage.setItem(localStorageName, 'N');
-        return false;
-      },
-      toggle: (state) => {
-        localStorage.setItem(localStorageName, !state ? 'Y' : 'N');
-        return !state;
-      },
-    }),
+  localStorage.setItem(localStorageName, init ? 'Y' : 'N');
+
+  const booleanAtom = reatomBoolean(init);
+
+  onUpdate(booleanAtom, (ctx, value) =>
+    localStorage.setItem(localStorageName, value ? 'Y' : 'N'),
   );
+
+  return booleanAtom;
 };
