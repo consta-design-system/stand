@@ -1,8 +1,7 @@
-import '@reatom/core';
-
 import { createRoutes } from '@consta/stand/src/createFuctions';
+import { Fn } from '@reatom/core';
 import { useAction } from '@reatom/npm-react';
-import { navigateToAction, plugin } from 'reatom-router5';
+import { navigateToAction, NavigationToProps, plugin } from 'reatom-router5';
 import createRouter from 'router5';
 import browserPlugin from 'router5-plugin-browser';
 
@@ -16,7 +15,8 @@ router.usePlugin(browserPlugin(), plugin(ctx));
 
 router.start();
 
-export const useNavigate = () => useAction(navigateToAction);
+export const useNavigate = (): Fn<[NavigationToProps], NavigationToProps> =>
+  useAction(navigateToAction);
 
 export { router };
 export * from 'reatom-router5';

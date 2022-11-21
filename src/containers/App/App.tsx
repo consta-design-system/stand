@@ -1,3 +1,4 @@
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
@@ -10,20 +11,11 @@ import { Pages } from '##/containers/Pages';
 import { SideLinks } from '##/containers/SideLinks';
 import { VariantsPage } from '##/containers/VariantsPage';
 import { useIframeSubscribe } from '##/hooks/useIframeSubscribe';
+import { pageAtom } from '##/modules/pages';
 import { routesNames } from '##/modules/router';
-// @ts-ignore: При сборке стенды осутствуют
-import { pages } from '##/stands';
 
-const pageResolver = (
-  test: (segment: string) => boolean,
-  routeName: string,
-) => {
-  // если нашли точное совпадение по routeName применяем то применяем ее страницу,
-  // если же нет, то пытаемся найти к какомы сегменту принадлежит страница
-  // и показываем страницу сегмента
-  const page =
-    pages.find((item: { routeName: string }) => item.routeName === routeName) ||
-    pages.find((item: { routeName: string }) => test(item.routeName));
+const CustomPage = () => {
+  const [page] = useAtom(pageAtom);
 
   if (page) {
     return <LazyPage id={page.path} />;
@@ -54,5 +46,5 @@ export const App: React.FC = () => {
     );
   }
 
-  return pageResolver(testStartsWithSegment, route.name);
+  return <CustomPage />;
 };

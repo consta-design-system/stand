@@ -81,6 +81,7 @@ export type LibWithStands = Lib<Group> & {
 
 export type PageConfig = {
   routeName: string;
+  mainPage?: boolean;
 };
 
 export type CreatedPage = PageConfig & { type: 'page' };

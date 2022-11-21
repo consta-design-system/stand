@@ -4,6 +4,4 @@ import { atom } from '@reatom/core';
 import { stands } from '##/stands';
 import { PreparedStand } from '##/types';
 
-const standsAtom = atom<Record<string, PreparedStand>>(stands);
-
-export { standsAtom };
+export const standsAtom = atom<Record<string, PreparedStand>>(stands);
