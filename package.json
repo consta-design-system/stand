@@ -80,7 +80,7 @@
     "ts-loader": "^9.2.8",
     "typescript": "^4.8.3",
     "url-loader": "4.1.1",
-    "webpack": "^5.71.0",
+    "webpack": "^5.75.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.1",
     "webpack-manifest-plugin": "^4.0.2",
@@ -119,8 +119,11 @@
     "build:clear": "rm -rf dist/src/stands",
     "build:copy-assets": "node scripts/copyAssets.js",
     "build": "rm -rf ./dist && rm -rf ./src/stands && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:scripts && yarn build:templates && yarn build:webpack.config.js && yarn build:docs && yarn build:public && yarn build:index && yarn build:copy-assets && yarn build:clear",
-    "stand:start": "NODE_ENV=standDevelopment webpack serve --open --progress --mode development --hot --progress --config webpack.config.js",
-    "stylelint-fix": "stylelint --fix"
+    "stylelint-fix": "stylelint --fix",
+    "clone-repos": "sh ./__mocks__/clone-repositories.sh",
+    "stand:generate": "node ./scripts/standGenerate.js --config=__mocks__/config.js",
+    "stand:build": "rm -rf ./build && yarn stand:generate && NODE_ENV=production webpack --mode production --config webpack.mocks.config.js",
+    "stand:start": "NODE_ENV=development webpack serve --open --progress --mode development --hot --progress --stats-error-details --config webpack.mocks.config.js"
   },
   "config": {
     "commitizen": {
@@ -195,6 +198,7 @@
     "postcss-nested": "^5.0.6",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.0.1",
+    "postcss-simple-vars": "^5.0.2",
     "postcss-syntax": "^0.36.2",
     "prettier": "^2.6.2",
     "react-test-renderer": "^18.0.0",

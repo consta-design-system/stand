@@ -7,3 +7,4 @@ helpers/*
 build.config.js
 webpack.config.js
 src/stands/*
+src/stands
