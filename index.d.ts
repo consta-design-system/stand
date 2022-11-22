@@ -1,1 +1,1 @@
-export * from '@consta/stand/src';
+export * from './src';

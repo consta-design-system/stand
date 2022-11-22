@@ -4,9 +4,9 @@ import { startsWithSegment } from 'router5-helpers';
 import { routerAtom } from '##/modules/router';
 // @ts-ignore: При сборке стенды осутствуют
 import { pages } from '##/stands';
-import { CreatedPage } from '##/types';
 
-export const pagesAtom = atom<(CreatedPage & { path: string })[]>(pages);
+export const pagesAtom =
+  atom<{ routeName: string; mainPage?: boolean; path: string }[]>(pages);
 
 export const pageAtom = atom((ctx) => {
   const routerName = ctx.spy(routerAtom).route?.name;
