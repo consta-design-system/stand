@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'buildProduction';
 const isTest = process.env.NODE_ENV === 'test';
 
 module.exports = {
@@ -55,14 +55,19 @@ module.exports = {
         regenerator: true,
       },
     ],
-    [
-      'babel-plugin-module-resolver',
-      {
-        root: ['./'],
-        alias: {
-          '##': './src',
-        },
-      },
-    ],
+    // babel-plugin-module-resolver должен работать только при сборки пакета
+    ...(isProduction
+      ? [
+          [
+            'babel-plugin-module-resolver',
+            {
+              root: ['./'],
+              alias: {
+                '##': './src',
+              },
+            },
+          ],
+        ]
+      : []),
   ],
 };

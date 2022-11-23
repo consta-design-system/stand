@@ -19,13 +19,14 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    createDefaultProgram: true,
-    ecmaFeatures: {
+    'createDefaultProgram': true,
+    'ecmaFeatures': {
       jsx: true,
     },
-    ecmaVersion: 2019,
-    sourceType: 'module',
-    project: './tsconfig.json',
+    'ecmaVersion': 2019,
+    'sourceType': 'module',
+    'project': './tsconfig.json',
+    'resolve-plugins-relative-to': true,
   },
   plugins: [
     'import',

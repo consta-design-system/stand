@@ -28,6 +28,7 @@ const repos = [
   'amcharts-map-examples',
   'gpn-responses',
   'icons',
+  'portal',
 ];
 
 const repositoriesTsRules = (repos) => {
@@ -54,7 +55,7 @@ const repositoriesMdRules = (repos) => {
         },
       },
     ],
-    include: [path.resolve(__dirname, 'repositories', name, 'src')],
+    include: [path.resolve(__dirname, 'repositories', name)],
     resolve: {
       alias: {
         '##': path.resolve(__dirname, 'repositories', name, 'src'),
@@ -66,7 +67,6 @@ const repositoriesMdRules = (repos) => {
 module.exports = function () {
   return {
     target: 'web',
-    // node_modules/@consta/stand/src/root.js
     entry: path.resolve(__dirname, 'src', 'root'),
     cache: process.env.NODE_ENV === 'development',
     module: {
@@ -158,11 +158,10 @@ module.exports = function () {
               loader: '@svgr/webpack',
               options: {
                 template: (
-                  { template },
-                  opts,
                   { imports, componentName, props, jsx, exports },
+                  { tpl },
                 ) => {
-                  return template.ast`
+                  return tpl`
                               ${imports}
                               import { createIcon } from '@consta/uikit/createIcon';
 
@@ -203,6 +202,9 @@ module.exports = function () {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      alias: {
+        '@consta/stand': path.resolve(__dirname),
+      },
     },
 
     plugins: [
