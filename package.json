@@ -18,7 +18,7 @@
     "@bem-react/classname": "^1.5.12",
     "@bem-react/classnames": "^1.3.10",
     "@consta/header": "^1.0.0",
-    "@consta/uikit": "^4.0.1",
+    "@consta/uikit": "^4.2.2",
     "@mdx-js/loader": "^2.1.1",
     "@mdx-js/react": "^2.1.1",
     "@oclif/command": "^1.8.16",
@@ -64,7 +64,7 @@
     "react-refresh": "^0.11.0",
     "react-router5": "^8.0.1",
     "react-syntax-highlighter": "^15.5.0",
-    "react-transition-group": "^4.4.2",
+    "react-transition-group": "^4.4.5",
     "reatom-router5": "^3.0.0",
     "remark-gfm": "^1.0.0",
     "resolve": "^1.20.0",
@@ -124,7 +124,8 @@
     "stand:generate": "node ./scripts/standGenerate.js --config=__mocks__/config.js",
     "stand:build": "rm -rf ./build && yarn stand:generate && NODE_ENV=production webpack --mode production --config webpack.mocks.config.js",
     "stand:start": "NODE_ENV=development webpack serve --open --progress --mode development --hot --progress --stats-error-details --config webpack.mocks.config.js",
-    "copy-deps": "node ./__mocks__/copy-deps.js"
+    "copy-deps": "node ./__mocks__/copy-deps.js",
+    "start": "yarn clone-repos && yarn stand:generate && yarn stand:start"
   },
   "config": {
     "commitizen": {
@@ -171,7 +172,7 @@
     "@types/jest": "^27.4.1",
     "@types/node": "^16.7.13",
     "@types/react-highlight": "^0.12.5",
-    "@types/react-transition-group": "^4.4.4",
+    "@types/react-transition-group": "^4.4.5",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "babel-plugin-module-resolver": "^4.1.0",
@@ -225,7 +226,6 @@
     "@amcharts/amcharts4-geodata": "4.1.9",
     "@bem-react/classname": "^1.5.12",
     "@bem-react/classnames": "^1.3.10",
-    "@consta/uikit": "^4.2.2",
     "@consta/widgets-utils": "^0.2.15",
     "@evless/react-textfit": "1.1.1",
     "@types/d3": "5.7.2",
@@ -243,7 +243,6 @@
     "react-dnd-html5-backend": "9.3.2",
     "react-dropzone": "11.3.4",
     "react-textarea-autosize": "^8.3.4",
-    "react-transition-group": "^4.4.5",
     "react-uid": "2.2.0",
     "moment": "^2.29.3"
   },
