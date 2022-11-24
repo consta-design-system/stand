@@ -13,6 +13,57 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const isEnvProduction = process.env.NODE_ENV === 'production';
 
+const repos = [
+  'analytic-ui',
+  'uikit',
+  'charts',
+  'header',
+  'stats',
+  'react-big-calendar-adapter',
+  'gantt-task-react-adapter',
+  'rc-tree-adapter',
+  'rc-table-adapter',
+  'ag-grid-adapter',
+  'widgets',
+  'amcharts-map-examples',
+  'gpn-responses',
+  'icons',
+  'portal',
+];
+
+const repositoriesTsRules = (repos) => {
+  return repos.map((name) => ({
+    test: /\.tsx?$/,
+    use: require.resolve('babel-loader'),
+    include: [path.resolve(__dirname, 'repositories', name)],
+    resolve: {
+      alias: {
+        '##': path.resolve(__dirname, 'repositories', name, 'src'),
+      },
+    },
+  }));
+};
+
+const repositoriesMdRules = (repos) => {
+  return repos.map((name) => ({
+    test: /\.mdx?$/,
+    use: [
+      {
+        loader: '@mdx-js/loader',
+        options: {
+          remarkPlugins: [remark],
+        },
+      },
+    ],
+    include: [path.resolve(__dirname, 'repositories', name)],
+    resolve: {
+      alias: {
+        '##': path.resolve(__dirname, 'repositories', name, 'src'),
+      },
+    },
+  }));
+};
+
 module.exports = function () {
   return {
     target: 'web',
@@ -20,6 +71,7 @@ module.exports = function () {
     cache: process.env.NODE_ENV === 'development',
     module: {
       rules: [
+        ...repositoriesTsRules(repos),
         {
           test: /\.tsx?$/,
           use: require.resolve('babel-loader'),
@@ -33,12 +85,25 @@ module.exports = function () {
         {
           test: /\.tsx?$/,
           use: require.resolve('babel-loader'),
-          exclude: [path.resolve(__dirname, './src')],
+          include: [
+            path.resolve(__dirname, 'node_modules', '@consta', 'stand'),
+          ],
           resolve: {
             alias: {
-              '##': path.resolve(__dirname, '../../../src'),
+              '##': path.resolve(
+                __dirname,
+                'node_modules',
+                '@consta',
+                'stand',
+                'src',
+              ),
             },
           },
+        },
+        {
+          test: /\.tsx?$/,
+          use: require.resolve('babel-loader'),
+          include: [path.resolve(__dirname, 'node_modules')],
         },
         {
           test: /\.css$/,
@@ -48,6 +113,7 @@ module.exports = function () {
             'postcss-loader',
           ],
         },
+        ...repositoriesMdRules(repos),
         {
           test: /\.mdx?$/,
           use: [
@@ -75,15 +141,10 @@ module.exports = function () {
               },
             },
           ],
-          exclude: [path.resolve(__dirname, './src')],
-          resolve: {
-            alias: {
-              '##': path.resolve(__dirname, '../../../src'),
-            },
-          },
+          include: [path.resolve(__dirname, 'node_modules')],
         },
         {
-          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.pdf$/],
           loader: require.resolve('url-loader'),
           options: {
             limit: false,
@@ -97,11 +158,10 @@ module.exports = function () {
               loader: '@svgr/webpack',
               options: {
                 template: (
-                  { template },
-                  opts,
                   { imports, componentName, props, jsx, exports },
+                  { tpl },
                 ) => {
-                  return template.ast`
+                  return tpl`
                               ${imports}
                               import { createIcon } from '@consta/uikit/createIcon';
 
@@ -142,6 +202,9 @@ module.exports = function () {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      alias: {
+        '@consta/stand': path.resolve(__dirname),
+      },
     },
 
     plugins: [
@@ -184,7 +247,7 @@ module.exports = function () {
 
     output: {
       filename: 'index.js',
-      path: path.resolve(__dirname, '../../../build'),
+      path: path.resolve(__dirname, 'build'),
       ...(isEnvProduction && {
         filename: 'static/[name].[contenthash:8].js',
         chunkFilename: 'static/[name].[contenthash:8].chunk.js',

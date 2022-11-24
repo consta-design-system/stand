@@ -31,3 +31,4 @@ package-lock.json
 build-storybook.log
 .yarn/
 .yarnrc
+repositories/

@@ -31,5 +31,10 @@
     "scripts/prepareStands.js",
     "scripts/config.js"
   ],
-  "exclude": ["node_modules", "**/node_modules/*"]
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "repositories",
+    "**/repositories/*"
+  ]
 }

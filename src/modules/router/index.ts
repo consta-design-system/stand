@@ -1,10 +1,10 @@
-import { createRoutes } from '@consta/stand/src/createFuctions';
 import { Fn } from '@reatom/core';
 import { useAction } from '@reatom/npm-react';
 import { navigateToAction, NavigationToProps, plugin } from 'reatom-router5';
 import createRouter from 'router5';
 import browserPlugin from 'router5-plugin-browser';
 
+import { createRoutes } from '##/createFuctions';
 import { ctx } from '##/modules/app';
 
 export const { routesNames, routes } = createRoutes();
