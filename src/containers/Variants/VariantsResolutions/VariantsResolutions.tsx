@@ -46,6 +46,7 @@ export const VariantsResolutions: React.FC<{
         iconLeft={IconLaptop}
         onClick={setOpenResolutionsMenu.toogle}
         ref={refResolutionsButton}
+        size="s"
       />
       <ContextMenu
         className={cnVariantsResolutions('Menu')}

@@ -49,6 +49,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
           <div className={cnVariants('Header', { fullScreen })}>
             <Button
               view="clear"
+              size="s"
               iconLeft={fullScreen ? IconCollapse : IconExpand}
               onClick={setFullscreen}
             />
@@ -64,6 +65,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
                 view="clear"
                 iconLeft={IconSettings}
                 onClick={setOpenBoard.on}
+                size="s"
               />
             )}
           </div>
