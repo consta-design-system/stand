@@ -7,5 +7,5 @@ module.exports = {
   lazyMdxTemaplatePath: 'templates/lazydocs.tsx.template',
   standsPath: 'src/stands',
   standTabs: ['dev', 'design', 'use'],
-  // routesPath: '/repositories/portal/src/modules/router',
+  routesPath: '/repositories/portal/src/modules/router',
 };
