@@ -12,13 +12,14 @@
     width: calc(var(--space-xl) + var(--space-2xl));
     height: calc(var(--space-xl) + var(--space-2xl));
     padding: var(--space-m);
-    background-color: transparent;
+    background:
+      radial-gradient(
+        circle,
+        var(--color-bg-secondary) 0%,
+        rgba(0, 0, 0, 0) 98%
+      );
     border: none;
     border-radius: var(--control-radius);
-  }
-
-  & > pre {
-    border: none;
   }
 
   &-Icon {
@@ -71,7 +72,6 @@
   &-Param {
     display: inline-block;
     white-space: pre-wrap;
-    word-break: break-word;
   }
 
   &-CopyButton {
@@ -109,185 +109,4 @@
       background-color: var(--color-control-bg-ghost-hover);
     }
   }
-
-  /* & code[class*='language-'] {
-    color: var(--color-typo-primary);
-    font-family: var(--font-primary);
-    font-size: var(--size-text-m);
-    line-height: var(--line-height-text-s);
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    hyphens: none;
-    direction: ltr;
-  }
-
-  & pre[class*='language-'] {
-    overflow: auto;
-    width: 100%;
-    padding:
-      var(--space-m) calc(var(--space-xl) + var(--space-2xl))
-      var(--space-m) var(--space-l);
-    color: var(--color-typo-primary);
-    background: var(--color-bg-secondary) !important;
-    border-radius: var(--control-radius);
-    font-family: var(--font-primary);
-    font-size: var(--size-text-m);
-    line-height: var(--line-height-text-s);
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    hyphens: none;
-    direction: ltr;
-  }
-
-  & .:not(pre) > code[class*='language-'] {
-    padding: 0.1em;
-    background: var(--color-bg-secondary);
-    border-radius: 0.3em;
-  }
-
-  & .comment {
-    color: #7c7c7c;
-  }
-
-  & .prolog {
-    color: #7c7c7c;
-  }
-
-  & .doctype {
-    color: #7c7c7c;
-  }
-
-  & .cdata {
-    color: #7c7c7c;
-  }
-
-  & .punctuation {
-    &.tag,
-    &,
-    &.script-punctution {
-      color: var(--color-typo-secondary);
-    }
-  }
-
-  & .property {
-    color: var(--color-typo-alert);
-  }
-
-  & .keyword {
-    color: var(--color-typo-alert);
-  }
-
-  & .tag {
-    color: var(--color-typo-alert);
-  }
-
-  & .class-name {
-    color: var(--color-typo-success);
-  }
-
-  & .boolean {
-    color: var(--color-typo-success);
-  }
-
-  & .constant {
-    color: var(--color-typo-success);
-  }
-
-  & .symbol {
-    color: var(--color-typo-alert);
-  }
-
-  & .deleted {
-    color: var(--color-typo-alert);
-  }
-
-  & .number {
-    color: var(--color-typo-alert);
-  }
-
-  & .maybe-class-name {
-    color: var(--color-typo-success);
-  }
-
-  & .selector {
-    color: var(--color-typo-secondary);
-  }
-
-  & .attr-name {
-    color: var(--color-typo-secondary);
-  }
-
-  & .string {
-    color: var(--color-typo-secondary);
-  }
-
-  & .char {
-    color: var(--color-typo-secondary);
-  }
-
-  & .builtin {
-    color: var(--color-typo-secondary);
-  }
-
-  & .inserted {
-    color: var(--color-typo-secondary);
-  }
-
-  & .variable {
-    color: var(--color-typo-system);
-  }
-
-  & .operator {
-    color: var(--color-typo-secondary);
-  }
-
-  & .entity {
-    color: var(--color-typo-alert);
-    cursor: help;
-  }
-
-  & .url {
-    color: var(--color-typo-link);
-  }
-
-  & .language-css .token.string {
-    color: var(--color-typo-success);
-  }
-
-  & .style .token.string {
-    color: var(--color-typo-success);
-  }
-
-  & .atrule {
-    color: var(--color-typo-alert);
-  }
-
-  & .attr-value {
-    color: var(--color-typo-link);
-  }
-
-  & .function {
-    color: var(--color-typo-alert);
-  }
-
-  & .regex {
-    color: var(--color-typo-warning);
-  }
-
-  & .important {
-    color: var(--color-typo-caution);
-    font-weight: bold;
-  }
-
-  & .bold {
-    font-weight: bold;
-  }
-
-  & .italic {
-    font-style: italic;
-  } */
 }
