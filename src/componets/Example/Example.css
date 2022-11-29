@@ -1,0 +1,16 @@
+.stand--Example {
+  gap: var(--space-l);
+  padding-bottom: var(--space-l);
+
+  &_display {
+    &_grid {
+      display: grid;
+      grid-template-columns: repeat(var(--example-col), auto);
+    }
+
+    &_flex {
+      display: flex;
+      flex-flow: row wrap;
+    }
+  }
+}
