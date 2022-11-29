@@ -65,7 +65,7 @@
     "react-router5": "^8.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-transition-group": "^4.4.5",
-    "reatom-router5": "^3.0.0",
+    "reatom-router5": "^3.0.2",
     "remark-gfm": "^1.0.0",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",

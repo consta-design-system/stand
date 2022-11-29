@@ -1,13 +1,14 @@
 export const theme: Record<string, React.CSSProperties> = {
   'code[class*="language-"]': {
     color: 'var(--color-typo-primary)',
-    fontFamily:
-      '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace',
-    direction: 'ltr',
+    background: 'none',
+    textShadow: '0 1px var(--color-bg-default)',
+    fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
     textAlign: 'left',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
     wordBreak: 'normal',
+    wordWrap: 'normal',
     fontSize: 'var(--size-text-m)',
     lineHeight: 'var(--line-height-text-m)',
     MozTabSize: 'var(--space-2xs)',
@@ -20,13 +21,14 @@ export const theme: Record<string, React.CSSProperties> = {
   },
   'pre[class*="language-"]': {
     color: 'var(--color-typo-primary)',
-    fontFamily:
-      '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace',
-    direction: 'ltr',
+    background: 'var(--color-bg-secondary)',
+    textShadow: '0 1px var(--color-bg-default)',
+    fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
     textAlign: 'left',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
     wordBreak: 'normal',
+    wordWrap: 'normal',
     fontSize: 'var(--size-text-m)',
     lineHeight: 'var(--line-height-text-m)',
     MozTabSize: 'var(--space-2xs)',
@@ -36,174 +38,153 @@ export const theme: Record<string, React.CSSProperties> = {
     MozHyphens: 'none',
     msHyphens: 'none',
     hyphens: 'none',
-    padding: '1em',
+    padding:
+      'var(--space-m) calc(var(--space-m) * 2 + var(--space-xl)) var(--space-m) var(--space-m)',
     margin: '.5em 0',
     overflow: 'auto',
     borderRadius: 'var(--control-radius)',
-    backgroundColor: 'var(--color-bg-default)',
-  },
-  'pre > code[class*="language-"]': {
-    fontSize: 'var(--size-text-m)',
   },
   'pre[class*="language-"]::-moz-selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'pre[class*="language-"] ::-moz-selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'code[class*="language-"]::-moz-selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'code[class*="language-"] ::-moz-selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'pre[class*="language-"]::selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'pre[class*="language-"] ::selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'code[class*="language-"]::selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   'code[class*="language-"] ::selection': {
-    background: 'var(--color-typo-ghost)',
+    textShadow: 'none',
+    background: 'var(--color-bg-normal)',
   },
   ':not(pre) > code[class*="language-"]': {
-    padding: 'var(--space-3xs)',
-    paddingTop: '1px',
-    paddingBottom: '1px',
     background: 'var(--color-bg-secondary)',
-    border: '1px solid var(--color-control-bg-border-default)',
+    padding: '.1em',
+    borderRadius: '.3em',
+    whiteSpace: 'normal',
   },
   'comment': {
-    color: 'var(--color-typo-success)',
-    fontStyle: 'italic',
+    color: 'var(--color-typo-system)',
   },
   'prolog': {
-    color: 'var(--color-typo-success)',
-    fontStyle: 'italic',
+    color: 'var(--color-typo-system)',
   },
   'doctype': {
-    color: 'var(--color-typo-success)',
-    fontStyle: 'italic',
+    color: 'var(--color-typo-system)',
   },
   'cdata': {
-    color: 'var(--color-typo-success)',
-    fontStyle: 'italic',
+    color: 'var(--color-typo-system)',
+  },
+  'punctuation': {
+    color: 'var(--color-typo-ghost)',
   },
   'namespace': {
     opacity: '.7',
   },
-  'string': {
-    color: 'var(--color-typo-alert)',
+  'property': {
+    color: 'var(--color-typo-warning)',
   },
-  'punctuation': {
-    color: 'var(--color-typo-secondary)',
-  },
-  'operator': {
-    color: 'var(--color-typo-secondary)',
-  },
-  'url': {
-    color: 'var(--color-typo-link-minor)',
-  },
-  'symbol': {
-    color: 'var(--color-typo-link-minor)',
-  },
-  'number': {
-    color: 'var(--color-typo-link-minor)',
+  'tag': {
+    color: 'var(--color-typo-warning)',
   },
   'boolean': {
-    color: 'var(--color-typo-link-minor)',
+    color: 'var(--color-typo-warning)',
   },
-  'variable': {
-    color: 'var(--color-typo-link-minor)',
+  'number': {
+    color: 'var(--color-typo-warning)',
   },
   'constant': {
-    color: 'var(--color-typo-link-minor)',
+    color: 'var(--color-typo-warning)',
   },
-  'inserted': {
-    color: 'var(--color-typo-link-minor)',
-  },
-  'atrule': {
-    color: 'var(--color-typo-link)',
-  },
-  'keyword': {
-    color: 'var(--color-typo-link)',
-  },
-  'attr-value': {
-    color: 'var(--color-typo-link)',
-  },
-  '.language-autohotkey .token.selector': {
-    color: 'var(--color-typo-link)',
-  },
-  '.language-json .token.boolean': {
-    color: 'var(--color-typo-link)',
-  },
-  '.language-json .token.number': {
-    color: 'var(--color-typo-link)',
-  },
-  'code[class*="language-css"]': {
-    color: 'var(--color-typo-link)',
-  },
-  'function': {
-    color: 'var(--color-typo-secondary)',
+  'symbol': {
+    color: 'var(--color-typo-warning)',
   },
   'deleted': {
-    color: 'var(--color-typo-primary)',
-  },
-  '.language-autohotkey .token.tag': {
-    color: 'var(--color-typo-primary)',
+    color: 'var(--color-typo-warning)',
   },
   'selector': {
-    color: 'var(--color-typo-primary)',
+    color: 'var(--color-typo-success)',
   },
-  '.language-autohotkey .token.keyword': {
-    color: 'var(--color-typo-secondary)',
+  'attr-name': {
+    color: 'var(--color-typo-success)',
+  },
+  'string': {
+    color: 'var(--color-typo-success)',
+  },
+  'char': {
+    color: 'var(--color-typo-success)',
+  },
+  'builtin': {
+    color: 'var(--color-typo-success)',
+  },
+  'inserted': {
+    color: 'var(--color-typo-success)',
+  },
+  'operator': {
+    color: 'var(--color-typo-system)',
+  },
+  'entity': {
+    color: 'var(--color-typo-system)',
+
+    cursor: 'help',
+  },
+  'url': {
+    color: 'var(--color-typo-system)',
+  },
+  '.language-css .token.string': {
+    color: 'var(--color-typo-system)',
+  },
+  '.style .token.string': {
+    color: 'var(--color-typo-system)',
+  },
+  'atrule': {
+    color: 'var(--color-typo-link-minor)',
+  },
+  'attr-value': {
+    color: 'var(--color-typo-link-minor)',
+  },
+  'keyword': {
+    color: 'var(--color-typo-link-minor)',
+  },
+  'function': {
+    color: 'var(--color-typo-alert)',
+  },
+  'class-name': {
+    color: 'var(--color-typo-alert)',
+  },
+  'regex': {
+    color: 'var(--color-typo-caution)',
   },
   'important': {
-    color: 'var(--color-typo-warning)',
+    color: 'var(--color-typo-caution)',
     fontWeight: 'bold',
+  },
+  'variable': {
+    color: 'var(--color-typo-caution)',
   },
   'bold': {
     fontWeight: 'bold',
   },
   'italic': {
     fontStyle: 'italic',
-  },
-  'class-name': {
-    color: 'var(--color-typo-normal)',
-  },
-  '.language-json .token.property': {
-    color: 'var(--color-typo-normal)',
-  },
-  'tag': {
-    color: 'var(--color-typo-primary)',
-  },
-  'attr-name': {
-    color: 'var(--color-typo-alert)',
-  },
-  'property': {
-    color: 'var(--color-typo-alert)',
-  },
-  'regex': {
-    color: 'var(--color-typo-alert)',
-  },
-  'entity': {
-    color: 'var(--color-typo-alert)',
-  },
-  'directive.tag.tag': {
-    background: 'var(--color-typo-caution)',
-    color: 'var(--color-typo-secondary)',
-  },
-  '.line-numbers.line-numbers .line-numbers-rows': {
-    borderRightColor: 'var(--color-typo-ghost)',
-  },
-  '.line-numbers .line-numbers-rows > span:before': {
-    color: 'var(--color-typo-normal)',
-  },
-  '.line-highlight.line-highlight': {
-    background:
-      'linear-gradient(to right, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0))',
   },
 };

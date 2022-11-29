@@ -15,7 +15,7 @@ import { CSSTransition } from 'react-transition-group';
 import { cn } from '##/utils/bem';
 import { cnForCssTransition } from '##/utils/cnForCssTransition';
 
-import { theme } from './theme2';
+import { theme } from './theme';
 
 Highlight.registerLanguage('css', css);
 Highlight.registerLanguage('json', json);
@@ -111,7 +111,6 @@ export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
         <Highlight
           {...otherProps}
           style={theme}
-          wrapLongLines
           language={getLanguage(className)}
           className={className}
         >

@@ -15258,10 +15258,10 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-reatom-router5@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/reatom-router5/-/reatom-router5-3.0.0.tgz#843a0e58117bb1323f93e92f4cbfc2195b42a8a3"
-  integrity sha512-bMsPU+hDC+rsMefgyWl4+Tyh9l39+w6xcQtFesvXPq/90NFkOaz8r9nMWt+cwmxo9fD9kP7h93KqDkW7m4w34w==
+reatom-router5@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/reatom-router5/-/reatom-router5-3.0.2.tgz#baf55cda3ec187a97b3b952ec9f0f4fe681cb7b8"
+  integrity sha512-zS3BROB4MfSDKNSylrRC3U00RPkQVZgzIm4QTFYAKVZWttYCIwlLNkuiTuKvHJcCcSOytUArirVp7j212lBt+w==
 
 rechoir@^0.7.0:
   version "0.7.1"
