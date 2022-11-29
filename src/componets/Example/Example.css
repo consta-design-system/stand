@@ -1,0 +1,25 @@
+.stand--Example {
+  margin-bottom: var(--space-l);
+
+  &_display {
+    &_grid {
+      display: grid;
+      gap: var(--space-l);
+      grid-template-columns: repeat(var(--example-col), 1fr);
+    }
+
+    &_flex {
+      display: flex;
+      gap: var(--space-l);
+      flex-flow: row wrap;
+    }
+
+    &_block .stand--Example-Item {
+      margin-bottom: var(--space-l);
+
+      &:last-child {
+        margin-bottom: none;
+      }
+    }
+  }
+}
