@@ -13,6 +13,7 @@ import { PropsWithHTMLAttributes } from '##/utils/types/PropsWithHTMLAttributes'
 export type StoryBookModsProps = PropsWithHTMLAttributes<
   {
     col?: number | Record<string, number>;
+    fitMode?: 'scroll';
     children: React.ReactNode | React.ReactNode[];
   },
   HTMLDivElement
@@ -42,7 +43,7 @@ const getCol = (lastPoint?: number | string | false) => {
 
 export const Example = forwardRef(
   (props: StoryBookModsProps, ref: React.Ref<HTMLDivElement>) => {
-    const { children, className, col, style, ...otherProps } = props;
+    const { children, className, col, style, fitMode, ...otherProps } = props;
 
     const rootRef = useRef(null);
 
@@ -55,20 +56,24 @@ export const Example = forwardRef(
     return (
       <div
         {...otherProps}
-        className={cnExample({ display: getDisplay(lastPoint) }, [className])}
+        className={cnExample({ display: getDisplay(lastPoint), fitMode }, [
+          className,
+        ])}
         style={{
           ['--example-col' as string]: getCol(lastPoint),
           ...style,
         }}
         ref={useForkRef([ref, rootRef])}
       >
-        {Array.isArray(children)
-          ? children.map((item, index) => (
-              <div key={index} className={cnExample('Item')}>
-                {item}
-              </div>
-            ))
-          : children}
+        {Array.isArray(children) ? (
+          children.map((item, index) => (
+            <div key={index} className={cnExample('Item')}>
+              {item}
+            </div>
+          ))
+        ) : (
+          <div className={cnExample('Item')}>{children}</div>
+        )}
       </div>
     );
   },
