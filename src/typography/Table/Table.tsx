@@ -10,8 +10,10 @@ export const Table = (props: React.HTMLAttributes<HTMLTableElement>) => {
   const { children, className, ...otherProps } = props;
 
   return (
-    <table className={cnTable(null, [className])} {...otherProps}>
-      {children}
-    </table>
+    <div className={cnTable('Wrapper')}>
+      <table className={cnTable(null, [className])} {...otherProps}>
+        {children}
+      </table>
+    </div>
   );
 };
