@@ -1,9 +1,9 @@
 import './LibCard.css';
 
+import { IconForward } from '@consta/icons/IconForward';
+import { IconLink } from '@consta/icons/IconLink';
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
-import { IconForward } from '@consta/uikit/IconForward';
-import { IconLink } from '@consta/uikit/IconLink';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';

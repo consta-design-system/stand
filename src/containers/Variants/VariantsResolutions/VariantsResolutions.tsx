@@ -1,8 +1,8 @@
 import './VariantsResolutions.css';
 
+import { IconLaptopFilled } from '@consta/icons/IconLaptopFilled';
 import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
-import { IconLaptop } from '@consta/uikit/IconLaptop';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useEffect, useRef } from 'react';
 
@@ -43,7 +43,7 @@ export const VariantsResolutions: React.FC<{
     <>
       <Button
         view="clear"
-        iconLeft={IconLaptop}
+        iconLeft={IconLaptopFilled}
         onClick={setOpenResolutionsMenu.toogle}
         ref={refResolutionsButton}
         size="s"

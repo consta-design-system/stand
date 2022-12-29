@@ -1,8 +1,8 @@
 import './Header.css';
 
 import { Layout } from '@consta/header/Layout';
+import { IconHamburger } from '@consta/icons/IconHamburger';
 import { Button } from '@consta/uikit/Button';
-import { IconHamburger } from '@consta/uikit/IconHamburger';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useComponentSize } from '@consta/uikit/useComponentSize';

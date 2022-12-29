@@ -1,6 +1,6 @@
 import './StandPageInformer.css';
 
-import { IconAlert } from '@consta/uikit/IconAlert';
+import { IconAlert } from '@consta/icons/IconAlert';
 import { Informer } from '@consta/uikit/Informer';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';

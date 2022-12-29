@@ -1,6 +1,6 @@
-import { IconComponent } from '@consta/uikit/Icon';
-import { IconMoon } from '@consta/uikit/IconMoon';
-import { IconSun } from '@consta/uikit/IconSun';
+import { IconComponent } from '@consta/icons/Icon';
+import { IconMoon } from '@consta/icons/IconMoon';
+import { IconSun } from '@consta/icons/IconSun';
 import {
   presetGpnDark,
   presetGpnDefault,

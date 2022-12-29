@@ -1,7 +1,7 @@
 import './StandPageHeader.css';
 
+import { IconQuestion } from '@consta/icons/IconQuestion';
 import { Badge } from '@consta/uikit/Badge';
-import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { Text } from '@consta/uikit/Text';
 import { withTooltip } from '@consta/uikit/withTooltip';
 import React from 'react';

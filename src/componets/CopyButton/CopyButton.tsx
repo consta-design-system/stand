@@ -1,5 +1,5 @@
+import { IconConnection } from '@consta/icons/IconConnection';
 import { Button } from '@consta/uikit/Button';
-import { IconConnection } from '@consta/uikit/IconConnection';
 import React from 'react';
 
 import { useMdxLink } from '##/hooks/useMdxLink';

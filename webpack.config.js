@@ -102,7 +102,7 @@ module.exports = function () {
                 ) => {
                   return tpl`
                               ${imports}
-                              import { createIcon } from '@consta/uikit/createIcon';
+                              import { createIcon } from '@consta/icons/Icon';
 
                               const Icon = (${props}) => {
                                 props = { ...props };
@@ -114,6 +114,8 @@ module.exports = function () {
                                 s: Icon,
                                 xs: Icon,
                                 name: 'Icon',
+                                renderType: { l: 'use', m: 'use', s: 'use', xs: 'use' },
+                                color: 'mono',
                               });
                         `;
                 },

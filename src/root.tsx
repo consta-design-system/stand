@@ -1,3 +1,4 @@
+import { IconsProvider } from '@consta/icons/IconsProvider';
 import { reatomContext } from '@reatom/npm-react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -11,9 +12,11 @@ import { router } from '##/modules/router';
 const Root = () => (
   <RouterProvider router={router}>
     <reatomContext.Provider value={ctx}>
-      <AppTheme>
-        <App />
-      </AppTheme>
+      <IconsProvider>
+        <AppTheme>
+          <App />
+        </AppTheme>
+      </IconsProvider>
     </reatomContext.Provider>
   </RouterProvider>
 );

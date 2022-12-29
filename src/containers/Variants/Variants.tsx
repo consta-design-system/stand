@@ -1,9 +1,9 @@
 import './Variants.css';
 
+import { IconCollapse } from '@consta/icons/IconCollapse';
+import { IconExpand } from '@consta/icons/IconExpand';
+import { IconSettings } from '@consta/icons/IconSettings';
 import { Button } from '@consta/uikit/Button';
-import { IconCollapse } from '@consta/uikit/IconCollapse';
-import { IconExpand } from '@consta/uikit/IconExpand';
-import { IconSettings } from '@consta/uikit/IconSettings';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';

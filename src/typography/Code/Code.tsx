@@ -1,7 +1,7 @@
 import './Code.css';
 
-import { IconAllDone } from '@consta/uikit/IconAllDone';
-import { IconCopy } from '@consta/uikit/IconCopy';
+import { IconAllDone } from '@consta/icons/IconAllDone';
+import { IconCopy } from '@consta/icons/IconCopy';
 import { cnMixFocus } from '@consta/uikit/MixFocus';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useRef } from 'react';

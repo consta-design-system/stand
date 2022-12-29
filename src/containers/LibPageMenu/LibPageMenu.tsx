@@ -1,9 +1,9 @@
 import './LibPageMenu.css';
 
+import { IconArrowLeft } from '@consta/icons/IconArrowLeft';
+import { IconSearchStroked } from '@consta/icons/IconSearchStroked';
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
-import { IconArrowLeft } from '@consta/uikit/IconArrowLeft';
-import { IconSearch } from '@consta/uikit/IconSearch';
 import { Text } from '@consta/uikit/Text';
 import { TextField } from '@consta/uikit/TextField';
 import { useAction, useAtom } from '@reatom/npm-react';
@@ -162,7 +162,7 @@ export const LibPageMenu = memo(() => {
           size="s"
           width="full"
           placeholder="Поиск"
-          leftSide={IconSearch}
+          leftSide={IconSearchStroked}
           className={cnLibPageMenu('Input')}
           onChange={setSearchValue}
         />
