@@ -1,3 +1,4 @@
+import { useDebounce } from '@consta/uikit/useDebounce';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute } from 'react-router5';
@@ -31,7 +32,7 @@ export const useHeader: UseHeader = (children, ref) => {
 
   const hash = useMemo(() => params.hash, [params]);
 
-  useEffect(() => {
+  const changeActive = useDebounce(() => {
     if (id && hash) {
       if (hash === id) {
         const top = ref.current?.offsetTop ?? 0;
@@ -46,7 +47,9 @@ export const useHeader: UseHeader = (children, ref) => {
         });
       }
     }
-  }, [hash, id, ref.current]);
+  }, 50);
+
+  useEffect(changeActive, [hash, id, ref.current]);
 
   return {
     id,

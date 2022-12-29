@@ -1,0 +1,24 @@
+.stand--ExampleFrame {
+  position: relative;
+
+  &-Bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    &_type {
+      &_color {
+        background: var(--color-bg-default);
+      }
+
+      &_image {
+        background: var(--color-bg-ghost);
+        mask-image: url(./ExampleFrameBg.svg);
+        opacity: 0.3;
+      }
+    }
+  }
+}

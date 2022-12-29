@@ -1,5 +1,7 @@
 import './Example.css';
 
+import { cnMixCard } from '@consta/uikit/MixCard';
+import { Text } from '@consta/uikit/Text';
 import {
   getLastPoint,
   useComponentBreakpoints,
@@ -7,74 +9,110 @@ import {
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
 
+import { ExampleFrame } from '##/componets/ExampleFrame';
 import { cn } from '##/utils/bem';
-import { PropsWithHTMLAttributes } from '##/utils/types/PropsWithHTMLAttributes';
 
-export type StoryBookModsProps = PropsWithHTMLAttributes<
-  {
-    col?: number | Record<string, number>;
-    fitMode?: 'scroll';
-    children: React.ReactNode | React.ReactNode[];
-  },
-  HTMLDivElement
->;
+import {
+  getCol,
+  getDisplay,
+  isWithInfo,
+  mapExamples,
+  mapStatusToTextView,
+  withDefaultGetters,
+} from './helpers';
+import { ExampleComponent, ExampleProps } from './types';
 
 export const cnExample = cn('Example');
 
-const getDisplay = (lastPoint?: number | string | false) => {
-  if (!lastPoint || lastPoint === 'flex') {
-    return 'flex';
-  }
-  if (lastPoint === 1 || lastPoint === '1') {
-    return 'block';
-  }
-  return 'grid';
-};
+const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
+  const {
+    children,
+    className,
+    col,
+    style,
+    separately,
+    items,
+    getItemDescription,
+    getItemLabel,
+    getItemNode,
+    getItemStatus,
+    ...otherProps
+  } = withDefaultGetters(rest);
 
-const getCol = (lastPoint?: number | string | false) => {
-  if (!lastPoint || lastPoint === 'flex') {
-    return undefined;
-  }
-  if (lastPoint === 1 || lastPoint === '1') {
-    return undefined;
-  }
-  return lastPoint;
-};
+  const rootRef = useRef(null);
 
-export const Example = forwardRef(
-  (props: StoryBookModsProps, ref: React.Ref<HTMLDivElement>) => {
-    const { children, className, col, style, fitMode, ...otherProps } = props;
+  const lastPoint =
+    getLastPoint(
+      useComponentBreakpoints(rootRef, typeof col === 'object' ? col : {}),
+    ) ||
+    (typeof col !== 'object' && col);
 
-    const rootRef = useRef(null);
+  const Root = separately ? 'div' : ExampleFrame;
+  const Item = separately ? ExampleFrame : 'div';
 
-    const lastPoint =
-      getLastPoint(
-        useComponentBreakpoints(rootRef, typeof col === 'object' ? col : {}),
-      ) ||
-      (typeof col !== 'object' && col);
+  const examples = mapExamples(
+    getItemDescription,
+    getItemLabel,
+    getItemNode,
+    getItemStatus,
+    children,
+    items,
+  );
 
-    return (
-      <div
-        {...otherProps}
-        className={cnExample({ display: getDisplay(lastPoint), fitMode }, [
-          className,
-        ])}
-        style={{
-          ['--example-col' as string]: getCol(lastPoint),
-          ...style,
-        }}
-        ref={useForkRef([ref, rootRef])}
-      >
-        {Array.isArray(children) ? (
-          children.map((item, index) => (
-            <div key={index} className={cnExample('Item')}>
-              {item}
+  const withInfo = isWithInfo(examples);
+
+  return (
+    <Root
+      {...otherProps}
+      className={cnExample({ display: getDisplay(lastPoint), separately }, [
+        className,
+        separately ? undefined : cnMixCard({ border: true }),
+        separately ? undefined : cnExample('Frame'),
+      ])}
+      style={{
+        ['--example-col' as string]: getCol(lastPoint),
+        ...style,
+      }}
+      ref={useForkRef([ref, rootRef])}
+    >
+      {examples.map(({ node, label, description, status }, index) => (
+        <Item
+          key={index}
+          className={cnExample(
+            'Item',
+            {
+              withInfo,
+            },
+            [
+              separately ? cnMixCard({ border: true }) : undefined,
+              separately ? cnExample('Frame') : undefined,
+            ],
+          )}
+        >
+          <div className={cnExample('Node')}>{node}</div>
+          {withInfo && (
+            <div
+              className={cnExample('Info', { withStatus: !!status, status })}
+            >
+              {label && (
+                <Text
+                  weight="semibold"
+                  view={status && mapStatusToTextView[status]}
+                >
+                  {label}
+                </Text>
+              )}
+              {description && (
+                <Text size="s" view="secondary">
+                  {description}
+                </Text>
+              )}
             </div>
-          ))
-        ) : (
-          <div className={cnExample('Item')}>{children}</div>
-        )}
-      </div>
-    );
-  },
-);
+          )}
+        </Item>
+      ))}
+    </Root>
+  );
+};
+
+export const Example = forwardRef(ExampleRender) as ExampleComponent;
