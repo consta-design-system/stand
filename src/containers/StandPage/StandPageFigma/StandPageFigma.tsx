@@ -127,6 +127,7 @@ export const StandPageFigma = (props: Props) => {
             src={link}
           />
           {isLoading && <Loader className={cnStandPageFigma('Loader')} />}
+          <Loader className={cnStandPageFigma('Loader')} />
         </>
       ) : (
         <>

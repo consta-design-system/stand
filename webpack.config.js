@@ -103,21 +103,22 @@ module.exports = function () {
                   return tpl`
                               ${imports}
                               import { createIcon } from '@consta/icons/Icon';
-
+                            
                               const Icon = (${props}) => {
                                 props = { ...props };
                                 return ${jsx};
                               };
-
+                            
                               export default createIcon({
-                                m: Icon,
-                                s: Icon,
                                 xs: Icon,
-                                name: 'Icon',
+                                s: Icon,
+                                m: Icon,
+                                l: Icon,
+                                name: '${componentName}',
                                 renderType: { l: 'use', m: 'use', s: 'use', xs: 'use' },
                                 color: 'mono',
                               });
-                        `;
+                            `;
                 },
                 plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
                 dimensions: false,

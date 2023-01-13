@@ -37,24 +37,29 @@ export const LibCard = (props: LibCardProps) => {
 
   return (
     <div className={cnLibCard()}>
-      <Text
-        as="h5"
-        size="l"
-        lineHeight="xs"
-        weight="semibold"
-        className={cnLibCard('Title', [cnMixSpace({ mB: 's' })])}
-      >
-        {title}
-        {status && status !== 'stable' && (
-          <Badge
-            label={badgeMap[status]}
-            view="filled"
-            size="s"
-            status="system"
-          />
-        )}
-      </Text>
-      <LibDescription description={description} />
+      <div className={cnLibCard('Info')}>
+        <Text
+          size="l"
+          lineHeight="xs"
+          className={cnLibCard('Title', [cnMixSpace({ mB: 's' })])}
+          as="a"
+          href={href}
+          onClick={onClick}
+          view="link"
+          weight="semibold"
+        >
+          {title}
+          {status && status !== 'stable' && (
+            <Badge
+              label={badgeMap[status]}
+              view="filled"
+              size="s"
+              status="system"
+            />
+          )}
+        </Text>
+        <LibDescription description={description} />
+      </div>
       <div className={cnLibCard('Buttons')}>
         <Button
           as="a"

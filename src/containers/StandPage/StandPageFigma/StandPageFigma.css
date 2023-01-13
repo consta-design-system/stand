@@ -33,7 +33,7 @@
     left: calc(100% - 131px);
   }
 
-  &-Loader {
+  &-Loader.Loader {
     position: absolute;
   }
 }

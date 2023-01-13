@@ -1,4 +1,6 @@
 .stand--LibCard {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   width: 100%;
   padding: var(--space-xl) var(--space-l);
@@ -15,11 +17,21 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    cursor: pointer;
     flex-wrap: wrap;
     gap: var(--space-xs);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &-Info {
+    flex: 1;
   }
 
   &-Buttons {
+    flex: 0;
     margin-top: var(--space-2xl);
 
     @media screen and (min-width: 460px) {
