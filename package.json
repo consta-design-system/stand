@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.97",
+  "version": "0.0.98",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -18,7 +18,7 @@
     "@bem-react/classname": "^1.5.12",
     "@bem-react/classnames": "^1.3.10",
     "@consta/header": "^1.0.0",
-    "@consta/uikit": "^4.7.1",
+    "@consta/uikit": "^4.8.0",
     "@consta/icons": "^0.1.1",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
