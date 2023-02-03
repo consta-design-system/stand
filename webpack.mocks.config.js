@@ -237,8 +237,9 @@ module.exports = function () {
       new webpack.ProgressPlugin(),
 
       new MiniCssExtractPlugin({
-        filename: 'static/[name].[contenthash:8].css',
-        chunkFilename: 'static/[name].[contenthash:8].chunk.css',
+        filename: 'static/[contenthash].main.css',
+        chunkFilename: 'static/[contenthash].css',
+        ignoreOrder: true,
       }),
 
       new CssMinimizerPlugin(),
@@ -252,11 +253,54 @@ module.exports = function () {
       filename: 'index.js',
       path: path.resolve(__dirname, 'build'),
       ...(isEnvProduction && {
-        filename: 'static/[name].[contenthash:8].js',
-        chunkFilename: 'static/[name].[contenthash:8].chunk.js',
-        assetModuleFilename: 'static/media/[name].[hash][ext]',
+        asyncChunks: true,
+        filename: 'static/[contenthash].main.js',
+        chunkFilename: 'static/[contenthash].js',
+        assetModuleFilename: 'static/media/[contenthash][ext]',
       }),
       publicPath: '/',
+    },
+
+    optimization: {
+      ...(isEnvProduction && {
+        splitChunks: {
+          cacheGroups: {
+            initial: {
+              name: 'initial',
+              chunks: 'initial',
+              minChunks: 1,
+              minSize: 40000,
+              maxSize: 200000,
+              filename: 'static/[contenthash].[name].js',
+            },
+            async: {
+              name: 'async',
+              chunks: 'async',
+              minChunks: 1,
+              minSize: 40000,
+              maxSize: 100000,
+              filename: 'static/[contenthash].[name].js',
+            },
+            // commonsAsync: {
+            //   name: 'commonsAsync',
+            //   chunks: 'async',
+            //   minChunks: 1,
+            //   minSize: 20000,
+            //   maxSize: 50000,
+            //   filename: 'static/[contenthash].js',
+            // },
+            styles: {
+              name: 'styles',
+              type: 'css/mini-extract',
+              chunks: 'async',
+              minChunks: 1,
+              minSize: 40000,
+              maxSize: 50000,
+              filename: 'static/[contenthash].[name].css',
+            },
+          },
+        },
+      }),
     },
 
     devServer: {
@@ -264,3 +308,5 @@ module.exports = function () {
     },
   };
 };
+
+// 795

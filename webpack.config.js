@@ -173,8 +173,8 @@ module.exports = function () {
       new webpack.ProgressPlugin(),
 
       new MiniCssExtractPlugin({
-        filename: 'static/[name].[contenthash:8].css',
-        chunkFilename: 'static/[name].[contenthash:8].chunk.css',
+        filename: 'static/[contenthash].main.css',
+        chunkFilename: 'static/[contenthash].css',
       }),
 
       new CssMinimizerPlugin(),
@@ -188,9 +188,10 @@ module.exports = function () {
       filename: 'index.js',
       path: path.resolve(__dirname, '../../../build'),
       ...(isEnvProduction && {
-        filename: 'static/[name].[contenthash:8].js',
-        chunkFilename: 'static/[name].[contenthash:8].chunk.js',
-        assetModuleFilename: 'static/media/[name].[hash][ext]',
+        asyncChunks: true,
+        filename: 'static/[contenthash].main.js',
+        chunkFilename: 'static/[contenthash].js',
+        assetModuleFilename: 'static/media/[contenthash][ext]',
       }),
       publicPath: '/',
     },
