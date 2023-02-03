@@ -265,30 +265,6 @@ module.exports = function () {
       ...(isEnvProduction && {
         splitChunks: {
           cacheGroups: {
-            // initial: {
-            //   name: 'initial',
-            //   chunks: 'initial',
-            //   minChunks: 1,
-            //   minSize: 40000,
-            //   maxSize: 200000,
-            //   filename: 'static/[contenthash].[name].js',
-            // },
-            // async: {
-            //   name: 'async',
-            //   chunks: 'async',
-            //   minChunks: 1,
-            //   minSize: 40000,
-            //   maxSize: 100000,
-            //   filename: 'static/[contenthash].[name].js',
-            // },
-            // commonsAsync: {
-            //   name: 'commonsAsync',
-            //   chunks: 'async',
-            //   minChunks: 1,
-            //   minSize: 20000,
-            //   maxSize: 50000,
-            //   filename: 'static/[contenthash].js',
-            // },
             styles: {
               name: 'styles',
               type: 'css/mini-extract',
