@@ -64,7 +64,7 @@ const repositoriesMdRules = (repos) => {
   }));
 };
 
-const repositoriesChancCacheGroups = (repos) => {
+const repositoriesCacheGroups = (repos) => {
   const cacheGroups = {};
   for (let index = 0; index < repos.length; index++) {
     const repoName = repos[index];
@@ -78,6 +78,27 @@ const repositoriesChancCacheGroups = (repos) => {
       minChunks: 1,
       minSize: 1,
       maxSize: 500000,
+      reuseExistingChunk: true,
+    };
+  }
+  return cacheGroups;
+};
+
+const modulesCacheGroups = (repos) => {
+  const cacheGroups = {};
+  for (let index = 0; index < repos.length; index++) {
+    const repoName = repos[index];
+    const groupName = `css-async-module-${repoName}`;
+
+    cacheGroups[groupName] = {
+      name: `css-async-repo-${groupName}`,
+      test: new RegExp(`/node_modules/@consta/${repoName}/`),
+      type: 'css/mini-extract',
+      chunks: 'async',
+      minChunks: 1,
+      minSize: 1,
+      maxSize: 500000,
+      reuseExistingChunk: true,
     };
   }
   return cacheGroups;
@@ -283,7 +304,10 @@ module.exports = function () {
     optimization: {
       ...(isEnvProduction && {
         splitChunks: {
-          cacheGroups: repositoriesChancCacheGroups(repos),
+          cacheGroups: {
+            ...repositoriesCacheGroups(repos),
+            ...modulesCacheGroups(repos),
+          },
         },
       }),
     },
