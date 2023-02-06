@@ -64,6 +64,25 @@ const repositoriesMdRules = (repos) => {
   }));
 };
 
+const repositoriesChancCacheGroups = (repos) => {
+  const cacheGroups = {};
+  for (let index = 0; index < repos.length; index++) {
+    const repoName = repos[index];
+    const groupName = `css-async-repo-${repoName}`;
+
+    cacheGroups[groupName] = {
+      name: `css-async-repo-${groupName}`,
+      test: new RegExp(`/repositories/${repoName}/`),
+      type: 'css/mini-extract',
+      chunks: 'async',
+      minChunks: 1,
+      minSize: 1,
+      maxSize: 500000,
+    };
+  }
+  return cacheGroups;
+};
+
 module.exports = function () {
   return {
     target: 'web',
@@ -264,17 +283,7 @@ module.exports = function () {
     optimization: {
       ...(isEnvProduction && {
         splitChunks: {
-          cacheGroups: {
-            styles: {
-              name: 'styles',
-              type: 'css/mini-extract',
-              chunks: 'async',
-              minChunks: 1,
-              minSize: 40000,
-              maxSize: 100000,
-              filename: 'static/[contenthash].[name].css',
-            },
-          },
+          cacheGroups: repositoriesChancCacheGroups(repos),
         },
       }),
     },
