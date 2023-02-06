@@ -64,6 +64,46 @@ const repositoriesMdRules = (repos) => {
   }));
 };
 
+const repositoriesCacheGroups = (repos) => {
+  const cacheGroups = {};
+  for (let index = 0; index < repos.length; index++) {
+    const repoName = repos[index];
+    const groupName = `css-async-repo-${repoName}`;
+
+    cacheGroups[groupName] = {
+      name: `css-async-repo-${groupName}`,
+      test: new RegExp(`/repositories/${repoName}/`),
+      type: 'css/mini-extract',
+      chunks: 'async',
+      minChunks: 1,
+      minSize: 1,
+      maxSize: 500000,
+      reuseExistingChunk: true,
+    };
+  }
+  return cacheGroups;
+};
+
+const modulesCacheGroups = (repos) => {
+  const cacheGroups = {};
+  for (let index = 0; index < repos.length; index++) {
+    const repoName = repos[index];
+    const groupName = `css-async-module-${repoName}`;
+
+    cacheGroups[groupName] = {
+      name: `css-async-repo-${groupName}`,
+      test: new RegExp(`/node_modules/@consta/${repoName}/`),
+      type: 'css/mini-extract',
+      chunks: 'async',
+      minChunks: 1,
+      minSize: 1,
+      maxSize: 500000,
+      reuseExistingChunk: true,
+    };
+  }
+  return cacheGroups;
+};
+
 module.exports = function () {
   return {
     target: 'web',
@@ -237,8 +277,9 @@ module.exports = function () {
       new webpack.ProgressPlugin(),
 
       new MiniCssExtractPlugin({
-        filename: 'static/[name].[contenthash:8].css',
-        chunkFilename: 'static/[name].[contenthash:8].chunk.css',
+        filename: 'static/[contenthash].main.css',
+        chunkFilename: 'static/[contenthash].css',
+        ignoreOrder: true,
       }),
 
       new CssMinimizerPlugin(),
@@ -252,11 +293,23 @@ module.exports = function () {
       filename: 'index.js',
       path: path.resolve(__dirname, 'build'),
       ...(isEnvProduction && {
-        filename: 'static/[name].[contenthash:8].js',
-        chunkFilename: 'static/[name].[contenthash:8].chunk.js',
-        assetModuleFilename: 'static/media/[name].[hash][ext]',
+        asyncChunks: true,
+        filename: 'static/[contenthash].main.js',
+        chunkFilename: 'static/[contenthash].js',
+        assetModuleFilename: 'static/media/[contenthash][ext]',
       }),
       publicPath: '/',
+    },
+
+    optimization: {
+      ...(isEnvProduction && {
+        splitChunks: {
+          cacheGroups: {
+            ...repositoriesCacheGroups(repos),
+            ...modulesCacheGroups(repos),
+          },
+        },
+      }),
     },
 
     devServer: {
@@ -264,3 +317,5 @@ module.exports = function () {
     },
   };
 };
+
+// 795
