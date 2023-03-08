@@ -28,7 +28,7 @@
 
   &-Links {
     & > *:not(:last-child) {
-      margin-right: var(--space-xs);
+      margin-right: var(--space-s);
     }
 
     & .icons--Icon {

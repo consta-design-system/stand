@@ -4,35 +4,14 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-
-  &-Top {
-    width: 100%;
-    margin-bottom: var(--space-l);
-
-    @media screen and (min-width: 900px) {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
+  background: var(--color-bg-secondary);
+  border-radius: var(--space-xs);
 
   &-Badges {
-    display: flex;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
     flex-wrap: wrap;
-    gap: var(--space-s);
-    margin-top: var(--space-l);
-
-    @media screen and (min-width: 900px) {
-      margin-top: 0;
-    }
-  }
-
-  &-Description {
-    width: 100%;
-    margin-bottom: calc(var(--space-l) * 1.5);
-  }
-
-  &-Tooltip {
-    max-width: 220px;
+    gap: var(--space-2xs);
   }
 }

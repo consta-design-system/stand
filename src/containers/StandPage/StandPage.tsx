@@ -12,7 +12,6 @@ import { getStandPath, useStand } from './helpers';
 import { StandPageFigma } from './StandPageFigma';
 import { StandPageFooter } from './StandPageFooter';
 import { StandPageHeader } from './StandPageHeader';
-import { StandPageInformer } from './StandPageInformer';
 import { StandPageNavigation } from './StandPageNavigation';
 import { StandPageSandbox } from './StandPageSandbox';
 
@@ -37,31 +36,10 @@ export const StandPage: React.FC = memo(() => {
 
   const standPath = getStandPath(tab?.id, standID, stand);
 
-  const standStatus = stand.stand.status;
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { deprecated, canary, stable } = useMemo(() => {
-    const others = stand.stand.otherVersion;
-    return {
-      deprecated: others?.find((el) => el.status === 'deprecated'),
-      canary: others?.find((el) => el.status === 'canary'),
-      stable: others?.find((el) => el.status === 'stable'),
-    };
-  }, [standID]);
-
   return (
     <PageDecorator>
       <div key={standID}>
         <StandPageHeader stand={stand.stand} />
-        <StandPageInformer
-          lib={route.route.params.lib as string}
-          stand={stand.stand}
-          status={standStatus}
-          deprecated={deprecated}
-          canary={canary}
-          stable={stable}
-          className={cnStandPage('Informer')}
-        />
         <StandPageNavigation className={cnStandPage('Navigation')} />
         {tab?.id === '' && stand.lazyAccess.variants && (
           <Variants
