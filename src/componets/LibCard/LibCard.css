@@ -3,20 +3,16 @@
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  padding: var(--space-xl) var(--space-l);
   background: var(--color-bg-default);
   border: var(--control-border-width) solid var(--color-bg-border);
   border-radius: var(--control-radius);
-
-  & a {
-    text-decoration: none;
-  }
 
   &-Title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    text-decoration: underline;
     cursor: pointer;
     flex-wrap: wrap;
     gap: var(--space-xs);
@@ -30,9 +26,18 @@
     flex: 1;
   }
 
+  &-Links {
+    & > *:not(:last-child) {
+      margin-right: var(--space-xs);
+    }
+
+    & .icons--Icon {
+      --icon-size: var(--graphics-size-m);
+    }
+  }
+
   &-Buttons {
     flex: 0;
-    margin-top: var(--space-2xl);
 
     @media screen and (min-width: 460px) {
       display: flex;
@@ -40,7 +45,7 @@
       align-items: center;
     }
 
-    & .Button:first-child {
+    & > div {
       margin-right: var(--space-s);
       margin-bottom: var(--space-s);
 
@@ -48,10 +53,6 @@
         margin-right: 0;
         margin-bottom: 0;
       }
-    }
-
-    & .Button_view_clear {
-      color: var(--color-typo-link);
     }
   }
 }
