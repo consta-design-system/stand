@@ -10,6 +10,7 @@ import { Variants } from '##/containers/Variants';
 import { cn } from '##/utils/bem';
 
 import { getStandPath, useStand } from './helpers';
+import { StandPageFeedback } from './StandPageFeedback';
 import { StandPageFooter } from './StandPageFooter';
 import { StandPageHeader } from './StandPageHeader';
 import { StandPageNavigation } from './StandPageNavigation';
@@ -50,6 +51,7 @@ export const StandPage: React.FC = memo(() => {
           />
         )}
         {standPath && <LazyDocs key={standPath} id={standPath} />}
+        <StandPageFeedback className={cnStandPage('Feedback')} />
         <StandPageFooter className={cnStandPage('Footer')} />
       </div>
     </PageDecorator>

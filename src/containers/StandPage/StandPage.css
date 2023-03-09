@@ -1,4 +1,8 @@
 .stand--StandPage {
+  &-Feedback {
+    margin-top: calc(var(--space-xs) + var(--space-4xl));
+  }
+
   &-Footer {
     margin-top: calc(var(--space-2xl) + var(--space-4xl));
   }
