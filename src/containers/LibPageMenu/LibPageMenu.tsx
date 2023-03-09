@@ -1,11 +1,10 @@
 import './LibPageMenu.css';
 
-import { IconArrowLeft } from '@consta/icons/IconArrowLeft';
-import { IconSearchStroked } from '@consta/icons/IconSearchStroked';
+import { IconBackward } from '@consta/icons/IconBackward';
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
+import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { TextField } from '@consta/uikit/TextField';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo, useCallback } from 'react';
 import { useRoute, useRouter } from 'react-router5';
@@ -13,11 +12,16 @@ import { useRoute, useRouter } from 'react-router5';
 import { PortalMenu } from '##/containers/PortalMenu';
 import { PortalMenuItem } from '##/containers/PortalMenu/PortalMenuItem';
 import { useScrollToActive } from '##/hooks/useScrollToActive';
-import { openPrimaryMenuAtom, openSecondaryMenuAtom } from '##/modules/layout';
+import { headerLeftSideHeightAtom } from '##/modules/header';
+import { openLeftSideAtom } from '##/modules/layout';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
 import { routesNames, useIsActiveRouter } from '##/modules/router';
-import { searchValueAtom, visibleListAtom } from '##/modules/standsMenu';
+import {
+  libPageMenuFiltersHeightAtom,
+  searchValueAtom,
+  visibleListAtom,
+} from '##/modules/standsMenu';
 import { Group, PreparedStand } from '##/types';
 import { cn } from '##/utils/bem';
 
@@ -27,7 +31,7 @@ const mapBadgeProps = {
   stable: undefined,
   canary: {
     label: 'canary',
-    status: 'success',
+    status: 'normal',
   },
   inWork: {
     label: 'в работе',
@@ -54,7 +58,7 @@ const getItemRightSide = (item: PreparedStand) => {
     return undefined;
   }
 
-  return <Badge {...props} size="s" view="stroked" />;
+  return <Badge {...props} size="s" view="stroked" form="round" />;
 };
 
 const cnLibPageMenu = cn('LibPageMenu');
@@ -62,16 +66,14 @@ const cnLibPageMenu = cn('LibPageMenu');
 export const LibPageMenu = memo(() => {
   const [libs] = useAtom(libsAtom);
   const [lib] = useAtom(libAtom);
+  const [headerLeftSideHeight] = useAtom(headerLeftSideHeightAtom);
+  const [libPageMenuFiltersHeight] = useAtom(libPageMenuFiltersHeightAtom);
 
   const [searchValue] = useAtom(searchValueAtom);
   const [visibleList] = useAtom(visibleListAtom);
-  const setSearchValue = useAction((ctx, { value }: { value: string | null }) =>
-    searchValueAtom(ctx, value || ''),
-  );
   const router = useRouter();
   const route = useRoute();
-  const openPrimaryMenuSetFalse = useAction(openPrimaryMenuAtom.setFalse);
-  const openSecondaryMenuSetFalse = useAction(openSecondaryMenuAtom.setFalse);
+  const openPrimaryMenuSetFalse = useAction(openLeftSideAtom.setFalse);
 
   useScrollToActive();
 
@@ -87,7 +89,6 @@ export const LibPageMenu = memo(() => {
     e.preventDefault();
     router.navigate(routesNames.LIBS);
     openPrimaryMenuSetFalse();
-    openSecondaryMenuSetFalse();
   }, []);
 
   const navigateToReview = useCallback(
@@ -95,7 +96,6 @@ export const LibPageMenu = memo(() => {
       e.preventDefault();
       router.navigate(routesNames.LIBS_LIB, { lib: lib?.id });
       openPrimaryMenuSetFalse();
-      openSecondaryMenuSetFalse();
     },
     [lib?.id],
   );
@@ -108,7 +108,6 @@ export const LibPageMenu = memo(() => {
         stand: item.id,
       });
       openPrimaryMenuSetFalse();
-      openSecondaryMenuSetFalse();
     },
     [],
   );
@@ -129,51 +128,12 @@ export const LibPageMenu = memo(() => {
   };
 
   const additionalControls = () => (
-    <>
-      <div className={cnLibPageMenu('Controls')}>
-        {libs?.length > 1 && (
-          <Text
-            className={cnLibPageMenu('ButtonLibs')}
-            as="a"
-            href={router.buildPath(routesNames.LIBS)}
-            onClick={back}
-            size="s"
-            view="secondary"
-            weight="semibold"
-          >
-            <Button
-              as="span"
-              iconLeft={IconArrowLeft}
-              size="xs"
-              form="round"
-              iconSize="s"
-            />
-            Библиотеки
-          </Text>
-        )}
-        <div className={cnLibPageMenu('Header')}>
-          <Text size="xl" lineHeight="m" view="brand" weight="semibold">
-            {lib?.title}
-          </Text>
-        </div>
-        <TextField
-          type="text"
-          value={searchValue}
-          size="s"
-          width="full"
-          placeholder="Поиск"
-          leftSide={IconSearchStroked}
-          className={cnLibPageMenu('Input')}
-          onChange={setSearchValue}
-        />
-      </div>
-      <PortalMenuItem
-        href={router.buildPath(routesNames.LIBS_LIB, { lib: lib?.id })}
-        label="Обзор"
-        active={route.route.name === routesNames.LIBS_LIB}
-        onClick={navigateToReview}
-      />
-    </>
+    <PortalMenuItem
+      href={router.buildPath(routesNames.LIBS_LIB, { lib: lib?.id })}
+      label="Обзор"
+      active={route.route.name === routesNames.LIBS_LIB}
+      onClick={navigateToReview}
+    />
   );
 
   if (!lib) {
@@ -181,22 +141,53 @@ export const LibPageMenu = memo(() => {
   }
 
   return (
-    <PortalMenu
-      items={visibleList}
-      className={cnLibPageMenu()}
-      groups={[...lib.groups]}
-      additionalControls={additionalControls()}
-      getItemLabel={getItemLabel}
-      getItemHref={getItemHref}
-      getGroupLabel={getGroupLabel}
-      getItemActive={getItemActive}
-      getItemRightSide={getItemRightSide}
-      onItemClick={onItemClick}
-      getGroupKey={getGroupKey}
-      withoutGroups={!!searchValue && searchValue.trim() !== ''}
-      getGroupInitialOpen={getGroupIsOpen}
-      getItemGroupId={getItemGroupId}
-      filters={<LibPageMenuFilters />}
-    />
+    <>
+      <div
+        className={cnLibPageMenu()}
+        style={{
+          ['--header-left-side-height' as string]: `${headerLeftSideHeight}px`,
+          ['--filters-left-side-height' as string]: `${libPageMenuFiltersHeight}px`,
+        }}
+      >
+        {libs?.length > 1 && (
+          <Text
+            className={cnLibPageMenu('ButtonLibs', [
+              cnMixSpace({ pH: 'm', pV: 's', mB: 'm' }),
+            ])}
+            as="a"
+            href={router.buildPath(routesNames.LIBS)}
+            onClick={back}
+            size="s"
+            weight="semibold"
+          >
+            <Button
+              as="span"
+              iconLeft={IconBackward}
+              size="xs"
+              form="round"
+              view="ghost"
+            />
+            Назад
+          </Text>
+        )}
+        <PortalMenu
+          items={visibleList}
+          className={cnMixSpace({ pH: 'm' })}
+          groups={lib.groups as Group[]}
+          additionalControls={additionalControls()}
+          getItemLabel={getItemLabel}
+          getItemHref={getItemHref}
+          getGroupLabel={getGroupLabel}
+          getItemActive={getItemActive}
+          getItemRightSide={getItemRightSide}
+          onItemClick={onItemClick}
+          getGroupKey={getGroupKey}
+          withoutGroups={!!searchValue && searchValue.trim() !== ''}
+          getGroupInitialOpen={getGroupIsOpen}
+          getItemGroupId={getItemGroupId}
+        />
+      </div>
+      <LibPageMenuFilters />
+    </>
   );
 });

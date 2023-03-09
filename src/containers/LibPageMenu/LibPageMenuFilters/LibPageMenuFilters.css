@@ -2,15 +2,14 @@
   position: sticky;
   left: 0;
   bottom: 0;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  width: calc(100% + 2 * var(--space-xl));
+  width: 100%;
   margin-left: calc(var(--space-xl) * -1);
   background: var(--color-bg-default);
-  border-top: 1px solid var(--color-bg-border);
 
   &-Item {
     display: flex;
@@ -20,16 +19,21 @@
     width: 100%;
     padding-top: calc(var(--space-s) + var(--space-3xs));
     padding-right: var(--space-xl);
+    padding-left: var(--space-xl);
     padding-bottom: calc(var(--space-s) + var(--space-3xs));
   }
 
   &-Overlay {
     width: 100%;
-    padding-left: var(--space-xl);
     background: var(--color-bg-stripe);
 
-    & > *:not(:last-child) {
-      border-bottom: 1px solid var(--color-bg-border);
+    & > * {
+      border-top: 1px solid var(--color-bg-border);
     }
+  }
+
+  &-Separator {
+    height: 1px;
+    background: var(--color-bg-border);
   }
 }

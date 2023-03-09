@@ -1,0 +1,6 @@
+.stand--SearchDropDown {
+  --popover-height: 300px;
+  --popover-width: 380px;
+  overflow: hidden;
+  height: var(--popover-height);
+}

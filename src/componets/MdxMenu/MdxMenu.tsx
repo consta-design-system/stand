@@ -8,7 +8,7 @@ export const MdxMenu: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
   const setMenu = useAction(menuMdxAtom);
-  const breakpoints = useBreakpoints({ xl: 1690 });
+  const breakpoints = useBreakpoints({ xl: 1242 });
 
   useEffect(() => {
     setMenu(children);

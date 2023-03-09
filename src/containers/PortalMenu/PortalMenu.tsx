@@ -1,6 +1,7 @@
 import './PortalMenu.css';
 
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
+import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
 
@@ -65,7 +66,7 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
       {...otherProps}
     >
       {additionalControls}
-      <div className={cnPortalMenu('List')}>
+      <div className={cnPortalMenu('List', [cnMixSpace({ mV: 'm' })])}>
         {!withoutGroups && groups.length
           ? groups.map(({ group, items, key }, groupIndex) => {
               return (

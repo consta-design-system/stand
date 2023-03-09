@@ -1,0 +1,18 @@
+.stand--SearchList {
+  overflow-y: auto;
+  height: calc(var(--popover-height) - 2px);
+
+  &_listIsResult {
+    height: calc(var(--popover-height) - 38px);
+  }
+
+  &-Length {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    flex: none;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-bg-border);
+  }
+}

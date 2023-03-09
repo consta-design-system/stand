@@ -1,50 +1,43 @@
 .stand--PortalMenuItem {
-  &-Button {
-    display: inline-flex;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-xs) var(--space-s);
+  background: transparent;
+  border: none;
+  border-radius: var(--control-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &-Body {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding: var(--space-s);
-    background: transparent;
-    border: none;
-    border-radius: var(--control-radius);
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background: var(--color-control-bg-clear-hover);
-    }
-
-    &_active {
-      background: var(--color-bg-stripe);
-    }
   }
 
-  &-MoreButton {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    border: none;
-    border-radius: var(--control-radius);
-    cursor: pointer;
-    transition: transform 0.3s;
-
-    &_open {
-      transform: rotate(180deg);
-    }
+  &:hover {
+    color: var(--color-typo-link);
+    background: var(--color-control-bg-ghost-hover);
   }
 
-  &-List {
-    width: 100%;
+  .Text {
+    transition: color 0.15s;
   }
 
-  &-Text {
+  &:hover:not(&_active) .Text {
+    color: var(--color-typo-link);
+  }
+
+  &_active,
+  &_active:hover {
+    background: var(--color-typo-link);
+  }
+
+  &-Label {
     display: inline-flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
+    min-height: var(--space-xl);
   }
 }

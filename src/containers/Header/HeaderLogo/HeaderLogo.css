@@ -1,3 +1,8 @@
 .stand--HeaderLogo {
+  height: 20px;
   text-decoration: none;
+
+  &-Image {
+    height: 20px;
+  }
 }

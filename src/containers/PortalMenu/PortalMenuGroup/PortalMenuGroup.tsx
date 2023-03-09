@@ -1,7 +1,6 @@
 import './PortalMenuGroup.css';
 
 import { Collapse } from '@consta/uikit/Collapse';
-import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useEffect, useRef } from 'react';
 
@@ -27,9 +26,7 @@ export const PortalMenuGroup = <ITEM,>(props: PortalMenuGroupProps<ITEM>) => {
 
   const [isOpen, setIsOpen] = useFlag(initialOpen);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { height } = useComponentSize(containerRef);
+  const renders = useRef(0).current++;
 
   useEffect(() => {
     if (initialOpen) {
@@ -38,33 +35,34 @@ export const PortalMenuGroup = <ITEM,>(props: PortalMenuGroupProps<ITEM>) => {
   }, [initialOpen]);
 
   return (
-    <div className={cnPortalMenuGroup(null, [className])}>
+    <div
+      className={cnPortalMenuGroup({ firstRender: renders === 0 }, [className])}
+    >
       <Collapse
         iconPosition="right"
-        size="m"
+        size="s"
         directionIcon="down"
         closeDirectionIcon="up"
         label={label || ''}
         isOpen={isOpen}
-        onClick={setIsOpen.toogle}
-        style={{
-          ['--portal-collapse-height' as string]: `${height}px`,
-        }}
+        onClick={setIsOpen.toggle}
+        iconView="ghost"
+        view="secondary"
+        hoverEffect
+        horizontalSpace="s"
       >
-        <div className={cnPortalMenuGroup('List')} ref={containerRef}>
-          {items.map((item, itemIndex) => {
-            return (
-              <PortalMenuItem
-                key={cnPortalMenuGroup('Item', { itemIndex })}
-                onClick={(e) => onItemClick?.({ e, item })}
-                active={getItemActive(item)}
-                label={getItemLabel(item)}
-                rightSide={getItemRightSide(item)}
-                href={getItemHref(item)}
-              />
-            );
-          })}
-        </div>
+        {items.map((item, itemIndex) => {
+          return (
+            <PortalMenuItem
+              key={cnPortalMenuGroup('Item', { itemIndex })}
+              onClick={(e) => onItemClick?.({ e, item })}
+              active={getItemActive(item)}
+              label={getItemLabel(item)}
+              rightSide={getItemRightSide(item)}
+              href={getItemHref(item)}
+            />
+          );
+        })}
       </Collapse>
     </div>
   );

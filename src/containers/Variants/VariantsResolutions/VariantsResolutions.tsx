@@ -44,7 +44,7 @@ export const VariantsResolutions: React.FC<{
       <Button
         view="clear"
         iconLeft={IconLaptopFilled}
-        onClick={setOpenResolutionsMenu.toogle}
+        onClick={setOpenResolutionsMenu.toggle}
         ref={refResolutionsButton}
         size="s"
       />

@@ -1,11 +1,72 @@
 .stand--SideLinks {
-  &-Links .Button {
-    &:not(:last-child) {
-      margin-bottom: calc(var(--space-xs) + var(--space-2xs));
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+
+  &-Slot {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+    min-height: 100vh;
+    transition: padding 0.2s, transform 0.4s, opacity 0.4s;
+
+    &_size {
+      &_s {
+        --side-links-animate-transform-exited: translateX(-100%);
+        --side-links-controls-direction: column;
+        width: var(--doc-layout-mini-side-width);
+      }
+
+      &_m {
+        --side-links-animate-transform-exited: translateX(100%);
+        --side-links-controls-direction: row-reverse;
+        width: var(--doc-layout-side-width);
+      }
     }
 
-    & .Button-Label {
-      text-align: left;
+    &_animate {
+      &_entered,
+      &_entering {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      &_exiting,
+      &_exited {
+        position: absolute;
+        opacity: 0;
+        transform: var(--side-links-animate-transform-exited);
+      }
+
+      &_entering {
+        position: absolute;
+      }
     }
+  }
+
+  &-Controls {
+    display: flex;
+    flex-direction: var(--side-links-controls-direction);
+    flex: none;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-l);
+    gap: var(--space-m);
+  }
+
+  &-ControlsWrap {
+    flex: none;
+  }
+
+  &-BannerButtons + &-ControlsWrap {
+    flex: 1;
+  }
+
+  &-BannerButtons {
+    flex: none;
+  }
+
+  &-Menu {
+    flex: 1;
   }
 }

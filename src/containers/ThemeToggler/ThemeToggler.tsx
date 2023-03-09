@@ -22,6 +22,7 @@ export const ThemeToggler: React.FC<
       onChange={setTheme}
       value={theme}
       size="s"
+      view="ghost"
     />
   );
 };

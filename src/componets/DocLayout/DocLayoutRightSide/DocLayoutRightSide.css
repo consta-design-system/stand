@@ -1,7 +1,34 @@
 .stand--DocLayoutRightSide {
+  --doc-layout-shadow-none:
+    0 0 0 var(--color-shadow-modal-1),
+    0 0 0 var(--color-shadow-modal-2);
   right: 0;
   width: var(--doc-layout-side-width);
-  padding: var(--space-2xl) var(--space-2xl) var(--space-2xl) 0;
+  min-height: 100vh;
+  background: var(--color-bg-default);
+  border-left: 1px solid var(--color-bg-border);
+  box-shadow: var(--doc-layout-shadow-none);
+  transition: transform 0.2s, box-shadow 0.2s;
+  transform: translateX(100%);
+
+  @media screen and (min-width: 1242px) {
+    transform:
+      translateX(
+        calc(var(--doc-layout-side-width) - var(--doc-layout-mini-side-width))
+      );
+  }
+
+  &_open {
+    transform: translateX(0);
+
+    @media screen and (min-width: 1242px) {
+      box-shadow: var(--shadow-modal);
+    }
+
+    @media screen and (min-width: 1440px) {
+      box-shadow: var(--doc-layout-shadow-none);
+    }
+  }
 
   &_position {
     &_absolute {
@@ -16,10 +43,19 @@
 
     &_fixedUp {
       position: fixed;
-      top: var(--doc-layout-header-height);
+      top: 0;
+    }
+
+    &_fixedScrolable {
+      position: fixed;
+      top: 0;
+      overflow-y: scroll;
+      height: 100%;
     }
   }
+}
 
+.Theme .stand--DocLayoutRightSide {
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
