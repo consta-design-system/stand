@@ -35,9 +35,7 @@ export const StandPageHeader = (props: Props) => {
   const hasBadges = status || version;
 
   return (
-    <div
-      className={cnStandPageHeader(null, [className, cnMixSpace({ p: 'xl' })])}
-    >
+    <div className={cnStandPageHeader(null, [className])}>
       <StandPageHeaderInfo stand={stand} className={cnMixSpace({ mB: 'l' })} />
       <Text size="2xl" lineHeight="m" weight="bold">
         {title}

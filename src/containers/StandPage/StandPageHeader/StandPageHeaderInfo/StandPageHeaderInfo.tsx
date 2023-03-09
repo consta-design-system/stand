@@ -120,12 +120,12 @@ export const StandPageHeaderInfo = (props: Props) => {
         ])}
       />
       <div className={cnStandPageHeaderInfo('Content')}>
-        <Text weight="bold" size="xs" lineHeight="xs">
+        <Text weight="bold" size="s" lineHeight="xs">
           {title}
         </Text>
         {description && (
           <Text
-            size="xs"
+            size="s"
             lineHeight="m"
             className={cnStandPageHeaderInfo('Description', [
               cnMixSpace({ mT: 'xs' }),

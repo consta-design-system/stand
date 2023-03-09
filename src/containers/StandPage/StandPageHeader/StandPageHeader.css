@@ -4,7 +4,6 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  background: var(--color-bg-secondary);
   border-radius: var(--space-xs);
 
   &-Badges {
