@@ -41,6 +41,7 @@ const Icon = () => (
     </defs>
   </svg>
 );
+
 export const IconBug = createIcon({
   l: Icon,
   m: Icon,
