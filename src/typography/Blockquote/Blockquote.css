@@ -1,8 +1,18 @@
 .stand--Blockquote {
-  padding: var(--space-2xs) var(--space-m);
-  background: var(--color-bg-secondary);
-  border-left: var(--space-2xs) solid var(--color-bg-system);
-  border-radius: var(--control-radius);
+  position: relative;
+  padding:
+    calc(var(--space-s) - var(--space-3xs)) 0
+    calc(var(--space-s) - var(--space-3xs)) var(--space-m);
   font-size: var(--size-text-m);
   line-height: var(--line-height-text-m);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--space-s) - var(--space-3xs));
+    left: 0;
+    width: var(--space-2xs);
+    height: calc(100% - var(--space-l));
+    background-color: var(--color-bg-warning);
+  }
 }
