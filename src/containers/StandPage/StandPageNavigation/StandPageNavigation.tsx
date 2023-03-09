@@ -1,14 +1,33 @@
-import { Tabs } from '@consta/uikit/Tabs';
+import './StandPageNavigation.css';
+
+import { IconForward } from '@consta/icons/IconForward';
+import { IconGitHub } from '@consta/icons/IconGitHub';
+import { Button } from '@consta/uikit/Button';
+import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
+import { useTheme } from '@consta/uikit/Theme';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
 import { useStand } from '##/containers/StandPage/helpers';
+import IconFigma from '##/icons/Figma.icon.svg';
 import { routesNames } from '##/modules/router';
+import { Stand } from '##/types';
+import { cn } from '##/utils/bem';
 
 import { NavigationItem, useNavigationList } from './helpers';
 
 type Props = {
   className?: string;
+};
+
+const cnStandPageNavigation = cn('StandPageNavigation');
+
+const getButtonsLink = (stand?: Stand) => {
+  return {
+    codesandbox: stand ? stand.sandbox : undefined,
+    figma: stand ? stand.figma : undefined,
+    github: stand ? stand.github : undefined,
+  };
 };
 
 export const StandPageNavigation = ({ className }: Props) => {
@@ -17,6 +36,8 @@ export const StandPageNavigation = ({ className }: Props) => {
   const stand = useStand();
 
   const navigationList = useNavigationList();
+
+  const { themeClassNames } = useTheme();
 
   const value = useMemo(
     () =>
@@ -28,6 +49,10 @@ export const StandPageNavigation = ({ className }: Props) => {
       }) as NavigationItem,
     [route],
   );
+
+  const { codesandbox, figma, github } = getButtonsLink(stand?.stand);
+
+  const hasLinks = codesandbox || figma || github;
 
   const handleClick = ({ value }: { value: NavigationItem }) => {
     if (value.id) {
@@ -55,13 +80,54 @@ export const StandPageNavigation = ({ className }: Props) => {
   }
 
   return (
-    <Tabs
-      items={navigationList}
-      onChange={handleClick}
-      size="m"
-      fitMode="scroll"
-      className={className}
-      value={value}
-    />
+    <div className={cnStandPageNavigation(null, [className])}>
+      <ChoiceGroup
+        size="s"
+        items={navigationList}
+        value={value}
+        name="StandPageNavigation"
+        onChange={handleClick}
+      />
+      {hasLinks && (
+        <div
+          className={cnStandPageNavigation('Links', [
+            themeClassNames.color.accent,
+          ])}
+        >
+          {figma && (
+            <Button
+              form="round"
+              size="s"
+              onlyIcon
+              as="a"
+              href={stand?.stand.figma}
+              iconLeft={IconFigma}
+              iconSize="m"
+            />
+          )}
+          {github && (
+            <Button
+              form="round"
+              size="s"
+              onlyIcon
+              as="a"
+              href={stand?.stand.github}
+              iconLeft={IconGitHub}
+              iconSize="m"
+            />
+          )}
+          {codesandbox && (
+            <Button
+              form="round"
+              size="s"
+              as="a"
+              label="CodeSandbox"
+              href={`https://codesandbox.io/embed/${stand?.stand.sandbox}`}
+              iconRight={IconForward}
+            />
+          )}
+        </div>
+      )}
+    </div>
   );
 };

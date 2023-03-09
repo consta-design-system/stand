@@ -9,7 +9,7 @@ import {
 
 const defaultStandTabs: StandTab[] = [
   { id: '', label: 'Обзор' },
-  { id: 'dev', label: 'Разработчикам' },
+  { id: 'dev', label: 'Код и свойства' },
   { id: 'design', label: 'Дизайнерам', figma: true },
   { id: 'sandbox', label: 'Песочница', sandbox: true },
 ];

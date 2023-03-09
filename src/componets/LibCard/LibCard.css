@@ -30,10 +30,6 @@
     & > *:not(:last-child) {
       margin-right: var(--space-s);
     }
-
-    & .icons--Icon {
-      --icon-size: var(--graphics-size-m);
-    }
   }
 
   &-Buttons {

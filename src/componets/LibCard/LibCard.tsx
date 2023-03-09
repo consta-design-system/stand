@@ -68,6 +68,7 @@ export const LibCard = (props: LibCardProps) => {
             view="ghost"
             onlyIcon
             iconLeft={IconFigma}
+            iconSize="m"
             as="a"
             href={repositoryUrl}
           />
@@ -77,6 +78,7 @@ export const LibCard = (props: LibCardProps) => {
               view="ghost"
               onlyIcon
               iconLeft={IconGitHub}
+              iconSize="m"
               as="a"
               href={repositoryUrl}
             />
