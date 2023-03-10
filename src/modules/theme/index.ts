@@ -22,12 +22,14 @@ export const getThemeIcon = (theme: ThemePreset) =>
   iconsMap[theme.color.primary];
 
 const KEY = 'theme';
+const VARIANT_KEY = 'variant_theme';
 
-const snapTheme = themes.find(
-  (item) => item.color.primary === localStorage.getItem(KEY),
+const getSnapTheme = (key: string) =>
+  themes.find((item) => item.color.primary === localStorage.getItem(key));
+
+export const themeAtom = atom<ThemePreset>(
+  getSnapTheme(KEY) || presetGpnDefault,
 );
-
-export const themeAtom = atom<ThemePreset>(snapTheme || presetGpnDefault);
 
 onUpdate(themeAtom, (ctx, value) =>
   localStorage.setItem(KEY, value.color.primary),
@@ -55,3 +57,11 @@ export const htmlModsActionDel = action((ctx, name: string) => {
     htmlModsAtom(ctx, newState);
   }
 });
+
+export const variantThemeAtom = atom<ThemePreset>(
+  getSnapTheme(VARIANT_KEY) || presetGpnDefault,
+);
+
+onUpdate(variantThemeAtom, (ctx, value) =>
+  localStorage.setItem(VARIANT_KEY, value.color.primary),
+);

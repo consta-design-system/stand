@@ -1,6 +1,5 @@
 .stand--VariantsField {
   width: 100%;
-  margin-bottom: var(--space-m);
 
   &_type {
     &_boolean {

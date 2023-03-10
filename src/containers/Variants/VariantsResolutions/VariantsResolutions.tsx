@@ -1,6 +1,6 @@
 import './VariantsResolutions.css';
 
-import { IconLaptopFilled } from '@consta/icons/IconLaptopFilled';
+import { IconScreenFilled } from '@consta/icons/IconScreenFilled';
 import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useFlag } from '@consta/uikit/useFlag';
@@ -42,11 +42,12 @@ export const VariantsResolutions: React.FC<{
   return (
     <>
       <Button
-        view="clear"
-        iconLeft={IconLaptopFilled}
+        view="ghost"
+        form="round"
+        iconLeft={IconScreenFilled}
         onClick={setOpenResolutionsMenu.toogle}
         ref={refResolutionsButton}
-        size="s"
+        size="xs"
       />
       <ContextMenu
         className={cnVariantsResolutions('Menu')}
