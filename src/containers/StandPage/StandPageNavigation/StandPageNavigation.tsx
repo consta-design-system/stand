@@ -5,13 +5,14 @@ import { IconGitHub } from '@consta/icons/IconGitHub';
 import { Button } from '@consta/uikit/Button';
 import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
 import { useTheme } from '@consta/uikit/Theme';
+import { useAtom } from '@reatom/npm-react';
 import React, { useEffect, useMemo } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
 import { useStand } from '##/containers/StandPage/helpers';
 import IconFigma from '##/icons/Figma.icon.svg';
 import { routesNames } from '##/modules/router';
-import { Stand } from '##/types';
+import { componentRepositoryUrlAtom, figmaAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
 import { NavigationItem, useNavigationList } from './helpers';
@@ -21,14 +22,6 @@ type Props = {
 };
 
 const cnStandPageNavigation = cn('StandPageNavigation');
-
-const getButtonsLink = (stand?: Stand) => {
-  return {
-    codesandbox: stand ? stand.sandbox : undefined,
-    figma: stand ? stand.figma : undefined,
-    github: stand ? stand.github : undefined,
-  };
-};
 
 export const StandPageNavigation = ({ className }: Props) => {
   const router = useRouter();
@@ -50,7 +43,9 @@ export const StandPageNavigation = ({ className }: Props) => {
     [route],
   );
 
-  const { codesandbox, figma, github } = getButtonsLink(stand?.stand);
+  const codesandbox = stand?.stand.sandbox;
+  const figma = useAtom(figmaAtom)[0];
+  const github = useAtom(componentRepositoryUrlAtom)[0];
 
   const hasLinks = codesandbox || figma || github;
 
@@ -100,7 +95,8 @@ export const StandPageNavigation = ({ className }: Props) => {
               size="s"
               onlyIcon
               as="a"
-              href={stand?.stand.figma}
+              target="_blank"
+              href={figma}
               iconLeft={IconFigma}
               iconSize="m"
             />
@@ -111,7 +107,8 @@ export const StandPageNavigation = ({ className }: Props) => {
               size="s"
               onlyIcon
               as="a"
-              href={stand?.stand.github}
+              target="_blank"
+              href={github}
               iconLeft={IconGitHub}
               iconSize="m"
             />
@@ -121,6 +118,7 @@ export const StandPageNavigation = ({ className }: Props) => {
               form="round"
               size="s"
               as="a"
+              target="_blank"
               label="CodeSandbox"
               href={`https://codesandbox.io/embed/${stand?.stand.sandbox}`}
               iconRight={IconForward}

@@ -1,15 +1,19 @@
 import './VariantsResolutions.css';
 
-import { IconScreenFilled } from '@consta/icons/IconScreenFilled';
 import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useFlag } from '@consta/uikit/useFlag';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { cn } from '##/utils/bem';
 
 import { useZIndex } from '../helpers';
-import { getItemKey, getItemLabel, useResolutions } from './helpers';
+import {
+  getItemKey,
+  getItemLabel,
+  getResolutionIcon,
+  useResolutions,
+} from './helpers';
 
 const cnVariantsResolutions = cn('VariantsResolutions');
 
@@ -18,6 +22,7 @@ export const VariantsResolutions: React.FC<{
   onSelect: (value: number) => void;
 }> = ({ onSelect, onOpen }) => {
   const [openResolutionsMenu, setOpenResolutionsMenu] = useFlag();
+  const [resolution, setResolution] = useState(0);
 
   const resolutions = useResolutions();
 
@@ -27,10 +32,14 @@ export const VariantsResolutions: React.FC<{
     onOpen(resolutions.length ? openResolutionsMenu : false);
   }, [openResolutionsMenu, resolutions.length]);
 
-  useEffect(() => () => onSelect(0), []);
+  useEffect(() => {
+    onSelect(0);
+    setResolution(0);
+  }, []);
 
   useEffect(() => {
     onSelect(0);
+    setResolution(0);
   }, [resolutions.length]);
 
   const zIndex = useZIndex();
@@ -39,12 +48,17 @@ export const VariantsResolutions: React.FC<{
     return null;
   }
 
+  const handleSelect = ({ item }: { item: number }) => {
+    onSelect(item);
+    setResolution(item);
+  };
+
   return (
     <>
       <Button
         view="ghost"
         form="round"
-        iconLeft={IconScreenFilled}
+        iconLeft={getResolutionIcon(resolution)}
         onClick={setOpenResolutionsMenu.toogle}
         ref={refResolutionsButton}
         size="xs"
@@ -58,7 +72,7 @@ export const VariantsResolutions: React.FC<{
         isOpen={openResolutionsMenu}
         onClickOutside={setOpenResolutionsMenu.off}
         direction="downStartRight"
-        onItemClick={({ item }) => onSelect(item)}
+        onItemClick={handleSelect}
         style={{ zIndex }}
       />
     </>

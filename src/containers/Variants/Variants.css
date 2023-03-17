@@ -1,5 +1,5 @@
 .stand--Variants {
-  --variants-board-width: 200px;
+  --variants-board-width: 276px;
   --variants-height: 420px;
   position: relative;
   overflow: hidden;
@@ -158,7 +158,7 @@
     gap: var(--space-xs);
   }
 
-  &-Toggler {
+  &-Toggler.Button {
     background-color: var(--color-control-bg-ghost);
     border-radius: 50%;
   }

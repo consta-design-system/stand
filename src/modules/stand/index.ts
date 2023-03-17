@@ -99,7 +99,7 @@ export const badgeLabelStatusMap = {
 
 export const badgeStatusMap = {
   deprecated: 'error',
-  canary: 'success',
+  canary: 'normal',
   stable: 'system',
   inWork: 'normal',
 } as const;

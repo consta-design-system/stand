@@ -18,8 +18,9 @@ import { routesNames } from '##/modules/router';
 import {
   getThemeIcon,
   getThemeKey,
-  themes,
+  getThemeLabel,
   variantThemeAtom,
+  variantThemes,
 } from '##/modules/theme';
 import { cn } from '##/utils/bem';
 
@@ -106,9 +107,9 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
                 <ThemeTogglerConsta
                   className={cnVariants('Toggler')}
                   getItemKey={getThemeKey}
-                  getItemLabel={getThemeKey}
+                  getItemLabel={getThemeLabel}
                   getItemIcon={getThemeIcon}
-                  items={themes}
+                  items={variantThemes}
                   value={theme}
                   onChange={setTheme}
                   size="xs"

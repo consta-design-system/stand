@@ -32,12 +32,12 @@
 
     &_view {
       &_card {
-        @media screen and (min-width: 460px) {
+        @media screen and (min-width: 600px) {
           grid-template-columns: 1fr 1fr;
         }
 
         @media screen and (min-width: 860px) {
-          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-columns: 1fr 1fr;
         }
       }
 
