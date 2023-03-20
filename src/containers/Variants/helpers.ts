@@ -6,7 +6,7 @@ import { routesNames } from '##/modules/router';
 import {
   htmlModsActionAdd,
   htmlModsActionDel,
-  themeAtom,
+  variantThemeAtom,
 } from '##/modules/theme';
 import { variantsActionClear, variantsAtom } from '##/modules/variants';
 
@@ -23,7 +23,7 @@ export const useIframeBridge = () => {
       });
     });
 
-    const unsubscribeThemeAtom = store?.subscribe(themeAtom, (state) => {
+    const unsubscribeThemeAtom = store?.subscribe(variantThemeAtom, (state) => {
       iframeRef.current?.contentWindow?.postMessage({
         type: 'to-iframe-themeAtom',
         payload: state,

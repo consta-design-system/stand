@@ -19,7 +19,7 @@ export const H2 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       id={props.id ?? id}
       as="h2"
       size="2xl"
-      weight="semibold"
+      weight="bold"
       lineHeight="m"
       {...otherProps}
     >

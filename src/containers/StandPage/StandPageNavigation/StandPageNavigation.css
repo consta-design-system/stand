@@ -1,0 +1,19 @@
+.stand--StandPageNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  gap: var(--space-m);
+
+  &-Links {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xs);
+
+    & > .Button {
+      color: var(--color-typo-primary);
+      background-color: var(--color-bg-default);
+    }
+  }
+}

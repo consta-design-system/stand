@@ -1,0 +1,14 @@
+.stand--StandPageHeaderInfo {
+  display: flex;
+  width: 100%;
+  background: var(--color-bg-secondary);
+  border-radius: var(--control-radius);
+
+  & a {
+    color: var(--color-typo-link);
+  }
+
+  &:not(.stand--StandPageHeaderInfo_withDescription) {
+    align-items: center;
+  }
+}

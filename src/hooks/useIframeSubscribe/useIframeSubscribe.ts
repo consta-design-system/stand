@@ -6,14 +6,14 @@ import { useContext, useEffect } from 'react';
 import { useRouter } from 'react-router5';
 
 import { routesNames } from '##/modules/router';
-import { themeAtom } from '##/modules/theme';
+import { variantThemeAtom } from '##/modules/theme';
 import { variantsAtom, VariantsAtomState } from '##/modules/variants';
 
 export const useIframeSubscribe = () => {
   const [variants] = useAtom(variantsAtom);
   const store = useContext(reatomContext);
   const setVariantsAtom = useDebounce(useAction(variantsAtom), 50);
-  const setThemeAtom = useAction(themeAtom);
+  const setVariantThemeAtom = useAction(variantThemeAtom);
   const router = useRouter();
 
   const variantsRef = useMutableRef(variants);
@@ -64,7 +64,7 @@ export const useIframeSubscribe = () => {
         routerState.name === routesNames.LIBS_VARIANTS &&
         type === 'to-iframe-themeAtom'
       ) {
-        setThemeAtom(event?.data?.payload as ThemePreset);
+        setVariantThemeAtom(event?.data?.payload as ThemePreset);
       }
     };
   }, []);

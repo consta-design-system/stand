@@ -1,5 +1,10 @@
+import { IconIpadFilled } from '@consta/icons/IconIpadFilled';
+import { IconLaptopFilled } from '@consta/icons/IconLaptopFilled';
+import { IconScreenFilled } from '@consta/icons/IconScreenFilled';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useMemo } from 'react';
+
+import IconSmartphone from '##/icons/Smartphone.icon.svg';
 
 const transoformResolutionsForHook = (resolutions: number[]) => {
   const breakpoints: Record<number, number> = {};
@@ -38,6 +43,13 @@ export const useResolutions = () => {
       (key) => breakpoints[key as keyof typeof breakpoints],
     ),
   );
+};
+
+export const getResolutionIcon = (item: number) => {
+  if (item === 0) return IconScreenFilled;
+  if (item === 320) return IconSmartphone;
+  if (item === 960) return IconIpadFilled;
+  return IconLaptopFilled;
 };
 
 export const getItemLabel = (item: number) => resolutionsLabels[item];

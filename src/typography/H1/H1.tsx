@@ -18,8 +18,8 @@ export const H1 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       className={cnH()}
       id={props.id ?? id}
       as="h1"
-      size="3xl"
-      weight="semibold"
+      size="2xl"
+      weight="bold"
       lineHeight="m"
       {...otherProps}
     >

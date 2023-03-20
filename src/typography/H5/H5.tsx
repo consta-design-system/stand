@@ -18,7 +18,7 @@ export const H5 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       className={cnH()}
       id={props.id ?? id}
       as="h5"
-      size="m"
+      size="l"
       weight="semibold"
       lineHeight="xs"
       {...otherProps}

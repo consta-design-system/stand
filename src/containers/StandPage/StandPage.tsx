@@ -1,5 +1,6 @@
 import './StandPage.css';
 
+import { cnMixSpace } from '@consta/uikit/MixSpace';
 import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
@@ -9,12 +10,10 @@ import { Variants } from '##/containers/Variants';
 import { cn } from '##/utils/bem';
 
 import { getStandPath, useStand } from './helpers';
-import { StandPageFigma } from './StandPageFigma';
+import { StandPageFeedback } from './StandPageFeedback';
 import { StandPageFooter } from './StandPageFooter';
 import { StandPageHeader } from './StandPageHeader';
-import { StandPageInformer } from './StandPageInformer';
 import { StandPageNavigation } from './StandPageNavigation';
-import { StandPageSandbox } from './StandPageSandbox';
 
 const cnStandPage = cn('StandPage');
 
@@ -37,51 +36,22 @@ export const StandPage: React.FC = memo(() => {
 
   const standPath = getStandPath(tab?.id, standID, stand);
 
-  const standStatus = stand.stand.status;
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { deprecated, canary, stable } = useMemo(() => {
-    const others = stand.stand.otherVersion;
-    return {
-      deprecated: others?.find((el) => el.status === 'deprecated'),
-      canary: others?.find((el) => el.status === 'canary'),
-      stable: others?.find((el) => el.status === 'stable'),
-    };
-  }, [standID]);
-
   return (
     <PageDecorator>
       <div key={standID}>
-        <StandPageHeader stand={stand.stand} />
-        <StandPageInformer
-          lib={route.route.params.lib as string}
+        <StandPageHeader
           stand={stand.stand}
-          status={standStatus}
-          deprecated={deprecated}
-          canary={canary}
-          stable={stable}
-          className={cnStandPage('Informer')}
+          className={cnStandPage('Header')}
         />
-        <StandPageNavigation className={cnStandPage('Navigation')} />
+        <StandPageNavigation className={cnMixSpace({ mB: '3xl' })} />
         {tab?.id === '' && stand.lazyAccess.variants && (
           <Variants
             stand={route.route.params.stand as string}
             lib={route.route.params.lib as string}
           />
         )}
-        {tab?.figma && stand.stand.figma && (
-          <StandPageFigma
-            className={cnStandPage('Figma')}
-            link={stand.stand.figma}
-          />
-        )}
-        {tab?.sandbox && stand.stand.sandbox && (
-          <StandPageSandbox
-            className={cnStandPage('SandBox')}
-            id={stand.stand.sandbox}
-          />
-        )}
         {standPath && <LazyDocs key={standPath} id={standPath} />}
+        <StandPageFeedback className={cnStandPage('Feedback')} />
         <StandPageFooter className={cnStandPage('Footer')} />
       </div>
     </PageDecorator>

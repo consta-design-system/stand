@@ -16,7 +16,7 @@ export const VariantsPage: React.FC = () => {
 
   if (stand?.path) {
     return (
-      <PageDecorator>
+      <PageDecorator type="variants">
         <ExampleFrame className={cnVariantsPage()}>
           <div className={cnVariantsPage('Component')}>
             <LazyVariants id={stand?.path} />
