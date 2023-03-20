@@ -12,7 +12,8 @@
     gap: var(--space-xs);
 
     & > .Button {
-      background-color: #252525;
+      color: var(--color-typo-primary);
+      background-color: var(--color-bg-default);
     }
   }
 }

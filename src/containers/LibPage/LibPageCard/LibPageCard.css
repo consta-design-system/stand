@@ -58,22 +58,16 @@
     justify-content: center;
     align-items: flex-start;
     margin-bottom: var(--space-l);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--control-radius);
 
     & > svg {
       max-height: 120px;
     }
   }
 
-  & > a {
-    text-decoration: none;
-  }
-
-  &-Title {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  & a.stand--LibPageCard-Title {
+    text-decoration: underline;
   }
 
   &-Buttons {

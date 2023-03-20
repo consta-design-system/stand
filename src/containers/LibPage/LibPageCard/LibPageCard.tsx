@@ -73,6 +73,7 @@ export const LibPageCard = (props: Props) => {
               label={badgeLabelStatusMap[status]}
               status={badgeStatusMap[status]}
               view="filled"
+              form="round"
             />
           )}
         </div>

@@ -2,6 +2,7 @@ import './VariantsResolutions.css';
 
 import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
+import { IconCheck } from '@consta/uikit/IconCheck';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -69,6 +70,11 @@ export const VariantsResolutions: React.FC<{
         getItemKey={getItemKey}
         items={resolutions}
         anchorRef={refResolutionsButton}
+        size="s"
+        getItemLeftIcon={getResolutionIcon}
+        getItemRightIcon={(item) =>
+          item === resolution ? IconCheck : undefined
+        }
         isOpen={openResolutionsMenu}
         onClickOutside={setOpenResolutionsMenu.off}
         direction="downStartRight"

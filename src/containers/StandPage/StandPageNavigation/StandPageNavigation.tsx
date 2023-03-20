@@ -86,7 +86,7 @@ export const StandPageNavigation = ({ className }: Props) => {
       {hasLinks && (
         <div
           className={cnStandPageNavigation('Links', [
-            themeClassNames.color.accent,
+            themeClassNames.color.invert,
           ])}
         >
           {figma && (
