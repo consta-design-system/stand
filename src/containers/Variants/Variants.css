@@ -135,7 +135,7 @@
     }
   }
 
-  &-Settings {
+  &-Settings.Button {
     position: absolute;
     top: var(--space-xs);
     right: var(--space-xs);

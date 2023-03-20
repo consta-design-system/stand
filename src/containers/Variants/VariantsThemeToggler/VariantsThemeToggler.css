@@ -1,0 +1,5 @@
+.stand--VariantsThemeToggler {
+  &-Menu {
+    z-index: 102;
+  }
+}

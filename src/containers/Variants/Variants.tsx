@@ -4,28 +4,21 @@ import { IconCollapse } from '@consta/icons/IconCollapse';
 import { IconExpand } from '@consta/icons/IconExpand';
 import { IconSettings } from '@consta/icons/IconSettings';
 import { Button } from '@consta/uikit/Button';
-import { ThemePreset } from '@consta/uikit/Theme';
-import { ThemeToggler as ThemeTogglerConsta } from '@consta/uikit/ThemeToggler';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/npm-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'react-router5';
 
 import { VariantsBoard } from '##/containers/VariantsBoard';
 import { routesNames } from '##/modules/router';
-import {
-  getThemeIcon,
-  getThemeKey,
-  getThemeLabel,
-  variantThemeAtom,
-  variantThemes,
-} from '##/modules/theme';
+import { variantThemeAtom } from '##/modules/theme';
 import { cn } from '##/utils/bem';
 
 import { useFullScreen, useIframeBridge, ZIndexContext } from './helpers';
 import { VariantsResolutions } from './VariantsResolutions';
+import { VariantsThemeToggler } from './VariantsThemeToggler';
 
 const cnVariants = cn('Variants');
 
@@ -35,6 +28,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
 }) => {
   const router = useRouter();
   const [openResolutionsMenu, setOpenResolutionsMenu] = useState<boolean>();
+  const [openThemeMenu, setOpenThemeMenu] = useState<boolean>();
   const [resolution, setResolution] = useState<number>(0);
   const [fullScreen, setFullscreen] = useFullScreen();
   const { isDesctop } = useBreakpoints({ isDesctop: 900 });
@@ -55,10 +49,6 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
     handler: setOpenBoard.off,
   });
 
-  const setTheme = useAction((ctx, props: { value: ThemePreset }) => {
-    variantThemeAtom(ctx, props.value);
-  });
-
   useEffect(() => {
     !fullScreen && setResolution(0);
   }, [fullScreen]);
@@ -71,7 +61,9 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
             <Button
               view="clear"
               ref={settingsRef}
-              className={cnVariants('Settings', { open: openBoard })}
+              className={cnVariants('Settings', { open: openBoard }, [
+                `Theme_color_${theme.color.primary}`,
+              ])}
               iconLeft={IconSettings}
               onClick={setOpenBoard.toggle}
               size="s"
@@ -89,7 +81,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
         </div>
         <div
           className={cnVariants('Overlay', {
-            visible: openBoard || openResolutionsMenu,
+            visible: openBoard || openResolutionsMenu || openThemeMenu,
             fullScreen,
           })}
         />
@@ -104,16 +96,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
                   onOpen={setOpenResolutionsMenu}
                   onSelect={setResolution}
                 />
-                <ThemeTogglerConsta
-                  className={cnVariants('Toggler')}
-                  getItemKey={getThemeKey}
-                  getItemLabel={getThemeLabel}
-                  getItemIcon={getThemeIcon}
-                  items={variantThemes}
-                  value={theme}
-                  onChange={setTheme}
-                  size="xs"
-                />
+                <VariantsThemeToggler onOpen={setOpenThemeMenu} />
               </div>
               <Button
                 size="xs"

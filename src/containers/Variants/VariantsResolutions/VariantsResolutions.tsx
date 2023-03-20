@@ -52,6 +52,7 @@ export const VariantsResolutions: React.FC<{
   const handleSelect = ({ item }: { item: number }) => {
     onSelect(item);
     setResolution(item);
+    setOpenResolutionsMenu.off();
   };
 
   return (
