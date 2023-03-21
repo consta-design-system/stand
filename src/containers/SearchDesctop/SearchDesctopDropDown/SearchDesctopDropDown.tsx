@@ -1,4 +1,4 @@
-import './SearchDropDown.css';
+import './SearchDesctopDropDown.css';
 
 import { cnListBox } from '@consta/uikit/ListCanary';
 import {
@@ -11,6 +11,7 @@ import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 
+import { SearchLenght, SearchList } from '##/containers/Search';
 import {
   fieldRefAtom,
   inputFocusedAtom,
@@ -18,11 +19,9 @@ import {
 } from '##/modules/search';
 import { cn } from '##/utils/bem';
 
-import { SearchList } from '../SearchList';
+const cnSearchDesctopDropDown = cn('SearchDesctopDropDown');
 
-const cnSearchDropDown = cn('SearchDropDown');
-
-export const SearchDropDown = memo(() => {
+export const SearchDesctopDropDown = memo(() => {
   const [inputRef] = useAtom(fieldRefAtom);
   const [isOpen] = useAtom(isOpenDropdownAtom);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -42,7 +41,7 @@ export const SearchDropDown = memo(() => {
     >
       {(animate) => (
         <Popover
-          className={cnSearchDropDown(null, [
+          className={cnSearchDesctopDropDown(null, [
             cnListBox({ form: 'default ', border: true, shadow: true }),
             cnMixPopoverAnimate({ animate }),
           ])}
@@ -50,7 +49,8 @@ export const SearchDropDown = memo(() => {
           anchorRef={inputRef}
           ref={popoverRef}
         >
-          <SearchList />
+          <SearchList className={cnSearchDesctopDropDown('List')} />
+          <SearchLenght className={cnSearchDesctopDropDown('Lenght')} />
         </Popover>
       )}
     </Transition>

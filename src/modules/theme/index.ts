@@ -73,10 +73,10 @@ export const htmlModsAtom = atom<Record<string, string | boolean | undefined>>(
 );
 
 export const htmlModsActionAdd = action(
-  (ctx, payload: { name: string; value: string | boolean | undefined }) => {
+  (ctx, payload: Record<string, string | boolean | undefined>) => {
     htmlModsAtom(ctx, {
       ...ctx.get(htmlModsAtom),
-      [payload.name]: payload.value,
+      ...payload,
     });
   },
 );

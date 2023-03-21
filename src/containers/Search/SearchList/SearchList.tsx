@@ -16,13 +16,12 @@ import {
   standOnClickAction,
 } from '##/modules/search';
 import { cn } from '##/utils/bem';
-import { declOfNum } from '##/utils/declOfNum';
 
 import { SearchListItem } from '../SearchListItem';
 
 const cnSearchList = cn('SearchList');
 
-export const SearchList = memo(() => {
+export const SearchList = memo(({ className }: { className?: string }) => {
   const [data] = useAtom(searchListDataAtom);
   const [length] = useAtom(searchListLengthAtom);
   const [listIsResult] = useAtom(searchListIsResultAtom);
@@ -32,7 +31,12 @@ export const SearchList = memo(() => {
 
   if (listIsResult && !length) {
     return (
-      <div className={cnSearchList('NoResult', [cnMixSpace({ p: 'm' })])}>
+      <div
+        className={cnSearchList('NoResult', [
+          cnMixSpace({ p: 'm' }),
+          className,
+        ])}
+      >
         <Text className={cnMixSpace({ mB: '3xs' })} size="s">
           Ничего не нашли
         </Text>
@@ -44,57 +48,43 @@ export const SearchList = memo(() => {
   }
 
   return (
-    <>
-      <div className={cnSearchList({ listIsResult })}>
-        {data.map((item, index) => {
-          const { type, label } = item;
-          if (type === 'history') {
-            return (
-              <SearchListItem
-                key={index}
-                type={type}
-                label={label}
-                onClick={() => historyItemOnClickHandle(label)}
-              />
-            );
-          }
-
-          const [href, onClick] = buildLink(
-            router,
-            {
-              to: routesNames.LIBS_LIB_STAND,
-              params: { lib: item.lib, stand: item.id },
-            },
-            () => standOnClickHandle(item),
-          );
-
-          const { description, status } = item;
-
+    <div className={cnSearchList({ listIsResult }, [className])}>
+      {data.map((item, index) => {
+        const { type, label } = item;
+        if (type === 'history') {
           return (
             <SearchListItem
               key={index}
-              href={href}
-              onClick={onClick}
               type={type}
               label={label}
-              description={description}
-              status={status}
+              onClick={() => historyItemOnClickHandle(label)}
             />
           );
-        })}
-      </div>
-      {length ? (
-        <Text
-          className={cnSearchList('Length', [
-            cnMixSpace({ pH: 's', pV: 'xs' }),
-          ])}
-          view="secondary"
-          size="s"
-        >
-          {length}{' '}
-          {declOfNum(length, ['результат', 'результата', 'результатов'])}
-        </Text>
-      ) : undefined}
-    </>
+        }
+
+        const [href, onClick] = buildLink(
+          router,
+          {
+            to: routesNames.LIBS_LIB_STAND,
+            params: { lib: item.lib, stand: item.id },
+          },
+          () => standOnClickHandle(item),
+        );
+
+        const { description, status } = item;
+
+        return (
+          <SearchListItem
+            key={index}
+            href={href}
+            onClick={onClick}
+            type={type}
+            label={label}
+            description={description}
+            status={status}
+          />
+        );
+      })}
+    </div>
   );
 });

@@ -8,6 +8,7 @@ import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useAction } from '@reatom/npm-react';
 import React, { memo, useEffect, useRef } from 'react';
 
+import { HeaderSearchToggler, SearchMobile } from '##/containers/SearchMobile';
 import { ThemeToggler } from '##/containers/ThemeToggler';
 import { headerHeightAtomSet, openLeftSideAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
@@ -38,7 +39,12 @@ const Left = () => {
 };
 
 const Right = () => {
-  return <ThemeToggler />;
+  return (
+    <>
+      <HeaderSearchToggler />
+      <ThemeToggler />
+    </>
+  );
 };
 
 export const Header = memo(() => {
@@ -53,17 +59,20 @@ export const Header = memo(() => {
   }, [height]);
 
   return (
-    <Layout
-      className={cnHeader()}
-      ref={headerRef}
-      rowCenter={{
-        left: <Left />,
-        center: undefined,
-        right: <Right />,
-      }}
-      nonce={undefined}
-      onResize={undefined}
-      onResizeCapture={undefined}
-    />
+    <>
+      <Layout
+        className={cnHeader()}
+        ref={headerRef}
+        rowCenter={{
+          left: <Left />,
+          center: undefined,
+          right: <Right />,
+        }}
+        nonce={undefined}
+        onResize={undefined}
+        onResizeCapture={undefined}
+      />
+      <SearchMobile />
+    </>
   );
 });

@@ -122,12 +122,12 @@ html.Theme.stand--AppTheme {
     height: 4;
   }
 
-  &_noScroll {
-    overflow: hidden;
-  }
-
   @supports (overflow-y: overlay) {
     overflow-y: overlay;
+  }
+
+  &_noScroll {
+    overflow: hidden;
   }
 }
 

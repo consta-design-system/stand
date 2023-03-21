@@ -11,7 +11,7 @@ import {
   searchValueAtom,
 } from '##/modules/search';
 
-export const SearchTextField = () => {
+export const SearchDesctopTextField = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [value] = useAtom(inputValueAtom);

@@ -19,23 +19,23 @@ export const createRoutes = () => {
     ...additionalRoutes,
     {
       name: routesNames.LIBS,
-      path: `/libs?:hash`,
+      path: `/libs?:hash?:search`,
     },
     {
       name: routesNames.LIBS_VARIANTS,
-      path: `/libs-variants/:lib/:stand`,
+      path: `/libs-variants/:lib/:stand?:search`,
     },
     {
       name: routesNames.LIBS_LIB,
-      path: `/:lib?:hash`,
+      path: `/:lib?:hash?:search`,
     },
     {
       name: routesNames.LIBS_LIB_STAND,
-      path: '/:stand?:variants?:hash',
+      path: '/:stand?:variants?:hash?:search',
     },
     {
       name: routesNames.LIBS_LIB_STAND_TAB,
-      path: '/:tab?:hash',
+      path: '/:tab?:hash?:search',
     },
   ];
 

@@ -5,7 +5,7 @@ import { useAction, useAtom, useUpdate } from '@reatom/npm-react';
 import React, { memo, useEffect, useRef } from 'react';
 import { useRouter } from 'react-router5';
 
-import { Search } from '##/containers/Search';
+import { SearchDesctop } from '##/containers/SearchDesctop';
 import { buildLink } from '##/hooks/useLink';
 import Logo from '##/images/Logo.image.svg';
 import { headerLeftSideRefAtom } from '##/modules/header';
@@ -65,7 +65,7 @@ export const LeftSideHeader = memo(() => {
         ])}
         ref={fieldRef}
       >
-        <Search />
+        <SearchDesctop />
       </div>
       <div className={cnLeftSideHeader('Separator')} />
     </div>
