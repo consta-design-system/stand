@@ -1,40 +1,22 @@
 .stand--StandPageFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  background: var(--color-bg-secondary);
 
   & a {
     text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  &-SPA {
-    display: flex;
-    justify-content: space-between;
+  &-Label {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    padding-top: calc(var(--space-l) * 2.5);
-    padding-bottom: calc(var(--space-l) * 2.5);
-    border-top: 1px solid var(--color-bg-border);
-  }
-
-  &-Container {
-    width: 100%;
-    padding-top: calc(var(--space-l) * 2.5);
-    border-top: 1px solid var(--color-bg-border);
-  }
-
-  &-Links {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    margin-top: calc(var(--space-s) - var(--space-3xs));
-    flex-wrap: wrap;
-    gap: var(--space-s);
-  }
-
-  &-Buttons {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    gap: var(--space-l);
+    gap: var(--space-xs);
   }
 }

@@ -8,21 +8,22 @@
   }
 
   & > h1,
-  & > h2,
+  & > h2 {
+    margin-top: var(--space-4xl);
+    margin-bottom: var(--space-xl);
+  }
+
   & > h3,
   & > h4,
   & > h5,
   & > h6 {
-    margin-bottom: var(--space-l);
-
-    &:not(:first-child) {
-      margin-top: calc(var(--space-l) * 2.5);
-    }
+    margin-top: calc(var(--space-3xl) + var(--space-2xs));
+    margin-bottom: var(--space-xs);
   }
 
   & > p,
   & > blockquote {
-    margin-bottom: calc(var(--space-l) * 1.5);
+    margin-bottom: var(--space-xl);
 
     & + ul {
       margin-top: calc(0 - var(--space-m));
@@ -37,5 +38,44 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  & > h1 + h1.Text,
+  & > h1 + h2.Text,
+  & > h1 + h3.Text,
+  & > h1 + h4.Text,
+  & > h1 + h5.Text,
+  & > h1 + h6.Text,
+  & > h2 + h1.Text,
+  & > h2 + h2.Text,
+  & > h2 + h3.Text,
+  & > h2 + h4.Text,
+  & > h2 + h5.Text,
+  & > h2 + h6.Text,
+  & > h3 + h1.Text,
+  & > h3 + h2.Text,
+  & > h3 + h3.Text,
+  & > h3 + h4.Text,
+  & > h3 + h5.Text,
+  & > h3 + h6.Text,
+  & > h4 + h1.Text,
+  & > h4 + h2.Text,
+  & > h4 + h3.Text,
+  & > h4 + h4.Text,
+  & > h4 + h5.Text,
+  & > h4 + h6.Text,
+  & > h5 + h1.Text,
+  & > h5 + h2.Text,
+  & > h5 + h3.Text,
+  & > h5 + h4.Text,
+  & > h5 + h5.Text,
+  & > h5 + h6.Text,
+  & > h6 + h1.Text,
+  & > h6 + h2.Text,
+  & > h6 + h3.Text,
+  & > h6 + h4.Text,
+  & > h6 + h5.Text,
+  & > h6 + h6.Text {
+    margin-top: 0;
   }
 }

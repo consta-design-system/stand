@@ -1,0 +1,43 @@
+.stand--SearchListItem {
+  display: flex;
+
+  /* width: 380px; */
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+
+  &_bordered:not(:last-child),
+  &:not(:last-child) .stand--SearchListItem-Slot_bordered {
+    border-bottom: 1px var(--color-bg-secondary) solid;
+  }
+
+  &-Slot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    &_center {
+      overflow: auto;
+      flex: 1;
+      gap: var(--space-3xs);
+    }
+
+    &_left {
+      flex: none;
+    }
+
+    &_right {
+      flex: none;
+    }
+
+    & .Text {
+      display: block;
+      width: 100%;
+
+      /* flex: none; */
+
+      /* overflow: auto; */
+    }
+  }
+}

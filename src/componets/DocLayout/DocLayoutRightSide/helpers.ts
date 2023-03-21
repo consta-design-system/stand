@@ -13,6 +13,8 @@ type State = {
   direction: 'up' | 'down';
 };
 
+const headerHeight = 0;
+
 export const useScroll = (isActive: boolean) => {
   const [state, setState] = useState<State>({
     position: 'fixedUp',
@@ -65,7 +67,7 @@ export const useScroll = (isActive: boolean) => {
     ) {
       setState({
         position: 'fixedDown',
-        top: 60,
+        top: headerHeight,
         direction: 'down',
       });
     }
@@ -85,11 +87,11 @@ export const useScroll = (isActive: boolean) => {
     if (
       direction === 'up' &&
       state.position === 'absolute' &&
-      scroll <= state.top - 60
+      scroll <= state.top - headerHeight
     ) {
       setState({
         position: 'fixedUp',
-        top: 60,
+        top: headerHeight,
         direction: 'up',
       });
     }
@@ -97,11 +99,11 @@ export const useScroll = (isActive: boolean) => {
     if (
       direction === 'down' &&
       state.position === 'fixedUp' &&
-      scroll >= top - 60
+      scroll >= top - headerHeight
     ) {
       setState({
         position: 'absolute',
-        top: scroll + 60,
+        top: scroll + headerHeight,
         direction: 'down',
       });
     }

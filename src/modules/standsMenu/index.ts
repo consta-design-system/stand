@@ -1,7 +1,9 @@
 import { atom } from '@reatom/core';
-import { reatomString } from '@reatom/primitives';
+import { onUpdate } from '@reatom/hooks';
+import { BooleanAtom, reatomString } from '@reatom/primitives';
 
 import { libAtom } from '##/modules/lib';
+import { standAtom } from '##/modules/stand';
 import { createBooleanSyncLocalStorageAtom } from '##/primitives/createBooleanSyncLocalStorageAtom';
 
 export const searchValueAtom = reatomString();
@@ -114,4 +116,34 @@ export const visibleListAtom = atom((ctx) => {
     }
     return true;
   });
+});
+
+export const libPageMenuFiltersRefAtom = atom<React.RefObject<HTMLDivElement>>({
+  current: null,
+});
+
+export const libPageMenuFiltersHeightAtom = atom((ctx) => {
+  const libPageMenuFiltersRef = ctx.spy(libPageMenuFiltersRefAtom);
+  return libPageMenuFiltersRef.current?.offsetHeight || 0;
+});
+
+// при посещении стенда со статусом нужно включиь отоброжение этого статуса в фильтрах
+
+const mapAtom: Record<
+  'canary' | 'deprecated' | 'inWork' | 'stable',
+  BooleanAtom | undefined
+> = {
+  canary: canarySwitchAtom,
+  deprecated: deprecatedSwitchAtom,
+  inWork: inWorkSwitchAtom,
+  stable: undefined,
+};
+
+onUpdate(standAtom, (ctx, stand) => {
+  const status = stand?.stand.status;
+  if (!status) {
+    return;
+  }
+
+  mapAtom[status]?.setTrue(ctx);
 });

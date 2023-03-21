@@ -7,16 +7,18 @@ import { Button } from '@consta/uikit/Button';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
-import React, { useRef, useState } from 'react';
+import { useAtom } from '@reatom/npm-react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'react-router5';
 
-import { ThemeToggler } from '##/containers/ThemeToggler';
 import { VariantsBoard } from '##/containers/VariantsBoard';
 import { routesNames } from '##/modules/router';
+import { variantThemeAtom } from '##/modules/theme';
 import { cn } from '##/utils/bem';
 
 import { useFullScreen, useIframeBridge, ZIndexContext } from './helpers';
 import { VariantsResolutions } from './VariantsResolutions';
+import { VariantsThemeToggler } from './VariantsThemeToggler';
 
 const cnVariants = cn('Variants');
 
@@ -25,51 +27,49 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
   lib,
 }) => {
   const router = useRouter();
-  const [openBoard, setOpenBoard] = useFlag();
   const [openResolutionsMenu, setOpenResolutionsMenu] = useState<boolean>();
+  const [openThemeMenu, setOpenThemeMenu] = useState<boolean>();
   const [resolution, setResolution] = useState<number>(0);
   const [fullScreen, setFullscreen] = useFullScreen();
   const { isDesctop } = useBreakpoints({ isDesctop: 900 });
 
+  const [openBoard, setOpenBoard] = useFlag();
+
+  const [theme] = useAtom(variantThemeAtom);
+
   const ref = useIframeBridge();
   const refBoard = useRef<HTMLDivElement>(null);
+  const settingsRef = useRef<HTMLButtonElement>(null);
 
   const src = router.buildPath(routesNames.LIBS_VARIANTS, { stand, lib });
 
   useClickOutside({
     isActive: !isDesctop,
-    ignoreClicksInsideRefs: [refBoard],
+    ignoreClicksInsideRefs: [refBoard, settingsRef],
     handler: setOpenBoard.off,
   });
+
+  useEffect(() => {
+    !fullScreen && setResolution(0);
+  }, [fullScreen]);
 
   return (
     <ZIndexContext.Provider value={fullScreen ? 101 : undefined}>
       <div className={cnVariants({ fullScreen })}>
         <div className={cnVariants('Body')}>
-          <div className={cnVariants('Header', { fullScreen })}>
+          {!isDesctop && (
             <Button
               view="clear"
+              ref={settingsRef}
+              className={cnVariants('Settings', { open: openBoard }, [
+                `Theme_color_${theme.color.primary}`,
+              ])}
+              iconLeft={IconSettings}
+              onClick={setOpenBoard.toggle}
               size="s"
-              iconLeft={fullScreen ? IconCollapse : IconExpand}
-              onClick={setFullscreen}
             />
-            {fullScreen && <ThemeToggler />}
-            {fullScreen && (
-              <VariantsResolutions
-                onOpen={setOpenResolutionsMenu}
-                onSelect={setResolution}
-              />
-            )}
-            {!isDesctop && (
-              <Button
-                view="clear"
-                iconLeft={IconSettings}
-                onClick={setOpenBoard.on}
-                size="s"
-              />
-            )}
-          </div>
-          <div className={cnVariants('Component', { fullScreen })}>
+          )}
+          <div className={cnVariants('Component')}>
             <iframe
               className={cnVariants('Iframe')}
               style={{ width: resolution || undefined }}
@@ -81,18 +81,37 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
         </div>
         <div
           className={cnVariants('Overlay', {
-            visible: openBoard || openResolutionsMenu,
+            visible: openBoard || openResolutionsMenu || openThemeMenu,
             fullScreen,
           })}
         />
-        <div className={cnVariants('BoardWrapper', { open: openBoard })}>
-          <VariantsBoard
-            ref={refBoard}
-            className={cnVariants('Board', {
-              open: openBoard,
-              fullScreen,
-            })}
-          />
+        <div
+          ref={refBoard}
+          className={cnVariants('BoardWrapper', { open: openBoard })}
+        >
+          <div className={cnVariants('BoardContainer', { open: openBoard })}>
+            <div className={cnVariants('Controls')}>
+              <div className={cnVariants('Block')}>
+                <VariantsResolutions
+                  onOpen={setOpenResolutionsMenu}
+                  onSelect={setResolution}
+                />
+                <VariantsThemeToggler onOpen={setOpenThemeMenu} />
+              </div>
+              <Button
+                size="xs"
+                form="round"
+                onlyIcon
+                iconLeft={fullScreen ? IconCollapse : IconExpand}
+                onClick={setFullscreen}
+              />
+            </div>
+            <VariantsBoard
+              className={cnVariants('Board', {
+                open: openBoard,
+              })}
+            />
+          </div>
         </div>
       </div>
       <div className={cnVariants('Fake', { fullScreen })} />

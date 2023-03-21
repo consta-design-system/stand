@@ -10,7 +10,7 @@
   border-radius: var(--control-radius);
 
   &-Description {
-    margin-top: var(--space-xs);
+    margin-top: var(--space-s);
   }
 
   &-Top {
@@ -32,9 +32,15 @@
     width: 100%;
   }
 
+  &-Badge {
+    &_status_canary {
+      background-color: var(--color-bg-link);
+    }
+  }
+
   &_view {
     &_card {
-      padding: var(--space-xl) var(--space-l) var(--space-l);
+      padding: var(--space-l) var(--space-l) var(--space-xl);
     }
 
     &_list-item {
@@ -51,19 +57,36 @@
     overflow: hidden;
     justify-content: center;
     align-items: flex-start;
+    margin-bottom: var(--space-l);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--control-radius);
+
+    & > svg {
+      max-height: 120px;
+    }
+  }
+
+  & a.stand--LibPageCard-Title {
+    text-decoration: underline;
+  }
+
+  &-Buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    margin-top: var(--space-xl);
+    margin-top: var(--space-2xl);
+    gap: var(--space-s);
   }
 
-  & > a {
-    text-decoration: none;
-  }
+  &-Block {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-s);
 
-  &-Title {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
+    & .icons--Icon {
+      --icon-size: var(--space-xl);
     }
   }
 }

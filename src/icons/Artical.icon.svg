@@ -1,0 +1,13 @@
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M9 3H3L3.00064 9H9.00064L9 3Z" />
+  <path d="M3 19V21H21V19H3Z" />
+  <path d="M21 15V17H3V15H21Z" />
+  <path d="M3 11V13H21V11H3Z" />
+  <path d="M12 7H21V9H12V7Z" />
+  <path d="M21 3H12V5H21V3Z" />
+</svg>

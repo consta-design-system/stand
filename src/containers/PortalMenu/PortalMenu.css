@@ -1,14 +1,5 @@
 .stand--PortalMenu {
-  & > *:first-child {
-    padding-top: var(--space-2xl);
-  }
-
   &-List {
     width: 100%;
-    padding-bottom: var(--space-2xl);
-
-    & > *:not(:last-child) {
-      margin-bottom: var(--space-3xs);
-    }
   }
 }

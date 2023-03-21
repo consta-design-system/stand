@@ -1,128 +1,77 @@
 .stand--DocLayout {
-  --doc-layout-header-height: 60px;
-  --doc-layout-side-width: 320px;
+  --header-height: 60px;
+  --doc-layout-mini-side-width: 82px;
+  --doc-layout-side-width: 288px;
   --doc-layout-leftside-z-index: 1010;
+  --doc-layout-content-padding-standart: var(--space-xs);
+  --doc-layout-content-padding-left: var(--doc-layout-content-padding-standart);
+  --doc-layout-content-padding-right:
+    var(
+      --doc-layout-content-padding-standart
+    );
+  --doc-layout-content-padding-top:
+    calc(
+      var(--header-height) + var(--doc-layout-content-padding-standart)
+    );
+  --doc-layout-content-padding-bottom:
+    var(
+      --doc-layout-content-padding-standart
+    );
   position: relative;
   min-height: 100vh;
-  padding-top: var(--doc-layout-header-height);
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-default);
 
-  &-Menu {
-    position: fixed;
-    z-index: var(--doc-layout-leftside-z-index);
-    top: var(--doc-layout-header-height);
-    top: 0;
-    overflow-y: scroll;
-    width: calc(100vw - var(--space-2xl));
-    max-width: var(--doc-layout-side-width);
-    height: 100vh;
-    padding: 0 var(--space-xl);
-    background: var(--color-bg-default);
-    border-right: 1px solid var(--color-bg-border);
-    box-shadow: 0 0 0 var(--color-shadow-modal-1);
-    transition: transform 0.2s, box-shadow 0.2s;
-
-    @supports (overflow-y: overlay) {
-      overflow-y: overlay;
-    }
-
-    &_type {
-      &_primary {
-        right: 0;
-        transform: translateX(calc(var(--doc-layout-side-width)));
-
-        @media screen and (min-width: 900px) {
-          right: auto;
-          left: 0;
-          transform: translateX(calc(var(--doc-layout-side-width) * -1));
-        }
-
-        @media screen and (min-width: 1364px) {
-          z-index: auto;
-          top: var(--doc-layout-header-height);
-          height: calc(100vh - var(--doc-layout-header-height));
-          transform: translateX(0);
-        }
-      }
-
-      &_secondary {
-        left: 0;
-        transform: translateX(calc(var(--doc-layout-side-width) * -1));
-      }
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: var(--color-bg-default);
-    }
-
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-
-      @media screen and (min-width: 1024px) {
-        width: 8;
-        height: 8;
-      }
-    }
-
-    &_open {
-      box-shadow: var(--shadow-modal);
-      transform: translateX(0);
-    }
+  @media screen and (min-width: 680px) {
+    --doc-layout-content-padding-standart: var(--space-2xl);
   }
 
-  &-Owerlay {
-    position: fixed;
-    z-index: calc(var(--doc-layout-leftside-z-index) - 1);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    padding: 0;
-    background: var(--color-bg-tone);
-    border: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
+  @media screen and (min-width: 1242px) {
+    --doc-layout-content-padding-left:
+      calc(
+        var(--doc-layout-content-padding-standart) + var(--doc-layout-side-width)
+      );
+    --doc-layout-content-padding-right:
+      calc(
+        var(--doc-layout-content-padding-standart) +
+        var(--doc-layout-mini-side-width)
+      );
+    --doc-layout-content-padding-top:
+      var(
+        --doc-layout-content-padding-standart
+      );
+    --doc-layout-content-padding-bottom:
+      var(
+        --doc-layout-content-padding-standart
+      );
+  }
 
-    &_open {
-      opacity: 1;
-      pointer-events: all;
-    }
+  @media screen and (min-width: 1440px) {
+    --doc-layout-content-padding-right:
+      calc(
+        var(--doc-layout-content-padding-standart) + var(--doc-layout-side-width)
+      );
   }
 
   &-Content {
-    @media screen and (min-width: 900px) {
-      padding: var(--space-2xl);
-    }
-
-    @media screen and (min-width: 1364px) {
-      padding-right: var(--space-2xl);
-      padding-left: calc(var(--doc-layout-side-width) + var(--space-2xl));
-    }
-
-    @media screen and (min-width: 1690px) {
-      padding-right: calc(var(--doc-layout-side-width) + var(--space-2xl));
-    }
+    padding:
+      var(--doc-layout-content-padding-top)
+      var(--doc-layout-content-padding-right)
+      var(--doc-layout-content-padding-bottom)
+      var(--doc-layout-content-padding-left);
   }
 
   &-Paper {
     max-width: 100%;
+    max-width: 800px;
     min-height: 100%;
     margin: 0 auto;
-    padding: var(--space-xl);
-    background: var(--color-bg-default);
     border-radius: 0;
 
-    &_withSecondaryMenu {
-      border-radius: 16px 16px 0 0;
-    }
-
-    @media screen and (min-width: 900px) {
-      max-width: 980px;
+    /* @media screen and (min-width: 900px) {
+      max-width: 800px;
       padding: calc(var(--space-l) * 2.5) var(--space-3xl);
       border-radius: 10px;
-    }
+    } */
   }
 
   &-Header {

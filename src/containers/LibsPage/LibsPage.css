@@ -1,8 +1,4 @@
 .stand--LibsPage {
-  & a {
-    text-decoration: none;
-  }
-
   &-Section {
     --row-gap: var(--space-xl);
     --column-gap: var(--space-l);

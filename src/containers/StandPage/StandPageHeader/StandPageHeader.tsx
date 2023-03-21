@@ -2,20 +2,15 @@ import './StandPageHeader.css';
 
 import { IconQuestion } from '@consta/icons/IconQuestion';
 import { Badge } from '@consta/uikit/Badge';
+import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { withTooltip } from '@consta/uikit/withTooltip';
 import React from 'react';
 
-import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
+import { badgeStatusMap } from '##/modules/stand';
 import { Stand } from '##/types';
-import { H1 } from '##/typography/H1';
 import { cn } from '##/utils/bem';
 
-const BadgeWithTooltip = withTooltip({
-  isInteractive: false,
-  mode: 'mouseover',
-  direction: 'downCenter',
-})(Badge);
+import { StandPageHeaderInfo } from './StandPageHeaderInfo';
 
 type Props = {
   stand: Stand;
@@ -23,13 +18,6 @@ type Props = {
 };
 
 const cnStandPageHeader = cn('StandPageHeader');
-
-const tooltipMessage = {
-  stable: 'Это основная версия компонента, рекомендуем использовать',
-  deprecated: 'Это устаревшая версия компонента, лучше использовать стабильную',
-  canary: 'Это совсем новый компонент, параметры могут поменяться',
-  inWork: 'Этот компонент пока находится в разработке',
-};
 
 export const getView = (status: Stand['status']) => {
   if (status === 'deprecated' || status === 'stable') {
@@ -44,63 +32,40 @@ export const StandPageHeader = (props: Props) => {
   const { stand, className } = props;
   const { title, status, version, description } = stand;
 
+  const hasBadges = status || version;
+
   return (
     <div className={cnStandPageHeader(null, [className])}>
-      <div className={cnStandPageHeader('Top')}>
-        <H1>{title}</H1>
-        {(status || version) && (
-          <div className={cnStandPageHeader('Badges')}>
-            {status && (
-              <BadgeWithTooltip
-                size="l"
-                label={badgeLabelStatusMap[status]}
-                status={badgeStatusMap[status]}
-                view="stroked"
-                icon={IconQuestion}
-                tooltipProps={{
-                  content: (
-                    <Text
-                      className={cnStandPageHeader('Tooltip')}
-                      size="xs"
-                      lineHeight="xs"
-                    >
-                      {tooltipMessage[status]}
-                    </Text>
-                  ),
-                }}
-              />
-            )}
-            {version && (
-              <BadgeWithTooltip
-                size="l"
-                label={`Доступен с ${version}`}
-                status="system"
-                icon={IconQuestion}
-                view="stroked"
-                tooltipProps={{
-                  content: (
-                    <Text
-                      className={cnStandPageHeader('Tooltip')}
-                      size="xs"
-                      lineHeight="xs"
-                    >
-                      В этой версии Consta компонент был впервые опубликован
-                    </Text>
-                  ),
-                }}
-              />
-            )}
-          </div>
-        )}
-      </div>
-      {description && (
-        <Text
-          className={cnStandPageHeader('Description')}
-          size="m"
-          lineHeight="m"
-        >
-          {description}
-        </Text>
+      <StandPageHeaderInfo stand={stand} className={cnMixSpace({ mB: 'l' })} />
+      <Text size="2xl" lineHeight="m" weight="bold">
+        {title}
+      </Text>
+      <Text size="m" lineHeight="m">
+        {description}
+      </Text>
+      {hasBadges && (
+        <div className={cnStandPageHeader('Badges', [cnMixSpace({ mT: 'l' })])}>
+          {status && (
+            <Badge
+              label={status}
+              icon={IconQuestion}
+              status={badgeStatusMap[status]}
+              size="s"
+              form="round"
+              view="filled"
+            />
+          )}
+          {version && (
+            <Badge
+              label={`Доступен с ${version}`}
+              status="system"
+              icon={IconQuestion}
+              size="s"
+              form="round"
+              view="filled"
+            />
+          )}
+        </div>
       )}
     </div>
   );

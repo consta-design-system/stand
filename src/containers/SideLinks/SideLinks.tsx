@@ -1,70 +1,136 @@
 import './SideLinks.css';
 
-import { IconForward } from '@consta/icons/IconForward';
+import { IconArrowLeft } from '@consta/icons/IconArrowLeft';
+import { IconArrowRight } from '@consta/icons/IconArrowRight';
 import { Button } from '@consta/uikit/Button';
-import { useAtom } from '@reatom/npm-react';
-import React from 'react';
+import { cnMixSpace } from '@consta/uikit/MixSpace';
+import { useBreakpoints } from '@consta/uikit/useBreakpoints';
+import { useAction, useAtom } from '@reatom/npm-react';
+import React, { memo } from 'react';
+import { Transition } from 'react-transition-group';
 
+import { BannerButton } from '##/componets/BannerButton';
 import { MdxMenuTransfer } from '##/containers/MdxMenuTransfer';
-import {
-  componentRepositoryUrlAtom,
-  figmaAtom,
-  issueRepositoryUrlAtom,
-} from '##/modules/stand';
+import { ThemeToggler } from '##/containers/ThemeToggler';
+import IconFeedback from '##/icons/Feedback.icon.svg';
+import IconTelegram from '##/icons/Telegram.icon.svg';
+import { openRightSideAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
 
 const cnSideLinks = cn('SideLinks');
 
-type LinkItemProps = {
-  href?: string;
-  label: string;
-};
+const timeout = 400;
 
-const LinkItem = ({ href, label }: LinkItemProps) => {
-  return (
-    <Button
-      as="a"
-      href={href}
-      view="ghost"
-      size="s"
-      target="_blank"
-      iconRight={IconForward}
-      label={label}
-      width="full"
-    />
-  );
-};
+export const SideLinks = memo(() => {
+  const toggleRightSide = useAction(openRightSideAtom.toggle);
 
-const Links = () => {
-  const links: LinkItemProps[] = [
-    {
-      label: 'Открыть в Figma',
-      href: useAtom(figmaAtom)[0],
-    },
-    {
-      label: 'Открыть на GitHub',
-      href: useAtom(componentRepositoryUrlAtom)[0],
-    },
-    {
-      label: 'Сообщить о проблеме',
-      href: useAtom(issueRepositoryUrlAtom)[0],
-    },
-  ].filter((item) => Boolean(item.href));
+  const [openRightSide] = useAtom(openRightSideAtom);
+  const { xl } = useBreakpoints({
+    xl: 1440,
+  });
+
+  const isOpen = openRightSide || xl;
+  const withOpenButton = !xl;
 
   return (
-    <div className={cnSideLinks('Links')}>
-      {links.map((props, index) => (
-        <LinkItem key={cnSideLinks({ index })} {...props} />
-      ))}
+    <div className={cnSideLinks(null)}>
+      <Transition in={isOpen} unmountOnExit timeout={timeout}>
+        {(animate) => {
+          return (
+            <div
+              className={cnSideLinks(
+                'Slot',
+                { animate, size: 'm', withOpenButton },
+                [cnMixSpace({ pV: 'xl', pH: 'm' })],
+              )}
+            >
+              <div className={cnSideLinks('BannerButtons')}>
+                <BannerButton
+                  className={cnMixSpace({ mB: 'xs' })}
+                  as="a"
+                  label="Сообщить о проблеме"
+                  href="https://github.com/consta-design-system/uikit/issues/new/choose"
+                  target="_blank"
+                  icon={IconFeedback}
+                  description="Исправим ошибку, которую вы найдёте"
+                />
+                <BannerButton
+                  as="a"
+                  label="Telegram"
+                  icon={IconTelegram}
+                  href="https://t.me/Consta_Chat"
+                  target="_blank"
+                />
+              </div>
+              <MdxMenuTransfer className={cnSideLinks('Menu')} />
+              <div className={cnSideLinks('ControlsWrap')}>
+                <div className={cnSideLinks('Controls')}>
+                  <ThemeToggler />
+                  {withOpenButton && (
+                    <Button
+                      size="s"
+                      view="ghost"
+                      onlyIcon
+                      iconLeft={IconArrowRight}
+                      onClick={toggleRightSide}
+                      form="round"
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Transition>
+      <Transition in={!isOpen} unmountOnExit timeout={timeout}>
+        {(animate) => {
+          return (
+            <div
+              className={cnSideLinks(
+                'Slot',
+                { animate, size: 's', withOpenButton },
+                [cnMixSpace({ pV: 'xl', pH: 's' })],
+              )}
+            >
+              <div className={cnSideLinks('BannerButtons')}>
+                <BannerButton
+                  className={cnMixSpace({ mB: 'xs' })}
+                  as="a"
+                  label="Сообщить о проблеме"
+                  href="https://github.com/consta-design-system/uikit/issues/new/choose"
+                  target="_blank"
+                  icon={IconFeedback}
+                  description="Исправим ошибку, которую вы найдёте"
+                  onlyIcon
+                />
+                <BannerButton
+                  as="a"
+                  label="Telegram"
+                  icon={IconTelegram}
+                  href="https://t.me/Consta_Chat"
+                  target="_blank"
+                  onlyIcon
+                />
+              </div>
+              <div className={cnSideLinks('ControlsWrap')}>
+                <div className={cnSideLinks('Controls')}>
+                  {withOpenButton && (
+                    <Button
+                      size="s"
+                      view="ghost"
+                      onlyIcon
+                      iconLeft={IconArrowLeft}
+                      onClick={toggleRightSide}
+                      form="round"
+                    />
+                  )}
+                  <ThemeToggler />
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Transition>
     </div>
   );
-};
-
-export const SideLinks = () => {
-  return (
-    <div className={cnSideLinks()}>
-      <MdxMenuTransfer />
-      <Links />
-    </div>
-  );
-};
+});

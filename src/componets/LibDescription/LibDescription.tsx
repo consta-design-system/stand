@@ -19,7 +19,7 @@ export const LibDescription = (props: LibDescriptionProps) => {
 
   if (typeof description === 'string') {
     return (
-      <Text size="m" lineHeight="m" as="p">
+      <Text size="s" lineHeight="m" as="p">
         {description}
       </Text>
     );

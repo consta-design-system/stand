@@ -1,3 +1,4 @@
+import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 import { useRoute } from 'react-router5';
@@ -6,6 +7,7 @@ import { startsWithSegment } from 'router5-helpers';
 import { DocLayout } from '##/componets/DocLayout';
 import { LazyPage } from '##/componets/LazyPage';
 import { Header } from '##/containers/Header';
+import { LeftSideHeader } from '##/containers/LeftSideHeader';
 import { Menu } from '##/containers/Menu';
 import { Pages } from '##/containers/Pages';
 import { SideLinks } from '##/containers/SideLinks';
@@ -27,6 +29,8 @@ const CustomPage = () => {
 export const App: React.FC = () => {
   const { route } = useRoute();
   const testStartsWithSegment = startsWithSegment(route.name);
+  const { desktop } = useBreakpoints({ desktop: 1242 });
+  const DesktopHeader = desktop ? LeftSideHeader : () => null;
 
   useIframeSubscribe();
 
@@ -37,7 +41,12 @@ export const App: React.FC = () => {
   if (testStartsWithSegment(routesNames.LIBS)) {
     return (
       <DocLayout
-        leftSide={<Menu />}
+        leftSide={
+          <>
+            <DesktopHeader />
+            <Menu />
+          </>
+        }
         rightSide={<SideLinks />}
         header={<Header />}
       >

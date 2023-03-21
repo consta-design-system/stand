@@ -74,7 +74,7 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
       type="text"
       onChange={onChange}
       label={name}
-      size="s"
+      size="xs"
     />
   );
 };
@@ -101,7 +101,7 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
       type="number"
       onChange={onChange}
       label={name}
-      size="s"
+      size="xs"
     />
   );
 };
@@ -123,7 +123,7 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
       type="date"
       onChange={onChange}
       label={name}
-      size="s"
+      size="xs"
       style={{ zIndex: useZIndex() }}
     />
   );
@@ -146,7 +146,7 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
       type="date"
       onChange={onChange}
       label={name}
-      size="s"
+      size="xs"
       style={{ zIndex: useZIndex() }}
     />
   );
@@ -167,6 +167,7 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
       className={cnVariantsField({ type })}
       checked={Boolean(value)}
       onChange={onChange}
+      size="s"
       label={name}
     />
   );
@@ -200,7 +201,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
       onChange={onChange}
       items={options as string[]}
       label={name}
-      size="s"
+      size="xs"
       style={{ zIndex: useZIndex() }}
     />
   );

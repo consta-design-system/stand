@@ -10,7 +10,7 @@ import { cn } from '##/utils/bem';
 
 const cnMdxMenuTransfer = cn('MdxMenuTransfer');
 
-export const MdxMenuTransfer = () => {
+export const MdxMenuTransfer = ({ className }: { className: string }) => {
   const [menuMdx] = useAtom(menuMdxAtom);
 
   const { route } = useRoute();
@@ -30,7 +30,7 @@ export const MdxMenuTransfer = () => {
   }
 
   return (
-    <div className={cnMdxMenuTransfer()}>
+    <div className={cnMdxMenuTransfer(null, [className])}>
       {activeLinkStyle && <style>{activeLinkStyle}</style>}
       <Text
         size="xs"

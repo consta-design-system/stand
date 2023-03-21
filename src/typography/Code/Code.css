@@ -12,12 +12,6 @@
     width: calc(var(--space-xl) + var(--space-2xl));
     height: calc(var(--space-xl) + var(--space-2xl));
     padding: var(--space-m);
-    background:
-      radial-gradient(
-        circle,
-        var(--color-bg-secondary) 0%,
-        rgba(0, 0, 0, 0) 98%
-      );
     border: none;
     border-radius: var(--control-radius);
   }

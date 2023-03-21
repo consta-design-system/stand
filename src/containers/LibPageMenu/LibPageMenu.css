@@ -1,27 +1,11 @@
 .stand--LibPageMenu {
   display: flex;
   flex-direction: column;
-  height: 100%;
-
-  &-Controls {
-    position: sticky;
-    z-index: 2;
-    top: 0;
-    padding-bottom: var(--space-l);
-    background: var(--color-bg-default);
-
-    & > *:not(:last-child) {
-      margin-bottom: var(--space-l);
-    }
-
-    & > *:first-child {
-      margin-bottom: var(--space-2xl);
-    }
-  }
-
-  & > div.stand--LibPageMenu-Controls {
-    margin-bottom: 0;
-  }
+  min-height:
+    calc(
+      100% - var(--header-left-side-height) - var(--filters-left-side-height) -
+      1px
+    );
 
   &-Header {
     display: flex;
@@ -61,16 +45,6 @@
     border-top: 1px solid var(--color-bg-border);
   }
 
-  &-Overlay {
-    width: 100%;
-    padding-left: var(--space-xl);
-    background: var(--color-bg-stripe);
-
-    & > *:not(:last-child) {
-      border-bottom: 1px solid var(--color-bg-border);
-    }
-  }
-
   &-FiltersItem {
     display: flex;
     justify-content: space-between;
@@ -82,14 +56,18 @@
     padding-bottom: calc(var(--space-s) + var(--space-3xs));
   }
 
-  & .stand--PortalMenu-List {
-    flex: 1;
-  }
-
   &-ButtonLibs {
     display: inline-flex;
     align-items: center;
+    width: 100%;
+    background-color: var(--color-bg-stripe);
+    border-bottom: 1px solid var(--color-bg-border);
     text-decoration: none;
     gap: var(--space-xs);
   }
+}
+
+.stand--LibPageMenu .stand--PortalMenuItem_active .Badge {
+  --badge-text-color: var(--color-typo-primary);
+  --badge-border-color: var(--color-typo-primary);
 }
