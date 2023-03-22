@@ -1,14 +1,13 @@
-import { reatomContext, useAction } from '@reatom/npm-react';
+import { reatomContext, useAction, useAtom } from '@reatom/npm-react';
 import { createContext, useContext, useEffect, useRef } from 'react';
-import { useRoute, useRouter } from 'react-router5';
 
-import { routesNames } from '##/modules/router';
+import { variantThemeAtom } from '##/modules/theme';
 import {
-  htmlModsActionAdd,
-  htmlModsActionDel,
-  variantThemeAtom,
-} from '##/modules/theme';
-import { variantsActionClear, variantsAtom } from '##/modules/variants';
+  variantsActionClear,
+  variantsAtom,
+  variantsIsFullScreen,
+  variantsToggleFullScreen,
+} from '##/modules/variants';
 
 export const useIframeBridge = () => {
   const clear = useAction(variantsActionClear);
@@ -46,30 +45,8 @@ export const useIframeBridge = () => {
 };
 
 export const useFullScreen = () => {
-  const router = useRouter();
-  const route = useRoute();
-  const addHtmlMod = useAction(htmlModsActionAdd);
-  const delHtmlMod = useAction(htmlModsActionDel);
-
-  const open = !!route.route.params.variants;
-
-  const toggle = () => {
-    router.navigate(routesNames.LIBS_LIB_STAND, {
-      ...route.route.params,
-      variants: open ? undefined : true,
-    });
-  };
-
-  useEffect(() => {
-    if (open) {
-      addHtmlMod({ name: 'noScroll', value: true });
-    } else {
-      addHtmlMod({ name: 'noScroll', value: false });
-    }
-
-    return () => delHtmlMod('noScroll');
-  }, [open]);
-
+  const [open] = useAtom(variantsIsFullScreen);
+  const toggle = useAction(variantsToggleFullScreen);
   return [open, toggle] as const;
 };
 

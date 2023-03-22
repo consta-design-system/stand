@@ -1,4 +1,6 @@
 .stand--Header {
+  z-index: 100;
+
   & .che--LayoutRow {
     padding: 0 var(--doc-layout-content-padding-standart);
   }

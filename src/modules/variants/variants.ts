@@ -1,6 +1,10 @@
 import { action, atom } from '@reatom/core';
+import { onUpdate } from '@reatom/hooks';
 import { useAction, useAtom } from '@reatom/npm-react';
 import { useEffect } from 'react';
+import { navigateToAction, routerAtom } from 'reatom-router5';
+
+import { htmlModsActionAdd } from '##/modules/theme';
 
 export type VariantType =
   | 'select'
@@ -106,6 +110,33 @@ export const variantsNamesAtom = atom((ctx) => {
   const variants = ctx.spy(variantsAtom);
 
   return Object.keys(variants);
+});
+
+export const variantsIsFullScreen = atom((ctx) => {
+  const router = ctx.spy(routerAtom);
+  return Boolean(router.route?.params.variants);
+});
+
+export const variantsToggleFullScreen = action((ctx) => {
+  const isFullScreen = ctx.get(variantsIsFullScreen);
+  const { route } = ctx.get(routerAtom);
+
+  if (!route) {
+    return;
+  }
+
+  if (isFullScreen) {
+    window.history.back();
+  } else {
+    navigateToAction(ctx, {
+      name: route.name,
+      params: { ...route.params, variants: true },
+    });
+  }
+});
+
+onUpdate(variantsIsFullScreen, (ctx, isFullScreen) => {
+  htmlModsActionAdd(ctx, { noScroll: isFullScreen });
 });
 
 export const useVariant = <
