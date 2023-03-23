@@ -18,15 +18,15 @@ const cnSearchListItem = cn('SearchListItem');
 
 type SearchListItemProps = {
   label: string;
-  type: 'doc' | 'component' | 'history';
+  type: 'docs' | 'component' | 'history';
   status?: PreparedStand['stand']['status'];
   description?: PreparedStand['stand']['description'];
   href?: string;
   onClick?: React.MouseEventHandler;
 };
 
-const mapIcon: Record<'doc' | 'component' | 'history', IconComponentType> = {
-  doc: IconArtical,
+const mapIcon: Record<'docs' | 'component' | 'history', IconComponentType> = {
+  docs: IconArtical,
   component: IconComponent,
   history: IconRecent,
 };

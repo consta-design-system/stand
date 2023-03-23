@@ -28,6 +28,7 @@ export type Stand<Group extends string = string> = {
   alias?: string[];
   visibleOnLibPage?: boolean;
   visibleOnHeader?: boolean;
+  type?: 'docs' | 'component';
 };
 
 export type StandTab = {
@@ -58,6 +59,7 @@ export type Lib<GROUP extends Group> = {
   standTabs?: StandTab[];
   repositoryUrl?: string;
   order?: number;
+  extractToLibs?: boolean;
 };
 
 export type CreatedStand = {

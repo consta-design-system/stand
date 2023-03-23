@@ -4,6 +4,7 @@ import { IconCollapse } from '@consta/icons/IconCollapse';
 import { IconExpand } from '@consta/icons/IconExpand';
 import { IconSettings } from '@consta/icons/IconSettings';
 import { Button } from '@consta/uikit/Button';
+import { cnTheme } from '@consta/uikit/Theme';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
@@ -27,13 +28,12 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
   lib,
 }) => {
   const router = useRouter();
+  const [openBoard, setOpenBoard] = useFlag();
   const [openResolutionsMenu, setOpenResolutionsMenu] = useState<boolean>();
   const [openThemeMenu, setOpenThemeMenu] = useState<boolean>();
   const [resolution, setResolution] = useState<number>(0);
   const [fullScreen, setFullscreen] = useFullScreen();
   const { isDesctop } = useBreakpoints({ isDesctop: 900 });
-
-  const [openBoard, setOpenBoard] = useFlag();
 
   const [theme] = useAtom(variantThemeAtom);
 
@@ -62,7 +62,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
               view="clear"
               ref={settingsRef}
               className={cnVariants('Settings', { open: openBoard }, [
-                `Theme_color_${theme.color.primary}`,
+                cnTheme({ color: theme.color.primary }),
               ])}
               iconLeft={IconSettings}
               onClick={setOpenBoard.toggle}

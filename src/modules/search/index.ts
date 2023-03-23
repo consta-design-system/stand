@@ -11,7 +11,7 @@ export const fieldRefAtom = atom<React.RefObject<HTMLDivElement>>({
 
 type NormalizeSearchItem = {
   label: PreparedStand['stand']['title'];
-  type: 'doc' | 'component';
+  type: 'docs' | 'component';
   lib: PreparedStand['lib']['id'];
   id: PreparedStand['id'];
   status: PreparedStand['stand']['status'];
@@ -83,7 +83,7 @@ const searchListNormalizeAtom = atom((ctx) => {
 
     normalizeList.push({
       label: element.stand.title,
-      type: 'doc',
+      type: element.stand.type || 'docs',
       lib: element.lib.id,
       id: element.id,
       status: element.stand.status,
