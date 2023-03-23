@@ -5,10 +5,17 @@
   flex-wrap: wrap-reverse;
   gap: var(--space-m);
 
+  &-Tabs {
+    overflow: auto;
+    width: 100%;
+    padding-bottom: var(--space-xs);
+  }
+
   &-Links {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: var(--space-xs);
 
     & > .Button {

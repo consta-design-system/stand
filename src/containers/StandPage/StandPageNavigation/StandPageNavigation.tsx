@@ -76,13 +76,15 @@ export const StandPageNavigation = ({ className }: Props) => {
 
   return (
     <div className={cnStandPageNavigation(null, [className])}>
-      <ChoiceGroup
-        size="s"
-        items={navigationList}
-        value={value}
-        name="StandPageNavigation"
-        onChange={handleClick}
-      />
+      <div className={cnStandPageNavigation('Tabs')}>
+        <ChoiceGroup
+          size="s"
+          items={navigationList}
+          value={value}
+          name="StandPageNavigation"
+          onChange={handleClick}
+        />
+      </div>
       {hasLinks && (
         <div
           className={cnStandPageNavigation('Links', [

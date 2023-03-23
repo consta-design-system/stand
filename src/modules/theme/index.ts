@@ -49,7 +49,9 @@ const KEY = 'theme';
 const VARIANT_KEY = 'variant_theme';
 
 const getSnapTheme = (key: string) =>
-  themes.find((item) => item.color.primary === localStorage.getItem(key));
+  variantThemes.find(
+    (item) => item.color.primary === localStorage.getItem(key),
+  );
 
 export const themeAtom = atom<ThemePreset>(
   getSnapTheme(KEY) || getDefaultTheme(),

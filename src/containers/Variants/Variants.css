@@ -44,6 +44,7 @@
   }
 
   &-Component {
+    overflow: auto;
     height: 100%;
   }
 
@@ -90,7 +91,6 @@
 
     &_fullScreen {
       height: 100%;
-      pointer-events: none;
     }
   }
 
