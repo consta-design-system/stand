@@ -44,9 +44,7 @@ export const StandPage: React.FC = memo(() => {
           className={cnStandPage('Header')}
         />
         <StandPageNavigation
-          className={cnStandPage('Navigation', [
-            cnMixSpace({ mB: '2xl', pB: 'xs' }),
-          ])}
+          className={cnStandPage('Navigation', [cnMixSpace({ mB: '2xl' })])}
         />
         {tab?.id === '' && stand.lazyAccess.variants && (
           <Variants
