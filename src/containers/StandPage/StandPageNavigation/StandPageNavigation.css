@@ -1,5 +1,6 @@
 .stand--StandPageNavigation {
   display: flex;
+  overflow: auto;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap-reverse;
