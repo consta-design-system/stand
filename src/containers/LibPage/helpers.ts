@@ -14,12 +14,8 @@ export const groupsAtom = atom((ctx) => {
     return [];
   }
 
-  const visiblestands = lib.stands.filter(
-    (item) => item.stand.visibleOnLibPage,
-  );
-
   return getGroups<PreparedStand, Group>(
-    visiblestands,
+    lib.stands,
     (item) => item.stand.group,
     [...lib.groups],
     (group) => group.id,

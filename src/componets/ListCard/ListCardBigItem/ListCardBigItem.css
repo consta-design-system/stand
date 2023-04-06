@@ -1,25 +1,30 @@
-.stand--LibCard {
+.stand--ListCardBigItem {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
   background: var(--color-bg-default);
-  border: var(--control-border-width) solid var(--color-bg-border);
-  border-radius: var(--control-radius);
 
-  &-Title {
+  &-Image {
+    overflow: hidden;
+    height: 120px;
+    border-radius: var(--control-radius);
+
+    & svg {
+      height: 100%;
+    }
+  }
+
+  &-Header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    text-decoration: underline;
-    cursor: pointer;
     flex-wrap: wrap;
     gap: var(--space-xs);
+  }
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &-Title {
+    cursor: pointer;
   }
 
   &-Info {

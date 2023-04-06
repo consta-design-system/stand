@@ -1,7 +1,9 @@
 import React from 'react';
-import { components } from '../../../src/containers/MDXProvider';
+import { useMdxComponents } from '../../../src/modules/mdxComponents';
+
 #imports#
 const Component: React.FC = () => {
+  const components = useMdxComponents();
   return <Docs components={components} />;
 };
 

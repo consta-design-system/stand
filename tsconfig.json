@@ -29,7 +29,8 @@
     "src/**/*",
     "config.js",
     "scripts/prepareStands.js",
-    "scripts/config.js"
+    "scripts/config.js",
+    "__mocks__/standsConfig.ts"
   ],
   "exclude": [
     "node_modules",

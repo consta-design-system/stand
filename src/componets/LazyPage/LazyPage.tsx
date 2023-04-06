@@ -18,8 +18,6 @@ const FallbackLoading = () => (
 );
 
 export const LazyPagePreseter: React.FC<LazyPageProps> = ({ id }) => {
-  console.log(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}_page_tsx.tsx`);
-
   const Page = lazy(
     () =>
       import(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}_page_tsx.tsx`),

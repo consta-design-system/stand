@@ -20,30 +20,4 @@
       margin-bottom: var(--space-l);
     }
   }
-
-  &-Section {
-    --row-gap: var(--space-xl);
-    --column-gap: var(--space-l);
-    display: grid;
-    width: 100%;
-    grid-column-gap: var(--column-gap);
-    grid-row-gap: var(--row-gap);
-    grid-template-columns: 1fr;
-
-    &_view {
-      &_card {
-        @media screen and (min-width: 600px) {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        @media screen and (min-width: 860px) {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      &_list-item {
-        --row-gap: var(--space-l);
-      }
-    }
-  }
 }

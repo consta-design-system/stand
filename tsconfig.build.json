@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "**/__mocks__/*",
+    "**/standsConfig.ts",
     "**/__stories__/*",
     "**/__stand__/*",
     "**/__tests__/*"

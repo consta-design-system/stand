@@ -184,6 +184,18 @@ module.exports = function () {
           include: [path.resolve(__dirname, 'node_modules')],
         },
         {
+          test: /\.mdx?$/,
+          use: [
+            {
+              loader: '@mdx-js/loader',
+              options: {
+                remarkPlugins: [remark],
+              },
+            },
+          ],
+          include: [path.resolve(__dirname, '__mocks__')],
+        },
+        {
           test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.pdf$/],
           loader: require.resolve('url-loader'),
           options: {
