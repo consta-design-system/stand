@@ -129,7 +129,7 @@ const prepareRoutes = async ({ routesPath, projectPath, standsPath }) => {
   if (routesPath) {
     jsCode = `export * from '${projectPath}${routesPath}';\n`;
   } else {
-    jsCode = `export const routes = [];\n`;
+    jsCode = `export const routes = [];\nexport const defaultRoute = '';\n`;
   }
 
   await writeFile(`${standsPath}/router.ts`, jsCode);
