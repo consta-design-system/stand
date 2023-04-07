@@ -9,27 +9,40 @@ import { cn } from '##/utils/bem';
 
 const cnPortalMenuItem = cn('PortalMenuItem');
 
-export const PortalMenuItem = (props: PortalMenuItemProps) => {
-  const { onClick, label, active, rightSide, href } = props;
+export const PortalMenuItem = (
+  props: Omit<PortalMenuItemProps, 'label'> & {
+    children?: React.ReactNode;
+    label?: string;
+    className?: string;
+  },
+) => {
+  const { onClick, label, active, rightSide, href, children, className } =
+    props;
 
   const { themeClassNames } = useTheme();
 
   return (
     <a
-      className={cnPortalMenuItem({
-        active,
-      })}
+      className={cnPortalMenuItem(
+        {
+          active,
+        },
+        [className],
+      )}
       onClick={onClick}
       href={href}
     >
       <div
         className={cnPortalMenuItem('Body', [
-          active ? themeClassNames.color.invert : undefined,
+          active ? themeClassNames.color.accent : undefined,
         ])}
       >
-        <Text className={cnPortalMenuItem('Label')} size="s" lineHeight="xs">
-          {label}
-        </Text>
+        {children}
+        {label && (
+          <Text className={cnPortalMenuItem('Label')} size="s" lineHeight="xs">
+            {label}
+          </Text>
+        )}
         {rightSide && (
           <div className={cnPortalMenuItem('Controls')}>{rightSide}</div>
         )}

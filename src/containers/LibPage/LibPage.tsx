@@ -5,10 +5,12 @@ import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { LibDescription } from '##/componets/LibDescription';
+import { ListCardMini } from '##/componets/ListCard';
+import { routesNames } from '##/modules/router';
+import { ListCardItem } from '##/types';
 import { cn } from '##/utils/bem';
 
 import { groupsAtom, useLib } from './helpers';
-import { LibPageCard } from './LibPageCard';
 
 const cnLibPage = cn('LibPage');
 
@@ -26,14 +28,31 @@ export const LibPage: React.FC = () => {
         <Text size="3xl" lineHeight="m" weight="bold">
           {lib.title}
         </Text>
-        {(lib.shortDescription || lib.description) && (
+        {(lib.fullDescription || lib.description) && (
           <LibDescription
-            description={lib.shortDescription ?? lib.description}
+            description={lib.fullDescription || lib.description}
           />
         )}
       </div>
       {groups.map((group, groupIndex) => {
-        const view = group.group?.view ?? 'list-item';
+        const RenderList = group.group?.renderList || ListCardMini;
+
+        const items: ListCardItem[] = group.items.map((stand) => {
+          return {
+            label: stand.stand.title,
+            description: stand.stand.description,
+            routeName: routesNames.LIBS_LIB_STAND,
+            routeParams: { lib: stand.lib.id, stand: stand.id },
+            icon: stand.stand.icon,
+            figmaUrl: stand.stand.figma,
+            repositoryUrl: stand.stand.github,
+            status: stand.stand.status,
+            lazyImage: stand.lazyAccess.image
+              ? `${stand.path}_image_svg`
+              : 'no-image',
+          };
+        });
+
         return (
           <div key={`${cnLibPage({ groupIndex, group: group.group?.id })}`}>
             <Text
@@ -44,15 +63,8 @@ export const LibPage: React.FC = () => {
             >
               {group.group?.title}
             </Text>
-            <div className={cnLibPage('Section', { view })}>
-              {group.items.map((stand, index) => (
-                <LibPageCard
-                  view={view}
-                  key={`${cnLibPage({ index, stand: stand.id })}`}
-                  stand={stand}
-                />
-              ))}
-            </div>
+
+            <RenderList items={items} />
           </div>
         );
       })}

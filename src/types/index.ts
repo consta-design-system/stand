@@ -1,3 +1,4 @@
+import { IconComponent } from '@consta/icons/Icon';
 import { ThemePreset } from '@consta/uikit/Theme';
 import { MDXComponents } from 'mdx/types';
 
@@ -6,7 +7,8 @@ export type Group = {
   title: string;
   order?: number;
   initialOpen?: boolean;
-  view?: 'lib-card' | 'card' | 'list-item';
+  description?: string;
+  renderList?: ListCardComponent;
 };
 
 export type StandStatus = 'deprecated' | 'canary' | 'stable' | 'inWork';
@@ -26,8 +28,9 @@ export type Stand<Group extends string = string> = {
   description?: string;
   otherVersion?: Stand<Group>[];
   alias?: string[];
+  type?: 'docs' | 'component';
+  icon?: IconComponent;
   visibleOnLibPage?: boolean;
-  visibleOnHeader?: boolean;
 };
 
 export type StandTab = {
@@ -45,19 +48,18 @@ export type Lib<GROUP extends Group> = {
   image?: (() => React.ReactElement | null) | string | React.FC;
   group?: string;
   status?: 'deprecated' | 'stable' | 'inWork';
-  description?:
-    | ((props: { components?: MDXComponents }) => JSX.Element)
-    | string;
-  shortDescription?:
+  description?: string;
+  fullDescription?:
     | ((props: { components?: MDXComponents }) => JSX.Element)
     | string;
   standPageDecoration?: (props: {
     theme: ThemePreset;
-    children: React.ReactChild;
+    children: React.ReactNode;
   }) => React.ReactElement;
   standTabs?: StandTab[];
   repositoryUrl?: string;
   order?: number;
+  figmaUrl?: string;
 };
 
 export type CreatedStand = {
@@ -85,3 +87,40 @@ export type PageConfig = {
 };
 
 export type CreatedPage = PageConfig & { type: 'page' };
+
+export type LibsPageConfigGroup = {
+  label: string;
+  description?: string;
+  renderList?: ListCardComponent;
+  maxCount?: number;
+  buttonMore?: boolean;
+  hiddenLabel?: boolean;
+};
+
+export type LibsPageConfig = {
+  title: string;
+  description?:
+    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | string;
+  extractLibs?: string[];
+  groups?: LibsPageConfigGroup[];
+};
+
+export type ListCardItem = {
+  label: string;
+  routeName: string;
+  routeParams: {};
+  description?: string;
+  repositoryUrl?: string;
+  figmaUrl?: string;
+  status?: 'deprecated' | 'stable' | 'inWork' | 'canary';
+  icon?: IconComponent;
+  lazyImage?: string;
+};
+
+export type ListCardComponent = (props: {
+  items: ListCardItem[];
+  className?: string;
+  maxCount?: number;
+  buttonMore?: boolean;
+}) => JSX.Element;

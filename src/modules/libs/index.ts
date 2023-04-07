@@ -1,7 +1,15 @@
 import { atom } from '@reatom/core';
 
-// @ts-ignore: При сборке стенды осутствуют
-import { libs } from '##/stands';
 import { LibWithStands } from '##/types';
 
-export const libsAtom = atom<LibWithStands[]>(libs);
+export const libsAtom = atom<LibWithStands[]>([]);
+
+export const libsIsOneLibAtom = atom((ctx) => {
+  const libs = ctx.spy(libsAtom);
+
+  if (libs.length <= 1) {
+    return libs[0];
+  }
+
+  return false;
+});

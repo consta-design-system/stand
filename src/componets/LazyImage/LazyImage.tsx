@@ -15,8 +15,7 @@ export const LazyImagePreseter: React.FC<LazyImageProps> = ({
   className,
 }) => {
   const LazyImage = lazy(
-    () =>
-      import(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}_image_svg.tsx`),
+    () => import(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}.tsx`),
   );
 
   return (

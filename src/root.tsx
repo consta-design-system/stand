@@ -7,7 +7,15 @@ import { RouterProvider } from 'react-router5';
 import { App } from '##/containers/App/App';
 import { AppTheme } from '##/containers/AppTheme';
 import { ctx } from '##/modules/app';
+import { libsAtom } from '##/modules/libs';
+import { mdxComponentsAtom } from '##/modules/mdxComponents';
 import { router } from '##/modules/router';
+// @ts-ignore: При сборке стенды осутствуют
+import { libs } from '##/stands';
+import { components } from '##/typography';
+
+libsAtom(ctx, libs);
+mdxComponentsAtom(ctx, components);
 
 const Root = () => (
   <RouterProvider router={router}>

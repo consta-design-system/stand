@@ -1,6 +1,4 @@
-import { MDXProvider as MDXProviderComponent } from '@mdx-js/react';
 import { MDXComponents } from 'mdx/types';
-import React from 'react';
 
 import { A } from '##/typography/A';
 import { Blockquote } from '##/typography/Blockquote';
@@ -57,12 +55,3 @@ export const components: MDXComponents = {
   tr: Tr,
   thead: Thead,
 };
-
-type Props = {
-  disableParentContext?: boolean;
-  children?: React.ReactNode;
-};
-
-export const MDXProvider = (props: Props) => (
-  <MDXProviderComponent {...props} components={components} />
-);

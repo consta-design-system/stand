@@ -26,13 +26,9 @@
     transition: color 0.15s;
   }
 
-  &:hover:not(&_active) .Text {
-    color: var(--color-typo-link);
-  }
-
   &_active,
   &_active:hover {
-    background: var(--color-typo-link);
+    background: var(--color-control-bg-primary);
   }
 
   &-Label {

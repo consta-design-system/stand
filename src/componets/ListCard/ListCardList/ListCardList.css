@@ -1,0 +1,16 @@
+.stand--ListCardList {
+  display: grid;
+  grid-column-gap: var(--space-2xl);
+  grid-row-gap: var(--space-l);
+  grid-template-columns: 1fr;
+
+  &_desctop {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &-Item {
+    &:not(:last-child) {
+      border-bottom: var(--control-border-width) solid var(--color-bg-border);
+    }
+  }
+}

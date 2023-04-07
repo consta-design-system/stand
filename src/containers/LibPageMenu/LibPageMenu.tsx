@@ -85,7 +85,7 @@ export const LibPageMenu = memo(() => {
       lib: item.lib.id,
     });
 
-  const back = useCallback((e: React.MouseEvent) => {
+  const navigateToBack = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     router.navigate(routesNames.LIBS);
     openPrimaryMenuSetFalse();
@@ -130,10 +130,15 @@ export const LibPageMenu = memo(() => {
   const additionalControls = () => (
     <PortalMenuItem
       href={router.buildPath(routesNames.LIBS_LIB, { lib: lib?.id })}
-      label="Обзор"
       active={route.route.name === routesNames.LIBS_LIB}
       onClick={navigateToReview}
-    />
+      className={cnLibPageMenu('ButtonReview')}
+    >
+      <Text weight="semibold">{lib?.title}</Text>
+      <Text size="s" view="secondary">
+        обзор
+      </Text>
+    </PortalMenuItem>
   );
 
   if (!lib) {
@@ -151,12 +156,12 @@ export const LibPageMenu = memo(() => {
       >
         {libs?.length > 1 && (
           <Text
-            className={cnLibPageMenu('ButtonLibs', [
+            className={cnLibPageMenu('ButtonBack', [
               cnMixSpace({ pH: 'm', pV: 's', mB: 'm' }),
             ])}
             as="a"
             href={router.buildPath(routesNames.LIBS)}
-            onClick={back}
+            onClick={navigateToBack}
             size="s"
             weight="semibold"
           >

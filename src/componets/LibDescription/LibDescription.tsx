@@ -2,7 +2,7 @@ import { Text } from '@consta/uikit/Text';
 import { MDXComponents } from 'mdx/types';
 import React from 'react';
 
-import { components } from '##/containers/MDXProvider';
+import { components } from '##/typography';
 
 type LibDescriptionProps = {
   description?:

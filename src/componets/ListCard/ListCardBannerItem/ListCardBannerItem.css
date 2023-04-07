@@ -1,0 +1,31 @@
+.stand--ListCardBannerItem {
+  background:
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    linear-gradient(90deg, #4d7286 0%, #6287a4 100%);
+  border-radius: var(--control-radius);
+
+  &-Title {
+    display: block;
+  }
+
+  &-Info {
+    display: flex;
+    gap: var(--space-m);
+  }
+
+  &-Description {
+    flex: 1;
+  }
+
+  &-Button.Button.Button_view_secondary,
+  &-Button.Button.Button_view_secondary:hover {
+    flex: none;
+    color: var(--color-typo-primary);
+    border: var(--control-border-width) solid var(--color-typo-primary);
+    align-self: end;
+  }
+}

@@ -144,6 +144,7 @@ const prepareStands = async ({
   standsUrlPath,
   standTabs,
   lazyMdxTemaplatePath,
+  standsConfig,
 }) => {
   await ensureDir(`${standsPath}/lazyDocs/`);
 
@@ -154,11 +155,16 @@ const prepareStands = async ({
   const template = await readFile(standsTemaplatePath, 'utf8');
 
   let imports = '';
-  let stands = 'export const standsGenerated: CreatedStand[] = [\n';
-  let repositoryPaths = 'export const repositoryPaths: string[] = [\n';
-  let lazyIds = 'export const lazyIds: string[] = [\n';
-  let lazyDocsAccess = 'export const lazyAccess: string[] = [\n';
-  let componentsDirs = 'export const componentDirs: string[] = [\n';
+
+  if (standsConfig) {
+    imports += `import '${projectPath}${standsConfig}'\n`;
+  }
+
+  let stands = 'const standsGenerated: CreatedStand[] = [\n';
+  let repositoryPaths = 'const repositoryPaths: string[] = [\n';
+  let lazyIds = 'const lazyIds: string[] = [\n';
+  let lazyDocsAccess = 'const lazyAccess: string[] = [\n';
+  let componentsDirs = 'const componentDirs: string[] = [\n';
 
   standsFiles.forEach(async (fileName, index) => {
     const src = fileName.replace(/\.(ts|tsx)$/, '');

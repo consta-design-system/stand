@@ -8,7 +8,8 @@ export const libIdAtom = atom((ctx) => {
 });
 
 export const libAtom = atom((ctx) => {
-  const libArr = ctx.spy(libsAtom);
   const libId = ctx.spy(libIdAtom);
-  return libId ? libArr.find((item) => item.id === libId) : undefined;
+  const libs = ctx.spy(libsAtom);
+
+  return libId ? libs.find((item) => item.id === libId) : undefined;
 });
