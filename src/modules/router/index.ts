@@ -12,9 +12,9 @@ import browserPlugin from 'router5-plugin-browser';
 import { createRoutes } from '##/createFuctions';
 import { ctx } from '##/modules/app';
 
-export const { routesNames, routes } = createRoutes();
+export const { routesNames, routes, defaultRoute } = createRoutes();
 
-const router = createRouter(routes, { defaultRoute: routesNames.LIBS });
+const router = createRouter(routes, { defaultRoute });
 
 router.usePlugin(browserPlugin(), plugin(ctx));
 

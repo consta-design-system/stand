@@ -1,5 +1,6 @@
 // @ts-ignore: При сборке стенды осутствуют
-import { routes as additionalRoutes } from '##/stands/router';
+
+import { defaultRoute, routes as additionalRoutes } from '##/stands/router';
 
 export type RouterItem = {
   name: string;
@@ -39,5 +40,9 @@ export const createRoutes = () => {
     },
   ];
 
-  return { routesNames, routes };
+  return {
+    routesNames,
+    routes,
+    defaultRoute: defaultRoute || routesNames.LIBS,
+  };
 };
