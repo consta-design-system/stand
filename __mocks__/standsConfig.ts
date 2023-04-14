@@ -1,6 +1,15 @@
 import { libsPageConfig } from '../src';
-import { ListCardList } from '../src/index';
+import { libsMenuConfig, ListCardBanner } from '../src/index';
 import description from './description.mdx';
+
+libsMenuConfig({
+  groups: [
+    {
+      label: 'Отдельные компоненты',
+      initialOpen: true,
+    },
+  ],
+});
 
 libsPageConfig({
   title: 'Обзор',
@@ -8,9 +17,9 @@ libsPageConfig({
   extractLibs: ['portal'],
   groups: [
     {
-      label: 'Портал',
-      renderList: ListCardList,
-      maxCount: 2,
+      label: 'О дизайн-системе',
+      renderList: ListCardBanner,
+      maxCount: 1,
       buttonMore: true,
     },
     {

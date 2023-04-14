@@ -118,12 +118,38 @@ html.Theme.stand--AppTheme {
   background: var(--color-bg-default);
 
   &::-webkit-scrollbar {
-    width: 4;
-    height: 4;
+    width: unset;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: unset;
+    -webkit-border-radius: unset;
+    border-radius: unset;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: unset;
+    -webkit-border-radius: unset;
+    border-radius: unset;
   }
 
   @supports (overflow-y: overlay) {
     overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 4;
+      height: 4;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 4;
+      background-color: var(--color-scroll-thumb);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color-scroll-thumb-hover);
+    }
   }
 
   &_noScroll {
@@ -131,8 +157,52 @@ html.Theme.stand--AppTheme {
   }
 }
 
-.Theme body {
-  &::-webkit-scrollbar-track {
+.Theme.stand--AppTheme body {
+  /* &::-webkit-scrollbar-track {
     background-color: transparent;
+  } */
+
+  /* Scroll bar nav */
+
+  /* &::-webkit-scrollbar {
+    width: unset;
+    height: unset;
+  } */
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: unset;
+    -webkit-border-radius: unset;
+    border-radius: unset;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: unset;
+    -webkit-border-radius: unset;
+    border-radius: unset;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: unset;
+  }
+
+  @supports (scrollbar-gutter: auto) {
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 4;
+      height: 4;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 4;
+      background-color: var(--color-scroll-thumb);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color-scroll-thumb-hover);
+    }
   }
 }

@@ -6,7 +6,7 @@ import { useAction, useAtom } from '@reatom/npm-react';
 import React, { Fragment, useEffect } from 'react';
 
 import { libsIsOneLibAtom } from '##/modules/libs';
-import { libsPageItemsAtom } from '##/modules/libsPage';
+import { libsPageItemsAtom, libsPageTitleAtom } from '##/modules/libsPage';
 import { navigateToAction, routesNames } from '##/modules/router';
 import { cn } from '##/utils/bem';
 
@@ -14,6 +14,7 @@ const cnLibsPage = cn('LibsPage');
 
 export const LibsPage: React.FC = () => {
   const [groups] = useAtom(libsPageItemsAtom);
+  const [title] = useAtom(libsPageTitleAtom);
   const [isOneLib] = useAtom(libsIsOneLibAtom);
   const navigateTo = useAction(navigateToAction);
 
@@ -38,7 +39,7 @@ export const LibsPage: React.FC = () => {
           size="3xl"
           lineHeight="m"
         >
-          Библиотеки
+          {title}
         </Text>
 
         <Text size="m" lineHeight="m" className={cnMixSpace({ mB: '4xl' })}>

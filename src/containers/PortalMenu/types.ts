@@ -61,7 +61,8 @@ export type PortalMenuPropGetGroupLabel<GROUP> = (
   group: GROUP,
 ) => string | undefined;
 export type PortalMenuPropGetGroupInitialOpen<GROUP> = (
-  group: GROUP,
+  group: GROUP | undefined,
+  key: string,
 ) => boolean | undefined;
 
 export type PortalMenuProps<

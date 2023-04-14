@@ -124,3 +124,10 @@ export type ListCardComponent = (props: {
   maxCount?: number;
   buttonMore?: boolean;
 }) => JSX.Element;
+
+export type LibsMenuConfig = {
+  groups?: {
+    label: string;
+    initialOpen: boolean;
+  }[];
+};
