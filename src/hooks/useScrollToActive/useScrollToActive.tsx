@@ -11,7 +11,7 @@ const getElementByHref = (
   prefix?: string,
 ): Element | undefined => {
   return document.querySelectorAll(
-    `${prefix ? `.${prefix}` : ''}[href='${href}']`,
+    `${prefix ? `${prefix}` : ''}[href='${href}']`,
   )[0];
 };
 
@@ -22,7 +22,11 @@ export const useScrollToActive = (timeout = 600) => {
   const [searchHeight] = useAtom(leftSideSearchFieldHeightAtom);
 
   useEffect(() => {
-    const element = getElementByHref(router.getState().path);
+    const element = getElementByHref(
+      router.getState().path,
+      '.stand--PortalMenu ',
+    );
+
     const elementRects = element?.getClientRects()[0];
     const elementTop = elementRects?.top || 0;
     const elementHeight = elementRects?.height || 0;

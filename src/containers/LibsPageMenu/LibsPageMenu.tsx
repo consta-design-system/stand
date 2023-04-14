@@ -4,9 +4,9 @@ import React, { memo, useCallback } from 'react';
 import { useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
-import { useScrollToActive } from '##/hooks/useScrollToActive';
 import { openLeftSideAtom } from '##/modules/layout';
 import { libsAtom } from '##/modules/libs';
+import { libsPageMenuCollapsedConfigAtom } from '##/modules/libsPage';
 import { routesNames } from '##/modules/router';
 import { LibWithStands } from '##/types';
 
@@ -15,10 +15,9 @@ const getItemGroupId = (item: { group?: string }) => item.group;
 
 export const LibsPageMenu = memo(() => {
   const [libs] = useAtom(libsAtom);
+  const [collapsedConfig] = useAtom(libsPageMenuCollapsedConfigAtom);
   const openPrimaryMenuSetFalse = useAction(openLeftSideAtom.setFalse);
   const router = useRouter();
-
-  useScrollToActive();
 
   const onItemClick = useCallback(
     ({ e, item }: { e: React.MouseEvent; item: LibWithStands }) => {
@@ -37,6 +36,13 @@ export const LibsPageMenu = memo(() => {
     });
   }, []);
 
+  const getGroupInitialOpen = useCallback(
+    (_: any, key: string) => {
+      return Boolean(collapsedConfig[key]);
+    },
+    [collapsedConfig],
+  );
+
   return (
     <PortalMenu
       className={cnMixSpace({ pH: 'm' })}
@@ -46,6 +52,7 @@ export const LibsPageMenu = memo(() => {
       getItemHref={getItemHref}
       onItemClick={onItemClick}
       groupsByItems
+      getGroupInitialOpen={getGroupInitialOpen}
     />
   );
 });

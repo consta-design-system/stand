@@ -5,9 +5,9 @@ import { IconGitHub } from '@consta/icons/IconGitHub';
 import { Button } from '@consta/uikit/Button';
 import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
 import { useTheme } from '@consta/uikit/Theme';
-import { useAtom } from '@reatom/npm-react';
-import React, { useEffect, useMemo } from 'react';
-import { useRoute, useRouter } from 'react-router5';
+import { useAction, useAtom } from '@reatom/npm-react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { navigateToAction, routerAtom } from 'reatom-router5';
 
 import { useStand } from '##/containers/StandPage/helpers';
 import IconFigma from '##/icons/Figma.icon.svg';
@@ -24,8 +24,8 @@ type Props = {
 const cnStandPageNavigation = cn('StandPageNavigation');
 
 export const StandPageNavigation = ({ className }: Props) => {
-  const router = useRouter();
-  const route = useRoute();
+  const navigateTo = useAction(navigateToAction);
+  const [router] = useAtom(routerAtom);
   const stand = useStand();
 
   const navigationList = useNavigationList();
@@ -36,11 +36,11 @@ export const StandPageNavigation = ({ className }: Props) => {
     () =>
       navigationList.find((item) => {
         if (item.id) {
-          return item.id === route.route.params.tab;
+          return item.id === router.route?.params.tab;
         }
-        return routesNames.LIBS_LIB_STAND === route.route.name;
+        return routesNames.LIBS_LIB_STAND === router.route?.name;
       }) as NavigationItem,
-    [route],
+    [router],
   );
 
   const codesandbox = stand?.stand.sandbox;
@@ -49,24 +49,39 @@ export const StandPageNavigation = ({ className }: Props) => {
 
   const hasLinks = codesandbox || figma || github;
 
-  const handleClick = ({ value }: { value: NavigationItem }) => {
+  const handleClick = useCallback(({ value }: { value: NavigationItem }) => {
     if (value.id) {
-      router.navigate(routesNames.LIBS_LIB_STAND_TAB, {
-        stand: stand?.id,
-        lib: stand?.lib.id,
-        tab: value.id,
+      navigateTo({
+        name: routesNames.LIBS_LIB_STAND_TAB,
+        params: {
+          stand: stand?.id,
+          lib: stand?.lib.id,
+          tab: value.id,
+        },
       });
     } else {
-      router.navigate(routesNames.LIBS_LIB_STAND, {
-        stand: stand?.id,
-        lib: stand?.lib.id,
+      navigateTo({
+        name: routesNames.LIBS_LIB_STAND,
+        params: {
+          stand: stand?.id,
+          lib: stand?.lib.id,
+        },
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (navigationList.length === 1) {
-      handleClick({ value: navigationList[0] });
+    if (
+      navigationList.length === 1 &&
+      router.route?.name !== routesNames.LIBS_LIB_STAND
+    ) {
+      navigateTo({
+        name: routesNames.LIBS_LIB_STAND,
+        params: {
+          stand: stand?.id,
+          lib: stand?.lib.id,
+        },
+      });
     }
   }, [stand?.id]);
 

@@ -119,11 +119,11 @@ export const LibPageMenu = memo(() => {
     });
   }, []);
 
-  const getGroupIsOpen = (group: Group) => {
+  const getGroupIsOpen = (group: Group | undefined) => {
     return !!visibleList.find(
       (item) =>
-        (item.stand.group === group.id && getItemActive(item)) ||
-        group.initialOpen,
+        (item.stand.group === group?.id && getItemActive(item)) ||
+        group?.initialOpen,
     );
   };
 

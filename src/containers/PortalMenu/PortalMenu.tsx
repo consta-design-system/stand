@@ -73,7 +73,11 @@ const PortalMenuRender = <ITEM = DefaultMenuItem, GROUP = DefaultMenuGroup>(
                 <PortalMenuGroup
                   key={cnPortalMenu('Group', { groupIndex })}
                   items={items}
-                  initialOpen={group ? getGroupInitialOpen(group) : true}
+                  initialOpen={
+                    getGroupInitialOpen
+                      ? getGroupInitialOpen(group, key.toString())
+                      : true
+                  }
                   label={group ? getGroupLabel(group) : key.toString()}
                   onItemClick={onItemClick}
                   getItemActive={getItemActive}

@@ -4,7 +4,6 @@ import React from 'react';
 import {
   DefaultMenuGroup,
   DefaultMenuItem,
-  PortalMenuPropGetGroupInitialOpen,
   PortalMenuPropGetGroupKey,
   PortalMenuPropGetGroupLabel,
   PortalMenuPropGetItemActive,
@@ -40,9 +39,6 @@ export const defaultGetGroupKey: PortalMenuPropGetGroupKey<DefaultMenuGroup> = (
 export const defaultGetGroupLabel: PortalMenuPropGetGroupLabel<
   DefaultMenuGroup
 > = (item) => item.label;
-export const defaultGetGroupInitialOpen: PortalMenuPropGetGroupInitialOpen<
-  DefaultMenuGroup
-> = (item) => item.initialOpen;
 
 export function withDefaultGetters<
   ITEM = DefaultMenuItem,
@@ -57,7 +53,5 @@ export function withDefaultGetters<
     getItemHref: props.getItemHref ?? defaultGetItemHref,
     getGroupKey: props.getGroupKey ?? defaultGetGroupKey,
     getGroupLabel: props.getGroupLabel ?? defaultGetGroupLabel,
-    getGroupInitialOpen:
-      props.getGroupInitialOpen ?? defaultGetGroupInitialOpen,
   };
 }

@@ -4,7 +4,7 @@ import { reatomBoolean } from '@reatom/primitives';
 export const openLeftSideAtom = reatomBoolean();
 export const openRightSideAtom = reatomBoolean();
 
-export const headerHeightAtom = atom(60);
+export const headerHeightAtom = atom(0);
 export const headerHeightAtomSet = action((ctx, value: number) =>
   headerHeightAtom(ctx, value),
 );

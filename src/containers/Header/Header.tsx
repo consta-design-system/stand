@@ -56,6 +56,10 @@ export const Header = memo(() => {
 
   useEffect(() => {
     setHeaderHeight(height);
+
+    return () => {
+      setHeaderHeight(0);
+    };
   }, [height]);
 
   return (

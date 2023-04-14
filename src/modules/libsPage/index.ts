@@ -4,7 +4,10 @@ import { atom } from '@reatom/core';
 import { ListCardBig, ListCardMini } from '##/componets/ListCard';
 import { libsAtom } from '##/modules/libs';
 import { routesNames } from '##/modules/router';
-import { libsPageConfigAtom } from '##/modules/standsConfigs';
+import {
+  libsMenuConfigAtom,
+  libsPageConfigAtom,
+} from '##/modules/standsConfigs';
 import {
   LibsPageConfigGroup,
   LibWithStands,
@@ -177,4 +180,25 @@ export const libsPageItemsAtom = atom((ctx) => {
   const config = ctx.spy(configAtom);
 
   return getExtractedLibs(libs, config[0], config[1]);
+});
+
+export const libsPageTitleAtom = atom((ctx) => {
+  const config = ctx.spy(libsPageConfigAtom);
+  return config.title;
+});
+
+export const libsPageMenuCollapsedConfigAtom = atom((ctx) => {
+  const { groups } = ctx.spy(libsMenuConfigAtom);
+  const groupsConfig: Record<string, boolean> = {};
+
+  if (!groups) {
+    return groupsConfig;
+  }
+
+  for (let index = 0; index < groups.length; index++) {
+    const element = groups[index];
+    groupsConfig[element.label] = element.initialOpen;
+  }
+
+  return groupsConfig;
 });
