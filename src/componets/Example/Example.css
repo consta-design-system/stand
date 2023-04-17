@@ -1,7 +1,6 @@
 .stand--Example {
   --example-grid-gap: 0;
   position: relative;
-  margin-bottom: var(--space-l);
 
   &_display {
     &_grid {

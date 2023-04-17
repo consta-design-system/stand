@@ -1,4 +1,9 @@
-export const theme: Record<string, React.CSSProperties> = {
+import { Dimension } from '##/modules/dimension';
+import { getSizeFromDimension } from '##/utils/typographySize';
+
+export const getTheme = (
+  dimension: Dimension,
+): Record<string, React.CSSProperties> => ({
   'code[class*="language-"]': {
     color: 'var(--color-typo-primary)',
     background: 'none',
@@ -9,8 +14,9 @@ export const theme: Record<string, React.CSSProperties> = {
     wordSpacing: 'normal',
     wordBreak: 'normal',
     wordWrap: 'normal',
-    fontSize: 'var(--size-text-m)',
+    fontSize: `var(--size-text-${getSizeFromDimension('s', dimension)})`,
     lineHeight: 'var(--line-height-text-m)',
+    fontWeight: 'var(--font-weight-text-medium)',
     MozTabSize: 'var(--space-2xs)',
     OTabSize: 'var(--space-2xs)',
     tabSize: 'var(--space-2xs)',
@@ -29,8 +35,9 @@ export const theme: Record<string, React.CSSProperties> = {
     wordSpacing: 'normal',
     wordBreak: 'normal',
     wordWrap: 'normal',
-    fontSize: 'var(--size-text-m)',
+    fontSize: `var(--size-text-${getSizeFromDimension('s', dimension)})`,
     lineHeight: 'var(--line-height-text-m)',
+    fontWeight: 'var(--font-weight-text-medium)',
     MozTabSize: 'var(--space-2xs)',
     OTabSize: 'var(--space-2xs)',
     tabSize: 'var(--space-2xs)',
@@ -40,7 +47,6 @@ export const theme: Record<string, React.CSSProperties> = {
     hyphens: 'none',
     padding:
       'var(--space-m) calc(var(--space-m) * 2 + var(--space-xl)) var(--space-m) var(--space-m)',
-    margin: '.5em 0',
     overflow: 'auto',
     borderRadius: 'var(--control-radius)',
   },
@@ -187,4 +193,4 @@ export const theme: Record<string, React.CSSProperties> = {
   'italic': {
     fontStyle: 'italic',
   },
-};
+});

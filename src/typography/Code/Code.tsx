@@ -4,6 +4,7 @@ import { IconAllDone } from '@consta/icons/IconAllDone';
 import { IconCopy } from '@consta/icons/IconCopy';
 import { cnMixFocus } from '@consta/uikit/MixFocus';
 import { useFlag } from '@consta/uikit/useFlag';
+import { useAtom } from '@reatom/npm-react';
 import React, { useRef } from 'react';
 import { PrismLight as Highlight } from 'react-syntax-highlighter';
 import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
@@ -12,10 +13,11 @@ import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
 import { CSSTransition } from 'react-transition-group';
 
+import { dimensionAtom } from '##/modules/dimension';
 import { cn } from '##/utils/bem';
 import { cnForCssTransition } from '##/utils/cnForCssTransition';
 
-import { theme } from './theme';
+import { getTheme } from './theme';
 
 Highlight.registerLanguage('css', css);
 Highlight.registerLanguage('json', json);
@@ -105,12 +107,14 @@ export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
     setTimeout(setCopied.off, 2000);
   };
 
+  const [dimension] = useAtom(dimensionAtom);
+
   if (className) {
     return (
       <div className={cnCode(null, [className])}>
         <Highlight
           {...otherProps}
-          style={theme}
+          style={getTheme(dimension)}
           language={getLanguage(className)}
           className={className}
         >

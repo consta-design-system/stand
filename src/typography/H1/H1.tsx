@@ -1,8 +1,11 @@
 import { Text } from '@consta/uikit/Text';
+import { useAtom } from '@reatom/npm-react';
 import React, { useRef } from 'react';
 
 import { CopyButton } from '##/componets/CopyButton';
 import { useHeader } from '##/hooks/useHeader';
+import { dimensionAtom } from '##/modules/dimension';
+import { getSizeFromDimension } from '##/utils/typographySize';
 
 import { cnH } from '../H';
 
@@ -12,13 +15,15 @@ export const H1 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
   const ref = useRef<HTMLHeadingElement>(null);
   const { id, label } = useHeader(children, ref);
 
+  const [dimension] = useAtom(dimensionAtom);
+
   return (
     <Text
       ref={ref}
       className={cnH()}
       id={props.id ?? id}
       as="h1"
-      size="2xl"
+      size={getSizeFromDimension('2xl', dimension)}
       weight="bold"
       lineHeight="m"
       {...otherProps}

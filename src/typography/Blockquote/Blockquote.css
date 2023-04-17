@@ -3,8 +3,6 @@
   padding:
     calc(var(--space-s) - var(--space-3xs)) 0
     calc(var(--space-s) - var(--space-3xs)) var(--space-m);
-  font-size: var(--size-text-m);
-  line-height: var(--line-height-text-m);
 
   &::before {
     content: '';

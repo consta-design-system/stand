@@ -1,10 +1,14 @@
 import './LazyDocs.css';
 
 import { ProgressSpin } from '@consta/uikit/ProgressSpin';
+import { useAtom } from '@reatom/npm-react';
 import React, { lazy, memo, Suspense } from 'react';
 
 import { ErrorBoundary } from '##/componets/ErrorBoundary';
+import { dimensionAtom } from '##/modules/dimension';
 import { cn } from '##/utils/bem';
+
+import { createGapMap } from './helper';
 
 const cnLazyDocs = cn('LazyDocs');
 
@@ -23,8 +27,10 @@ export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
       import(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}_stand_mdx.tsx`),
   );
 
+  const [dimension] = useAtom(dimensionAtom);
+
   return (
-    <div className={cnLazyDocs()}>
+    <div className={cnLazyDocs()} style={createGapMap(dimension)}>
       <Suspense fallback={<FallbackLoading />}>
         <Docs />
       </Suspense>
