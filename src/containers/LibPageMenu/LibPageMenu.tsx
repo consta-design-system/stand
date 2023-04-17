@@ -157,7 +157,7 @@ export const LibPageMenu = memo(() => {
         {libs?.length > 1 && (
           <Text
             className={cnLibPageMenu('ButtonBack', [
-              cnMixSpace({ pH: 'm', pV: 's', mB: 'm' }),
+              cnMixSpace({ pH: 'm', pV: 's' }),
             ])}
             as="a"
             href={router.buildPath(routesNames.LIBS)}
@@ -177,7 +177,7 @@ export const LibPageMenu = memo(() => {
         )}
         <PortalMenu
           items={visibleList}
-          className={cnMixSpace({ pH: 'm' })}
+          className={cnMixSpace({ pH: 'm', pT: 'm' })}
           groups={lib.groups as Group[]}
           additionalControls={additionalControls()}
           getItemLabel={getItemLabel}
