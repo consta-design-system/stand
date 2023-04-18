@@ -3,13 +3,19 @@ import './StandPageHeaderInfo.css';
 import { IconAlert } from '@consta/icons/IconAlert';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
+import { useAtom } from '@reatom/npm-react';
 import React, { useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
 import { Link } from '##/componets/Link';
+import { dimensionAtom } from '##/modules/dimension';
 import { routesNames } from '##/modules/router';
 import { Stand } from '##/types';
 import { cn } from '##/utils/bem';
+import {
+  getSizeFromDimension,
+  getSpaceFromDimension,
+} from '##/utils/typographySize';
 
 import { getOthersVersion } from '../../helpers';
 
@@ -93,6 +99,7 @@ export const StandPageHeaderInfo = (props: Props) => {
   const view = iconViewMap[stand.status ?? 'stable'];
 
   const route = useRoute();
+  const [dimension] = useAtom(dimensionAtom);
 
   const info = useMemo(
     () => getInfo(stand, route.route.params.lib as string),
@@ -120,15 +127,19 @@ export const StandPageHeaderInfo = (props: Props) => {
         ])}
       />
       <div className={cnStandPageHeaderInfo('Content')}>
-        <Text weight="bold" size="s" lineHeight="xs">
+        <Text
+          weight="bold"
+          size={getSizeFromDimension('s', dimension)}
+          lineHeight="xs"
+        >
           {title}
         </Text>
         {description && (
           <Text
-            size="s"
+            size={getSizeFromDimension('s', dimension)}
             lineHeight="m"
             className={cnStandPageHeaderInfo('Description', [
-              cnMixSpace({ mT: 'xs' }),
+              cnMixSpace({ mT: getSpaceFromDimension('xs', dimension) }),
             ])}
           >
             {description}
