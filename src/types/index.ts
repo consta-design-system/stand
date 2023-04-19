@@ -95,6 +95,8 @@ export type LibsPageConfigGroup = {
   maxCount?: number;
   buttonMore?: boolean;
   hiddenLabel?: boolean;
+  initialOpen?: boolean;
+  sortOrder?: number;
 };
 
 export type LibsPageConfig = {
@@ -123,11 +125,4 @@ export type ListCardComponent = (props: {
   className?: string;
   maxCount?: number;
   buttonMore?: boolean;
-}) => JSX.Element;
-
-export type LibsMenuConfig = {
-  groups?: {
-    label: string;
-    initialOpen: boolean;
-  }[];
-};
+}) => JSX.Element | null;

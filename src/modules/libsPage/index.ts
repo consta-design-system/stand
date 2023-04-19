@@ -4,10 +4,7 @@ import { atom } from '@reatom/core';
 import { ListCardBig, ListCardMini } from '##/componets/ListCard';
 import { libsAtom } from '##/modules/libs';
 import { routesNames } from '##/modules/router';
-import {
-  libsMenuConfigAtom,
-  libsPageConfigAtom,
-} from '##/modules/standsConfigs';
+import { libsPageConfigAtom } from '##/modules/standsConfigs';
 import {
   LibsPageConfigGroup,
   LibWithStands,
@@ -15,7 +12,7 @@ import {
   PreparedStand,
 } from '##/types';
 
-type Item = {
+export type Item = {
   label: string;
   routeName: string;
   routeParams: {};
@@ -27,20 +24,46 @@ type Item = {
   lazyImage?: string;
 };
 
-type Group = {
-  label?: string;
+export type Group = {
+  label: string;
   description?: string;
   items: Item[];
   renderList: ListCardComponent;
   visibleLabel?: boolean;
   maxCount: number | undefined;
   buttonMore: boolean | undefined;
+  initialOpen: boolean | undefined;
+  sortOrder: number | undefined;
 };
+
+export type ItemWithGroup = Item & { group: Group };
 
 const getStandGroup = (stand: PreparedStand) =>
   stand.lib.groups.find((group) => group.id === stand.stand.group);
 
 const defaultGroupLabel = 'no-group';
+
+const sort = (
+  a: { sortOrder?: number; label: string },
+  b: { sortOrder?: number; label: string },
+) => {
+  if (a.sortOrder && b.sortOrder) {
+    return a.sortOrder - b.sortOrder;
+  }
+  if (a.sortOrder) {
+    return -1;
+  }
+  if (b.sortOrder) {
+    return 1;
+  }
+  if (a.label < b.label) {
+    return -1;
+  }
+  if (a.label > b.label) {
+    return 1;
+  }
+  return 0;
+};
 
 const addToGroup = (
   groups: Group[],
@@ -51,6 +74,8 @@ const addToGroup = (
   maxCount: number | undefined,
   buttonMore: boolean | undefined,
   hiddenLabel: boolean | undefined,
+  initialOpen: boolean | undefined,
+  sortOrder: number | undefined,
 ) => {
   const groupLabel = label || defaultGroupLabel;
 
@@ -69,6 +94,8 @@ const addToGroup = (
       visibleLabel: !hiddenLabel && groupLabel !== defaultGroupLabel,
       maxCount,
       buttonMore,
+      initialOpen,
+      sortOrder,
     };
     groups.push(group);
   }
@@ -122,6 +149,8 @@ const getExtractedLibs = (
           config?.maxCount,
           config?.buttonMore,
           config?.hiddenLabel,
+          config?.initialOpen,
+          config?.sortOrder,
         );
       }
     } else {
@@ -146,11 +175,13 @@ const getExtractedLibs = (
         config?.maxCount,
         config?.buttonMore,
         config?.hiddenLabel,
+        config?.initialOpen,
+        config?.sortOrder,
       );
     }
   }
 
-  return groups;
+  return groups.sort(sort);
 };
 
 const configAtom = atom((ctx) => {
@@ -187,8 +218,13 @@ export const libsPageTitleAtom = atom((ctx) => {
   return config.title;
 });
 
+export const libsPageDescriptionAtom = atom((ctx) => {
+  const config = ctx.spy(libsPageConfigAtom);
+  return config.description;
+});
+
 export const libsPageMenuCollapsedConfigAtom = atom((ctx) => {
-  const { groups } = ctx.spy(libsMenuConfigAtom);
+  const { groups } = ctx.spy(libsPageConfigAtom);
   const groupsConfig: Record<string, boolean> = {};
 
   if (!groups) {
@@ -197,8 +233,24 @@ export const libsPageMenuCollapsedConfigAtom = atom((ctx) => {
 
   for (let index = 0; index < groups.length; index++) {
     const element = groups[index];
-    groupsConfig[element.label] = element.initialOpen;
+    groupsConfig[element.label] = element.initialOpen || false;
   }
 
   return groupsConfig;
+});
+
+export const libsPageMenuItemAtom = atom((ctx) => {
+  const groups = ctx.spy(libsPageItemsAtom);
+
+  const items: ItemWithGroup[] = [];
+
+  for (let index = 0; index < groups.length; index++) {
+    const group = groups[index];
+    for (let index = 0; index < group.items.length; index++) {
+      const element = group.items[index];
+      items.push({ ...element, group });
+    }
+  }
+
+  return items;
 });

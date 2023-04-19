@@ -65,6 +65,10 @@ export const ListCardList: ListCardComponent = ({
   const { desctop } = useComponentBreakpoints(ref, { desctop: 800 });
   const [col1, col2] = getColumns(shortItems, desctop);
 
+  if (maxCount === 0) {
+    return null;
+  }
+
   return (
     <div ref={ref} className={cnListCardBox(null, [className])}>
       <div ref={ref} className={cnListCardList({ desctop })}>

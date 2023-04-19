@@ -1,15 +1,6 @@
 import { libsPageConfig } from '../src';
-import { libsMenuConfig, ListCardBanner } from '../src/index';
+import { ListCardBanner } from '../src/index';
 import description from './description.mdx';
-
-libsMenuConfig({
-  groups: [
-    {
-      label: 'Отдельные компоненты',
-      initialOpen: true,
-    },
-  ],
-});
 
 libsPageConfig({
   title: 'Обзор',
@@ -19,24 +10,26 @@ libsPageConfig({
     {
       label: 'О дизайн-системе',
       renderList: ListCardBanner,
-      maxCount: 1,
-      buttonMore: true,
-    },
-    {
-      label: 'О дизайн-системе',
-      maxCount: 1,
-      buttonMore: false,
+      maxCount: 0,
+      sortOrder: 1,
       hiddenLabel: true,
     },
     {
       label: 'Основные библиотеки',
       maxCount: 2,
       buttonMore: true,
+      initialOpen: true,
+      sortOrder: 3,
     },
     {
       label: 'Как работать с Consta',
       maxCount: 2,
       buttonMore: true,
+      sortOrder: 4,
+    },
+    {
+      label: 'Портал',
+      sortOrder: 4000,
     },
   ],
 });

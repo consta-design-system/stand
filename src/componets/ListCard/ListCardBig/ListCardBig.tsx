@@ -19,6 +19,10 @@ export const ListCardBig: ListCardComponent = ({
     buttonMore,
   );
 
+  if (maxCount === 0) {
+    return null;
+  }
+
   return (
     <div className={cnListCardBox(null, [className])}>
       <div className={cnListCardBox('List', { adaptive: true })}>
