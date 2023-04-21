@@ -3,6 +3,7 @@ import { State } from 'router5';
 
 import { routerAtom, routesNames } from '##/modules/router';
 import { standsAtom } from '##/modules/stands';
+import { PreparedStand } from '##/types';
 import { generateStandId } from '##/utils/generateStandId';
 
 export const standAtom = atom((ctx) => {
@@ -16,9 +17,7 @@ export const standAtom = atom((ctx) => {
   return stand;
 });
 
-export const componentRepositoryUrlAtom = atom((ctx) => {
-  const stand = ctx.spy(standAtom);
-
+export const getComponentRepositoryUrl = (stand: PreparedStand | undefined) => {
   if (!stand) {
     return;
   }
@@ -34,6 +33,11 @@ export const componentRepositoryUrlAtom = atom((ctx) => {
     `${repositoryUrl}/tree/master/${componentDir}`;
 
   return componentUrl;
+};
+
+export const componentRepositoryUrlAtom = atom((ctx) => {
+  const stand = ctx.spy(standAtom);
+  return getComponentRepositoryUrl(stand);
 });
 
 export const getDocsUrl = (
