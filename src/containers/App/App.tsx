@@ -1,5 +1,6 @@
+import { getLastPoint, useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useAtom } from '@reatom/npm-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
 
@@ -11,9 +12,8 @@ import { Menu } from '##/containers/Menu';
 import { Pages } from '##/containers/Pages';
 import { SideLinks } from '##/containers/SideLinks';
 import { VariantsPage } from '##/containers/VariantsPage';
-import { useDimension } from '##/hooks/useDimension';
 import { useIframeSubscribe } from '##/hooks/useIframeSubscribe';
-import { dimensionAtom } from '##/modules/dimension';
+import { dimensionAtom, dimensionMap } from '##/modules/dimension';
 import { pageAtom } from '##/modules/pages';
 import { routesNames } from '##/modules/router';
 
@@ -30,12 +30,17 @@ const CustomPage = () => {
 export const App: React.FC = () => {
   const { route } = useRoute();
   const testStartsWithSegment = startsWithSegment(route.name);
-  const [dimension] = useAtom(dimensionAtom);
+  const [dimension, setDimension] = useAtom(dimensionAtom);
+
+  const deviceType = getLastPoint(useBreakpoints(dimensionMap));
+
+  useEffect(() => {
+    setDimension(deviceType ?? 'desktop');
+  }, [deviceType]);
 
   const DesktopHeader = dimension === 'desktop' ? LeftSideHeader : () => null;
 
   useIframeSubscribe();
-  useDimension();
 
   if (route.name === routesNames.LIBS_VARIANTS) {
     return <VariantsPage />;

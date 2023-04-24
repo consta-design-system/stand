@@ -17,7 +17,7 @@ export type Gap =
   | '5xl'
   | '6xl';
 
-export const spaceSizeMMap: Record<Gap, Gap> = {
+export const gapSizeMMap: Record<Gap, Gap> = {
   '3xs': '3xs',
   '2xs': '2xs',
   'xs': 'xs',
@@ -46,7 +46,7 @@ export const textSizeMMap: Record<TextPropSize, TextPropSize> = {
   '6xl': '6xl',
 };
 
-export const spaceSizeSMap: Record<Gap, Gap> = {
+export const gapSizeSMap: Record<Gap, Gap> = {
   '3xs': '3xs',
   '2xs': '3xs',
   'xs': '2xs',
@@ -82,7 +82,7 @@ export const getSpaceFromDimension = (
   if (space === 'auto' || space === 0) {
     return space;
   }
-  return (dimension === 'mobile' ? spaceSizeSMap : spaceSizeMMap)[space];
+  return (dimension === 'mobile' ? gapSizeSMap : gapSizeMMap)[space];
 };
 
 export const getSizeFromDimension = (

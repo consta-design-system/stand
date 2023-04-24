@@ -1,8 +1,9 @@
 import './DocLayout.css';
 
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
+import { dimensionAtom } from '##/modules/dimension';
 import { cn } from '##/utils/bem';
 
 import { DocLayoutLeftSide } from './DocLayoutLeftSide';
@@ -16,13 +17,11 @@ export const DocLayout: React.FC<{
   rightSide?: React.ReactNode;
   header?: React.ReactNode;
 }> = (props) => {
-  const breakpoints = useBreakpoints({
-    l: 1242,
-  });
+  const [dimension] = useAtom(dimensionAtom);
 
   return (
     <div className={cnDocLayout()}>
-      {!breakpoints.l && (
+      {dimension !== 'desktop' && (
         <div className={cnDocLayout('Header')}>{props.header}</div>
       )}
       <DocLayoutLeftSide>{props.leftSide}</DocLayoutLeftSide>
