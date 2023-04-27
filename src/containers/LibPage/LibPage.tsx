@@ -7,6 +7,7 @@ import React from 'react';
 import { LibDescription } from '##/componets/LibDescription';
 import { ListCardMini } from '##/componets/ListCard';
 import { routesNames } from '##/modules/router';
+import { getComponentRepositoryUrl } from '##/modules/stand';
 import { ListCardItem } from '##/types';
 import { cn } from '##/utils/bem';
 
@@ -45,7 +46,7 @@ export const LibPage: React.FC = () => {
             routeParams: { lib: stand.lib.id, stand: stand.id },
             icon: stand.stand.icon,
             figmaUrl: stand.stand.figma,
-            repositoryUrl: stand.stand.github,
+            repositoryUrl: getComponentRepositoryUrl(stand),
             status: stand.stand.status,
             lazyImage: stand.lazyAccess.image
               ? `${stand.path}_image_svg`

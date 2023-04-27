@@ -11,7 +11,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   transform: translateX(100%);
 
-  @media screen and (min-width: 1242px) {
+  &_breakpointL {
     transform:
       translateX(
         calc(var(--doc-layout-side-width) - var(--doc-layout-mini-side-width))
@@ -20,14 +20,14 @@
 
   &_open {
     transform: translateX(0);
+  }
 
-    @media screen and (min-width: 1242px) {
-      box-shadow: var(--shadow-modal);
-    }
+  &_open.stand--DocLayoutRightSide_breakpointL {
+    box-shadow: var(--shadow-modal);
+  }
 
-    @media screen and (min-width: 1440px) {
-      box-shadow: var(--doc-layout-shadow-none);
-    }
+  &_open.stand--DocLayoutRightSide_breakpointXl {
+    box-shadow: var(--doc-layout-shadow-none);
   }
 
   &_position {

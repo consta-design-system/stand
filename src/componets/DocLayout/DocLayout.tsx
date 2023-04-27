@@ -6,6 +6,7 @@ import React from 'react';
 import { dimensionAtom } from '##/modules/dimension';
 import { cn } from '##/utils/bem';
 
+// import { createMods } from '##/utils/createMods';
 import { DocLayoutLeftSide } from './DocLayoutLeftSide';
 import { DocLayoutRightSide } from './DocLayoutRightSide';
 
@@ -18,6 +19,12 @@ export const DocLayout: React.FC<{
   header?: React.ReactNode;
 }> = (props) => {
   const [dimension] = useAtom(dimensionAtom);
+
+  // const breakpoints = useBreakpoints({
+  //   s: 680,
+  //   m: 1254,
+  //   l: 1440,
+  // });
 
   return (
     <div className={cnDocLayout()}>

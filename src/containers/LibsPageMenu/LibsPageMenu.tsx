@@ -5,35 +5,34 @@ import { useRouter } from 'react-router5';
 
 import { PortalMenu } from '##/containers/PortalMenu';
 import { openLeftSideAtom } from '##/modules/layout';
-import { libsAtom } from '##/modules/libs';
-import { libsPageMenuCollapsedConfigAtom } from '##/modules/libsPage';
-import { routesNames } from '##/modules/router';
-import { LibWithStands } from '##/types';
+import {
+  ItemWithGroup as Item,
+  libsPageMenuCollapsedConfigAtom,
+  libsPageMenuItemAtom,
+} from '##/modules/libsPage';
 
-const getItemLabel = (item: { title: string }) => item.title;
-const getItemGroupId = (item: { group?: string }) => item.group;
+const getItemLabel = (item: Item) => item.label;
+const getItemGroupId = (item: Item) => item.group.label;
 
 export const LibsPageMenu = memo(() => {
-  const [libs] = useAtom(libsAtom);
+  const [ddd] = useAtom(libsPageMenuItemAtom);
+
   const [collapsedConfig] = useAtom(libsPageMenuCollapsedConfigAtom);
+
   const openPrimaryMenuSetFalse = useAction(openLeftSideAtom.setFalse);
   const router = useRouter();
 
   const onItemClick = useCallback(
-    ({ e, item }: { e: React.MouseEvent; item: LibWithStands }) => {
+    ({ e, item }: { e: React.MouseEvent; item: Item }) => {
       e.preventDefault();
-      router.navigate(routesNames.LIBS_LIB, {
-        lib: item.id,
-      });
+      router.navigate(item.routeName, item.routeParams);
       openPrimaryMenuSetFalse();
     },
     [],
   );
 
-  const getItemHref = useCallback((item: LibWithStands) => {
-    return router.buildPath(routesNames.LIBS_LIB, {
-      lib: item.id,
-    });
+  const getItemHref = useCallback((item: Item) => {
+    return router.buildPath(item.routeName, item.routeParams);
   }, []);
 
   const getGroupInitialOpen = useCallback(
@@ -46,7 +45,7 @@ export const LibsPageMenu = memo(() => {
   return (
     <PortalMenu
       className={cnMixSpace({ pH: 'm' })}
-      items={libs}
+      items={ddd}
       getItemLabel={getItemLabel}
       getItemGroupId={getItemGroupId}
       getItemHref={getItemHref}

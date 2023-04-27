@@ -99,6 +99,7 @@ export const ListCardBigItem = ({
               iconSize="m"
               as="a"
               href={figmaUrl}
+              target="_blank"
             />
           )}
           {repositoryUrl && (
@@ -110,6 +111,7 @@ export const ListCardBigItem = ({
               iconSize="m"
               as="a"
               href={repositoryUrl}
+              target="_blank"
             />
           )}
         </div>
