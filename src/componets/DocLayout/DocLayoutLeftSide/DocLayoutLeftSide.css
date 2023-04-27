@@ -13,20 +13,10 @@
   transition: transform 0.2s, box-shadow 0.2s;
   transform: translateX(calc(var(--doc-layout-side-width) * -1));
 
-  @media screen and (min-width: 1242px) {
+  &_breakpointL {
     z-index: auto;
     transform: translateX(0);
   }
-
-  /* &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-
-    @media screen and (min-width: 1024px) {
-      width: 8;
-      height: 8;
-    }
-  } */
 
   &_open {
     box-shadow: var(--shadow-modal);

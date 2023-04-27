@@ -4,6 +4,7 @@ import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import React from 'react';
 
 import { cn } from '##/utils/bem';
+import { createMods } from '##/utils/createMods';
 
 import { DocLayoutLeftSide } from './DocLayoutLeftSide';
 import { DocLayoutRightSide } from './DocLayoutRightSide';
@@ -17,12 +18,14 @@ export const DocLayout: React.FC<{
   header?: React.ReactNode;
 }> = (props) => {
   const breakpoints = useBreakpoints({
-    l: 1242,
+    s: 680,
+    m: 1254,
+    l: 1440,
   });
 
   return (
-    <div className={cnDocLayout()}>
-      {!breakpoints.l && (
+    <div className={cnDocLayout(createMods(breakpoints))}>
+      {!breakpoints.m && (
         <div className={cnDocLayout('Header')}>{props.header}</div>
       )}
       <DocLayoutLeftSide>{props.leftSide}</DocLayoutLeftSide>

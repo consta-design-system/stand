@@ -21,11 +21,11 @@
   min-height: 100vh;
   background: var(--color-bg-default);
 
-  @media screen and (min-width: 680px) {
+  &_breakpointS {
     --doc-layout-content-padding-standart: var(--space-2xl);
   }
 
-  @media screen and (min-width: 1242px) {
+  &_breakpointM {
     --doc-layout-content-padding-left:
       calc(
         var(--doc-layout-content-padding-standart) + var(--doc-layout-side-width)
@@ -45,7 +45,7 @@
       );
   }
 
-  @media screen and (min-width: 1440px) {
+  &_breakpointL {
     --doc-layout-content-padding-right:
       calc(
         var(--doc-layout-content-padding-standart) + var(--doc-layout-side-width)
@@ -66,12 +66,6 @@
     min-height: 100%;
     margin: 0 auto;
     border-radius: 0;
-
-    /* @media screen and (min-width: 900px) {
-      max-width: 800px;
-      padding: calc(var(--space-l) * 2.5) var(--space-3xl);
-      border-radius: 10px;
-    } */
   }
 
   &-Header {

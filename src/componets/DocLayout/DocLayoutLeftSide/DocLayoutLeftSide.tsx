@@ -9,6 +9,7 @@ import {
   openLeftSideAtom,
 } from '##/modules/layout';
 import { cn } from '##/utils/bem';
+import { createMods } from '##/utils/createMods';
 
 const cnDocLayoutLeftSide = cn('DocLayoutLeftSide');
 
@@ -34,6 +35,7 @@ export const DocLayoutLeftSide: React.FC<{
       <div
         className={cnDocLayoutLeftSide({
           open,
+          ...createMods(breakpoints),
         })}
       >
         <div
