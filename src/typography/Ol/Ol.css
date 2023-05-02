@@ -1,6 +1,4 @@
 .stand--Ol {
-  margin-bottom: var(--space-m);
-
   & .stand--Ol {
     margin-left: var(--space-xl);
   }

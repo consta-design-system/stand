@@ -15,6 +15,7 @@ type Props = {
   title: string;
   message?: React.ReactElement;
   className?: string;
+  size?: 'm' | 's';
   button?: {
     text: string;
     link: string;
@@ -22,7 +23,7 @@ type Props = {
 };
 
 export const FeedbackCard = (props: Props) => {
-  const { icon: Icon, title, message, className, button } = props;
+  const { icon: Icon, title, message, className, button, size = 'm' } = props;
   return (
     <Card
       verticalSpace="2xl"
@@ -34,30 +35,38 @@ export const FeedbackCard = (props: Props) => {
       {Icon && (
         <Icon
           size="l"
-          className={cnFeedbackCard('Image', [cnMixSpace({ mB: 'xl' })])}
+          className={cnFeedbackCard('Image', [
+            cnMixSpace({ mB: size === 'm' ? 'xl' : 'l' }),
+          ])}
         />
       )}
       <Text
         className={cnFeedbackCard('Title')}
-        size="m"
+        size={size === 'm' ? 'm' : 's'}
         weight="bold"
         lineHeight="m"
       >
         {title}
       </Text>
       {message && (
-        <Text size="s" lineHeight="m" className={cnMixSpace({ mT: 'm' })}>
+        <Text
+          size={size === 'm' ? 's' : 'xs'}
+          lineHeight="m"
+          className={cnMixSpace({ mT: size === 'm' ? 'm' : 's' })}
+        >
           {message}
         </Text>
       )}
       {button && (
         <Text
           as="a"
-          size="s"
+          size={size === 'm' ? 's' : 'xs'}
           lineHeight="m"
           href={button.link}
           view="link"
-          className={cnFeedbackCard('Button', [cnMixSpace({ mT: 'xl' })])}
+          className={cnFeedbackCard('Button', [
+            cnMixSpace({ mT: size === 'm' ? 'xl' : 'l' }),
+          ])}
         >
           {button.text}
         </Text>

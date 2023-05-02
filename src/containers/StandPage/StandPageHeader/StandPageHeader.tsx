@@ -4,8 +4,10 @@ import { IconQuestion } from '@consta/icons/IconQuestion';
 import { Badge } from '@consta/uikit/Badge';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
+import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { badgeStatusMap } from '##/modules/stand';
 import { Stand } from '##/types';
 import { cn } from '##/utils/bem';
@@ -34,13 +36,16 @@ export const StandPageHeader = (props: Props) => {
 
   const hasBadges = status || version;
 
+  const [size2xl] = useAtom(sizeAtomMapFabric['2xl']);
+  const [sizeM] = useAtom(sizeAtomMapFabric.m);
+
   return (
     <div className={cnStandPageHeader(null, [className])}>
       <StandPageHeaderInfo stand={stand} className={cnMixSpace({ mB: 'l' })} />
-      <Text size="2xl" lineHeight="m" weight="bold">
+      <Text size={size2xl} lineHeight="m" weight="bold">
         {title}
       </Text>
-      <Text size="m" lineHeight="m">
+      <Text size={sizeM} lineHeight="m">
         {description}
       </Text>
       {hasBadges && (

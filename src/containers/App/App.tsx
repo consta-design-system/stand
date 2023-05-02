@@ -1,4 +1,3 @@
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 import { useRoute } from 'react-router5';
@@ -13,6 +12,10 @@ import { Pages } from '##/containers/Pages';
 import { SideLinks } from '##/containers/SideLinks';
 import { VariantsPage } from '##/containers/VariantsPage';
 import { useIframeSubscribe } from '##/hooks/useIframeSubscribe';
+import {
+  breakpointsAtom,
+  useBreakpointsSubscriber,
+} from '##/modules/breakpoints';
 import { pageAtom } from '##/modules/pages';
 import { routesNames } from '##/modules/router';
 
@@ -26,13 +29,17 @@ const CustomPage = () => {
   return null;
 };
 
+const Null = () => null;
+
 export const App: React.FC = () => {
   const { route } = useRoute();
   const testStartsWithSegment = startsWithSegment(route.name);
-  const { desktop } = useBreakpoints({ desktop: 1242 });
-  const DesktopHeader = desktop ? LeftSideHeader : () => null;
+  const [breakpoints] = useAtom(breakpointsAtom);
+
+  const DesktopHeader = breakpoints.m ? LeftSideHeader : Null;
 
   useIframeSubscribe();
+  useBreakpointsSubscriber();
 
   if (route.name === routesNames.LIBS_VARIANTS) {
     return <VariantsPage />;

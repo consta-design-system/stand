@@ -15,7 +15,7 @@ import { CSSTransition } from 'react-transition-group';
 import { cn } from '##/utils/bem';
 import { cnForCssTransition } from '##/utils/cnForCssTransition';
 
-import { theme } from './theme';
+import { useTheme } from './theme';
 
 Highlight.registerLanguage('css', css);
 Highlight.registerLanguage('json', json);
@@ -105,12 +105,14 @@ export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
     setTimeout(setCopied.off, 2000);
   };
 
+  const style = useTheme();
+
   if (className) {
     return (
       <div className={cnCode(null, [className])}>
         <Highlight
           {...otherProps}
-          style={theme}
+          style={style}
           language={getLanguage(className)}
           className={className}
         >

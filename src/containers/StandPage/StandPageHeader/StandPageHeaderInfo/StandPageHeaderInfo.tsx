@@ -3,10 +3,12 @@ import './StandPageHeaderInfo.css';
 import { IconAlert } from '@consta/icons/IconAlert';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
+import { useAtom } from '@reatom/npm-react';
 import React, { useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
 import { Link } from '##/componets/Link';
+import { gapAtomMapFabric, sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { routesNames } from '##/modules/router';
 import { Stand } from '##/types';
 import { cn } from '##/utils/bem';
@@ -93,6 +95,8 @@ export const StandPageHeaderInfo = (props: Props) => {
   const view = iconViewMap[stand.status ?? 'stable'];
 
   const route = useRoute();
+  const [gapXs] = useAtom(gapAtomMapFabric.xs);
+  const [sizeS] = useAtom(sizeAtomMapFabric.s);
 
   const info = useMemo(
     () => getInfo(stand, route.route.params.lib as string),
@@ -120,15 +124,15 @@ export const StandPageHeaderInfo = (props: Props) => {
         ])}
       />
       <div className={cnStandPageHeaderInfo('Content')}>
-        <Text weight="bold" size="s" lineHeight="xs">
+        <Text weight="bold" size={sizeS} lineHeight="xs">
           {title}
         </Text>
         {description && (
           <Text
-            size="s"
+            size={sizeS}
             lineHeight="m"
             className={cnStandPageHeaderInfo('Description', [
-              cnMixSpace({ mT: 'xs' }),
+              cnMixSpace({ mT: gapXs }),
             ])}
           >
             {description}

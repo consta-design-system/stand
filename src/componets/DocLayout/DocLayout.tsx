@@ -1,8 +1,9 @@
 import './DocLayout.css';
 
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
+import { breakpointsAtom } from '##/modules/breakpoints';
 import { cn } from '##/utils/bem';
 import { createMods } from '##/utils/createMods';
 
@@ -17,11 +18,7 @@ export const DocLayout: React.FC<{
   rightSide?: React.ReactNode;
   header?: React.ReactNode;
 }> = (props) => {
-  const breakpoints = useBreakpoints({
-    s: 680,
-    m: 1254,
-    l: 1440,
-  });
+  const [breakpoints] = useAtom(breakpointsAtom);
 
   return (
     <div className={cnDocLayout(createMods(breakpoints))}>
