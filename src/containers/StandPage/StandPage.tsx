@@ -6,8 +6,7 @@ import { useRoute } from 'react-router5';
 import { LazyDocs } from '##/componets/LazyDocs';
 import { PageDecorator } from '##/containers/PageDecorator';
 import { Variants } from '##/containers/Variants';
-import { dimensionAtom } from '##/modules/dimension';
-import { getSpaceFromDimension } from '##/utils/typographySize';
+import { gapAtomMapFabric } from '##/modules/adaptiveSize';
 
 import { getStandPath, useStand } from './helpers';
 import { StandPageFeedback } from './StandPageFeedback';
@@ -20,7 +19,8 @@ export const StandPage: React.FC = memo(() => {
   const standID = stand?.path;
   const route = useRoute();
 
-  const [dimension] = useAtom(dimensionAtom);
+  const [gap2xl] = useAtom(gapAtomMapFabric['2xl']);
+  const [gap4xl] = useAtom(gapAtomMapFabric['4xl']);
 
   const tab = useMemo(
     () =>
@@ -42,8 +42,8 @@ export const StandPage: React.FC = memo(() => {
         <StandPageHeader stand={stand.stand} />
         <StandPageNavigation
           className={cnMixSpace({
-            mB: getSpaceFromDimension('2xl', dimension),
-            mT: getSpaceFromDimension('4xl', dimension),
+            mB: gap2xl,
+            mT: gap4xl,
           })}
         />
         {tab?.id === '' && stand.lazyAccess.variants && (
@@ -55,12 +55,12 @@ export const StandPage: React.FC = memo(() => {
         {standPath && <LazyDocs key={standPath} id={standPath} />}
         <StandPageFeedback
           className={cnMixSpace({
-            mT: getSpaceFromDimension('4xl', dimension),
+            mT: gap4xl,
           })}
         />
         <StandPageFooter
           className={cnMixSpace({
-            mT: getSpaceFromDimension('4xl', dimension),
+            mT: gap4xl,
           })}
         />
       </div>

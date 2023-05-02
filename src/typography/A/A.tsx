@@ -5,9 +5,8 @@ import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { useMdxLink } from '##/hooks/useMdxLink';
-import { dimensionAtom } from '##/modules/dimension';
+import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { cn } from '##/utils/bem';
-import { getSizeFromDimension } from '##/utils/typographySize';
 
 const cnA = cn('A');
 
@@ -17,7 +16,7 @@ export const A = (
   const { children, className, href = '', ...otherProps } = props;
 
   const link = useMdxLink(href);
-  const [dimension] = useAtom(dimensionAtom);
+  const [size] = useAtom(sizeAtomMapFabric.s);
 
   return (
     <Text
@@ -27,7 +26,7 @@ export const A = (
       className={cnA(null, [className])}
       onClick={link[1]}
       weight="medium"
-      size={getSizeFromDimension('s', dimension)}
+      size={size}
       lineHeight="m"
       {...otherProps}
     >

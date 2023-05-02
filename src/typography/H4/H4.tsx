@@ -4,8 +4,7 @@ import React, { useRef } from 'react';
 
 import { CopyButton } from '##/componets/CopyButton';
 import { useHeader } from '##/hooks/useHeader';
-import { dimensionAtom } from '##/modules/dimension';
-import { getSizeFromDimension } from '##/utils/typographySize';
+import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
 
 import { cnH } from '../H';
 
@@ -15,7 +14,7 @@ export const H4 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
   const ref = useRef<HTMLHeadingElement>(null);
   const { id, label } = useHeader(children, ref);
 
-  const [dimension] = useAtom(dimensionAtom);
+  const [size] = useAtom(sizeAtomMapFabric.s);
 
   return (
     <Text
@@ -23,7 +22,7 @@ export const H4 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       className={cnH()}
       id={props.id ?? id}
       as="h4"
-      size={getSizeFromDimension('s', dimension)}
+      size={size}
       weight="regular"
       lineHeight="xs"
       {...otherProps}

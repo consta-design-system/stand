@@ -1,6 +1,5 @@
-import { getLastPoint, useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useAtom } from '@reatom/npm-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
 
@@ -13,7 +12,10 @@ import { Pages } from '##/containers/Pages';
 import { SideLinks } from '##/containers/SideLinks';
 import { VariantsPage } from '##/containers/VariantsPage';
 import { useIframeSubscribe } from '##/hooks/useIframeSubscribe';
-import { dimensionAtom, dimensionMap } from '##/modules/dimension';
+import {
+  breakpointsAtom,
+  useBreakpointsSubscriber,
+} from '##/modules/breakpoints';
 import { pageAtom } from '##/modules/pages';
 import { routesNames } from '##/modules/router';
 
@@ -27,20 +29,17 @@ const CustomPage = () => {
   return null;
 };
 
+const Null = () => null;
+
 export const App: React.FC = () => {
   const { route } = useRoute();
   const testStartsWithSegment = startsWithSegment(route.name);
-  const [dimension, setDimension] = useAtom(dimensionAtom);
+  const [breakpoints] = useAtom(breakpointsAtom);
 
-  const deviceType = getLastPoint(useBreakpoints(dimensionMap));
-
-  useEffect(() => {
-    setDimension(deviceType ?? 'desktop');
-  }, [deviceType]);
-
-  const DesktopHeader = dimension === 'desktop' ? LeftSideHeader : () => null;
+  const DesktopHeader = breakpoints.m ? LeftSideHeader : Null;
 
   useIframeSubscribe();
+  useBreakpointsSubscriber();
 
   if (route.name === routesNames.LIBS_VARIANTS) {
     return <VariantsPage />;

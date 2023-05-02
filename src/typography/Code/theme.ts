@@ -1,9 +1,8 @@
-import { Dimension } from '##/modules/dimension';
-import { getSizeFromDimension } from '##/utils/typographySize';
+import { useAtom } from '@reatom/npm-react';
 
-export const getTheme = (
-  dimension: Dimension,
-): Record<string, React.CSSProperties> => ({
+import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
+
+const getTheme = (size: string): Record<string, React.CSSProperties> => ({
   'code[class*="language-"]': {
     color: 'var(--color-typo-primary)',
     background: 'none',
@@ -14,7 +13,7 @@ export const getTheme = (
     wordSpacing: 'normal',
     wordBreak: 'normal',
     wordWrap: 'normal',
-    fontSize: `var(--size-text-${getSizeFromDimension('s', dimension)})`,
+    fontSize: `var(--size-text-${size})`,
     lineHeight: 'var(--line-height-text-m)',
     fontWeight: 'var(--font-weight-text-medium)',
     MozTabSize: 'var(--space-2xs)',
@@ -35,7 +34,7 @@ export const getTheme = (
     wordSpacing: 'normal',
     wordBreak: 'normal',
     wordWrap: 'normal',
-    fontSize: `var(--size-text-${getSizeFromDimension('s', dimension)})`,
+    fontSize: `var(--size-text-${size})`,
     lineHeight: 'var(--line-height-text-m)',
     fontWeight: 'var(--font-weight-text-medium)',
     MozTabSize: 'var(--space-2xs)',
@@ -194,3 +193,8 @@ export const getTheme = (
     fontStyle: 'italic',
   },
 });
+
+export const useTheme = () => {
+  const [size] = useAtom(sizeAtomMapFabric.s);
+  return getTheme(size);
+};

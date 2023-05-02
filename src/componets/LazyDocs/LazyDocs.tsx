@@ -5,10 +5,8 @@ import { useAtom } from '@reatom/npm-react';
 import React, { lazy, memo, Suspense } from 'react';
 
 import { ErrorBoundary } from '##/componets/ErrorBoundary';
-import { dimensionAtom } from '##/modules/dimension';
+import { gapMapAtom } from '##/modules/adaptiveSize';
 import { cn } from '##/utils/bem';
-
-import { createGapMap } from './helper';
 
 const cnLazyDocs = cn('LazyDocs');
 
@@ -27,10 +25,10 @@ export const LazyDocsPreseter: React.FC<LazyDocsProps> = ({ id }) => {
       import(`../../stands/lazyDocs/${id.replace(/\W/g, '_')}_stand_mdx.tsx`),
   );
 
-  const [dimension] = useAtom(dimensionAtom);
+  const [gapMap] = useAtom(gapMapAtom);
 
   return (
-    <div className={cnLazyDocs()} style={createGapMap(dimension)}>
+    <div className={cnLazyDocs()} style={gapMap}>
       <Suspense fallback={<FallbackLoading />}>
         <Docs />
       </Suspense>

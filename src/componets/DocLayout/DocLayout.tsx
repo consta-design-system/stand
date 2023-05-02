@@ -3,10 +3,10 @@ import './DocLayout.css';
 import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
-import { dimensionAtom } from '##/modules/dimension';
+import { breakpointsAtom } from '##/modules/breakpoints';
 import { cn } from '##/utils/bem';
+import { createMods } from '##/utils/createMods';
 
-// import { createMods } from '##/utils/createMods';
 import { DocLayoutLeftSide } from './DocLayoutLeftSide';
 import { DocLayoutRightSide } from './DocLayoutRightSide';
 
@@ -18,17 +18,11 @@ export const DocLayout: React.FC<{
   rightSide?: React.ReactNode;
   header?: React.ReactNode;
 }> = (props) => {
-  const [dimension] = useAtom(dimensionAtom);
-
-  // const breakpoints = useBreakpoints({
-  //   s: 680,
-  //   m: 1254,
-  //   l: 1440,
-  // });
+  const [breakpoints] = useAtom(breakpointsAtom);
 
   return (
-    <div className={cnDocLayout()}>
-      {dimension !== 'desktop' && (
+    <div className={cnDocLayout(createMods(breakpoints))}>
+      {!breakpoints.m && (
         <div className={cnDocLayout('Header')}>{props.header}</div>
       )}
       <DocLayoutLeftSide>{props.leftSide}</DocLayoutLeftSide>
