@@ -5,11 +5,13 @@
     position: absolute;
     top: 0;
     right: 0;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     width: calc(var(--space-xl) + var(--space-2xl));
-    height: calc(var(--space-xl) + var(--space-2xl));
-    padding: var(--space-m);
+    height: 100%;
+    max-height: calc(var(--space-xl) + var(--space-2xl));
     border: none;
     border-radius: var(--control-radius);
   }

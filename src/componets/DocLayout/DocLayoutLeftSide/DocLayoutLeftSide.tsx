@@ -1,9 +1,9 @@
 import './DocLayoutLeftSide.css';
 
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useAction, useAtom } from '@reatom/npm-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 
+import { breakpointsAtom } from '##/modules/breakpoints';
 import {
   leftSideScrollPositionAtom,
   openLeftSideAtom,
@@ -16,19 +16,10 @@ const cnDocLayoutLeftSide = cn('DocLayoutLeftSide');
 export const DocLayoutLeftSide: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
-  const breakpoints = useBreakpoints({
-    l: 1254,
-  });
-  const setLeftSideScrollPosition = useAction(leftSideScrollPositionAtom);
-
+  const [breakpoints] = useAtom(breakpointsAtom);
   const [open] = useAtom(openLeftSideAtom);
+  const setLeftSideScrollPosition = useAction(leftSideScrollPositionAtom);
   const setOpenFalse = useAction(openLeftSideAtom.setFalse);
-
-  useEffect(() => {
-    if (breakpoints.l) {
-      setOpenFalse();
-    }
-  }, [breakpoints.l]);
 
   return (
     <>

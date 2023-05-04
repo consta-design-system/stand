@@ -38,6 +38,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
   const [theme] = useAtom(variantThemeAtom);
 
   const ref = useIframeBridge();
+  const componentRef = useRef<HTMLDivElement>(null);
   const refBoard = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLButtonElement>(null);
 
@@ -69,7 +70,12 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
               size="s"
             />
           )}
-          <div className={cnVariants('Component')}>
+          <div
+            className={cnVariants('Component', [
+              cnTheme({ color: theme.color.primary }),
+            ])}
+            ref={componentRef}
+          >
             <iframe
               className={cnVariants('Iframe')}
               style={{ width: resolution || undefined }}
@@ -95,6 +101,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
                 <VariantsResolutions
                   onOpen={setOpenResolutionsMenu}
                   onSelect={setResolution}
+                  componentRef={componentRef}
                 />
                 <VariantsThemeToggler onOpen={setOpenThemeMenu} />
               </div>

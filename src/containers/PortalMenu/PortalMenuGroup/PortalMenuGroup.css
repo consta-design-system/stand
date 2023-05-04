@@ -8,6 +8,7 @@
   }
 
   & .Collapse-Label {
+    height: 40px;
     border-radius: var(--control-radius);
     font-weight: var(--font-weight-text-bold);
     text-transform: uppercase;

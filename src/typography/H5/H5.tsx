@@ -9,7 +9,7 @@ import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { cnH } from '../H';
 
 export const H5 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-  const { children, ...otherProps } = props;
+  const { children, style, ...otherProps } = props;
 
   const ref = useRef<HTMLHeadingElement>(null);
   const { id, label } = useHeader(children, ref);
@@ -25,6 +25,10 @@ export const H5 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       size={size}
       weight="medium"
       lineHeight="xs"
+      style={{
+        ...style,
+        ['--h-line-height' as string]: `calc(var(--size-text-${size}) * 1.2)`,
+      }}
       {...otherProps}
     >
       <CopyButton href={`#${id}`} className={cnH('CopyButton')} />

@@ -4,7 +4,6 @@ import { IconArrowLeft } from '@consta/icons/IconArrowLeft';
 import { IconArrowRight } from '@consta/icons/IconArrowRight';
 import { Button } from '@consta/uikit/Button';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo } from 'react';
 import { Transition } from 'react-transition-group';
@@ -14,6 +13,7 @@ import { MdxMenuTransfer } from '##/containers/MdxMenuTransfer';
 import { ThemeToggler } from '##/containers/ThemeToggler';
 import IconFeedback from '##/icons/Feedback.icon.svg';
 import IconTelegram from '##/icons/Telegram.icon.svg';
+import { breakpointsAtom } from '##/modules/breakpoints';
 import { openRightSideAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
 
@@ -23,14 +23,10 @@ const timeout = 400;
 
 export const SideLinks = memo(() => {
   const toggleRightSide = useAction(openRightSideAtom.toggle);
-
+  const [breakpoints] = useAtom(breakpointsAtom);
   const [openRightSide] = useAtom(openRightSideAtom);
-  const { xl } = useBreakpoints({
-    xl: 1440,
-  });
-
-  const isOpen = openRightSide || xl;
-  const withOpenButton = !xl;
+  const isOpen = openRightSide || breakpoints.l;
+  const withOpenButton = !breakpoints.l;
 
   return (
     <div className={cnSideLinks(null)}>

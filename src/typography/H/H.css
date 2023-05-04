@@ -33,27 +33,3 @@
     }
   }
 }
-
-h1.stand--H {
-  --h-line-height: calc(var(--size-text-3xl) * 1.5);
-}
-
-h2.stand--H {
-  --h-line-height: calc(var(--size-text-2xl) * 1.5);
-}
-
-h3.stand--H {
-  --h-line-height: calc(var(--size-text-xl) * 1.5);
-}
-
-h4.stand--H {
-  --h-line-height: calc(var(--size-text-xl) * 1.2);
-}
-
-h5.stand--H {
-  --h-line-height: calc(var(--size-text-m) * 1.2);
-}
-
-h6.stand--H {
-  --h-line-height: calc(var(--size-text-s) * 1.5);
-}

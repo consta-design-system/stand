@@ -3,7 +3,11 @@
   --doc-layout-mini-side-width: 82px;
   --doc-layout-side-width: 288px;
   --doc-layout-leftside-z-index: 1010;
-  --doc-layout-content-padding-standart: var(--space-xs);
+  --doc-layout-center-padding-left: 0;
+  --doc-layout-center-padding-right: 0;
+  --doc-layout-content-padding-standart: var(--space-m);
+  --doc-layout-content-padding-standart-top: var(--space-l);
+  --doc-layout-content-padding-standart-bottom: var(--space-3xl);
   --doc-layout-content-padding-left: var(--doc-layout-content-padding-standart);
   --doc-layout-content-padding-right:
     var(
@@ -11,11 +15,11 @@
     );
   --doc-layout-content-padding-top:
     calc(
-      var(--header-height) + var(--doc-layout-content-padding-standart)
+      var(--header-height) + var(--doc-layout-content-padding-standart-top)
     );
   --doc-layout-content-padding-bottom:
     var(
-      --doc-layout-content-padding-standart
+      --doc-layout-content-padding-standart-bottom
     );
   position: relative;
   min-height: 100vh;
@@ -23,33 +27,26 @@
 
   &_breakpointS {
     --doc-layout-content-padding-standart: var(--space-2xl);
+    --doc-layout-content-padding-standart-top: var(--space-xl);
+    --doc-layout-content-padding-standart-bottom: var(--space-4xl);
   }
 
   &_breakpointM {
-    --doc-layout-content-padding-left:
-      calc(
-        var(--doc-layout-content-padding-standart) + var(--doc-layout-side-width)
-      );
-    --doc-layout-content-padding-right:
-      calc(
-        var(--doc-layout-content-padding-standart) +
-        var(--doc-layout-mini-side-width)
-      );
+    --doc-layout-center-padding-left: var(--doc-layout-side-width);
+    --doc-layout-center-padding-right: var(--doc-layout-mini-side-width);
     --doc-layout-content-padding-top:
-      var(
-        --doc-layout-content-padding-standart
-      );
-    --doc-layout-content-padding-bottom:
       var(
         --doc-layout-content-padding-standart
       );
   }
 
   &_breakpointL {
-    --doc-layout-content-padding-right:
-      calc(
-        var(--doc-layout-content-padding-standart) + var(--doc-layout-side-width)
-      );
+    --doc-layout-center-padding-right: var(--doc-layout-side-width);
+  }
+
+  &-Center {
+    padding-right: var(--doc-layout-center-padding-right);
+    padding-left: var(--doc-layout-center-padding-left);
   }
 
   &-Content {
