@@ -2,12 +2,12 @@ import './StandPageFooter.css';
 
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
+import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { IconConsta } from '##/icons/IconConsta';
+import { docsRepositoryUrlAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
-
-import { useFooter } from './helpers';
 
 type Props = {
   className?: string;
@@ -17,7 +17,8 @@ const cnStandPageFooter = cn('StandPageFooter');
 
 export const StandPageFooter = (props: Props) => {
   const { className } = props;
-  const { docsUrl } = useFooter();
+
+  const [docsUrl] = useAtom(docsRepositoryUrlAtom);
 
   return (
     <div

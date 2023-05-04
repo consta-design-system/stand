@@ -7,7 +7,7 @@ import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
-import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
+import { gapAtomMapFabric, sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { badgeStatusMap } from '##/modules/stand';
 import { Stand } from '##/types';
 import { cn } from '##/utils/bem';
@@ -38,10 +38,15 @@ export const StandPageHeader = (props: Props) => {
 
   const [size2xl] = useAtom(sizeAtomMapFabric['2xl']);
   const [sizeM] = useAtom(sizeAtomMapFabric.m);
+  const [gapXl] = useAtom(gapAtomMapFabric.xl);
+  const [gapL] = useAtom(gapAtomMapFabric.l);
 
   return (
     <div className={cnStandPageHeader(null, [className])}>
-      <StandPageHeaderInfo stand={stand} className={cnMixSpace({ mB: 'l' })} />
+      <StandPageHeaderInfo
+        stand={stand}
+        className={cnMixSpace({ mB: gapXl })}
+      />
       <Text size={size2xl} lineHeight="m" weight="bold">
         {title}
       </Text>
@@ -49,7 +54,9 @@ export const StandPageHeader = (props: Props) => {
         {description}
       </Text>
       {hasBadges && (
-        <div className={cnStandPageHeader('Badges', [cnMixSpace({ mT: 'l' })])}>
+        <div
+          className={cnStandPageHeader('Badges', [cnMixSpace({ mT: gapL })])}
+        >
           {status && (
             <Badge
               label={status}

@@ -11,7 +11,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   transform: translateX(100%);
 
-  &_breakpointL {
+  &_breakpointM {
     transform:
       translateX(
         calc(var(--doc-layout-side-width) - var(--doc-layout-mini-side-width))
@@ -22,11 +22,11 @@
     transform: translateX(0);
   }
 
-  &_open.stand--DocLayoutRightSide_breakpointL {
+  &_open.stand--DocLayoutRightSide_breakpointM {
     box-shadow: var(--shadow-modal);
   }
 
-  &_open.stand--DocLayoutRightSide_breakpointXl {
+  &_open.stand--DocLayoutRightSide_breakpointL {
     box-shadow: var(--doc-layout-shadow-none);
   }
 

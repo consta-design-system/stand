@@ -13,7 +13,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   transform: translateX(calc(var(--doc-layout-side-width) * -1));
 
-  &_breakpointL {
+  &_breakpointM {
     z-index: auto;
     transform: translateX(0);
   }

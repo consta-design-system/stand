@@ -16,7 +16,7 @@ export const A = (
   const { children, className, href = '', ...otherProps } = props;
 
   const link = useMdxLink(href);
-  const [size] = useAtom(sizeAtomMapFabric.s);
+  const [size] = useAtom(sizeAtomMapFabric.m);
 
   return (
     <Text

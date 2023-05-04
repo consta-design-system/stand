@@ -1,5 +1,8 @@
 import { action, atom } from '@reatom/core';
+import { onUpdate } from '@reatom/hooks';
 import { reatomBoolean } from '@reatom/primitives';
+
+import { breakpointsAtom } from '##/modules/breakpoints';
 
 export const openLeftSideAtom = reatomBoolean();
 export const openRightSideAtom = reatomBoolean();
@@ -23,4 +26,18 @@ export const leftSideDistanceHelperHeightAtom = atom((ctx) => {
   const heihgt = ctx.get(leftSideSearchFieldHeightAtom);
 
   return fixed ? heihgt : 0;
+});
+
+onUpdate(breakpointsAtom, (ctx, breakpoints) => {
+  if (breakpoints.m) {
+    openLeftSideAtom.setFalse(ctx);
+  }
+});
+
+onUpdate(breakpointsAtom, (ctx, breakpoints) => {
+  if (breakpoints.l) {
+    openRightSideAtom.setTrue(ctx);
+  } else {
+    openRightSideAtom.setFalse(ctx);
+  }
 });

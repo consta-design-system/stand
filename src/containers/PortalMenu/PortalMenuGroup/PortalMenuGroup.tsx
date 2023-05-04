@@ -40,7 +40,7 @@ export const PortalMenuGroup = <ITEM,>(props: PortalMenuGroupProps<ITEM>) => {
     >
       <Collapse
         iconPosition="right"
-        size="s"
+        size="xs"
         directionIcon="down"
         closeDirectionIcon="up"
         label={label || ''}

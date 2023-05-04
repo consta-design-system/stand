@@ -1,12 +1,22 @@
 .stand--StandPageNavigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap-reverse;
-  gap: var(--space-m);
+  overflow: auto;
+  margin-right: calc(var(--doc-layout-content-padding-standart) * -1);
+  margin-left: calc(var(--doc-layout-content-padding-standart) * -1);
+
+  &-Wrapper {
+    display: flex;
+    align-items: center;
+    min-width: max-content;
+    padding: var(--space-2xs) var(--doc-layout-content-padding-standart);
+    gap: var(--space-m);
+
+    &_isDesktop {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+  }
 
   &-Tabs {
-    overflow: auto;
     width: max-content;
   }
 
@@ -14,7 +24,6 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     gap: var(--space-xs);
 
     & > .Button {

@@ -63,6 +63,9 @@
 
   &-Param {
     display: inline-block;
+    padding: 0 var(--space-2xs);
+    background-color: var(--color-control-bg-ghost);
+    border-radius: 2px;
     white-space: pre-wrap;
   }
 

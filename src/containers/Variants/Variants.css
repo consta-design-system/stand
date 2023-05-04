@@ -4,6 +4,7 @@
   position: relative;
   overflow: hidden;
   height: var(--variants-height);
+  margin-bottom: var(--space-xl);
   background-color: var(--color-bg-default);
   border: 1px solid var(--color-bg-border);
   border-radius: var(--control-radius);
@@ -17,6 +18,9 @@
     left: 0;
     bottom: 0;
     height: auto;
+    margin-bottom: auto;
+    border: none;
+    border-radius: 0;
   }
 
   @media screen and (min-width: 900px) {
@@ -25,7 +29,7 @@
 
   &-Fake {
     &_fullScreen {
-      height: var(--variants-height);
+      height: calc(var(--variants-height) + var(--space-xl));
     }
   }
 
@@ -46,6 +50,7 @@
   &-Component {
     overflow: auto;
     height: 100%;
+    background-color: var(--color-bg-default);
   }
 
   &-Iframe {

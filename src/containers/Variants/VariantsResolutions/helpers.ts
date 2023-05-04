@@ -1,7 +1,7 @@
 import { IconIpadFilled } from '@consta/icons/IconIpadFilled';
 import { IconLaptopFilled } from '@consta/icons/IconLaptopFilled';
 import { IconScreenFilled } from '@consta/icons/IconScreenFilled';
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
+import { useComponentBreakpoints } from '@consta/uikit/useComponentBreakpoints';
 import { useMemo } from 'react';
 
 import IconSmartphone from '##/icons/Smartphone.icon.svg';
@@ -28,8 +28,10 @@ const resolutionsLabels: Record<number, string> = {
   1333: 'Ноутбук',
 };
 
-export const useResolutions = () => {
-  const breakpoints = useBreakpoints(breakpointsForHook);
+export const useResolutions = (
+  componentRef: React.RefObject<HTMLDivElement>,
+) => {
+  const breakpoints = useComponentBreakpoints(componentRef, breakpointsForHook);
 
   return useMemo(
     () => {

@@ -65,13 +65,15 @@ const textSizeSMap: Record<TextPropSize, TextPropSize> = {
 };
 
 const sizeMap: Record<Breakpoint, Record<TextPropSize, TextPropSize>> = {
-  s: textSizeSMap,
+  xs: textSizeSMap,
+  s: textSizeMMap,
   m: textSizeMMap,
   l: textSizeMMap,
 };
 
 const gapMap: Record<Breakpoint, Record<Gap, Gap>> = {
-  s: gapSizeSMap,
+  xs: gapSizeSMap,
+  s: gapSizeMMap,
   m: gapSizeMMap,
   l: gapSizeMMap,
 };
@@ -97,7 +99,7 @@ const createGapMap = (breakpoint: Breakpoint) => {
 
 export const gapMapAtom = atom((ctx) => {
   const breakpoint = ctx.spy(lastBreakpointAtom);
-  return createGapMap(breakpoint || 's');
+  return createGapMap(breakpoint);
 });
 
 const createSizeAtomMapFabric = () => {
@@ -106,7 +108,7 @@ const createSizeAtomMapFabric = () => {
     const size = textPropSize[index];
     map[size] = atom((ctx) => {
       const breakpoint = ctx.spy(lastBreakpointAtom);
-      return sizeMap[breakpoint || 's'][size];
+      return sizeMap[breakpoint][size];
     });
   }
   return map;
@@ -132,7 +134,7 @@ const createSpaceAtomMapFabric = () => {
     const gap = gaps[index];
     map[gap] = atom((ctx) => {
       const breakpoint = ctx.spy(lastBreakpointAtom);
-      return gapMap[breakpoint || 's'][gap];
+      return gapMap[breakpoint][gap];
     });
   }
   return map;

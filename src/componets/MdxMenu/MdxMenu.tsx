@@ -1,14 +1,14 @@
-import { useBreakpoints } from '@consta/uikit/useBreakpoints';
-import { useAction } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useEffect } from 'react';
 
+import { breakpointsAtom } from '##/modules/breakpoints';
 import { menuMdxAtom } from '##/modules/menuMdx';
 
 export const MdxMenu: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
   const setMenu = useAction(menuMdxAtom);
-  const breakpoints = useBreakpoints({ xl: 1242 });
+  const [breakpoints] = useAtom(breakpointsAtom);
 
   useEffect(() => {
     setMenu(children);
@@ -17,7 +17,7 @@ export const MdxMenu: React.FC<{ children: React.ReactElement }> = ({
     };
   }, []);
 
-  if (breakpoints.xl) {
+  if (breakpoints.m) {
     return null;
   }
 
