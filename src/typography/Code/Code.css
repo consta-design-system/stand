@@ -65,6 +65,10 @@
 
   &-Param {
     display: inline-block;
+    padding: 0 0.2em;
+    background-color: var(--color-bg-stripe);
+    border-radius: var(--control-radius);
+    font-weight: inherit;
     white-space: pre-wrap;
   }
 
