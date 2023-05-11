@@ -12,7 +12,7 @@ export const H1 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
   const { children, style, ...otherProps } = props;
 
   const ref = useRef<HTMLHeadingElement>(null);
-  const { id, label } = useHeader(children, ref);
+  const { id } = useHeader(children, ref);
 
   const [size] = useAtom(sizeAtomMapFabric['2xl']);
 
@@ -32,7 +32,7 @@ export const H1 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       {...otherProps}
     >
       <CopyButton href={`#${id}`} className={cnH('CopyButton')} />
-      {label}
+      {children}
     </Text>
   );
 };

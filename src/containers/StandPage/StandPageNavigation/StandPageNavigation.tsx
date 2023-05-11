@@ -162,8 +162,9 @@ export const StandPageNavigation = ({ className }: Props) => {
                 themeClassNames.color.invert,
               ])}
             >
-              {items.map(({ onlyIcon, href, icon, label }) => (
+              {items.map(({ onlyIcon, href, icon, label }, index) => (
                 <Button
+                  key={index}
                   form="round"
                   size="s"
                   onlyIcon={onlyIcon}
