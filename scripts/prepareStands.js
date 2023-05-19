@@ -1,6 +1,5 @@
 const fg = require('fast-glob');
 const { readFile, writeFile, ensureDir } = require('fs-extra');
-const { join } = require('path');
 
 const { access, F_OK, existsSync } = require('fs');
 
@@ -148,7 +147,7 @@ const prepareStands = async ({
 }) => {
   await ensureDir(`${standsPath}/lazyDocs/`);
 
-  const path = join(srcPath, '**', '*.stand.{ts,tsx}');
+  const path = `${srcPath}/**/*.stand.{ts,tsx}`;
 
   const standsFiles = await fg(path);
 
