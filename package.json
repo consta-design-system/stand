@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.107",
+  "version": "0.0.109",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -99,10 +99,10 @@
     "lint:css": "stylelint ./src/**/*.css --fix",
     "lint": "yarn run lint:js && yarn run lint:css",
     "format:svg": "prettier --write '**/*.svg' --parser html",
-    "pre-push": "rm -rf ./repositories && rm -rf src/stands && yarn run tsc-dry-run",
+    "pre-push": "yarn rm:repositories && yarn rm:stands && yarn run tsc-dry-run",
     "pre-commit": "yarn run lint-staged",
     "pre-build": "node builder/preBuild.js --config=./build.config.js",
-    "test": "rm -rf src/stands && yarn tsc-dry-run",
+    "test": "yarn rm:stands && yarn tsc-dry-run",
     "unit": "jest",
     "unit:watch": "jest --watch",
     "unit:clear": "jest --clearCache",
@@ -121,7 +121,8 @@
     "start": "yarn clone-repos && yarn stand:generate && yarn stand:start",
     "rm:dist": "node ./scripts/rm.js --path=./dist",
     "rm:build": "node ./scripts/rm.js --path=./build",
-    "rm:stands": "node ./scripts/rm.js --path=./src/stands"
+    "rm:stands": "node ./scripts/rm.js --path=./src/stands",
+    "rm:repositories": "node ./scripts/rm.js --path=./repositories"
   },
   "config": {
     "commitizen": {
