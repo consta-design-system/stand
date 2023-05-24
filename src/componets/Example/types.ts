@@ -3,9 +3,9 @@ import { PropsWithHTMLAttributes } from '##/utils/types/PropsWithHTMLAttributes'
 export type ExampleItemStatus = 'success' | 'error' | 'warning' | 'system';
 
 export type ExampleDefaultItem = {
-  node: React.ReactNode;
+  node?: React.ReactNode;
   label?: string | number;
-  description?: string | number;
+  description?: string | number | React.ReactNode;
   status?: ExampleItemStatus;
 };
 
@@ -37,10 +37,7 @@ export type ExampleProps<ITEM = ExampleDefaultItem> = PropsWithHTMLAttributes<
     getItemStatus?: ExamplePropGetItemStatus<ITEM>;
   },
   HTMLDivElement
-> &
-  (ITEM extends { node: ExampleDefaultItem['node'] }
-    ? {}
-    : { getItemNode: ExamplePropGetItemNode<ITEM> });
+>;
 
 export type ExampleComponent = <ITEM = ExampleDefaultItem>(
   props: ExampleProps<ITEM>,

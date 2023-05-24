@@ -47,9 +47,6 @@ const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
     ) ||
     (typeof col !== 'object' && col);
 
-  const Root = separately ? 'div' : ExampleFrame;
-  const Item = separately ? ExampleFrame : 'div';
-
   const examples = mapExamples(
     getItemDescription,
     getItemLabel,
@@ -58,6 +55,10 @@ const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
     children,
     items,
   );
+
+  const Frame = examples.find((item) => !!item.node) ? ExampleFrame : 'div';
+  const Root = separately ? 'div' : Frame;
+  const Item = separately ? Frame : 'div';
 
   const withInfo = isWithInfo(examples);
 
@@ -89,10 +90,13 @@ const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
             ],
           )}
         >
-          <div className={cnExample('Node')}>{node}</div>
+          {node && <div className={cnExample('Node')}>{node}</div>}
           {withInfo && (
             <div
-              className={cnExample('Info', { withStatus: !!status, status })}
+              className={cnExample('Info', {
+                withStatus: status && typeof node !== 'undefined',
+                status,
+              })}
             >
               {label && (
                 <Text
@@ -102,11 +106,12 @@ const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
                   {label}
                 </Text>
               )}
-              {description && (
+              {typeof description === 'string' && (
                 <Text size="s" view="secondary">
                   {description}
                 </Text>
               )}
+              {typeof description !== 'string' && description}
             </div>
           )}
         </Item>
