@@ -1,5 +1,6 @@
 import './StandPageNavigation.css';
 
+import { IconComponent } from '@consta/icons/Icon';
 import { IconForward } from '@consta/icons/IconForward';
 import { IconGitHub } from '@consta/icons/IconGitHub';
 import { IconKebab } from '@consta/icons/IconKebab';
@@ -26,6 +27,14 @@ type Props = {
   className?: string;
 };
 
+type LinkItem = {
+  label: string;
+  href: string;
+  icon: IconComponent;
+  onlyIcon: boolean;
+  iconSize: 'm' | 'xs';
+};
+
 const cnStandPageNavigation = cn('StandPageNavigation');
 
 export const StandPageNavigation = ({ className }: Props) => {
@@ -50,11 +59,11 @@ export const StandPageNavigation = ({ className }: Props) => {
     [router],
   );
 
-  const codesandbox = stand?.stand.sandbox;
-  const [figma] = useAtom(figmaAtom);
-  const [github] = useAtom(componentRepositoryUrlAtom);
+  const codesandboxUrl = stand?.stand.sandbox;
+  const [figmaUrl] = useAtom(figmaAtom);
+  const [githubUrl] = useAtom(componentRepositoryUrlAtom);
 
-  const hasLinks = codesandbox || figma || github;
+  const hasLinks = codesandboxUrl || figmaUrl || githubUrl;
 
   const handleClick = useCallback(({ value }: { value: NavigationItem }) => {
     if (value.id) {
@@ -102,38 +111,39 @@ export const StandPageNavigation = ({ className }: Props) => {
     return null;
   }
 
-  const items = [
-    ...(figma
-      ? [
-          {
-            label: 'Figma',
-            href: figma,
-            icon: IconFigma,
-            onlyIcon: true,
-          },
-        ]
-      : []),
-    ...(github
-      ? [
-          {
-            label: 'GitHub',
-            href: github,
-            icon: IconGitHub,
-            onlyIcon: true,
-          },
-        ]
-      : []),
-    ...(codesandbox
-      ? [
-          {
-            label: 'CodeSandbox',
-            href: `https://codesandbox.io/embed/${stand?.stand.sandbox}`,
-            icon: IconForward,
-            onlyIcon: false,
-          },
-        ]
-      : []),
-  ];
+  const figmaItem: LinkItem | undefined = figmaUrl
+    ? {
+        label: 'figmaUrl',
+        href: figmaUrl,
+        icon: IconFigma,
+        onlyIcon: true,
+        iconSize: 'm',
+      }
+    : undefined;
+
+  const gitHubItem: LinkItem | undefined = githubUrl
+    ? {
+        label: 'githubUrl',
+        href: githubUrl,
+        icon: IconGitHub,
+        onlyIcon: true,
+        iconSize: 'm',
+      }
+    : undefined;
+
+  const codesandboxItem: LinkItem | undefined = figmaUrl
+    ? {
+        label: 'codesandboxUrl',
+        href: `https://codesandboxUrl.io/embed/${stand?.stand.sandbox}`,
+        icon: IconForward,
+        onlyIcon: false,
+        iconSize: 'xs',
+      }
+    : undefined;
+
+  const items = [figmaItem, gitHubItem, codesandboxItem].filter((item) =>
+    Boolean(item),
+  ) as LinkItem[];
 
   return (
     <>
@@ -162,7 +172,7 @@ export const StandPageNavigation = ({ className }: Props) => {
                 themeClassNames.color.invert,
               ])}
             >
-              {items.map(({ onlyIcon, href, icon, label }, index) => (
+              {items.map(({ onlyIcon, href, icon, label, iconSize }, index) => (
                 <Button
                   key={index}
                   form="round"
@@ -172,7 +182,7 @@ export const StandPageNavigation = ({ className }: Props) => {
                   target="_blank"
                   href={href}
                   iconRight={icon}
-                  iconSize="m"
+                  iconSize={iconSize}
                   label={label}
                 />
               ))}
