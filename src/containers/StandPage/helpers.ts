@@ -4,7 +4,7 @@ import { useRouter } from 'react-router5';
 
 import { routesNames } from '##/modules/router';
 import { standAtom } from '##/modules/stand';
-import { PreparedStand, Stand } from '##/types';
+import { PreparedStand } from '##/types';
 
 export const useStand = () => {
   const [stand] = useAtom(standAtom);
@@ -31,13 +31,4 @@ export const getStandPath = (
   ) {
     return `${standID}${tab ? `_${tab}` : ''}`;
   }
-};
-
-export const getOthersVersion = (stand: Stand) => {
-  const others = stand.otherVersion;
-  return {
-    deprecated: others?.find((el) => el.status === 'deprecated'),
-    canary: others?.find((el) => el.status === 'canary'),
-    stable: others?.find((el) => el.status === 'stable'),
-  };
 };

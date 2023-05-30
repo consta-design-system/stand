@@ -4,110 +4,34 @@ import { IconAlert } from '@consta/icons/IconAlert';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/npm-react';
-import React, { useMemo } from 'react';
-import { useRoute } from 'react-router5';
+import React from 'react';
 
 import { Link } from '##/componets/Link';
 import { gapAtomMapFabric, sizeAtomMapFabric } from '##/modules/adaptiveSize';
-import { routesNames } from '##/modules/router';
-import { Stand } from '##/types';
+import { standHeaderIconViewAtom, standHeaderInfoAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
-import { getOthersVersion } from '../../helpers';
-
 type Props = {
-  stand: Stand;
   className?: string;
 };
 
-const iconViewMap = {
-  deprecated: 'alert',
-  canary: 'success',
-  inWork: 'link',
-  stable: undefined,
-} as const;
-
 const cnStandPageHeaderInfo = cn('StandPageHeaderInfo');
 
-const getInfo = (stand: Stand, lib: string) => {
-  const { status } = stand;
-
-  const { stable, canary } = getOthersVersion(stand);
-  if (!status || (status === 'stable' && !canary)) {
-    return undefined;
-  }
-  if (status === 'stable') {
-    return {
-      title: 'Компонент с разными версиями',
-      description: canary
-        ? 'Это стабильный компонент у которого есть новая версия'
-        : undefined,
-    };
-  }
-  if (status === 'canary') {
-    return {
-      title: stable ? 'Компонент с разными версиями' : 'Тестовый компонент',
-      descripton: stable ? (
-        <>
-          Это новый компонент, у которого есть{' '}
-          <Link
-            to={`${routesNames.LIBS_LIB_STAND}`}
-            params={{
-              stand: stable.id,
-              lib,
-            }}
-          >
-            стабильная версия
-          </Link>
-        </>
-      ) : undefined,
-    };
-  }
-  if (status === 'deprecated') {
-    return {
-      title: 'Компонент больше не поддерживается',
-      description: stable ? (
-        <>
-          Используйте актуальную версию —{' '}
-          <Link
-            to={`${routesNames.LIBS_LIB_STAND}`}
-            params={{
-              stand: stable.id,
-              lib,
-            }}
-          >
-            Stable
-          </Link>
-        </>
-      ) : undefined,
-    };
-  }
-  if (status === 'inWork') {
-    return {
-      title: 'Компонент в работе',
-      description: 'Есть дизайн макеты, но стадия реализации ещё не завершена',
-    };
-  }
-};
-
 export const StandPageHeaderInfo = (props: Props) => {
-  const { stand, className } = props;
-  const view = iconViewMap[stand.status ?? 'stable'];
+  const { className } = props;
 
-  const route = useRoute();
   const [gapXs] = useAtom(gapAtomMapFabric.xs);
   const [sizeS] = useAtom(sizeAtomMapFabric.s);
-
-  const info = useMemo(
-    () => getInfo(stand, route.route.params.lib as string),
-    [],
-  );
+  const [info] = useAtom(standHeaderInfoAtom);
+  const [view] = useAtom(standHeaderIconViewAtom);
 
   if (!info) {
     return null;
   }
 
-  const { title, description } = info;
+  const { title, description, link, linkLabel } = info;
+
+  console.log(info);
 
   return (
     <div
@@ -135,7 +59,12 @@ export const StandPageHeaderInfo = (props: Props) => {
               cnMixSpace({ mT: gapXs }),
             ])}
           >
-            {description}
+            {description}{' '}
+            {link && linkLabel && (
+              <Link to={link.name} params={link.params}>
+                {linkLabel}
+              </Link>
+            )}
           </Text>
         )}
       </div>

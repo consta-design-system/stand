@@ -3,6 +3,7 @@ import {
   CreatedStand,
   LibWithStands,
   PreparedStand,
+  PreparedStandNopreparedLibs,
   StandTab,
 } from '##/types';
 import { generateStandId } from '##/utils/generateStandId';
@@ -29,7 +30,10 @@ const sort = (
   return 0;
 };
 
-const sortStands = (a: CreatedStand, b: CreatedStand) => {
+const sortStands = (
+  a: PreparedStandNopreparedLibs,
+  b: PreparedStandNopreparedLibs,
+) => {
   return sort(a.stand, b.stand);
 };
 
@@ -96,6 +100,10 @@ const getLazyAccess = (
 const isStand = (stand: CreatedStand | CreatedPage): stand is CreatedStand =>
   stand.type === 'stand';
 
+const isPreparedStandNopreparedLibs = (
+  stand: PreparedStandNopreparedLibs | CreatedPage,
+): stand is PreparedStandNopreparedLibs => stand.type === 'stand';
+
 const isPage = (stand: CreatedStand | CreatedPage): stand is CreatedPage =>
   stand.type === 'page';
 
@@ -106,13 +114,13 @@ export const prepareStands = (
   componentDirs: string[],
   repositoryPaths: string[],
 ) => {
-  const initStands: (CreatedStand & { id: string })[] = [];
+  const initStands: (PreparedStandNopreparedLibs & { id: string })[] = [];
   const initPages: (CreatedPage & { path: string })[] = [];
 
   for (let index = 0; index < init.length; index++) {
     const item = init[index];
     if (isStand(item)) {
-      const stand = {
+      const stand: PreparedStandNopreparedLibs = {
         ...item,
         stand: {
           ...item.stand,
@@ -120,20 +128,6 @@ export const prepareStands = (
             typeof item.stand.visibleOnLibPage === 'undefined'
               ? true
               : item.stand.visibleOnLibPage,
-          otherVersion: initStands
-            .filter(
-              (el) =>
-                el.stand.id === item.stand.id &&
-                el.stand.status !== item.stand.status,
-            )
-            .map(({ stand }) => ({
-              ...stand,
-              visibleOnLibPage:
-                typeof item.stand.visibleOnLibPage === 'undefined'
-                  ? true
-                  : item.stand.visibleOnLibPage,
-              id: generateStandId(stand.group, stand.id, stand.status),
-            })),
         },
         id: generateStandId(item.stand.group, item.stand.id, item.stand.status),
         path: paths[index],
@@ -149,6 +143,17 @@ export const prepareStands = (
         path: paths[index],
       };
       initPages.push(page);
+    }
+  }
+
+  for (let index = 0; index < initStands.length; index++) {
+    const item = initStands[index];
+    if (isPreparedStandNopreparedLibs(item) && item.stand.status) {
+      item.stand.otherVersion = initStands.filter((el) => {
+        return (
+          el.stand.id === item.stand.id && el.stand.status !== item.stand.status
+        );
+      });
     }
   }
 

@@ -13,8 +13,8 @@ export const Th = (props: React.HTMLAttributes<HTMLTableCellElement>) => {
   return (
     <Text
       as="th"
-      size="s"
-      lineHeight="s"
+      size="xs"
+      lineHeight="xs"
       weight="semibold"
       view="secondary"
       className={cnTh(null, [className])}

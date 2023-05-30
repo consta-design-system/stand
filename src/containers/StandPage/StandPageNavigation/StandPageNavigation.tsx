@@ -63,7 +63,7 @@ export const StandPageNavigation = ({ className }: Props) => {
   const [figmaUrl] = useAtom(figmaAtom);
   const [githubUrl] = useAtom(componentRepositoryUrlAtom);
 
-  const hasLinks = codesandboxUrl || figmaUrl || githubUrl;
+  const hasLinks = Boolean(codesandboxUrl || figmaUrl || githubUrl);
 
   const handleClick = useCallback(({ value }: { value: NavigationItem }) => {
     if (value.id) {
@@ -148,7 +148,12 @@ export const StandPageNavigation = ({ className }: Props) => {
   return (
     <>
       <div ref={ref} className={cnStandPageNavigation(null, [className])}>
-        <div className={cnStandPageNavigation('Wrapper', { isDesktop })}>
+        <div
+          className={cnStandPageNavigation('Wrapper', {
+            isDesktop,
+            hasLinks,
+          })}
+        >
           {hasLinks && !isDesktop && (
             <div
               className={cnStandPageNavigation('Links', [
@@ -160,7 +165,7 @@ export const StandPageNavigation = ({ className }: Props) => {
                 form="round"
                 size="s"
                 onlyIcon
-                onClick={setContextMenuIsOpen.on}
+                onClick={setContextMenuIsOpen.toggle}
                 iconLeft={IconKebab}
                 iconSize="m"
               />

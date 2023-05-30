@@ -10,7 +10,7 @@
     padding: var(--space-2xs) var(--doc-layout-content-padding-standart);
     gap: var(--space-m);
 
-    &_isDesktop {
+    &_isDesktop.stand--StandPageNavigation-Wrapper_hasLinks {
       flex-direction: row-reverse;
       justify-content: space-between;
     }

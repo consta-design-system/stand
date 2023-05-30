@@ -12,6 +12,7 @@
         padding-bottom: var(--space-m);
         color: var(--color-typo-primary);
         font-size: var(--size-text-s);
+        font-weight: var(--font-weight-text-regular);
         line-height: var(--line-height-text-m);
 
         &:hover {

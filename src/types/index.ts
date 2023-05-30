@@ -26,7 +26,7 @@ export type Stand<Group extends string = string> = {
   sandbox?: string;
   playground?: React.FC;
   description?: string;
-  otherVersion?: Stand<Group>[];
+  otherVersion?: PreparedStandNopreparedLibs[];
   alias?: string[];
   type?: 'docs' | 'component';
   icon?: IconComponent;
@@ -75,6 +75,10 @@ export type PreparedStand = { stand: Stand; lib: LibWithStands } & {
   lazyAccess: Record<string, boolean>;
   componentDir?: string;
   type: string;
+};
+
+export type PreparedStandNopreparedLibs = Omit<PreparedStand, 'lib'> & {
+  lib: Lib<Group>;
 };
 
 export type LibWithStands = Lib<Group> & {
