@@ -133,8 +133,8 @@ export const StandPageNavigation = ({ className }: Props) => {
 
   const codesandboxItem: LinkItem | undefined = figmaUrl
     ? {
-        label: 'codesandboxUrl',
-        href: `https://codesandboxUrl.io/embed/${stand?.stand.sandbox}`,
+        label: 'Codesandbox',
+        href: `https://codesandbox.io/embed/${stand?.stand.sandbox}`,
         icon: IconForward,
         onlyIcon: false,
         iconSize: 'xs',
