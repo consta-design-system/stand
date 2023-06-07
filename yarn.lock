@@ -1781,10 +1781,10 @@
   resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-0.1.1.tgz#454461a9acf3dc8b42e1654b4298e5f929c42937"
   integrity sha512-55NsjyaXFuYyr6CiptXuFMe/AUd7HMs8IgSaOGfV+wbMbSVg88u8dwJ5km3sPaHNFiD0vg8FNqGFc1F37K18zQ==
 
-"@consta/icons@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-0.4.2.tgz#a1dc89ffd62643bd798ebf6db6af52ae154e376b"
-  integrity sha512-lXZhWRTkjlubVLUDCSGnVyW1ikTTFkhvqM6HEcI+dGwtcrxvB2QwcMxlBG0eQARFWdX4rSmHXp0ebbYxfnTa0Q==
+"@consta/icons@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-0.5.2.tgz#eaa529818adf2fe5dd167f3749b87fdf31c6da5f"
+  integrity sha512-Q5j+aCs/uzR8JbiN/UYpQ8FbxC22rUVAvEIzfAum4B8rl7FkiIguYvHjfFesuQCocj1OR0HJHIGkfKycR9e9LQ==
 
 "@consta/uikit@^4.19.0":
   version "4.19.0"
