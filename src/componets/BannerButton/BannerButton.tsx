@@ -1,76 +1,68 @@
 import './BannerButton.css';
 
+import { PropsWithHTMLAttributes } from '@consta/header/__internal__/src/utils/types/PropsWithHTMLAttributes';
 import { IconComponent } from '@consta/icons/Icon';
-import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import { useTheme } from '@consta/uikit/Theme';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { cn } from '##/utils/bem';
-import { forwardRefWithAs } from '##/utils/types/PropsWithAsAttributes';
-
-import image from './BannerButtonBg.jpg';
-
-export type Props = {
-  label?: string;
-  icon?: IconComponent;
-  description?: string;
-  onlyIcon?: boolean;
-};
 
 const cnBannerButton = cn('BannerButton');
 
-export const BannerButton = forwardRefWithAs<Props, 'button'>((props, ref) => {
-  const {
-    label,
-    icon,
-    description,
-    onlyIcon,
-    className,
-    as,
-    style,
-    ...otherProps
-  } = props;
+type BannerButtonProps = PropsWithHTMLAttributes<
+  {
+    label?: string;
+    icon?: IconComponent;
+    links?: Array<{ label: string; path: string }>;
+  },
+  HTMLDivElement
+>;
 
-  const Tag = as as string;
-  const Icon = icon;
+export const BannerButton = forwardRef<HTMLDivElement, BannerButtonProps>(
+  (props, ref) => {
+    const { label, icon: Icon, links = [], className, ...otherProps } = props;
 
-  const theme = useTheme();
+    const theme = useTheme();
 
-  return (
-    <Tag
-      title={onlyIcon ? label : undefined}
-      {...otherProps}
-      className={cnBannerButton({ onlyIcon }, [
-        theme.themeClassNames.color.accent,
-        cnMixSpace({ p: 'm' }),
-        className,
-      ])}
-      ref={ref}
-      style={{ ...style, backgroundImage: `url(${image})` }}
-    >
-      {onlyIcon ? (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>{Icon && <Icon className={cnBannerButton('Icon')} />}</>
-      ) : (
-        <>
-          <div
-            className={cnBannerButton('Top', [
-              description ? cnMixSpace({ mB: 'l' }) : undefined,
-            ])}
+    return (
+      <div
+        ref={ref}
+        className={cnBannerButton(null, [
+          className,
+          theme.themeClassNames.color.accent,
+        ])}
+        {...otherProps}
+      >
+        <div className={cnBannerButton('Top')}>
+          {Icon && <Icon view="primary" className={cnBannerButton('Icon')} />}
+          <Text
+            size="xs"
+            lineHeight="m"
+            weight="medium"
+            className={cnBannerButton('Label')}
           >
-            {Icon && <Icon className={cnBannerButton('Icon')} />}
-            <Text size="s" className={cnBannerButton('Label')}>
-              {label}
-            </Text>
+            {label}
+          </Text>
+        </div>
+        {links.length > 0 && (
+          <div className={cnBannerButton('List')}>
+            {links.map(({ label, path }, index) => (
+              <Text
+                as="a"
+                size="xs"
+                lineHeight="m"
+                view="secondary"
+                href={path}
+                key={cnBannerButton('Item', { index })}
+                className={cnBannerButton('Item')}
+              >
+                {label}
+              </Text>
+            ))}
           </div>
-          {description && (
-            <Text size="s" className={cnBannerButton('Description')}>
-              {description}
-            </Text>
-          )}
-        </>
-      )}
-    </Tag>
-  );
-});
+        )}
+      </div>
+    );
+  },
+);

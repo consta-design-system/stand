@@ -8,11 +8,9 @@ import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo } from 'react';
 import { Transition } from 'react-transition-group';
 
-import { BannerButton } from '##/componets/BannerButton';
+import { BannerLinks } from '##/componets/BannerLinks';
 import { MdxMenuTransfer } from '##/containers/MdxMenuTransfer';
 import { ThemeToggler } from '##/containers/ThemeToggler';
-import IconFeedback from '##/icons/Feedback.icon.svg';
-import IconTelegram from '##/icons/Telegram.icon.svg';
 import { breakpointsAtom } from '##/modules/breakpoints';
 import { openRightSideAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
@@ -41,22 +39,7 @@ export const SideLinks = memo(() => {
               )}
             >
               <div className={cnSideLinks('BannerButtons')}>
-                <BannerButton
-                  className={cnMixSpace({ mB: 'xs' })}
-                  as="a"
-                  label="Сообщить о проблеме"
-                  href="https://github.com/consta-design-system/uikit/issues/new/choose"
-                  target="_blank"
-                  icon={IconFeedback}
-                  description="Исправим ошибку, которую вы найдёте"
-                />
-                <BannerButton
-                  as="a"
-                  label="Telegram"
-                  icon={IconTelegram}
-                  href="https://t.me/Consta_Chat"
-                  target="_blank"
-                />
+                <BannerLinks />
               </div>
               <MdxMenuTransfer className={cnSideLinks('Menu')} />
               <div className={cnSideLinks('ControlsWrap')}>
@@ -88,24 +71,10 @@ export const SideLinks = memo(() => {
                 [cnMixSpace({ pV: 'xl', pH: 's' })],
               )}
             >
-              <div className={cnSideLinks('BannerButtons')}>
-                <BannerButton
-                  className={cnMixSpace({ mB: 'xs' })}
-                  as="a"
-                  label="Сообщить о проблеме"
-                  href="https://github.com/consta-design-system/uikit/issues/new/choose"
-                  target="_blank"
-                  icon={IconFeedback}
-                  description="Исправим ошибку, которую вы найдёте"
-                  onlyIcon
-                />
-                <BannerButton
-                  as="a"
-                  label="Telegram"
-                  icon={IconTelegram}
-                  href="https://t.me/Consta_Chat"
-                  target="_blank"
-                  onlyIcon
+              <div className={cnSideLinks('BannerButtons', { center: true })}>
+                <BannerLinks
+                  className={cnSideLinks('MoreButton')}
+                  view="popover"
                 />
               </div>
               <div className={cnSideLinks('ControlsWrap')}>

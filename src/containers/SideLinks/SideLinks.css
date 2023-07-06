@@ -64,6 +64,11 @@
 
   &-BannerButtons {
     flex: none;
+
+    &_center {
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 
   &-Menu {
