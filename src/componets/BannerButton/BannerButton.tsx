@@ -53,6 +53,7 @@ export const BannerButton = forwardRef<HTMLDivElement, BannerButtonProps>(
                 size="xs"
                 lineHeight="m"
                 view="secondary"
+                target="_blank"
                 href={path}
                 key={cnBannerButton('Item', { index })}
                 className={cnBannerButton('Item')}
