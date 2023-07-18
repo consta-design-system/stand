@@ -8,8 +8,8 @@ import { useComponentSize } from '@consta/uikit/useComponentSize';
 import { useAction } from '@reatom/npm-react';
 import React, { memo, useEffect, useRef } from 'react';
 
+import { BannerLinks } from '##/componets/BannerLinks';
 import { HeaderSearchToggler, SearchMobile } from '##/containers/SearchMobile';
-import { ThemeToggler } from '##/containers/ThemeToggler';
 import { headerHeightAtomSet, openLeftSideAtom } from '##/modules/layout';
 import { cn } from '##/utils/bem';
 
@@ -42,7 +42,7 @@ const Right = () => {
   return (
     <>
       <HeaderSearchToggler />
-      <ThemeToggler />
+      <BannerLinks view="popover" mode="header" />
     </>
   );
 };
