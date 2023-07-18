@@ -1,0 +1,25 @@
+.stand--BannerLinks {
+  &-Button {
+    background:
+      linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(271deg, #4c7687 0%, #568caa 100%);
+  }
+
+  &-Popover {
+    z-index: 101;
+    min-width: 254px;
+  }
+
+  &-Toggler {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: var(--color-bg-system);
+    border-radius: var(--space-xs);
+    gap: var(--space-xs);
+  }
+}
