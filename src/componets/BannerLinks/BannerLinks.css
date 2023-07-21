@@ -1,12 +1,23 @@
 .stand--BannerLinks {
-  &-Button {
-    background:
+  &-Button.Button {
+    --button-bg-color:
       linear-gradient(
         0deg,
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 0) 100%
       ),
       linear-gradient(271deg, #4c7687 0%, #568caa 100%);
+    --button-bg-color-hover:
+      linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.32) 0%,
+        rgba(255, 255, 255, 0.32) 100%
+      ),
+      linear-gradient(271deg, #4c7687 0%, #568caa 100%);
+
+    & .icons--AnimateIconBase.Button-Icon {
+      display: inline-flex;
+    }
   }
 
   &-Popover {
