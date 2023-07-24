@@ -7,6 +7,10 @@
     padding: var(--space-l);
   }
 
+  & > .MdxCollapse {
+    margin-bottom: var(--space-xl);
+  }
+
   /* Only headers */
   & > h1 + h1.Text {
     margin-top: var(--lazy-docs-gap-3xl);
@@ -97,7 +101,8 @@
   & > h1 + pre.Text,
   & > h1 + blockquote.Text,
   & > h1 + .stand--Example,
-  & > h1 + .stand--Table-Wrapper {
+  & > h1 + .stand--Table-Wrapper,
+  & > h1 + .MdxCollapse {
     margin-top: var(--lazy-docs-gap-l);
   }
 
@@ -107,7 +112,8 @@
   & > .stand--Example + h1.Text,
   & > ol + h1.Text,
   & > ul + h1.Text,
-  & > .stand--Table-Wrapper + h1.Text {
+  & > .stand--Table-Wrapper + h1.Text,
+  & > .MdxCollapse + h1.Text {
     margin-top: var(--lazy-docs-gap-3xl);
   }
 
@@ -120,7 +126,9 @@
   & > h3 + pre.Text,
   & > h3 + blockquote.Text,
   & > h3 + .stand--Example,
-  & > h3 + .stand--Table-Wrapper {
+  & > h3 + .stand--Table-Wrapper,
+  & > h2 + .MdxCollapse,
+  & > h3 + .MdxCollapse {
     margin-top: var(--lazy-docs-gap-m);
   }
 
@@ -137,7 +145,9 @@
   & > .stand--Example + h3.Text,
   & > ol + h3.Text,
   & > ul + h3.Text,
-  & > .stand--Table-Wrapper + h3.Text {
+  & > .stand--Table-Wrapper + h3.Text,
+  & > .MdxCollapse + h2.Text,
+  & > .MdxCollapse + h3.Text {
     margin-top: var(--lazy-docs-gap-xl);
   }
 
@@ -150,7 +160,9 @@
   & > h5 + pre.Text,
   & > h5 + blockquote.Text,
   & > h5 + .stand--Example,
-  & > h5 + .stand--Table-Wrapper {
+  & > h5 + .stand--Table-Wrapper,
+  & > h4 + .MdxCollapse,
+  & > h5 + .MdxCollapse {
     margin-top: var(--lazy-docs-gap-s);
   }
 
@@ -167,7 +179,9 @@
   & > .stand--Example + h5.Text,
   & > ol + h5.Text,
   & > ul + h5.Text,
-  & > .stand--Table-Wrapper + h5.Text {
+  & > .stand--Table-Wrapper + h5.Text,
+  & > .MdxCollapse + h4.Text,
+  & > .MdxCollapse + h5.Text {
     margin-top: var(--lazy-docs-gap-l);
   }
 
@@ -175,7 +189,8 @@
   & > h6 + pre.Text,
   & > h6 + blockquote.Text,
   & > h6 + .stand--Example,
-  & > h6 + .stand--Table-Wrapper {
+  & > h6 + .stand--Table-Wrapper,
+  & > h6 + .MdxCollapse {
     margin-top: var(--lazy-docs-gap-xs);
   }
 
@@ -185,7 +200,8 @@
   & > .stand--Example + h6.Text,
   & > ol + h6.Text,
   & > ul + h6.Text,
-  & > .stand--Table-Wrapper + h6.Text {
+  & > .stand--Table-Wrapper + h6.Text,
+  & > .MdxCollapse + h6.Text {
     margin-top: var(--lazy-docs-gap-m);
   }
 
@@ -194,13 +210,16 @@
   & > p + pre.Text,
   & > p + blockquote.Text,
   & > p + .stand--Table-Wrapper,
+  & > p + .MdxCollapse,
   & > pre + p.Text,
   & > pre + pre.Text,
   & > pre + blockquote.Text,
   & > pre + .stand--Table-Wrapper,
+  & > pre + .MdxCollapse,
   & > blockquote + p.Text,
   & > blockquote + pre.Text,
   & > blockquote + blockquote.Text & > blockquote + .stand--Table-Wrapper,
+  & > blockquote + .MdxCollapse,
   & > ol + p.Text,
   & > ul + p.Text,
   & > ol + pre.Text,
@@ -208,7 +227,10 @@
   & > ol + blockquote.Text,
   & > ul + blockquote.Text & > ol + .stand--Table-Wrapper,
   & > ul + .stand--Table-Wrapper,
+  & > ol + .MdxCollapse,
+  & > ul + .MdxCollapse,
   & > .stand--Table-Wrapper + p.Text,
+  & > .stand--Table-Wrapper + .MdxCollapse,
   & > .stand--Table-Wrapper + pre.Text,
   & > .stand--Table-Wrapper + blockquote.Text,
   & > .stand--Table-Wrapper + .stand--Table-Wrapper {

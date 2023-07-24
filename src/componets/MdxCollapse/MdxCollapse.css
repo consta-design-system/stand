@@ -1,0 +1,13 @@
+.stand--MdxCollapse {
+  & .Collapse-LabelText {
+    font-weight: var(--font-weight-text-semibold);
+  }
+
+  & .Collapse-Label {
+    padding: 0;
+  }
+
+  & .Collapse-Content {
+    padding: var(--space-m) 0 0 calc(var(--space-3xl) + var(--space-2xs));
+  }
+}
