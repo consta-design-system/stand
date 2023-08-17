@@ -106,6 +106,9 @@ export const searchListIsResultAtom = atom((ctx) => {
   return valueNormalize(ctx.spy(searchValueAtom)).length >= 3;
 });
 
+const includeInStr = (path: string | null | undefined, src: string) =>
+  src.toLocaleLowerCase().includes(valueNormalize(path));
+
 export const searchListDataAtom = atom((ctx) => {
   const searchValue = ctx.spy(searchValueAtom);
 
@@ -120,21 +123,49 @@ export const searchListDataAtom = atom((ctx) => {
     return historyNormalize;
   }
 
-  return ctx.get(searchListNormalizeAtom).filter((item) => {
-    if (item.label.toLocaleLowerCase().includes(valueNormalize(searchValue))) {
-      return true;
+  const list = ctx.get(searchListNormalizeAtom);
+
+  const labelLevel = list.filter((item) =>
+    includeInStr(searchValue, item.label),
+  );
+
+  const aliasLevel = list.filter((item) => {
+    if (!item.alias?.length) {
+      return false;
+    }
+
+    if (labelLevel.find((levelItem) => levelItem.id === item.id)) {
+      return false;
     }
 
     if (item.alias) {
-      item.alias.forEach((alias) => {
-        if (alias.toLocaleLowerCase().includes(valueNormalize(searchValue))) {
+      for (let index = 0; index < item.alias.length; index++) {
+        if (includeInStr(searchValue, item.alias[index])) {
           return true;
         }
-      });
+      }
     }
 
     return false;
   });
+
+  const descriptionLevel = list.filter((item) => {
+    if (!item.description) {
+      return false;
+    }
+
+    if (
+      [...labelLevel, ...aliasLevel].find(
+        (levelItem) => levelItem.id === item.id,
+      )
+    ) {
+      return false;
+    }
+
+    return includeInStr(searchValue, item.description);
+  });
+
+  return [...labelLevel, ...aliasLevel, ...descriptionLevel];
 });
 
 export const searchListLengthAtom = atom((ctx) => {

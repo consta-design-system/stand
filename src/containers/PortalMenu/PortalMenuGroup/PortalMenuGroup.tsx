@@ -47,7 +47,6 @@ export const PortalMenuGroup = <ITEM,>(props: PortalMenuGroupProps<ITEM>) => {
         isOpen={isOpen}
         onClick={setIsOpen.toggle}
         iconView="ghost"
-        view="secondary"
         hoverEffect
         horizontalSpace="s"
       >
