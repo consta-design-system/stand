@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.121",
+  "version": "0.0.122",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -56,7 +56,6 @@
     "react-dev-utils": "^12.0.0",
     "react-highlight": "^0.14.0",
     "react-refresh": "^0.11.0",
-    "react-router5": "^8.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^1.0.0",
     "resolve": "^1.20.0",
@@ -73,7 +72,19 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.1",
     "webpack-manifest-plugin": "^5.0.0",
-    "workbox-webpack-plugin": "^6.4.1"
+    "workbox-webpack-plugin": "^6.4.1",
+    "@consta/header": "^1.2.1",
+    "@consta/icons": "^0.9.0",
+    "@consta/uikit": "^4.25.0",
+    "@consta/widgets-utils": "^0.2.15",
+    "@reatom/framework": "^3.1.31",
+    "@reatom/npm-react": "^3.3.2",
+    "react-router5": "^8.0.1",
+    "reatom-router5": "^3.0.2",
+    "router5": "^8.0.1",
+    "router5-helpers": "^8.0.0",
+    "router5-plugin-browser": "^8.0.1",
+    "router5-plugin-logger": "^8.0.1"
   },
   "files": [
     "*"
@@ -142,20 +153,7 @@
       }
     }
   },
-  "peerDependencies": {
-    "@consta/header": "^1.2.1",
-    "@consta/icons": "^0.9.0",
-    "@consta/uikit": "^4.25.0",
-    "@consta/widgets-utils": "^0.2.15",
-    "@reatom/framework": "^3.1.31",
-    "@reatom/npm-react": "^3.3.2",
-    "react-router5": "^8.0.1",
-    "reatom-router5": "^3.0.2",
-    "router5": "^8.0.1",
-    "router5-helpers": "^8.0.0",
-    "router5-plugin-browser": "^8.0.1",
-    "router5-plugin-logger": "^8.0.1"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@amcharts/amcharts4-geodata": "4.1.9",
     "@amcharts/amcharts5": "^5.2.22",
