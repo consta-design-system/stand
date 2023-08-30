@@ -1,10 +1,16 @@
 import React from 'react';
-import { useMdxComponents } from '../../../src/modules/mdxComponents';
 
+import { MDXComponents } from 'mdx/types';
 #imports#
-const Component: React.FC = () => {
-  const components = useMdxComponents();
-  return <Docs components={components} />;
+const Component: React.FC<{
+  wrapper: React.FC<{ children: React.ReactNode }>;
+  components: MDXComponents;
+}> = ({ wrapper: Wrapper, components }) => {
+  return (
+    <Wrapper>
+      <Docs components={components} />
+    </Wrapper>
+  );
 };
 
 export default Component;

@@ -1,0 +1,9 @@
+.stand--LazyDocsFallbackError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-Image {
+    width: 64px;
+  }
+}
