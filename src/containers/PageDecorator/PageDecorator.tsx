@@ -2,7 +2,7 @@ import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
 import { useStand } from '##/containers/StandPage/helpers';
-import { themeAtom, variantThemeAtom } from '##/modules/theme';
+import { currentThemeAtom } from '##/modules/theme';
 
 type PageDecoratorProps = {
   children: React.ReactElement;
@@ -10,17 +10,16 @@ type PageDecoratorProps = {
 };
 
 export const PageDecorator = (props: PageDecoratorProps) => {
-  const { children, type = 'default' } = props;
+  const { children } = props;
   const stand = useStand();
-  const [theme] = useAtom(themeAtom);
-  const [variantTheme] = useAtom(variantThemeAtom);
+  const [theme] = useAtom(currentThemeAtom);
 
   const decorator = stand?.lib.standPageDecoration;
 
   if (decorator) {
     return decorator({
       children,
-      theme: type === 'default' ? theme : variantTheme,
+      theme,
     });
   }
 

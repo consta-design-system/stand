@@ -1,28 +1,34 @@
-import { ThemePreset } from '@consta/uikit/Theme';
-import { ThemeToggler as ThemeTogglerConsta } from '@consta/uikit/ThemeToggler';
+import { AnimateIconSwitcherProvider } from '@consta/icons/AnimateIconSwitcherProvider';
+import { IconMoon } from '@consta/icons/IconMoon';
+import { IconSun } from '@consta/icons/IconSun';
+import { withAnimateSwitcherHOC } from '@consta/icons/withAnimateSwitcherHOC';
+import { Button } from '@consta/uikit/Button';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React from 'react';
 
-import { getThemeIcon, getThemeKey, themeAtom, themes } from '##/modules/theme';
+import { isDarkThemeAtom, toggleThemeAction } from '##/modules/theme';
+
+const Icon = withAnimateSwitcherHOC({
+  startIcon: IconSun,
+  endIcon: IconMoon,
+  transition: 300,
+});
 
 export const ThemeToggler: React.FC<
   Omit<React.HTMLAttributes<HTMLButtonElement>, 'children'>
 > = (props) => {
-  const [theme] = useAtom(themeAtom);
-  const setTheme = useAction((ctx, props: { value: ThemePreset }) =>
-    themeAtom(ctx, props.value),
-  );
+  const [isDarkTheme] = useAtom(isDarkThemeAtom);
+  const setTheme = useAction(toggleThemeAction);
   return (
-    <ThemeTogglerConsta
-      {...props}
-      getItemKey={getThemeKey}
-      getItemLabel={getThemeKey}
-      getItemIcon={getThemeIcon}
-      items={themes}
-      onChange={setTheme}
-      value={theme}
-      size="s"
-      view="ghost"
-    />
+    <AnimateIconSwitcherProvider active={isDarkTheme}>
+      <Button
+        {...props}
+        onClick={setTheme}
+        onlyIcon
+        iconLeft={Icon}
+        size="s"
+        view="ghost"
+      />
+    </AnimateIconSwitcherProvider>
   );
 };

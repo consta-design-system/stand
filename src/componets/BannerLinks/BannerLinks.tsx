@@ -10,7 +10,7 @@ import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Popover } from '@consta/uikit/Popover';
 import { Switch } from '@consta/uikit/Switch';
 import { Text } from '@consta/uikit/Text';
-import { presetGpnDark, presetGpnDefault, useTheme } from '@consta/uikit/Theme';
+import { useTheme } from '@consta/uikit/Theme';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/npm-react';
@@ -20,7 +20,7 @@ import { Transition } from 'react-transition-group';
 import { BannerButton } from '##/componets/BannerButton';
 import IconFeedback from '##/icons/Feedback.icon.svg';
 import IconTelegram from '##/icons/Telegram.icon.svg';
-import { themeAtom } from '##/modules/theme';
+import { isDarkThemeAtom, toggleThemeAction } from '##/modules/theme';
 import { cn } from '##/utils/bem';
 
 const cnBannerLinks = cn('BannerLinks');
@@ -38,16 +38,12 @@ const MoreSwitchIcon = withAnimateSwitcherHOC({
 
 export const BannerLinks = (props: BannerLinksProps) => {
   const { view = 'list', mode = 'sidebar', className } = props;
-  const [theme] = useAtom(themeAtom);
-
+  const [isDarkTheme] = useAtom(isDarkThemeAtom);
+  const toggleTheme = useAction(toggleThemeAction);
   const [isOpen, setIsOpen] = useFlag();
-
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
-
   const standTheme = useTheme();
-
-  const setTheme = useAction(themeAtom);
 
   useClickOutside({
     isActive: view === 'popover',
@@ -128,13 +124,7 @@ export const BannerLinks = (props: BannerLinksProps) => {
                   cnMixSpace({ p: 's', mB: 'xs' }),
                 ])}
               >
-                <Switch
-                  size="m"
-                  checked={theme === presetGpnDark}
-                  onChange={({ checked }) =>
-                    setTheme(checked ? presetGpnDark : presetGpnDefault)
-                  }
-                />
+                <Switch size="m" checked={isDarkTheme} onChange={toggleTheme} />
                 <Text size="xs" lineHeight="m">
                   Тёмная тема
                 </Text>

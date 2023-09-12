@@ -12,6 +12,8 @@ import { action, atom } from '@reatom/core';
 import { onUpdate } from '@reatom/hooks';
 import { withLocalStorage } from '@reatom/persist-web-storage';
 
+import { routerAtom, routesNames } from '##/modules/router';
+
 export const themes = [presetGpnDark, presetGpnDefault];
 export const variantThemes = [
   presetGpnDark,
@@ -50,9 +52,37 @@ export const themeAtom = atom<ThemePreset>(getDefaultTheme()).pipe(
   withLocalStorage('themeAtom'),
 );
 
+export const toggleThemeAction = action((ctx) => {
+  const theme = ctx.get(themeAtom);
+
+  if (theme.color.primary === presetGpnDark.color.primary) {
+    themeAtom(ctx, presetGpnDefault);
+  } else {
+    themeAtom(ctx, presetGpnDark);
+  }
+});
+
+export const isDarkThemeAtom = atom((ctx) => {
+  const theme = ctx.spy(themeAtom);
+
+  return theme.color.primary === presetGpnDark.color.primary;
+});
+
 export const variantThemeAtom = atom<ThemePreset>(getDefaultTheme()).pipe(
   withLocalStorage('variantThemeAtom'),
 );
+
+export const currentThemeAtom = atom<ThemePreset>((ctx) => {
+  const theme = ctx.spy(themeAtom);
+  const variantTheme = ctx.spy(variantThemeAtom);
+  const router = ctx.get(routerAtom);
+
+  if (router.route?.name === routesNames.LIBS_VARIANTS) {
+    return variantTheme;
+  }
+
+  return theme;
+});
 
 onUpdate(themeAtom, (ctx, value) => {
   variantThemeAtom(ctx, value);
