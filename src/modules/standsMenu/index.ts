@@ -1,26 +1,23 @@
 import { atom } from '@reatom/core';
 import { onUpdate } from '@reatom/hooks';
-import { BooleanAtom, reatomString } from '@reatom/primitives';
+import { withLocalStorage } from '@reatom/persist-web-storage';
+import { BooleanAtom, reatomBoolean, reatomString } from '@reatom/primitives';
 
 import { libAtom } from '##/modules/lib';
 import { standAtom } from '##/modules/stand';
-import { createBooleanSyncLocalStorageAtom } from '##/primitives/createBooleanSyncLocalStorageAtom';
 
 export const searchValueAtom = reatomString();
 
-export const deprecatedSwitchAtom = createBooleanSyncLocalStorageAtom(
-  'deprecatedSwitch',
-  true,
+export const deprecatedSwitchAtom = reatomBoolean(true).pipe(
+  withLocalStorage('deprecatedSwitchAtom'),
 );
 
-export const canarySwitchAtom = createBooleanSyncLocalStorageAtom(
-  'canarySwitch',
-  true,
+export const canarySwitchAtom = reatomBoolean(true).pipe(
+  withLocalStorage('canarySwitchAtom'),
 );
 
-export const inWorkSwitchAtom = createBooleanSyncLocalStorageAtom(
-  'inWorkSwitch',
-  true,
+export const inWorkSwitchAtom = reatomBoolean(true).pipe(
+  withLocalStorage('inWorkSwitchAtom'),
 );
 
 export type fiterItem = {

@@ -1,9 +1,11 @@
 import { action, atom } from '@reatom/core';
 import { onUpdate } from '@reatom/hooks';
 import { useAction, useAtom } from '@reatom/npm-react';
+import { withSessionStorage } from '@reatom/persist-web-storage';
 import { useEffect } from 'react';
 import { navigateToAction, routerAtom } from 'reatom-router5';
 
+import { standIdAtom } from '##/modules/stand';
 import { htmlModsActionAdd } from '##/modules/theme';
 
 export type VariantType =
@@ -37,6 +39,18 @@ export type Variant<
   isActive: boolean;
 };
 
+type VariantWithId<
+  TYPE extends VariantType = VariantType,
+  OPTION extends string | number = string,
+> = {
+  type: TYPE;
+  name: string;
+  value: Value<TYPE, OPTION>;
+  options?: OPTION[] | readonly OPTION[];
+  isActive: boolean;
+  id: string;
+};
+
 type WithUndefindValue = <T extends unknown>(
   value: T,
 ) => Exclude<T, 'undefined'> | undefined;
@@ -55,7 +69,7 @@ const optionsWithUndefined: OptionsWithUndefined = (options) => {
   return ['undefined', ...options];
 };
 
-export type VariantsAtomState = Record<string, Variant>;
+export type VariantsAtomState = Record<string, VariantWithId>;
 
 const propIsEqual = <T extends Object>(
   variantOld: T,
@@ -63,39 +77,44 @@ const propIsEqual = <T extends Object>(
   prop: keyof T,
 ) => variantOld?.[prop] === variantNew?.[prop];
 
-export const variantsAtom = atom<VariantsAtomState>({});
+export const variantsAtom = atom<VariantsAtomState>({}).pipe(
+  withSessionStorage('variantsAtom'),
+);
 
 export const variantsActionSetActive = action(
-  (ctx, { name, isActive }: { name: string; isActive: boolean }) => {
+  (ctx, { id, isActive }: { id: string; isActive: boolean }) => {
     const state = ctx.get(variantsAtom);
 
-    if (name in state && state[name].isActive !== isActive) {
-      variantsAtom(ctx, { ...state, [name]: { ...state[name], isActive } });
+    if (id in state && state[id].isActive !== isActive) {
+      variantsAtom(ctx, { ...state, [id]: { ...state[id], isActive } });
     }
   },
 );
 
 export const variantsActionSet = action((ctx, payload: Variant) => {
   const state = ctx.get(variantsAtom);
+  const standId = ctx.get(standIdAtom);
 
-  if (!(payload.name in state)) {
-    variantsAtom(ctx, { ...state, [payload.name]: payload });
+  const id = `${standId}-${payload.name}`;
+
+  if (!(id in state)) {
+    variantsAtom(ctx, { ...state, [id]: { ...payload, id } });
   }
 
   if (
-    !propIsEqual(state[payload.name], payload, 'isActive') ||
-    !propIsEqual(state[payload.name], payload, 'value')
+    !propIsEqual(state[id], payload, 'isActive') ||
+    !propIsEqual(state[id], payload, 'value')
   ) {
-    variantsAtom(ctx, { ...state, [payload.name]: payload });
+    variantsAtom(ctx, { ...state, [id]: { ...payload, id } });
   }
 });
 
-export const variantsActionDel = action((ctx, payload: string) => {
+export const variantsActionDel = action((ctx, id: string) => {
   const state = ctx.get(variantsAtom);
 
-  if (payload in state) {
+  if (id in state) {
     const newState = { ...state };
-    delete newState[payload];
+    delete newState[id];
     variantsAtom(ctx, newState);
   }
 });
@@ -108,8 +127,9 @@ export const variantsActionClear = action((ctx) => variantsAtom(ctx, {}));
 
 export const variantsNamesAtom = atom((ctx) => {
   const variants = ctx.spy(variantsAtom);
+  const standId = ctx.get(standIdAtom);
 
-  return Object.keys(variants);
+  return Object.keys(variants).filter((id) => id.indexOf(standId) >= 0);
 });
 
 export const variantsIsFullScreen = atom((ctx) => {
@@ -146,24 +166,26 @@ export const useVariant = <
   variant: Variant<TYPE, OPTION>,
 ) => {
   const [variants] = useAtom(variantsAtom);
+  const [standId] = useAtom(standIdAtom);
   const set = useAction(variantsActionSet);
   const setActive = useAction(variantsActionSetActive);
   const del = useAction(variantsActionDel);
+  const id = `${standId}-${variant.name}`;
 
   useEffect(() => {
-    set(variant as Variant);
-    return () => del(variant.name);
+    set({ ...variant, id } as VariantWithId);
+    return () => del(id);
   }, []);
 
   useEffect(() => {
-    setActive(variant);
+    setActive({ ...variant, id });
   });
 
   if (!variant.isActive) {
     return undefined;
   }
 
-  return variants[variant.name]?.value as Value<TYPE, OPTION>;
+  return variants[id]?.value as Value<TYPE, OPTION>;
 };
 
 export const useBoolean = (
@@ -203,14 +225,27 @@ export const useText = (
   isActive: boolean = true,
 ) => useVariant({ type: 'text', name, value, isActive });
 
-export const useDate = (name: string, value?: Date, isActive: boolean = true) =>
-  useVariant({ type: 'date', name, value, isActive });
+export const useDate = (
+  name: string,
+  value?: Date,
+  isActive: boolean = true,
+) => {
+  const variantValue = useVariant({ type: 'date', name, value, isActive });
+  return typeof variantValue === 'string'
+    ? new Date(variantValue)
+    : variantValue;
+};
 
 export const useDateTime = (
   name: string,
   value?: Date,
   isActive: boolean = true,
-) => useVariant({ type: 'date-time', name, value, isActive });
+) => {
+  const variantValue = useVariant({ type: 'date-time', name, value, isActive });
+  return typeof variantValue === 'string'
+    ? new Date(variantValue)
+    : variantValue;
+};
 
 export const useNumber = (
   name: string,

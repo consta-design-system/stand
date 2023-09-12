@@ -10,6 +10,7 @@ import {
 } from '@consta/uikit/Theme';
 import { action, atom } from '@reatom/core';
 import { onUpdate } from '@reatom/hooks';
+import { withLocalStorage } from '@reatom/persist-web-storage';
 
 export const themes = [presetGpnDark, presetGpnDefault];
 export const variantThemes = [
@@ -45,28 +46,15 @@ export const getThemeIcon = (theme: ThemePreset) =>
 export const getThemeLabel = (theme: ThemePreset) =>
   labelMap[theme.color.primary];
 
-const KEY = 'theme';
-const VARIANT_KEY = 'variant_theme';
-
-const getSnapTheme = (key: string) =>
-  variantThemes.find(
-    (item) => item.color.primary === localStorage.getItem(key),
-  );
-
-export const themeAtom = atom<ThemePreset>(
-  getSnapTheme(KEY) || getDefaultTheme(),
+export const themeAtom = atom<ThemePreset>(getDefaultTheme()).pipe(
+  withLocalStorage('themeAtom'),
 );
 
-export const variantThemeAtom = atom<ThemePreset>(
-  getSnapTheme(VARIANT_KEY) || getDefaultTheme(),
-);
-
-onUpdate(variantThemeAtom, (_ctx, value) =>
-  localStorage.setItem(VARIANT_KEY, value.color.primary),
+export const variantThemeAtom = atom<ThemePreset>(getDefaultTheme()).pipe(
+  withLocalStorage('variantThemeAtom'),
 );
 
 onUpdate(themeAtom, (ctx, value) => {
-  localStorage.setItem(KEY, value.color.primary);
   variantThemeAtom(ctx, value);
 });
 

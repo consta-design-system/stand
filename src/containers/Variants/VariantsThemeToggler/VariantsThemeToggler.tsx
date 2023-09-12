@@ -56,7 +56,11 @@ export const VariantsThemeToggler: React.FC<{
         anchorRef={buttonRef}
         size="s"
         className={cnVariantsThemeToggler('Menu')}
-        getItemRightIcon={(item) => (item === theme ? IconCheck : undefined)}
+        getItemRightIcon={(item) => {
+          return item.color.primary === theme.color.primary
+            ? IconCheck
+            : undefined;
+        }}
         getItemLabel={getThemeLabel}
         getItemKey={getThemeKey}
         getItemLeftIcon={getThemeIcon}

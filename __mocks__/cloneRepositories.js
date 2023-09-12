@@ -50,7 +50,7 @@ class GenerateCommand extends Command {
 
     try {
       await remove('./repositories');
-      await Promise.all(repos.map((item) => clone(item)));
+      await Promise.all(repos.map(clone));
     } catch (err) {
       this.error(err);
     }

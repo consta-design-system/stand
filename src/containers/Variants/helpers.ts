@@ -1,48 +1,10 @@
-import { reatomContext, useAction, useAtom } from '@reatom/npm-react';
-import { createContext, useContext, useEffect, useRef } from 'react';
+import { useAction, useAtom } from '@reatom/npm-react';
+import { createContext, useContext } from 'react';
 
-import { variantThemeAtom } from '##/modules/theme';
 import {
-  variantsActionClear,
-  variantsAtom,
   variantsIsFullScreen,
   variantsToggleFullScreen,
 } from '##/modules/variants';
-
-export const useIframeBridge = () => {
-  const clear = useAction(variantsActionClear);
-  const store = useContext(reatomContext);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const unsubscribeVariantsAtom = store?.subscribe(variantsAtom, (state) => {
-      iframeRef.current?.contentWindow?.postMessage({
-        type: 'to-iframe-variantsAtom',
-        payload: state,
-      });
-    });
-
-    const unsubscribeThemeAtom = store?.subscribe(variantThemeAtom, (state) => {
-      iframeRef.current?.contentWindow?.postMessage({
-        type: 'to-iframe-themeAtom',
-        payload: state,
-      });
-    });
-
-    return () => {
-      unsubscribeVariantsAtom?.();
-      unsubscribeThemeAtom?.();
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      clear();
-    };
-  }, []);
-
-  return iframeRef;
-};
 
 export const useFullScreen = () => {
   const [open] = useAtom(variantsIsFullScreen);

@@ -1,8 +1,9 @@
 import { action, atom } from '@reatom/core';
+import { withLocalStorage } from '@reatom/persist-web-storage';
 import { reatomBoolean } from '@reatom/primitives';
 
-import { standsAtom } from '##/modules/stands';
-import { createArraySyncLocalStorageAtom } from '##/primitives/createArraySyncLocalStorageAtom';
+// @ts-ignore: При сборке стенды осутствуют
+import { stands } from '##/modules/stands';
 import { PreparedStand } from '##/types';
 
 export const fieldRefAtom = atom<React.RefObject<HTMLDivElement>>({
@@ -27,8 +28,9 @@ type HistoryNormalizeItem = {
 export const inputFocusedAtom = reatomBoolean();
 export const inputValueAtom = atom<string | null>(null);
 export const searchValueAtom = atom<string | null>(null);
-export const historyAtom =
-  createArraySyncLocalStorageAtom<string>('searchHistory');
+export const historyAtom = atom<string[]>([]).pipe(
+  withLocalStorage('searchHistoryAtom'),
+);
 
 export const updateHistoryAction = action(
   (ctx, value: string | null | undefined) => {
@@ -72,7 +74,7 @@ export const isOpenDropdownAtom = atom((ctx) => {
 });
 
 const searchListNormalizeAtom = atom((ctx) => {
-  const stands = ctx.spy(standsAtom);
+  // const stands = ctx.spy(standsAtom);
 
   const keys = Object.keys(stands);
 
