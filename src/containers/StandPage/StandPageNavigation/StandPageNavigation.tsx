@@ -113,7 +113,7 @@ export const StandPageNavigation = ({ className }: Props) => {
 
   const figmaItem: LinkItem | undefined = figmaUrl
     ? {
-        label: 'figmaUrl',
+        label: 'Figma',
         href: figmaUrl,
         icon: IconFigma,
         onlyIcon: true,
@@ -123,7 +123,7 @@ export const StandPageNavigation = ({ className }: Props) => {
 
   const gitHubItem: LinkItem | undefined = githubUrl
     ? {
-        label: 'githubUrl',
+        label: 'Github',
         href: githubUrl,
         icon: IconGitHub,
         onlyIcon: true,
