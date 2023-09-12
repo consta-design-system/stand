@@ -116,10 +116,12 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
+  const date = typeof value === 'string' ? new Date(value) : value;
+
   return (
     <DatePickerMemo
       className={cnVariantsField()}
-      value={value}
+      value={date}
       type="date"
       onChange={onChange}
       label={name}
@@ -139,10 +141,12 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
+  const date = typeof value === 'string' ? new Date(value) : value;
+
   return (
     <DatePickerMemo
       className={cnVariantsField()}
-      value={value}
+      value={date}
       type="date"
       onChange={onChange}
       label={name}
@@ -216,13 +220,13 @@ const map = {
   'select': VariantsFieldSelect,
 } as Record<VariantType, React.FC<Variant>>;
 
-export const VariantsField: React.FC<{ name: string }> = ({ name }) => {
+export const VariantsField: React.FC<{ id: string }> = ({ id }) => {
   const [variants] = useAtom(variantsAtom);
 
-  const Component = map[variants[name].type];
+  const Component = map[variants[id].type];
 
-  if (variants[name].isActive) {
-    return <Component {...variants[name]} />;
+  if (variants[id].isActive) {
+    return <Component {...variants[id]} />;
   }
 
   return null;

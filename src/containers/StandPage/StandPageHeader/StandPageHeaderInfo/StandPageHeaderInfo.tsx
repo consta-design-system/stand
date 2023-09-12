@@ -31,8 +31,6 @@ export const StandPageHeaderInfo = (props: Props) => {
 
   const { title, description, link, linkLabel } = info;
 
-  console.log(info);
-
   return (
     <div
       className={cnStandPageHeaderInfo(

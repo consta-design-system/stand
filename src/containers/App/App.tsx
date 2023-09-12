@@ -11,7 +11,6 @@ import { Menu } from '##/containers/Menu';
 import { Pages } from '##/containers/Pages';
 import { SideLinks } from '##/containers/SideLinks';
 import { VariantsPage } from '##/containers/VariantsPage';
-import { useIframeSubscribe } from '##/hooks/useIframeSubscribe';
 import {
   breakpointsAtom,
   useBreakpointsSubscriber,
@@ -38,7 +37,6 @@ export const App: React.FC = () => {
 
   const DesktopHeader = breakpoints.m ? LeftSideHeader : Null;
 
-  useIframeSubscribe();
   useBreakpointsSubscriber();
 
   if (route.name === routesNames.LIBS_VARIANTS) {

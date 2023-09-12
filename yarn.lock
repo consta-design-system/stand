@@ -2506,7 +2506,7 @@
     "@reatom/primitives" "^3.1.0"
     "@reatom/utils" "^3.4.0"
 
-"@reatom/core@^3.1.0", "@reatom/core@^3.1.1", "@reatom/core@^3.2.0", "@reatom/core@^3.4.0", "@reatom/core@^3.5.0":
+"@reatom/core@^3.1.0", "@reatom/core@^3.1.1", "@reatom/core@^3.2.0", "@reatom/core@^3.3.0", "@reatom/core@^3.4.0", "@reatom/core@^3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@reatom/core/-/core-3.5.0.tgz#d5b6bf9611a18306336ca298e15a2cdcdc60f5c1"
   integrity sha512-zCprMJQY1rsQOc3MU91d0ij0hgR7MPyYyZKqg29vSlrPtulYKx8FFClP78zm/QYt3XOizq8wIyGfeRQiU1hKKw==
@@ -2519,21 +2519,21 @@
     "@reatom/core" "^3.2.0"
     "@reatom/utils" "^3.2.0"
 
-"@reatom/framework@^3.1.31":
-  version "3.4.13"
-  resolved "https://registry.yarnpkg.com/@reatom/framework/-/framework-3.4.13.tgz#5532cfa254637ae5d1570fd79eaf3a809135e75f"
-  integrity sha512-0lKc+Ah7xQUS/c1q5k3MCFI6XBCyQscU8EdrqY8KQdzKJ+MU70E7iKqmMM80ZyZikbM8VAQQ3pMc0j9KvK+FQA==
+"@reatom/framework@^3.4.14":
+  version "3.4.14"
+  resolved "https://registry.yarnpkg.com/@reatom/framework/-/framework-3.4.14.tgz#7cce697830c54c910f5a27fe68e0893c9445936d"
+  integrity sha512-oy1cbKh9hvaTkGuE0G/TpWOq2ayD8eVsTdxHw6+ByiHNLF/kmo5o+goYjZ0z0fvAmyfR2WaLt8RKErwv3y1MSA==
   dependencies:
     "@reatom/async" "^3.8.3"
     "@reatom/core" "^3.5.0"
     "@reatom/effects" "^3.4.0"
     "@reatom/hooks" "^3.4.2"
     "@reatom/lens" "^3.6.1"
-    "@reatom/logger" "^3.4.5"
+    "@reatom/logger" "^3.5.0"
     "@reatom/primitives" "^3.2.1"
     "@reatom/utils" "^3.4.0"
 
-"@reatom/hooks@^3.2.0", "@reatom/hooks@^3.3.1", "@reatom/hooks@^3.4.2":
+"@reatom/hooks@^3.2.0", "@reatom/hooks@^3.3.1", "@reatom/hooks@^3.4.0", "@reatom/hooks@^3.4.2":
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/@reatom/hooks/-/hooks-3.4.2.tgz#06b82cbab2a9e0c201d650fc5122fa997cd06839"
   integrity sha512-IWr2mNlCc9QtB1VGoiMy1fT9mTDyh/1CW12tJCD4FsrWmtHmXwUs1IuGJYCLFAhaJ7VIeBRnK53bHrjokHra2Q==
@@ -2541,7 +2541,7 @@
     "@reatom/core" "^3.2.0"
     "@reatom/utils" "^3.3.0"
 
-"@reatom/lens@^3.1.0", "@reatom/lens@^3.6.1":
+"@reatom/lens@^3.1.0", "@reatom/lens@^3.4.0", "@reatom/lens@^3.6.1":
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/@reatom/lens/-/lens-3.6.1.tgz#b4c9a918741980944e9ec58de42905cdde6bc5a5"
   integrity sha512-RdYoVKf7zrT99Z51Bj8V1TvY/DjGM7E5WwfX+qYTwO/i99cbeqOl8K+boAo2DcljtMpOBcU1Hg+4wd5VCndHKQ==
@@ -2551,21 +2551,39 @@
     "@reatom/hooks" "^3.3.1"
     "@reatom/utils" "^3.1.0"
 
-"@reatom/logger@^3.4.5":
-  version "3.4.5"
-  resolved "https://registry.yarnpkg.com/@reatom/logger/-/logger-3.4.5.tgz#9376b59de85677ca389489f360c6dddac427290c"
-  integrity sha512-mZU8ftIw6N8Fo9XwEBVXbDhfhW8z7O8QBd+5XL6tSZT+W3E8gU5h9VWevGH/wDGo/UENnZgNdPRSquUifRNSXQ==
+"@reatom/logger@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@reatom/logger/-/logger-3.5.0.tgz#1e0cdcaaecba403c7411368200d93d4450864848"
+  integrity sha512-kQQcx4CeT7eh5112AKwh8kCsAEFmWpCGqpT/goSldPC9nqyNxN121GwpOlDZcEgwqNEgxJ6mAu0/UPBCnvQiGw==
   dependencies:
     "@reatom/core" "^3.1.0"
 
-"@reatom/npm-react@^3.3.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@reatom/npm-react/-/npm-react-3.4.2.tgz#eb1fb54327876e17fe1061e0f82a365333e2cb26"
-  integrity sha512-41AtmuZLRHSlsIpzElNylzavA3l+uYNjyYqVGKvtBPZiHLRc+pSCx8XBcSaqIWueYfj6NsmX/5m8SXTvaYIRHw==
+"@reatom/npm-react@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@reatom/npm-react/-/npm-react-3.5.0.tgz#e5e2bf1da597121505ef9c802c4814e3663188e5"
+  integrity sha512-xbTqDtFVqBM1E8aao1Hc+d+H92tCUK94eMlYFiNfgYqJQyiqjGH8hT3sbzFMPvi5yA6y0Ts44yux6zWyDyrbJQ==
   dependencies:
-    "@reatom/core" "^3.1.0"
+    "@reatom/core" "^3.5.0"
     "@reatom/lens" "^3.1.0"
     use-sync-external-store "^1.2.0"
+
+"@reatom/persist-web-storage@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@reatom/persist-web-storage/-/persist-web-storage-3.2.3.tgz#18000754b9cc77749af2f93280b08af061926d35"
+  integrity sha512-Vj60dDmyuJmKgN/+uP5UUjw0daU+TwoOjZ5ubcuLEbXyVjpqczDDD6ZEI9tNvcRT8a/toQmAu6MY1U5WSto9og==
+  dependencies:
+    "@reatom/core" "^3.3.0"
+    "@reatom/persist" "^3.1.0"
+
+"@reatom/persist@^3.1.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@reatom/persist/-/persist-3.3.0.tgz#1adafc5e04fb75cf586d89963bfc24e5fa3263a9"
+  integrity sha512-RM9PFxjwLje1FsMfBsborA9SyedsJIJVHqfuyoszLRv3J9SmTi4S2SJBd2EfZBbGF1hy0vwPncx1FYIHbgmU9g==
+  dependencies:
+    "@reatom/core" "^3.3.0"
+    "@reatom/hooks" "^3.4.0"
+    "@reatom/lens" "^3.4.0"
+    "@reatom/utils" "^3.4.0"
 
 "@reatom/primitives@^3.1.0", "@reatom/primitives@^3.2.1":
   version "3.2.1"

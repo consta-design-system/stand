@@ -1,7 +1,5 @@
-import { atom } from '@reatom/core';
-
 // @ts-ignore: При сборке стенды осутствуют
-import { stands } from '##/stands';
+import { stands as standsOriginal } from '##/stands';
 import { PreparedStand } from '##/types';
-
-export const standsAtom = atom<Record<string, PreparedStand>>(stands);
+// @ts-ignore: При сборке стенды осутствуют
+export const stands: Record<string, PreparedStand> = standsOriginal;

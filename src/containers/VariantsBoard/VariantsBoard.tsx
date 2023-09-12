@@ -20,8 +20,8 @@ export const VariantsBoard = forwardRef(
         ref={ref}
         className={cnVariantsBoard(null, [props.className])}
       >
-        {variantsNames.map((name) => {
-          return <VariantsField key={name} name={name} />;
+        {variantsNames.map((id) => {
+          return <VariantsField key={id} id={id} />;
         })}
       </div>
     );

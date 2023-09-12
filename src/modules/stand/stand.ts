@@ -2,17 +2,24 @@ import { atom } from '@reatom/core';
 import { State } from 'router5';
 
 import { routerAtom, routesNames } from '##/modules/router';
-import { standsAtom } from '##/modules/stands';
+// @ts-ignore: При сборке стенды осутствуют
+import { stands } from '##/modules/stands';
 import { PreparedStand, PreparedStandNopreparedLibs } from '##/types';
 import { generateStandId } from '##/utils/generateStandId';
 
-export const standAtom = atom((ctx) => {
+export const standIdAtom = atom((ctx) => {
   const router = ctx.spy(routerAtom);
+
   const standId = router.route?.params.stand as string | undefined;
   const libId = router.route?.params.lib as string | undefined;
-  const stand = standId
-    ? ctx.spy(standsAtom)[generateStandId(libId, standId)]
-    : undefined;
+
+  return generateStandId(libId, standId);
+});
+
+export const standAtom = atom((ctx) => {
+  const standId = ctx.spy(standIdAtom);
+
+  const stand = stands[standId];
 
   return stand;
 });

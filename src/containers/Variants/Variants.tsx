@@ -17,7 +17,7 @@ import { routesNames } from '##/modules/router';
 import { variantThemeAtom } from '##/modules/theme';
 import { cn } from '##/utils/bem';
 
-import { useFullScreen, useIframeBridge, ZIndexContext } from './helpers';
+import { useFullScreen, ZIndexContext } from './helpers';
 import { VariantsResolutions } from './VariantsResolutions';
 import { VariantsThemeToggler } from './VariantsThemeToggler';
 
@@ -29,6 +29,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
 }) => {
   const router = useRouter();
   const [openBoard, setOpenBoard] = useFlag();
+  const [isLoad, setIsLoad] = useFlag(true);
   const [openResolutionsMenu, setOpenResolutionsMenu] = useState<boolean>();
   const [openThemeMenu, setOpenThemeMenu] = useState<boolean>();
   const [resolution, setResolution] = useState<number>(0);
@@ -37,7 +38,6 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
 
   const [theme] = useAtom(variantThemeAtom);
 
-  const ref = useIframeBridge();
   const componentRef = useRef<HTMLDivElement>(null);
   const refBoard = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLButtonElement>(null);
@@ -79,9 +79,9 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
             <iframe
               className={cnVariants('Iframe')}
               style={{ width: resolution || undefined }}
-              ref={ref}
               title="variants"
               src={src}
+              onLoad={setIsLoad.off}
             />
           </div>
         </div>
@@ -113,11 +113,13 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
                 onClick={setFullscreen}
               />
             </div>
-            <VariantsBoard
-              className={cnVariants('Board', {
-                open: openBoard,
-              })}
-            />
+            {!isLoad && (
+              <VariantsBoard
+                className={cnVariants('Board', {
+                  open: openBoard,
+                })}
+              />
+            )}
           </div>
         </div>
       </div>
