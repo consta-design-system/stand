@@ -21,7 +21,7 @@ export const AppTheme: React.FC<{ children: React.ReactChild }> = (props) => {
     document
       .querySelector('html')
       ?.setAttribute('class', cnTheme({ ...mods }, [cnAppTheme(htmlMods)]));
-  }, [htmlMods]);
+  }, [htmlMods, theme]);
 
   return (
     <Theme className={cnAppTheme()} preset={theme}>
