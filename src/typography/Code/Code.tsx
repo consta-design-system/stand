@@ -1,19 +1,17 @@
 import './Code.css';
 
-import { IconAllDone } from '@consta/icons/IconAllDone';
-import { IconCopy } from '@consta/icons/IconCopy';
 import { cnMixFocus } from '@consta/uikit/MixFocus';
 import { useFlag } from '@consta/uikit/useFlag';
-import React, { useRef } from 'react';
+import React from 'react';
 import { PrismLight as Highlight } from 'react-syntax-highlighter';
 import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
 import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
-import { CSSTransition } from 'react-transition-group';
 
+import { AnimateCopyButton } from '##/componets/AnimateCopyButton';
+import { useMdxCodeContext } from '##/componets/MdxCode/context';
 import { cn } from '##/utils/bem';
-import { cnForCssTransition } from '##/utils/cnForCssTransition';
 
 import { useTheme } from './theme';
 
@@ -44,58 +42,12 @@ const getLanguage = (className: string | undefined) => {
 };
 
 const cnCode = cn('Code');
-const cssTransitionClassNames = cnForCssTransition(cnCode, 'Icon');
-const animateTimeout = 300;
-
-const CopyButton = (props: {
-  copied?: boolean;
-  onClick: React.MouseEventHandler;
-}) => {
-  const { copied, onClick } = props;
-  const iconRef = useRef<HTMLSpanElement>(null);
-  const copiedRef = useRef<HTMLSpanElement>(null);
-
-  return (
-    <div className={cnCode('Copy')}>
-      <button
-        type="button"
-        onClick={onClick}
-        className={cnCode('CopyButton', [cnMixFocus()])}
-      >
-        <CSSTransition
-          in={!copied}
-          unmountOnExit
-          classNames={cssTransitionClassNames}
-          timeout={animateTimeout}
-          nodeRef={iconRef}
-        >
-          <IconCopy
-            className={cnCode('Icon', { withCloseIcon: true })}
-            size="xs"
-            ref={iconRef}
-          />
-        </CSSTransition>
-        <CSSTransition
-          in={copied}
-          unmountOnExit
-          classNames={cssTransitionClassNames}
-          timeout={animateTimeout}
-          nodeRef={copiedRef}
-        >
-          <IconAllDone
-            className={cnCode('Icon', { withCloseIcon: true })}
-            size="xs"
-            ref={copiedRef}
-          />
-        </CSSTransition>
-      </button>
-    </div>
-  );
-};
 
 export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
   const { children, className, ...otherProps } = props;
   const [copied, setCopied] = useFlag();
+
+  const inMdxCode = useMdxCodeContext();
 
   const handleClick = () => {
     if (children) {
@@ -118,7 +70,15 @@ export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
         >
           {children?.toString() ?? ''}
         </Highlight>
-        <CopyButton copied={copied} onClick={handleClick} />
+        {!inMdxCode && (
+          <div className={cnCode('Copy')}>
+            <AnimateCopyButton
+              copied={copied}
+              onClick={handleClick}
+              className={cnCode('CopyButton', [cnMixFocus()])}
+            />
+          </div>
+        )}
       </div>
     );
   }

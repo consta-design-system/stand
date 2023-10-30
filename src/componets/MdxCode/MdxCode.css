@@ -1,0 +1,13 @@
+.stand--MdxCode {
+  width: 100%;
+  background: var(--color-bg-secondary);
+  border-radius: var(--control-radius);
+
+  &-Header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid var(--color-bg-border);
+    gap: var(--space-s);
+  }
+}
