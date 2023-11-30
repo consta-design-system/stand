@@ -32,7 +32,7 @@ export const VariantsThemeToggler: React.FC<{
     variantThemeAtom(ctx, value);
   });
 
-  const handleSelect = ({ item }: { item: ThemePreset }) => {
+  const handleSelect = (item: ThemePreset) => {
     setIsOpen.off();
     setTheme(item);
   };

@@ -1,5 +1,5 @@
+import { IconSearchStroked } from '@consta/icons/IconSearchStroked';
 import { Button } from '@consta/uikit/Button';
-import { IconSearch } from '@consta/uikit/IconSearch';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React, { memo } from 'react';
@@ -16,7 +16,7 @@ export const HeaderSearchToggler = memo(() => {
   return (
     <Button
       view={isActive ? 'primary' : 'ghost'}
-      iconLeft={IconSearch}
+      iconLeft={IconSearchStroked}
       className={cnMixSpace({ mR: 'm' })}
       onClick={toggle}
       form="round"

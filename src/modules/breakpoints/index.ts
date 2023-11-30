@@ -23,7 +23,7 @@ export const lastBreakpointAtom = atom(
 );
 
 export const useBreakpointsSubscriber = () => {
-  const data = useBreakpoints(breakpoints);
+  const data = useBreakpoints({ map: breakpoints, isActive: true });
   useUpdate(
     (ctx) => {
       breakpointsAtom(ctx, data);

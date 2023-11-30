@@ -82,7 +82,7 @@ export const ListCardBigItem = ({
             />
           )}
         </div>
-        <Text size="s" lineHeight="m" as="p">
+        <Text size="s" lineHeight="m" as="p" view="primary">
           {description}
         </Text>
       </div>

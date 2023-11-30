@@ -46,7 +46,7 @@ export const StandPageHeaderInfo = (props: Props) => {
         ])}
       />
       <div className={cnStandPageHeaderInfo('Content')}>
-        <Text weight="bold" size={sizeS} lineHeight="xs">
+        <Text weight="bold" size={sizeS} lineHeight="xs" view="primary">
           {title}
         </Text>
         {description && (
@@ -56,6 +56,7 @@ export const StandPageHeaderInfo = (props: Props) => {
             className={cnStandPageHeaderInfo('Description', [
               cnMixSpace({ mT: gapXs }),
             ])}
+            view="primary"
           >
             {description}{' '}
             {link && linkLabel && (

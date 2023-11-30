@@ -1,3 +1,5 @@
+import './StandPage.css';
+
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useAtom } from '@reatom/npm-react';
 import React, { memo, useMemo } from 'react';
@@ -6,11 +8,18 @@ import { useRoute } from 'react-router5';
 import { LazyDocs } from '##/componets/LazyDocs';
 import { PageDecorator } from '##/containers/PageDecorator';
 import { Variants } from '##/containers/Variants';
-import { gapAtomMapFabric, gapMapAtom } from '##/modules/adaptiveSize';
+import {
+  gapAtomMapFabric,
+  gapMapAtom,
+  sizeMapAtom,
+} from '##/modules/adaptiveSize';
+import { cn } from '##/utils/bem';
 
 import { getStandPath, useStand } from './helpers';
 import { StandPageHeader } from './StandPageHeader';
 import { StandPageNavigation } from './StandPageNavigation';
+
+const cnStandPage = cn('StandPage');
 
 export const StandPage: React.FC = memo(() => {
   const stand = useStand();
@@ -20,6 +29,7 @@ export const StandPage: React.FC = memo(() => {
   const [gap2xl] = useAtom(gapAtomMapFabric['2xl']);
   const [gap4xl] = useAtom(gapAtomMapFabric['4xl']);
   const [gapMap] = useAtom(gapMapAtom);
+  const [sizeMap] = useAtom(sizeMapAtom);
 
   const tab = useMemo(
     () =>
@@ -56,7 +66,7 @@ export const StandPage: React.FC = memo(() => {
           />
         )}
         {standPath && (
-          <div style={gapMap}>
+          <div className={cnStandPage('Doc')} style={{ ...gapMap, ...sizeMap }}>
             <LazyDocs key={standPath} id={standPath} />
           </div>
         )}

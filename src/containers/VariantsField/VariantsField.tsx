@@ -63,7 +63,7 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+  const onChange = useAction((ctx, value: string | null) =>
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
@@ -85,7 +85,7 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+  const onChange = useAction((ctx, value: string | null) =>
     variantsActionSet(ctx, {
       type,
       value: value !== undefined ? Number(value) : undefined,
@@ -112,7 +112,7 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: Date | null }) =>
+  const onChange = useAction((ctx, value: Date | null) =>
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
@@ -137,7 +137,7 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: Date | null }) =>
+  const onChange = useAction((ctx, value: Date | null) =>
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
@@ -162,8 +162,9 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { checked: value }: { checked: boolean }) =>
-    variantsActionSet(ctx, { type, value, name, isActive }),
+  const onChange = useAction(
+    (ctx) => variantsActionSet(ctx, { type, value, name, isActive }),
+    [value],
   );
 
   return (
@@ -186,7 +187,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
   options = [],
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+  const onChange = useAction((ctx, value: string | null) =>
     variantsActionSet(ctx, {
       type,
       value: value ?? undefined,

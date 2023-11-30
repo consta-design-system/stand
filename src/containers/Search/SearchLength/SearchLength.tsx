@@ -26,6 +26,7 @@ export const SearchLenght = memo(({ className }: { className?: string }) => {
       ])}
       view="secondary"
       size="s"
+      lineHeight="m"
     >
       {length} {declOfNum(length, ['результат', 'результата', 'результатов'])}
     </Text>

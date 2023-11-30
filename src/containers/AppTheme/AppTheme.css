@@ -116,6 +116,8 @@ img {
 html.Theme.stand--AppTheme {
   color: var(--color-typo-primary);
   background: var(--color-bg-default);
+  font-size: var(--size-text-m);
+  line-height: var(--line-height-text-m);
 
   @supports (scrollbar-gutter: auto) {
     overflow-y: overlay;

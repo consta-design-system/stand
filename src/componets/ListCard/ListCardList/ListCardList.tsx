@@ -1,7 +1,7 @@
 import './ListCardList.css';
 
 import { cnMixCard } from '@consta/uikit/MixCard';
-import { useComponentBreakpoints } from '@consta/uikit/useComponentBreakpoints';
+import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import React, { useRef } from 'react';
 
 import { ListCardComponent, ListCardItem } from '##/types';
@@ -62,7 +62,11 @@ export const ListCardList: ListCardComponent = ({
   );
 
   const ref = useRef<HTMLDivElement>(null);
-  const { desctop } = useComponentBreakpoints(ref, { desctop: 800 });
+  const { desctop } = useBreakpoints({
+    ref,
+    map: { desctop: 800 },
+    isActive: true,
+  });
   const [col1, col2] = getColumns(shortItems, desctop);
 
   if (maxCount === 0) {

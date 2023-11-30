@@ -43,6 +43,7 @@ export const LibsPage: React.FC = () => {
         weight="bold"
         size="3xl"
         lineHeight="m"
+        view="primary"
       >
         {title}
       </Text>
@@ -64,6 +65,7 @@ export const LibsPage: React.FC = () => {
                 as="h2"
                 size="2xl"
                 lineHeight="m"
+                view="primary"
               >
                 {group.label}
               </Text>
@@ -74,6 +76,7 @@ export const LibsPage: React.FC = () => {
                 as="p"
                 size="m"
                 lineHeight="m"
+                view="primary"
               >
                 {group.description}
               </Text>

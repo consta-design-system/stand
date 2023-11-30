@@ -2,10 +2,7 @@ import './Example.css';
 
 import { cnMixCard } from '@consta/uikit/MixCard';
 import { Text } from '@consta/uikit/Text';
-import {
-  getLastPoint,
-  useComponentBreakpoints,
-} from '@consta/uikit/useComponentBreakpoints';
+import { getLastPoint, useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
 
@@ -43,7 +40,11 @@ const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
 
   const lastPoint =
     getLastPoint(
-      useComponentBreakpoints(rootRef, typeof col === 'object' ? col : {}),
+      useBreakpoints({
+        ref: rootRef,
+        map: typeof col === 'object' ? col : {},
+        isActive: true,
+      }),
     ) ||
     (typeof col !== 'object' && col);
 
@@ -102,12 +103,14 @@ const ExampleRender = (rest: ExampleProps, ref: React.Ref<HTMLDivElement>) => {
                 <Text
                   weight="semibold"
                   view={status && mapStatusToTextView[status]}
+                  size="m"
+                  lineHeight="m"
                 >
                   {label}
                 </Text>
               )}
               {typeof description === 'string' && (
-                <Text size="s" view="secondary">
+                <Text size="s" view="secondary" lineHeight="m">
                   {description}
                 </Text>
               )}

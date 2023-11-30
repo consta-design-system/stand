@@ -22,10 +22,18 @@ export const LazyDocsFallbackError: React.FC<{
       align="center"
       size="xl"
       weight="semibold"
+      view="primary"
+      lineHeight="m"
     >
       {title}
     </Text>
-    <Text className={cnMixSpace({ mB: '4xl' })} align="center">
+    <Text
+      className={cnMixSpace({ mB: '4xl' })}
+      align="center"
+      view="primary"
+      size="m"
+      lineHeight="m"
+    >
       {description}
     </Text>
   </div>

@@ -41,6 +41,7 @@ export const BannerButton = forwardRef<HTMLDivElement, BannerButtonProps>(
             lineHeight="m"
             weight="medium"
             className={cnBannerButton('Label')}
+            view="primary"
           >
             {label}
           </Text>
