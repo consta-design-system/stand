@@ -8,20 +8,20 @@ const { exec } = require('child_process');
 const execAsync = promisify(exec);
 
 const repos = [
-  'portal',
-  'analytic-ui',
-  'uikit',
-  'charts',
-  'header',
+  // 'portal',
+  // 'analytic-ui',
+  // 'uikit',
+  // 'charts',
+  // 'header',
   'stats',
-  'react-big-calendar-adapter',
-  'gantt-task-react-adapter',
-  'rc-tree-adapter',
-  'rc-table-adapter',
-  'ag-grid-adapter',
-  'widgets',
-  'amcharts-map-examples',
-  'gpn-responses',
+  // 'react-big-calendar-adapter',
+  // 'gantt-task-react-adapter',
+  // 'rc-tree-adapter',
+  // 'rc-table-adapter',
+  // 'ag-grid-adapter',
+  // 'widgets',
+  // 'amcharts-map-examples',
+  // 'gpn-responses',
   'icons',
 ];
 

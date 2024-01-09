@@ -5,7 +5,7 @@ import { Select } from '@consta/uikit/Select';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';
 import { useAction, useAtom } from '@reatom/npm-react';
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 
 import { useZIndex } from '##/containers/Variants/helpers';
 import {
@@ -162,15 +162,16 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction(
-    (ctx) => variantsActionSet(ctx, { type, value, name, isActive }),
-    [value],
+  const action = useAction((ctx, value: boolean) =>
+    variantsActionSet(ctx, { type, value, name, isActive }),
   );
+
+  const onChange = useCallback(() => action(!value), [value]);
 
   return (
     <SwitchMemo
       className={cnVariantsField({ type })}
-      checked={Boolean(value)}
+      checked={value}
       onChange={onChange}
       size="s"
       label={name}
