@@ -1533,6 +1533,21 @@
   dependencies:
     chalk "^4.1.0"
 
+"@consta/header@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@consta/header/-/header-3.0.0.tgz#b4a10653492b84107a82f1a5a28d9d0641bf4aac"
+  integrity sha512-NSAY2Lzu3MtKMunEcnMCJPVhaEPz9PIkOmu32uotN3jsgDEJbNK67KUhElx6DuN1c0ocV9aH1kVa8eLXH8XAqA==
+
+"@consta/icons@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-1.0.1.tgz#59f51cc421de0ff14ed4308026685e82240d3473"
+  integrity sha512-TgN03C5KOzK8eBOx9Kl4GFw1SL+qSILoadWMboXwOiSHuPU7p4ie5z4ZmS7TzUnLOhybZBL3xVsM9UBOpDMKKQ==
+
+"@consta/uikit@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-5.0.1.tgz#249ab1565ae6ad6531b11cb28ae8e0702a07ebff"
+  integrity sha512-tTa/eF1nTllR5v9OXcZV6vUJShDYv6Vyny3bLR37hgs/sQ1tr84LWtxtpzzMcDialU2NPUzZLyC8qw+YP/p7gw==
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"

@@ -8,5 +8,5 @@ module.exports = {
   standsPath: 'src/stands',
   standsConfig: '/__mocks__/standsConfig.ts',
   standTabs: ['dev', 'design', 'use'],
-  // routesPath: '/repositories/portal/src/modules/router',
+  routesPath: '/repositories/portal/src/modules/router',
 };
