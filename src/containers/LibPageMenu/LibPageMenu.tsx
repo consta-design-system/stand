@@ -134,8 +134,10 @@ export const LibPageMenu = memo(() => {
       onClick={navigateToReview}
       className={cnLibPageMenu('ButtonReview')}
     >
-      <Text weight="semibold">{lib?.title}</Text>
-      <Text size="s" view="secondary">
+      <Text weight="semibold" view="primary" size="m" lineHeight="m">
+        {lib?.title}
+      </Text>
+      <Text size="s" view="secondary" lineHeight="m">
         обзор
       </Text>
     </PortalMenuItem>
@@ -164,6 +166,8 @@ export const LibPageMenu = memo(() => {
             onClick={navigateToBack}
             size="s"
             weight="semibold"
+            view="primary"
+            lineHeight="m"
           >
             <Button
               as="span"

@@ -5,7 +5,7 @@ import { Select } from '@consta/uikit/Select';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';
 import { useAction, useAtom } from '@reatom/npm-react';
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 
 import { useZIndex } from '##/containers/Variants/helpers';
 import {
@@ -63,7 +63,7 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+  const onChange = useAction((ctx, value: string | null) =>
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
@@ -85,7 +85,7 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+  const onChange = useAction((ctx, value: string | null) =>
     variantsActionSet(ctx, {
       type,
       value: value !== undefined ? Number(value) : undefined,
@@ -112,7 +112,7 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: Date | null }) =>
+  const onChange = useAction((ctx, value: Date | null) =>
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
@@ -137,7 +137,7 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: Date | null }) =>
+  const onChange = useAction((ctx, value: Date | null) =>
     variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
   );
 
@@ -162,14 +162,16 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, { checked: value }: { checked: boolean }) =>
+  const action = useAction((ctx, value: boolean) =>
     variantsActionSet(ctx, { type, value, name, isActive }),
   );
+
+  const onChange = useCallback(() => action(!value), [value]);
 
   return (
     <SwitchMemo
       className={cnVariantsField({ type })}
-      checked={Boolean(value)}
+      checked={value}
       onChange={onChange}
       size="s"
       label={name}
@@ -186,7 +188,7 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
   options = [],
   isActive,
 }) => {
-  const onChange = useAction((ctx, { value }: { value: string | null }) =>
+  const onChange = useAction((ctx, value: string | null) =>
     variantsActionSet(ctx, {
       type,
       value: value ?? undefined,

@@ -44,10 +44,10 @@ export const StandPageHeader = (props: Props) => {
   return (
     <div className={cnStandPageHeader(null, [className])}>
       <StandPageHeaderInfo className={cnMixSpace({ mB: gapXl })} />
-      <Text size={size2xl} lineHeight="m" weight="bold">
+      <Text size={size2xl} lineHeight="m" weight="bold" view="primary">
         {title}
       </Text>
-      <Text size={sizeM} lineHeight="m">
+      <Text size={sizeM} lineHeight="m" view="primary">
         {description}
       </Text>
       {hasBadges && (

@@ -18,7 +18,7 @@ export const SearchTextField = memo(({ className }: { className?: string }) => {
 
   const setSearchValueAtomDebounced = useDebounce(searchValueAtom, 300);
 
-  const onChange = useAction((ctx, { value }: { value: string | null }) => {
+  const onChange = useAction((ctx, value: string | null) => {
     inputValueAtom(ctx, value);
     if (value?.trim()) {
       setSearchValueAtomDebounced(ctx, value);
@@ -35,7 +35,6 @@ export const SearchTextField = memo(({ className }: { className?: string }) => {
       leftSide={IconSearchStroked}
       placeholder="Компонент или статья"
       size="s"
-      width="full"
       ref={ref}
       onFocus={useAction(inputFocusedAtom.setTrue)}
       value={value}

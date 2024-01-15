@@ -3,7 +3,7 @@ import './SearchListItem.css';
 import {
   IconComponent as IconComponentType,
   IconPropView,
-} from '@consta/uikit/Icon';
+} from '@consta/icons/Icon';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
@@ -73,17 +73,23 @@ export const SearchListItem = (props: SearchListItemProps) => {
         )}
       >
         {type !== 'history' && label && (
-          <Text weight="semibold" size="s" truncate>
+          <Text
+            weight="semibold"
+            size="s"
+            truncate
+            view="primary"
+            lineHeight="m"
+          >
             {label}
           </Text>
         )}
         {type !== 'history' && description && (
-          <Text size="s" truncate view="secondary">
+          <Text size="s" truncate view="secondary" lineHeight="m">
             {description}
           </Text>
         )}
         {type === 'history' && label && (
-          <Text size="s" truncate view="secondary">
+          <Text size="s" truncate view="secondary" lineHeight="m">
             {label}
           </Text>
         )}

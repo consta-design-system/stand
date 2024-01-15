@@ -1,8 +1,8 @@
 import './VariantsResolutions.css';
 
+import { IconCheck } from '@consta/icons/IconCheck';
 import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
-import { IconCheck } from '@consta/uikit/IconCheck';
 import { useFlag } from '@consta/uikit/useFlag';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -50,7 +50,7 @@ export const VariantsResolutions: React.FC<{
     return null;
   }
 
-  const handleSelect = ({ item }: { item: number }) => {
+  const handleSelect = (item: number) => {
     onSelect(item);
     setResolution(item);
     setOpenResolutionsMenu.off();

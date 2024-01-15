@@ -8,8 +8,8 @@ import { Button } from '@consta/uikit/Button';
 import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTheme } from '@consta/uikit/Theme';
+import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
-import { useComponentBreakpoints } from '@consta/uikit/useComponentBreakpoints';
 import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -44,7 +44,11 @@ export const StandPageNavigation = ({ className }: Props) => {
   const navigationList = useNavigationList();
   const ref = useRef<HTMLDivElement>(null);
   const acnorContextMenu = useRef<HTMLButtonElement>(null);
-  const { isDesktop } = useComponentBreakpoints(ref, { isDesktop: 768 });
+  const { isDesktop } = useBreakpoints({
+    ref,
+    map: { isDesktop: 768 },
+    isActive: true,
+  });
   const { themeClassNames } = useTheme();
   const [contextMenuIsOpen, setContextMenuIsOpen] = useFlag();
 
@@ -65,7 +69,7 @@ export const StandPageNavigation = ({ className }: Props) => {
 
   const hasLinks = Boolean(codesandboxUrl || figmaUrl || githubUrl);
 
-  const handleClick = useCallback(({ value }: { value: NavigationItem }) => {
+  const handleClick = useCallback((value: NavigationItem) => {
     if (value.id) {
       navigateTo({
         name: routesNames.LIBS_LIB_STAND_TAB,

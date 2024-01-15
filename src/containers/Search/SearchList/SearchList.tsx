@@ -37,10 +37,15 @@ export const SearchList = memo(({ className }: { className?: string }) => {
           className,
         ])}
       >
-        <Text className={cnMixSpace({ mB: '3xs' })} size="s">
+        <Text
+          className={cnMixSpace({ mB: '3xs' })}
+          size="s"
+          view="primary"
+          lineHeight="m"
+        >
           Ничего не нашли
         </Text>
-        <Text view="secondary" size="xs">
+        <Text view="secondary" size="xs" lineHeight="m">
           Попробуйте спросить по-другому
         </Text>
       </div>

@@ -34,7 +34,10 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
   const [openThemeMenu, setOpenThemeMenu] = useState<boolean>();
   const [resolution, setResolution] = useState<number>(0);
   const [fullScreen, setFullscreen] = useFullScreen();
-  const { isDesctop } = useBreakpoints({ isDesctop: 900 });
+  const { isDesctop } = useBreakpoints({
+    map: { isDesctop: 900 },
+    isActive: true,
+  });
 
   const [theme] = useAtom(variantThemeAtom);
 

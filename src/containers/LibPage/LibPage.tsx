@@ -26,7 +26,7 @@ export const LibPage: React.FC = () => {
   return (
     <div className={cnLibPage(null, ['theme_gap_medium'])}>
       <div className={cnLibPage('Lib')}>
-        <Text size="3xl" lineHeight="m" weight="bold">
+        <Text size="3xl" lineHeight="m" weight="bold" view="primary">
           {lib.title}
         </Text>
         {(lib.fullDescription || lib.description) && (
@@ -61,6 +61,7 @@ export const LibPage: React.FC = () => {
               size="3xl"
               lineHeight="xs"
               weight="bold"
+              view="primary"
             >
               {group.group?.title}
             </Text>

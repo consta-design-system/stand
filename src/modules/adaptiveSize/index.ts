@@ -97,9 +97,25 @@ const createGapMap = (breakpoint: Breakpoint) => {
   return gapMap;
 };
 
+const createSizeMap = (breakpoint: Breakpoint) => {
+  const sizeMap: Record<string, string> = {};
+  Object.keys(textSizeMMap).forEach((key) => {
+    const copyKey = key as Gap;
+    sizeMap[
+      `--lazy-docs-size-${copyKey}`
+    ] = `var(--size-text-${getSpaceFromDimension(copyKey, breakpoint)})`;
+  });
+  return sizeMap;
+};
+
 export const gapMapAtom = atom((ctx) => {
   const breakpoint = ctx.spy(lastBreakpointAtom);
   return createGapMap(breakpoint);
+});
+
+export const sizeMapAtom = atom((ctx) => {
+  const breakpoint = ctx.spy(lastBreakpointAtom);
+  return createSizeMap(breakpoint);
 });
 
 const createSizeAtomMapFabric = () => {
@@ -111,6 +127,7 @@ const createSizeAtomMapFabric = () => {
       return sizeMap[breakpoint][size];
     });
   }
+
   return map;
 };
 

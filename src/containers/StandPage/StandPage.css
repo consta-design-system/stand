@@ -1,0 +1,5 @@
+.stand--StandPage-Doc {
+  color: var(--color-typo-primary);
+  font-size: var(--lazy-docs-size-m);
+  line-height: var(--line-height-text-m);
+}

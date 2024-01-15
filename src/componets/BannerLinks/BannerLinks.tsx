@@ -125,7 +125,7 @@ export const BannerLinks = (props: BannerLinksProps) => {
                 ])}
               >
                 <Switch size="m" checked={isDarkTheme} onChange={toggleTheme} />
-                <Text size="xs" lineHeight="m">
+                <Text size="xs" lineHeight="m" view="primary">
                   Тёмная тема
                 </Text>
               </div>

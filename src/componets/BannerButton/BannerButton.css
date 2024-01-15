@@ -1,5 +1,6 @@
 .stand--BannerButton {
   display: block;
+  color: var(--color-typo-primary);
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%),
     linear-gradient(271deg, #4c7687 0%, #568caa 100%);

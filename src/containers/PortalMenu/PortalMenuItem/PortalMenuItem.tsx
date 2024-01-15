@@ -39,7 +39,12 @@ export const PortalMenuItem = (
       >
         {children}
         {label && (
-          <Text className={cnPortalMenuItem('Label')} size="s" lineHeight="xs">
+          <Text
+            className={cnPortalMenuItem('Label')}
+            size="s"
+            view="primary"
+            truncate
+          >
             {label}
           </Text>
         )}

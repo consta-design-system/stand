@@ -31,6 +31,7 @@ export const ListCardBannerItem = (props: ListCardItem) => {
         href={href}
         onClick={onClick}
         weight="bold"
+        view="primary"
       >
         {label}
       </Text>
@@ -40,6 +41,7 @@ export const ListCardBannerItem = (props: ListCardItem) => {
           size="s"
           lineHeight="m"
           as="p"
+          view="primary"
         >
           {description}
         </Text>
