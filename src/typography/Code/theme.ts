@@ -1,12 +1,8 @@
 import { useAtom } from '@reatom/npm-react';
 
-import { useMdxCodeContext } from '##/componets/MdxCode/context';
 import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
 
-const getTheme = (
-  size: string,
-  inMdxCode?: boolean,
-): Record<string, React.CSSProperties> => ({
+const getTheme = (size: string): Record<string, React.CSSProperties> => ({
   'code[class*="language-"]': {
     color: 'var(--color-typo-primary)',
     background: 'none',
@@ -48,9 +44,7 @@ const getTheme = (
     MozHyphens: 'none',
     msHyphens: 'none',
     hyphens: 'none',
-    padding: inMdxCode
-      ? 'var(--space-l)'
-      : 'var(--space-m) calc(var(--space-m) * 2 + var(--space-xl)) var(--space-m) var(--space-m)',
+    padding: 'var(--space-l)',
     overflow: 'auto',
     borderRadius: 'var(--control-radius)',
   },
@@ -201,6 +195,6 @@ const getTheme = (
 
 export const useTheme = () => {
   const [size] = useAtom(sizeAtomMapFabric.s);
-  const inMdxCode = useMdxCodeContext();
-  return getTheme(size, inMdxCode);
+
+  return getTheme(size);
 };
