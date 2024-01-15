@@ -44,8 +44,7 @@ const getTheme = (size: string): Record<string, React.CSSProperties> => ({
     MozHyphens: 'none',
     msHyphens: 'none',
     hyphens: 'none',
-    padding:
-      'var(--space-m) calc(var(--space-m) * 2 + var(--space-xl)) var(--space-m) var(--space-m)',
+    padding: 'var(--space-l)',
     overflow: 'auto',
     borderRadius: 'var(--control-radius)',
   },
@@ -196,5 +195,6 @@ const getTheme = (size: string): Record<string, React.CSSProperties> => ({
 
 export const useTheme = () => {
   const [size] = useAtom(sizeAtomMapFabric.s);
+
   return getTheme(size);
 };
