@@ -17,7 +17,7 @@
   "dependencies": {
     "@consta/header": "^3.0.0",
     "@consta/icons": "^1.0.1",
-    "@consta/uikit": "^5.0.1",
+    "@consta/uikit": "^5.0.3",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@oclif/command": "^1.8.22",
