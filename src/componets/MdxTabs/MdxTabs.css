@@ -1,0 +1,38 @@
+.stand--MdxTabs {
+  width: 100%;
+  background: var(--mdx-tabs-background);
+  border-radius: var(--mdx-tabs-border-radius, 0);
+
+  &_view {
+    &_default {
+      --mdx-tabs-background: var(--color-bg-secondary);
+      --mdx-tabs-border-radius: var(--control-radius);
+      --mdx-tabs-header-border-bottom: 1px solid var(--color-bg-border);
+    }
+
+    &_clear {
+      --mdx-tabs-background: transparent;
+      --mdx-tabs-border-radius: 0;
+    }
+  }
+
+  &-Header {
+    display: flex;
+    overflow: auto;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: var(--mdx-tabs-header-border-bottom, none);
+    gap: var(--space-s);
+  }
+
+  &-Content {
+    & > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .stand--ExampleFrame {
+    border-top: none;
+    border-radius: 0 0 var(--control-radius) var(--control-radius);
+  }
+}

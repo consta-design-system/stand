@@ -8,7 +8,7 @@ export const MdxImage: typeof Image = (props = {}) => {
   return (
     <Image
       {...props}
-      className={classnames(cnMixSpace({ mB: 'm', mT: 's' }), props.className)}
+      className={classnames(cnMixSpace({ mB: 'l' }), props.className)}
     />
   );
 };
