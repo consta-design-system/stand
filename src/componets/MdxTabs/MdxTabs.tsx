@@ -1,4 +1,4 @@
-import './MdxCode.css';
+import './MdxTabs.css';
 
 import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
@@ -7,7 +7,7 @@ import React, { useMemo, useState } from 'react';
 
 import { cn } from '##/utils/bem';
 
-const cnMdxCode = cn('MdxCode');
+const cnMdxTabs = cn('MdxTabs');
 
 const noKeyLabel = 'demo';
 
@@ -24,10 +24,11 @@ const getContent = (
 
 const getItemLabel = (item: string) => item;
 
-export const MdxCode: React.FC<{
+export const MdxTabs: React.FC<{
   children: React.ReactElement;
   labels?: string[];
-}> = ({ children, labels }) => {
+  view: 'clear' | 'default';
+}> = ({ children, labels, view = 'default' }) => {
   const [tabs] = useMemo(() => {
     const items: string[] = [];
 
@@ -43,6 +44,7 @@ export const MdxCode: React.FC<{
         items.push(key);
       });
     }
+
     return [items];
   }, [labels, children]);
 
@@ -53,10 +55,12 @@ export const MdxCode: React.FC<{
   }
 
   return (
-    <div className={cnMdxCode()}>
+    <div className={cnMdxTabs({ view })}>
       <div
-        className={cnMdxCode('Header', [
-          cnMixSpace({ p: 's' }),
+        className={cnMdxTabs('Header', [
+          view === 'default'
+            ? cnMixSpace({ p: 's' })
+            : cnMixSpace({ p: '2xs', pB: 'l' }),
           cnMixScrollBar({ invisible: true }),
         ])}
       >
@@ -70,7 +74,13 @@ export const MdxCode: React.FC<{
           getItemLabel={getItemLabel}
         />
       </div>
-      {getContent(children, tabs, tab)}
+      <div
+        className={cnMdxTabs('Content', [
+          view === 'clear' ? cnMixSpace({ pL: 'l' }) : undefined,
+        ])}
+      >
+        {getContent(children, tabs, tab)}
+      </div>
     </div>
   );
 };
