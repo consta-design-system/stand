@@ -1,22 +1,13 @@
 import './StandPageNavigation.css';
 
-import { IconComponent } from '@consta/icons/Icon';
-import { IconForward } from '@consta/icons/IconForward';
-import { IconGitHub } from '@consta/icons/IconGitHub';
-import { IconKebab } from '@consta/icons/IconKebab';
-import { Button } from '@consta/uikit/Button';
 import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
-import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTheme } from '@consta/uikit/Theme';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
-import { useClickOutside } from '@consta/uikit/useClickOutside';
-import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { navigateToAction, routerAtom } from 'reatom-router5';
 
 import { useStand } from '##/containers/StandPage/helpers';
-import IconFigma from '##/icons/Figma.icon.svg';
 import { routesNames } from '##/modules/router';
 import { componentRepositoryUrlAtom, figmaAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
@@ -27,14 +18,6 @@ type Props = {
   className?: string;
 };
 
-type LinkItem = {
-  label: string;
-  href: string;
-  icon: IconComponent;
-  onlyIcon: boolean;
-  iconSize: 'm' | 'xs';
-};
-
 const cnStandPageNavigation = cn('StandPageNavigation');
 
 export const StandPageNavigation = ({ className }: Props) => {
@@ -43,14 +26,13 @@ export const StandPageNavigation = ({ className }: Props) => {
   const stand = useStand();
   const navigationList = useNavigationList();
   const ref = useRef<HTMLDivElement>(null);
-  const acnorContextMenu = useRef<HTMLButtonElement>(null);
+
   const { isDesktop } = useBreakpoints({
     ref,
     map: { isDesktop: 768 },
     isActive: true,
   });
   const { themeClassNames } = useTheme();
-  const [contextMenuIsOpen, setContextMenuIsOpen] = useFlag();
 
   const value = useMemo(
     () =>
@@ -105,120 +87,35 @@ export const StandPageNavigation = ({ className }: Props) => {
     }
   }, [stand?.id]);
 
-  useClickOutside({
-    isActive: true,
-    ignoreClicksInsideRefs: [acnorContextMenu],
-    handler: setContextMenuIsOpen.off,
-  });
-
   if (navigationList.length <= 1) {
     return null;
   }
 
-  const figmaItem: LinkItem | undefined = figmaUrl
-    ? {
-        label: 'Figma',
-        href: figmaUrl,
-        icon: IconFigma,
-        onlyIcon: true,
-        iconSize: 'm',
-      }
-    : undefined;
-
-  const gitHubItem: LinkItem | undefined = githubUrl
-    ? {
-        label: 'Github',
-        href: githubUrl,
-        icon: IconGitHub,
-        onlyIcon: true,
-        iconSize: 'm',
-      }
-    : undefined;
-
-  const codesandboxItem: LinkItem | undefined = figmaUrl
-    ? {
-        label: 'Codesandbox',
-        href: `https://codesandbox.io/embed/${stand?.stand.sandbox}`,
-        icon: IconForward,
-        onlyIcon: false,
-        iconSize: 'xs',
-      }
-    : undefined;
-
-  const items = [figmaItem, gitHubItem, codesandboxItem].filter((item) =>
-    Boolean(item),
-  ) as LinkItem[];
-
   return (
-    <>
-      <div ref={ref} className={cnStandPageNavigation(null, [className])}>
-        <div
-          className={cnStandPageNavigation('Wrapper', {
-            isDesktop,
-            hasLinks,
-          })}
-        >
-          {hasLinks && !isDesktop && (
-            <div
-              className={cnStandPageNavigation('Links', [
-                themeClassNames.color.invert,
-              ])}
-            >
-              <Button
-                ref={acnorContextMenu}
-                form="round"
-                size="s"
-                onlyIcon
-                onClick={setContextMenuIsOpen.toggle}
-                iconLeft={IconKebab}
-                iconSize="m"
-              />
-            </div>
-          )}
-          {hasLinks && isDesktop && (
-            <div
-              className={cnStandPageNavigation('Links', [
-                themeClassNames.color.invert,
-              ])}
-            >
-              {items.map(({ onlyIcon, href, icon, label, iconSize }, index) => (
-                <Button
-                  key={index}
-                  form="round"
-                  size="s"
-                  onlyIcon={onlyIcon}
-                  as="a"
-                  target="_blank"
-                  href={href}
-                  iconRight={icon}
-                  iconSize={iconSize}
-                  label={label}
-                />
-              ))}
-            </div>
-          )}
-          <div className={cnStandPageNavigation('Tabs')}>
-            <ChoiceGroup
-              size="s"
-              items={navigationList}
-              value={value}
-              name="StandPageNavigation"
-              onChange={handleClick}
-            />
-          </div>
+    <div ref={ref} className={cnStandPageNavigation(null, [className])}>
+      <div
+        className={cnStandPageNavigation('Wrapper', {
+          isDesktop,
+          hasLinks,
+        })}
+      >
+        {hasLinks && isDesktop && (
+          <div
+            className={cnStandPageNavigation('Links', [
+              themeClassNames.color.invert,
+            ])}
+          />
+        )}
+        <div className={cnStandPageNavigation('Tabs')}>
+          <ChoiceGroup
+            size="s"
+            items={navigationList}
+            value={value}
+            name="StandPageNavigation"
+            onChange={handleClick}
+          />
         </div>
       </div>
-      <ContextMenu
-        className={cnStandPageNavigation('ContextMenu')}
-        anchorRef={acnorContextMenu}
-        isOpen={contextMenuIsOpen}
-        isMobile
-        direction="downStartLeft"
-        spareDirection="downStartLeft"
-        getItemAs={() => 'a'}
-        getItemAttributes={({ href }) => ({ href, target: '_blank' })}
-        items={items}
-      />
-    </>
+    </div>
   );
 };

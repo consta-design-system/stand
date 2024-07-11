@@ -1,7 +1,6 @@
 import './ListCardBigItem.css';
 
 import { IconForward } from '@consta/icons/IconForward';
-import { IconGitHub } from '@consta/icons/IconGitHub';
 import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
 import { cnMixCard } from '@consta/uikit/MixCard';
@@ -12,7 +11,6 @@ import React from 'react';
 import { Image } from '##/componets/Image';
 import { LazyImage } from '##/componets/LazyImage';
 import { useLink } from '##/hooks/useLink';
-import IconFigma from '##/icons/Figma.icon.svg';
 import NoImage from '##/images/NoImage.image.svg';
 import { badgeLabelStatusMap, badgeStatusMap } from '##/modules/stand';
 import { ListCardItem } from '##/types';
@@ -89,32 +87,7 @@ export const ListCardBigItem = ({
       <div
         className={cnListCardBigItem('Buttons', [cnMixSpace({ mT: '2xl' })])}
       >
-        <div className={cnListCardBigItem('Links')}>
-          {figmaUrl && (
-            <Button
-              size="s"
-              view="ghost"
-              onlyIcon
-              iconLeft={IconFigma}
-              iconSize="m"
-              as="a"
-              href={figmaUrl}
-              target="_blank"
-            />
-          )}
-          {repositoryUrl && (
-            <Button
-              size="s"
-              view="ghost"
-              onlyIcon
-              iconLeft={IconGitHub}
-              iconSize="m"
-              as="a"
-              href={repositoryUrl}
-              target="_blank"
-            />
-          )}
-        </div>
+        <div className={cnListCardBigItem('Links')} />
         <Button
           as="a"
           href={href}

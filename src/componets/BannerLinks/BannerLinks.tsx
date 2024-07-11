@@ -18,7 +18,6 @@ import React, { useRef } from 'react';
 import { Transition } from 'react-transition-group';
 
 import { BannerButton } from '##/componets/BannerButton';
-import IconFeedback from '##/icons/Feedback.icon.svg';
 import IconTelegram from '##/icons/Telegram.icon.svg';
 import { isDarkThemeAtom, toggleThemeAction } from '##/modules/theme';
 import { cn } from '##/utils/bem';
@@ -52,37 +51,21 @@ export const BannerLinks = (props: BannerLinksProps) => {
   });
 
   const renderBanners = () => (
-    <>
-      <BannerButton
-        icon={IconFeedback}
-        label="Сообщить об ошибке"
-        className={cnBannerLinks('Banner', [
-          className,
-          cnMixSpace({ mB: 'xs' }),
-        ])}
-        links={[
-          {
-            label: 'Форма на GitHub —>',
-            path: 'https://github.com/consta-design-system/uikit/issues/new/choose',
-          },
-        ]}
-      />
-      <BannerButton
-        icon={IconTelegram}
-        label="Telegram"
-        className={cnBannerLinks('Banner')}
-        links={[
-          {
-            label: 'Чат сообщества —>',
-            path: 'https://t.me/Consta_Chat',
-          },
-          {
-            label: 'Канал с обновлениями —>',
-            path: 'https://t.me/consta_ui_releases',
-          },
-        ]}
-      />
-    </>
+    <BannerButton
+      icon={IconTelegram}
+      label="Telegram"
+      className={cnBannerLinks('Banner')}
+      links={[
+        {
+          label: 'Чат сообщества —>',
+          path: 'https://t.me/Consta_Chat',
+        },
+        {
+          label: 'Канал с обновлениями —>',
+          path: 'https://t.me/consta_ui_releases',
+        },
+      ]}
+    />
   );
 
   return view === 'list' ? (
