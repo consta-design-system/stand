@@ -7,3 +7,4 @@ export * from './componets/ListCard';
 export * from './componets/MdxCollapse';
 export * from './componets/MdxTabs';
 export * from './componets/MdxImage';
+export * from './componets/MdxInformer';
