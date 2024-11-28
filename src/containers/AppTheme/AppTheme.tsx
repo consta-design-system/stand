@@ -1,5 +1,7 @@
 import './AppTheme.css';
 
+import { classnames } from '@bem-react/classnames';
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { cnTheme, Theme } from '@consta/uikit/Theme';
 import { useAtom } from '@reatom/npm-react';
 import React, { useEffect } from 'react';
@@ -14,13 +16,17 @@ export const AppTheme: React.FC<{ children: React.ReactChild }> = (props) => {
   const [htmlMods] = useAtom(htmlModsAtom);
 
   useEffect(() => {
-    const mods = {
-      ...theme,
-      color: theme.color.primary,
-    };
-    document
-      .querySelector('html')
-      ?.setAttribute('class', cnTheme({ ...mods }, [cnAppTheme(htmlMods)]));
+    document.querySelector('html')?.setAttribute(
+      'class',
+      classnames(
+        cnTheme({
+          ...theme,
+          color: theme.color.primary,
+        }),
+        cnAppTheme(htmlMods),
+        cnMixScrollBar(),
+      ),
+    );
   }, [htmlMods, theme]);
 
   return (

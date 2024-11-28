@@ -3,9 +3,10 @@ import './SideLinks.css';
 import { IconArrowLeft } from '@consta/icons/IconArrowLeft';
 import { IconArrowRight } from '@consta/icons/IconArrowRight';
 import { Button } from '@consta/uikit/Button';
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useAction, useAtom } from '@reatom/npm-react';
-import React, { memo } from 'react';
+import React, { memo, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 
 import { BannerLinks } from '##/componets/BannerLinks';
@@ -25,17 +26,29 @@ export const SideLinks = memo(() => {
   const [openRightSide] = useAtom(openRightSideAtom);
   const isOpen = openRightSide || breakpoints.l;
   const withOpenButton = !breakpoints.l;
+  const slotMainRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={cnSideLinks(null)}>
-      <Transition in={isOpen} unmountOnExit timeout={timeout}>
+      <Transition
+        in={isOpen}
+        unmountOnExit
+        timeout={timeout}
+        onEnter={() => {
+          slotMainRef.current?.scrollTo({ top: -9999999 });
+        }}
+      >
         {(animate) => {
           return (
             <div
+              ref={slotMainRef}
               className={cnSideLinks(
                 'Slot',
                 { animate, size: 'm', withOpenButton },
-                [cnMixSpace({ pV: 'xl', pH: 'm' })],
+                [
+                  cnMixSpace({ pV: 'xl', pH: 'm' }),
+                  cnMixScrollBar({ invisible: true }),
+                ],
               )}
             >
               <div className={cnSideLinks('BannerButtons')}>
@@ -68,7 +81,10 @@ export const SideLinks = memo(() => {
               className={cnSideLinks(
                 'Slot',
                 { animate, size: 's', withOpenButton },
-                [cnMixSpace({ pV: 'xl', pH: 's' })],
+                [
+                  cnMixSpace({ pV: 'xl', pH: 's' }),
+                  cnMixScrollBar({ invisible: true }),
+                ],
               )}
             >
               <div className={cnSideLinks('BannerButtons', { center: true })}>

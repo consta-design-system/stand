@@ -55,12 +55,5 @@
 }
 
 .Theme .stand--DocLayoutLeftSide-ScrollContainer {
-  @supports (scrollbar-gutter: auto) {
-    overflow-y: overlay;
-    scrollbar-gutter: unset;
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-  }
+  overflow-y: overlay;
 }

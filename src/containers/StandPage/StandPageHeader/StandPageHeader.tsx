@@ -2,12 +2,9 @@ import './StandPageHeader.css';
 
 import { IconQuestion } from '@consta/icons/IconQuestion';
 import { Badge } from '@consta/uikit/Badge';
-import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/npm-react';
 import React from 'react';
 
-import { gapAtomMapFabric, sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { badgeStatusMap } from '##/modules/stand';
 import { Stand } from '##/types';
 import { cn } from '##/utils/bem';
@@ -31,33 +28,28 @@ export const getView = (status: Stand['status']) => {
 };
 
 export const StandPageHeader = (props: Props) => {
-  const { stand, className } = props;
-  const { title, status, version, description } = stand;
+  const {
+    stand: { title, status, version, description },
+    className,
+  } = props;
 
   const hasBadges = status || version;
 
-  const [size2xl] = useAtom(sizeAtomMapFabric['2xl']);
-  const [sizeM] = useAtom(sizeAtomMapFabric.m);
-  const [gapXl] = useAtom(gapAtomMapFabric.xl);
-  const [gapL] = useAtom(gapAtomMapFabric.l);
-
   return (
     <div className={cnStandPageHeader(null, [className])}>
-      <StandPageHeaderInfo className={cnMixSpace({ mB: gapXl })} />
-      <Text size={size2xl} lineHeight="m" weight="bold" view="primary">
+      <StandPageHeaderInfo className={cnStandPageHeader('Info')} />
+      <Text className={cnStandPageHeader('Title')} lineHeight="m" weight="bold">
         {title}
       </Text>
-      <Text size={sizeM} lineHeight="m" view="primary">
+      <Text className={cnStandPageHeader('Description')} lineHeight="m">
         {description}
       </Text>
       {hasBadges && (
-        <div
-          className={cnStandPageHeader('Badges', [cnMixSpace({ mT: gapL })])}
-        >
+        <div className={cnStandPageHeader('Badges')}>
           {status && (
             <Badge
               label={status}
-              icon={IconQuestion}
+              iconLeft={IconQuestion}
               status={badgeStatusMap[status]}
               size="s"
               form="round"
@@ -68,7 +60,7 @@ export const StandPageHeader = (props: Props) => {
             <Badge
               label={`Доступен с ${version}`}
               status="system"
-              icon={IconQuestion}
+              iconLeft={IconQuestion}
               size="s"
               form="round"
               view="filled"

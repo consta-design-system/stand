@@ -1,3 +1,4 @@
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { useAtom } from '@reatom/npm-react';
 import React, { forwardRef } from 'react';
 
@@ -18,7 +19,7 @@ export const VariantsBoard = forwardRef(
       <div
         {...props}
         ref={ref}
-        className={cnVariantsBoard(null, [props.className])}
+        className={cnVariantsBoard(null, [cnMixScrollBar(), props.className])}
       >
         {variantsNames.map((id) => {
           return <VariantsField key={id} id={id} />;

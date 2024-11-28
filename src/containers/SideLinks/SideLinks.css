@@ -1,13 +1,15 @@
 .stand--SideLinks {
-  position: relative;
+  position: static;
   overflow: hidden;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100%;
 
   &-Slot {
     display: flex;
     flex-direction: column-reverse;
     height: 100%;
     min-height: 100vh;
+    overflow-y: scroll;
     transition: padding 0.2s, transform 0.4s, opacity 0.4s;
 
     &_size {
@@ -34,12 +36,14 @@
       &_exiting,
       &_exited {
         position: absolute;
+        top: 0;
         opacity: 0;
         transform: var(--side-links-animate-transform-exited);
       }
 
       &_entering {
         position: absolute;
+        top: 0;
       }
     }
   }

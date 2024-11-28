@@ -14,7 +14,7 @@ export const H1 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
   const ref = useRef<HTMLHeadingElement>(null);
   const { id } = useHeader(children, ref);
 
-  const [size] = useAtom(sizeAtomMapFabric['2xl']);
+  const [size] = useAtom(sizeAtomMapFabric['3xl']);
 
   return (
     <Text
