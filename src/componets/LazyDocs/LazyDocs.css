@@ -12,10 +12,6 @@
     vertical-align: text-top;
   }
 
-  > .stand--MdxCollapse {
-    margin-bottom: var(--space-xl);
-  }
-
   .stand--H {
     margin-top: var(--lazy-docs-gap-5xl);
     margin-bottom: var(--lazy-docs-gap-m);
@@ -31,31 +27,25 @@
   .stand--Example,
   .stand--Table-Wrapper,
   .stand--MdxTabs,
-  .stand--Image {
+  .stand--Image,
+  .stand--MdxInformer,
+  .stand--Blockquote,
+  .stand--MdxCollapse,
+  .stand--Ol,
+  .stand--Ul {
     margin-bottom: var(--lazy-docs-gap-xl);
   }
 
-  .stand--Blockquote {
-    margin-bottom: var(--lazy-docs-gap-xl);
-
+  .stand--Blockquote,
+  .stand--MdxTabs .MdxTabs-Content,
+  .stand--MdxInformer .Informer-Content {
     & > *:last-child {
       margin-bottom: 0;
     }
   }
 
-  .stand--MdxTabs {
-    &-Content > *:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  & > *:last-child {
-    margin-bottom: 0;
-  }
-
   & .stand--Ol,
   & .stand--Ul {
-    margin-bottom: var(--lazy-docs-gap-xl);
     margin-left: 0;
     padding-left: 0;
 
@@ -82,7 +72,7 @@
     }
   }
 
-  .stand--H:has(+ .stand--H) {
+  .stand--H + .stand--H {
     margin-top: var(--lazy-docs-gap-m);
   }
 
@@ -92,5 +82,13 @@
 
   *:has(+ .stand--H) {
     margin-bottom: 0;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+
+  & > *:first-child {
+    margin-top: 0;
   }
 }
