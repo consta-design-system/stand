@@ -1,6 +1,5 @@
 import './StandPage.css';
 
-import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useAtom } from '@reatom/npm-react';
 import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
@@ -8,11 +7,7 @@ import { useRoute } from 'react-router5';
 import { LazyDocs } from '##/componets/LazyDocs';
 import { PageDecorator } from '##/containers/PageDecorator';
 import { Variants } from '##/containers/Variants';
-import {
-  gapAtomMapFabric,
-  gapMapAtom,
-  sizeMapAtom,
-} from '##/modules/adaptiveSize';
+import { gapMapAtom, sizeMapAtom } from '##/modules/adaptiveSize';
 import { cn } from '##/utils/bem';
 
 import { getStandPath, useStand } from './helpers';
@@ -26,8 +21,6 @@ export const StandPage: React.FC = memo(() => {
   const standID = stand?.path;
   const route = useRoute();
 
-  const [gap2xl] = useAtom(gapAtomMapFabric['2xl']);
-  const [gap4xl] = useAtom(gapAtomMapFabric['4xl']);
   const [gapMap] = useAtom(gapMapAtom);
   const [sizeMap] = useAtom(sizeMapAtom);
 
@@ -47,18 +40,12 @@ export const StandPage: React.FC = memo(() => {
 
   return (
     <PageDecorator>
-      <div key={standID}>
+      <div key={standID} style={{ ...gapMap, ...sizeMap }}>
         <StandPageHeader
           stand={stand.stand}
-          className={cnMixSpace({
-            mB: gap4xl,
-          })}
+          className={cnStandPage('Header')}
         />
-        <StandPageNavigation
-          className={cnMixSpace({
-            mB: gap2xl,
-          })}
-        />
+        <StandPageNavigation className={cnStandPage('Navigation')} />
         {tab?.id === '' && stand.lazyAccess.variants && (
           <Variants
             stand={route.route.params.stand as string}
@@ -66,7 +53,7 @@ export const StandPage: React.FC = memo(() => {
           />
         )}
         {standPath && (
-          <div className={cnStandPage('Doc')} style={{ ...gapMap, ...sizeMap }}>
+          <div className={cnStandPage('Docs')}>
             <LazyDocs key={standPath} id={standPath} />
           </div>
         )}

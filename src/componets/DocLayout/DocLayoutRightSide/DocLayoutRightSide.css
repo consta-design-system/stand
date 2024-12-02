@@ -1,6 +1,5 @@
 .stand--DocLayoutRightSide {
-  --doc-layout-shadow-none:
-    0 0 0 var(--color-shadow-modal-1),
+  --doc-layout-shadow-none: 0 0 0 var(--color-shadow-modal-1),
     0 0 0 var(--color-shadow-modal-2);
   right: 0;
   width: var(--doc-layout-side-width);
@@ -10,12 +9,12 @@
   box-shadow: var(--doc-layout-shadow-none);
   transition: transform 0.2s, box-shadow 0.2s;
   transform: translateX(100%);
+  position: relative;
 
   &_breakpointM {
-    transform:
-      translateX(
-        calc(var(--doc-layout-side-width) - var(--doc-layout-mini-side-width))
-      );
+    transform: translateX(
+      calc(var(--doc-layout-side-width) - var(--doc-layout-mini-side-width))
+    );
   }
 
   &_open {

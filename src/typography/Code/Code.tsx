@@ -1,6 +1,8 @@
 import './Code.css';
 
+import { classnames } from '@bem-react/classnames';
 import { cnMixFocus } from '@consta/uikit/MixFocus';
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import React from 'react';
 import { PrismLight as Highlight } from 'react-syntax-highlighter';
 import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
@@ -49,12 +51,12 @@ export const Code = (props: React.HTMLAttributes<HTMLSpanElement>) => {
 
   if (className) {
     return (
-      <div className={cnCode(null, [className])}>
+      <div className={cnCode(null, [, className])}>
         <Highlight
           {...otherProps}
           style={style}
           language={getLanguage(className)}
-          className={className}
+          className={classnames(className, cnMixScrollBar())}
         >
           {value}
         </Highlight>

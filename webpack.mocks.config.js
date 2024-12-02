@@ -14,6 +14,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const isEnvProduction = process.env.NODE_ENV === 'production';
 
 const repos = [
+  'portal',
   'analytic-ui',
   'uikit',
   'charts',
@@ -28,7 +29,10 @@ const repos = [
   'amcharts-map-examples',
   'gpn-responses',
   'icons',
-  'portal',
+  'theme-constructor',
+  'react-slick-adapter',
+  'themes',
+  'table',
 ];
 
 const repositoriesTsRules = (repos) => {
@@ -103,6 +107,24 @@ const modulesCacheGroups = (repos) => {
   }
   return cacheGroups;
 };
+
+const getHashByString = (src) => {
+  let hash = 0;
+  let i;
+  let chr;
+  if (src.length === 0) return hash;
+  for (i = 0; i < src.length; i++) {
+    chr = src.charCodeAt(i);
+    // eslint-disable-next-line no-bitwise
+    hash = (hash << 5) - hash + chr;
+    // eslint-disable-next-line no-bitwise
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+const getJsxHash = (jsx) =>
+  getHashByString(JSON.stringify(jsx)).toString().replace('-', '0');
 
 module.exports = function () {
   return {
@@ -211,7 +233,7 @@ module.exports = function () {
           },
         },
         {
-          test: /\.icon\.svg$/,
+          test: /\.colorIcon\.svg$/,
           use: [
             {
               loader: '@svgr/webpack',
@@ -220,6 +242,8 @@ module.exports = function () {
                   { imports, componentName, props, jsx, exports },
                   { tpl },
                 ) => {
+                  const hash = getJsxHash(jsx);
+
                   return tpl`
                               ${imports}
                               import { createIcon } from '@consta/icons/Icon';
@@ -230,15 +254,54 @@ module.exports = function () {
                               };
 
                               export default createIcon({
-                                xs: Icon,
-                                s: Icon,
-                                m: Icon,
                                 l: Icon,
-                                name: '${componentName}',
+                                m: Icon,
+                                s: Icon,
+                                xs: Icon,
+                                name: '${componentName}' + '-' + '${hash}',
+                                renderType: { l: 'default', m: 'default', s: 'default', xs: 'default' },
+                                color: 'multiple',
+                              });
+                        `;
+                },
+                plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
+                dimensions: false,
+                svgo: true,
+              },
+            },
+          ],
+        },
+        {
+          test: /\.icon\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                template: (
+                  { imports, componentName, props, jsx, exports },
+                  { tpl },
+                ) => {
+                  const hash = getJsxHash(jsx);
+
+                  return tpl`
+                              ${imports}
+                              import { createIcon } from '@consta/icons/Icon';
+
+                              const Icon = (${props}) => {
+                                props = { ...props };
+                                return ${jsx};
+                              };
+
+                              export default createIcon({
+                                l: Icon,
+                                m: Icon,
+                                s: Icon,
+                                xs: Icon,
+                                name: '${componentName}' + '-' + '${hash}',
                                 renderType: { l: 'use', m: 'use', s: 'use', xs: 'use' },
                                 color: 'mono',
                               });
-                            `;
+                        `;
                 },
                 plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
                 dimensions: false,

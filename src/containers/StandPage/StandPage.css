@@ -1,5 +1,8 @@
-.stand--StandPage-Doc {
-  color: var(--color-typo-primary);
-  font-size: var(--lazy-docs-size-m);
-  line-height: var(--line-height-text-m);
+.stand--StandPage {
+  &-Header {
+    margin-bottom: var(--lazy-docs-gap-2xl);
+  }
+  &-Navigation {
+    margin-bottom: var(--lazy-docs-gap-5xl);
+  }
 }

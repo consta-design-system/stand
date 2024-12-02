@@ -7,78 +7,45 @@
     padding: var(--space-l);
   }
 
-  & sup {
+  sup {
     font-size: 0.6em;
     vertical-align: text-top;
   }
 
-  & > .stand--MdxCollapse {
-    margin-bottom: var(--space-xl);
-  }
-
-  & h1.stand--H {
-    margin-bottom: var(--lazy-docs-gap-l);
-  }
-
-  & h2.stand--H {
-    margin-bottom: var(--lazy-docs-gap-l);
-  }
-
-  & h3.stand--H {
+  .stand--H {
+    margin-top: var(--lazy-docs-gap-5xl);
     margin-bottom: var(--lazy-docs-gap-m);
   }
 
-  & h4.stand--H {
-    margin-bottom: var(--lazy-docs-gap-m);
+  h1.stand--H {
+    margin-bottom: var(--lazy-docs-gap-2xl);
   }
 
-  & h5.stand--H {
-    margin-bottom: var(--lazy-docs-gap-m);
-  }
-
-  & h6.stand--H {
-    margin-bottom: var(--lazy-docs-gap-m);
-  }
-
-  .stand--Code {
+  .stand--P,
+  .stand--Example,
+  .stand--Code,
+  .stand--Example,
+  .stand--Table-Wrapper,
+  .stand--MdxTabs,
+  .stand--Image,
+  .stand--MdxInformer,
+  .stand--Blockquote,
+  .stand--MdxCollapse,
+  .stand--Ol,
+  .stand--Ul {
     margin-bottom: var(--lazy-docs-gap-xl);
   }
 
-  .stand--Example {
-    margin-bottom: var(--lazy-docs-gap-xl);
-  }
-
-  .stand--P {
-    margin-bottom: var(--lazy-docs-gap-xl);
-  }
-
-  .stand--Blockquote {
-    margin-bottom: var(--lazy-docs-gap-xl);
-
+  .stand--Blockquote,
+  .stand--MdxTabs .MdxTabs-Content,
+  .stand--MdxInformer .Informer-Content {
     & > *:last-child {
       margin-bottom: 0;
     }
   }
 
-  .stand--Table-Wrapper {
-    margin-bottom: var(--lazy-docs-gap-xl);
-  }
-
-  .stand--MdxTabs {
-    margin-bottom: var(--lazy-docs-gap-xl);
-
-    &-Content > *:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  & > *:last-child {
-    margin-bottom: 0;
-  }
-
   & .stand--Ol,
   & .stand--Ul {
-    margin-bottom: var(--lazy-docs-gap-xl);
     margin-left: 0;
     padding-left: 0;
 
@@ -103,5 +70,25 @@
         padding-left: var(--space-m);
       }
     }
+  }
+
+  .stand--H + .stand--H {
+    margin-top: var(--lazy-docs-gap-m);
+  }
+
+  .stand--P:has(+ .stand--P) {
+    margin-bottom: var(--lazy-docs-gap-m);
+  }
+
+  *:has(+ .stand--H) {
+    margin-bottom: 0;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+
+  & > *:first-child {
+    margin-top: 0;
   }
 }

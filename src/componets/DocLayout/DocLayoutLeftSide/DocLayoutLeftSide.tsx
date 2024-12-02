@@ -1,5 +1,6 @@
 import './DocLayoutLeftSide.css';
 
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { useAction, useAtom } from '@reatom/npm-react';
 import React from 'react';
 
@@ -30,7 +31,7 @@ export const DocLayoutLeftSide: React.FC<{
         })}
       >
         <div
-          className={cnDocLayoutLeftSide('ScrollContainer')}
+          className={cnDocLayoutLeftSide('ScrollContainer', [cnMixScrollBar()])}
           onScroll={(e) => {
             setLeftSideScrollPosition(e.currentTarget.scrollTop);
           }}

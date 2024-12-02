@@ -1,5 +1,6 @@
 import './Table.css';
 
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import React from 'react';
 
 import { cn } from '##/utils/bem';
@@ -10,7 +11,7 @@ export const Table = (props: React.HTMLAttributes<HTMLTableElement>) => {
   const { children, className, ...otherProps } = props;
 
   return (
-    <div className={cnTable('Wrapper')}>
+    <div className={cnTable('Wrapper', [cnMixScrollBar()])}>
       <table className={cnTable(null, [className])} {...otherProps}>
         {children}
       </table>

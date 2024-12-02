@@ -23,13 +23,23 @@ const repos = [
   'amcharts-map-examples',
   'gpn-responses',
   'icons',
+  'react-slick-adapter',
+  'themes',
+  'table',
 ];
-
 const clone = async (repoName) => {
   console.log(`cloning ${repoName}`);
-  await execAsync(
-    `git clone -b master https://github.com/consta-design-system/${repoName}.git ./repositories/${repoName}`,
-  );
+
+  try {
+    await execAsync(
+      `git clone -b master https://github.com/consta-design-system/${repoName}.git ./repositories/${repoName}`,
+    );
+  } catch (err) {
+    console.warn(`cloning ${repoName} failed`);
+    console.error(err);
+    await remove(`./repositories/${repoName}`);
+    await clone(repoName);
+  }
 };
 
 class GenerateCommand extends Command {
@@ -50,7 +60,7 @@ class GenerateCommand extends Command {
 
     try {
       await remove('./repositories');
-      await Promise.all(repos.map(clone));
+      await Promise.all(repos.map((item) => clone(item)));
     } catch (err) {
       this.error(err);
     }
