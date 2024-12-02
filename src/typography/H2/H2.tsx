@@ -22,7 +22,7 @@ export const H2 = (props: React.HTMLAttributes<HTMLHeadingElement>) => {
       weight="bold"
       style={{
         ...style,
-        ['--h-size' as string]: `var(--lazy-docs-size-xl)`,
+        ['--h-size' as string]: `var(--lazy-docs-size-2xl)`,
       }}
     >
       <CopyButton href={`#${id}`} className={cnH('CopyButton')} />
