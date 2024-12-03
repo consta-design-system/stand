@@ -41,8 +41,6 @@ export const PortalMenuGroup = <ITEM,>(props: PortalMenuGroupProps<ITEM>) => {
       <Collapse
         iconPosition="right"
         size="xs"
-        directionIcon="down"
-        closeDirectionIcon="up"
         label={label || ''}
         isOpen={isOpen}
         onClick={setIsOpen.toggle}
