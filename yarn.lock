@@ -2231,7 +2231,7 @@
     "@reatom/core" "^3.2.0"
     "@reatom/utils" "^3.5.0"
 
-"@reatom/framework@^3.4.30":
+"@reatom/framework@3.4.30":
   version "3.4.30"
   resolved "https://registry.yarnpkg.com/@reatom/framework/-/framework-3.4.30.tgz#b4e1ae8d4f5a4896b603637f2794005213f10ee3"
   integrity sha512-apSDdt5Q8ZcIv5cY2bfIII/oJ+hyR/Ra5GnOPJED7X01gRhEIYoM3saIJgnNvRk7yYVE3SnQzyfwqSr+w0fE1w==
@@ -2301,7 +2301,7 @@
     "@reatom/jsx" "^3.4.0"
     stylerun "^1.0.0"
 
-"@reatom/npm-react@^3.8.1":
+"@reatom/npm-react@3.8.1":
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/@reatom/npm-react/-/npm-react-3.8.1.tgz#1b0bdf083a69810744956906c1f094efb7be5e4a"
   integrity sha512-yJu1oFeJO76dBneRPqlqAEchoSqds6tXC6z+wzP/ymlq6PXths04ck5+wnzX7vCN/P1c7mk7fpWlSSnF1ZpAWw==
@@ -2310,7 +2310,7 @@
     "@reatom/lens" "^3.1.0"
     use-sync-external-store "^1.2.0"
 
-"@reatom/persist-web-storage@^3.2.3":
+"@reatom/persist-web-storage@3.2.3":
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/@reatom/persist-web-storage/-/persist-web-storage-3.2.3.tgz#18000754b9cc77749af2f93280b08af061926d35"
   integrity sha512-Vj60dDmyuJmKgN/+uP5UUjw0daU+TwoOjZ5ubcuLEbXyVjpqczDDD6ZEI9tNvcRT8a/toQmAu6MY1U5WSto9og==
