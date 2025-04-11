@@ -27,6 +27,7 @@ export const SideLinks = memo(() => {
   const isOpen = openRightSide || breakpoints.l;
   const withOpenButton = !breakpoints.l;
   const slotMainRef = useRef<HTMLDivElement>(null);
+  const slotSecondaryRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={cnSideLinks(null)}>
@@ -37,6 +38,7 @@ export const SideLinks = memo(() => {
         onEnter={() => {
           slotMainRef.current?.scrollTo({ top: -9999999 });
         }}
+        nodeRef={slotMainRef}
       >
         {(animate) => {
           return (
@@ -74,10 +76,16 @@ export const SideLinks = memo(() => {
           );
         }}
       </Transition>
-      <Transition in={!isOpen} unmountOnExit timeout={timeout}>
+      <Transition
+        in={!isOpen}
+        unmountOnExit
+        timeout={timeout}
+        nodeRef={slotSecondaryRef}
+      >
         {(animate) => {
           return (
             <div
+              ref={slotSecondaryRef}
               className={cnSideLinks(
                 'Slot',
                 { animate, size: 's', withOpenButton },

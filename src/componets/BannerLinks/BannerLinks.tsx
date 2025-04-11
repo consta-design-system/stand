@@ -102,7 +102,7 @@ export const BannerLinks = (props: BannerLinksProps) => {
         onlyIcon
         iconLeft={MoreSwitchIcon}
       />
-      <Transition in={isOpen} unmountOnExit timeout={400}>
+      <Transition in={isOpen} unmountOnExit timeout={400} nodeRef={popoverRef}>
         {(animate) => (
           <Popover
             direction={mode === 'sidebar' ? 'upStartRight' : 'downStartRight'}
