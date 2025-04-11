@@ -7,9 +7,12 @@ import { ctx } from '##/modules/app';
 
 export const { routesNames, routes, defaultRoute } = createRoutes();
 
-const router = createRouter(routes, { defaultRoute });
+export const router = createRouter(routes, { defaultRoute });
 
-router.usePlugin(browserPlugin(), plugin(ctx));
+router.usePlugin(
+  browserPlugin({ useHash: !!process.env.BROWSER_HASH }),
+  plugin(ctx),
+);
 
 router.start();
 
@@ -29,6 +32,8 @@ ctx.subscribe(transitionSuccessAction, (params) => {
   }
 });
 
-export { router };
+export const buildPath = (route: string, params?: Record<string, unknown>) =>
+  (process.env.BROWSER_HASH ? '#' : '') + router.buildPath(route, params);
+
 export * from 'reatom-router5';
 export * from './useIsActiveRouter';

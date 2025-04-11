@@ -2,6 +2,8 @@ import React from 'react';
 import { useRouter } from 'react-router5';
 import { NavigationOptions, Router } from 'router5';
 
+import { buildPath } from '##/modules/router';
+
 export type LinkProps = {
   to: string;
   params?: Record<string, string>;
@@ -20,7 +22,7 @@ export const buildLink = (
   { to, params, options }: LinkProps,
   onClick?: React.MouseEventHandler,
 ): ReturnItem => [
-  router.buildPath(to, params),
+  buildPath(to, params),
   (e) => {
     e.preventDefault();
     router.navigate(to, params || {}, options || {});

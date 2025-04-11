@@ -16,7 +16,7 @@ import { headerLeftSideHeightAtom } from '##/modules/header';
 import { openLeftSideAtom } from '##/modules/layout';
 import { libAtom } from '##/modules/lib';
 import { libsAtom } from '##/modules/libs';
-import { routesNames, useIsActiveRouter } from '##/modules/router';
+import { buildPath, routesNames, useIsActiveRouter } from '##/modules/router';
 import {
   libPageMenuFiltersHeightAtom,
   searchValueAtom,
@@ -113,7 +113,7 @@ export const LibPageMenu = memo(() => {
   );
 
   const getItemHref = useCallback((item: PreparedStand) => {
-    return router.buildPath(routesNames.LIBS_LIB_STAND, {
+    return buildPath(routesNames.LIBS_LIB_STAND, {
       lib: item.lib.id,
       stand: item.id,
     });
@@ -129,7 +129,7 @@ export const LibPageMenu = memo(() => {
 
   const additionalControls = () => (
     <PortalMenuItem
-      href={router.buildPath(routesNames.LIBS_LIB, { lib: lib?.id })}
+      href={buildPath(routesNames.LIBS_LIB, { lib: lib?.id })}
       active={route.route.name === routesNames.LIBS_LIB}
       onClick={navigateToReview}
       className={cnLibPageMenu('ButtonReview')}
@@ -162,7 +162,7 @@ export const LibPageMenu = memo(() => {
               cnMixSpace({ pH: 'm', pV: 's' }),
             ])}
             as="a"
-            href={router.buildPath(routesNames.LIBS)}
+            href={buildPath(routesNames.LIBS)}
             onClick={navigateToBack}
             size="s"
             weight="semibold"

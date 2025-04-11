@@ -333,6 +333,13 @@ module.exports = function () {
     },
 
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(
+          process.env.NODE_ENV || 'development',
+        ),
+        'process.env.BROWSER_HASH': JSON.stringify(process.env.BROWSER_HASH),
+      }),
+
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
         ...(isEnvProduction

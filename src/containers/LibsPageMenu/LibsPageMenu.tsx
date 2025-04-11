@@ -10,6 +10,7 @@ import {
   libsPageMenuCollapsedConfigAtom,
   libsPageMenuItemAtom,
 } from '##/modules/libsPage';
+import { buildPath } from '##/modules/router';
 
 const getItemLabel = (item: Item) => item.label;
 const getItemGroupId = (item: Item) => item.group.label;
@@ -32,7 +33,7 @@ export const LibsPageMenu = memo(() => {
   );
 
   const getItemHref = useCallback((item: Item) => {
-    return router.buildPath(item.routeName, item.routeParams);
+    return buildPath(item.routeName, item.routeParams);
   }, []);
 
   const getGroupInitialOpen = useCallback(

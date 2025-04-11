@@ -5,6 +5,7 @@ import { Router, State } from 'router5';
 
 import { buildLink } from '##/hooks/useLink';
 import { libsAtom } from '##/modules/libs';
+import { buildPath } from '##/modules/router';
 import { LibWithStands } from '##/types';
 
 export type ReturnItem = [string, React.MouseEventHandler | undefined];
@@ -60,7 +61,7 @@ const buildMdxLink = (
 
     if (params.lib && !libs?.find((lib) => lib.id === params.lib)) {
       return [
-        `https://${params.lib}.${ROOT_DOMEN}${router.buildPath(to, params)}`,
+        `https://${params.lib}.${ROOT_DOMEN}${buildPath(to, params)}`,
         undefined,
       ];
     }
