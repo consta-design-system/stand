@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
 
-import { routesNames } from '##/modules/router';
+import { buildPath, routesNames } from '##/modules/router';
 
 export const useIsActiveRouter = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ export const useIsActiveRouter = () => {
         return (
           router.isActive(name, params, strictEquality, ignoreQueryParams) ||
           (name !== routesNames.LIBS_LIB_STAND &&
-            route.route.path.includes(router.buildPath(name, params)))
+            route.route.path.includes(buildPath(name, params)))
         );
       }
       return false;

@@ -13,7 +13,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'react-router5';
 
 import { VariantsBoard } from '##/containers/VariantsBoard';
-import { routesNames } from '##/modules/router';
+import { buildPath, routesNames } from '##/modules/router';
 import { variantThemeAtom } from '##/modules/theme';
 import { cn } from '##/utils/bem';
 
@@ -27,7 +27,6 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
   stand,
   lib,
 }) => {
-  const router = useRouter();
   const [openBoard, setOpenBoard] = useFlag();
   const [isLoad, setIsLoad] = useFlag(true);
   const [openResolutionsMenu, setOpenResolutionsMenu] = useState<boolean>();
@@ -45,7 +44,7 @@ export const Variants: React.FC<{ stand: string; lib: string }> = ({
   const refBoard = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLButtonElement>(null);
 
-  const src = router.buildPath(routesNames.LIBS_VARIANTS, { stand, lib });
+  const src = buildPath(routesNames.LIBS_VARIANTS, { stand, lib });
 
   useClickOutside({
     isActive: !isDesctop,
