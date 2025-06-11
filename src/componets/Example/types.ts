@@ -1,4 +1,4 @@
-import { PropsWithHTMLAttributes } from '##/utils/types/PropsWithHTMLAttributes';
+import { PropsWithHTMLAttributes } from '@consta/uikit/__internal__/src/utils/types/PropsWithHTMLAttributes';
 
 export type ExampleItemStatus = 'success' | 'error' | 'warning' | 'system';
 

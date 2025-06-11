@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.154",
+  "version": "0.0.155",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -16,8 +16,8 @@
   ],
   "dependencies": {
     "@consta/header": "^3.0.1",
-    "@consta/icons": "^1.1.0",
-    "@consta/uikit": "^5.18.0",
+    "@consta/icons": "^1.1.1",
+    "@consta/uikit": "^5.22.0",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@oclif/command": "^1.8.22",
@@ -30,7 +30,7 @@
     "@svgr/plugin-prettier": "^6.5.1",
     "@svgr/plugin-svgo": "^6.5.1",
     "@svgr/webpack": "^6.5.1",
-    "@types/react-syntax-highlighter": "^15.5.4",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "autoprefixer": "^10.4.4",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.4",
@@ -91,7 +91,7 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "yarn install-peers && husky install",
+    "postinstall": "yarn install-peers && husky install && node ./scripts/rm.js --path=./node_modules/@types/react-syntax-highlighter/node_modules/@types/react",
     "tsc-dry-run": "tsc --noEmit",
     "lint:js": "eslint --ext .js,.jsx,.tsx,.ts --fix . --quiet",
     "lint:css": "stylelint ./src/**/*.css --fix",
@@ -106,7 +106,7 @@
     "unit:clear": "jest --clearCache",
     "build:css": "cross-env NODE_ENV=buildProduction postcss src/**/*.css --base src --dir ./dist/src",
     "build:js": "cross-env NODE_ENV=buildProduction BUILDING_JS=true babel --extensions .ts,.tsx --config-file ./babel.config.js --source-maps --out-dir dist/src ./src",
-    "build:types": "cross-env NODE_ENV=buildProduction tsc --declaration --outDir dist/src/ --emitDeclarationOnly -p tsconfig.build.json",
+    "build:types": "cross-env NODE_ENV=buildProduction tsc --declaration --outDir dist/src/ --emitDeclarationOnly -p tsconfig.build.json && node ./scripts/copy.js --src=./tsconfig.json --dest=./dist/tsconfig.json && tsconfig-replace-paths -p ./dist/tsconfig.json -s ./dist -o ./dist && node ./scripts/rm.js --path=./dist/tsconfig.json",
     "build:package.json": "node scripts/prepare-package-json.js",
     "build:copy-assets": "node scripts/copyAssets.js",
     "build": "yarn rm:dist && yarn rm:stands && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:copy-assets",
@@ -196,9 +196,11 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.4.1",
     "@types/node": "^16.7.13",
+    "@types/react": "^18.3.12",
     "@types/react-big-calendar": "^0.38.1",
+    "@types/react-dom": "^18.3.1",
     "@types/react-highlight": "^0.12.5",
-    "@types/react-transition-group": "^4.4.5",
+    "@types/react-transition-group": "^4.4.12",
     "@types/resize-observer-browser": "0.1.2",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
@@ -246,6 +248,7 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^4.1.0",
     "stylelint-prettier": "^1.1.1",
+    "tsconfig-replace-paths": "^0.0.14",
     "typescript-transform-paths": "^3.3.1"
   },
   "resolutions": {

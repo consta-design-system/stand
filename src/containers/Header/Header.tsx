@@ -75,6 +75,9 @@ export const Header = memo(() => {
         nonce={undefined}
         onResize={undefined}
         onResizeCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       />
       <SearchMobile />
     </>

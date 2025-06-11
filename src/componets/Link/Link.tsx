@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationOptions } from 'router5';
 
 import { useLink } from '##/hooks/useLink';
-import { PropsWithHTMLAttributes } from '##/utils/types/PropsWithHTMLAttributes';
+import { PropsWithHTMLAttributes } from '@consta/uikit/__internal__/src/utils/types/PropsWithHTMLAttributes';
 
 export const Link: React.FC<
   PropsWithHTMLAttributes<
