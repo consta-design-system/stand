@@ -1,6 +1,6 @@
 {
   "name": "@consta/stand",
-  "version": "0.0.155",
+  "version": "0.0.158",
   "main": "index.js",
   "keywords": [
     "ui-kit",
@@ -17,7 +17,7 @@
   "dependencies": {
     "@consta/header": "^3.0.1",
     "@consta/icons": "^1.1.1",
-    "@consta/uikit": "^5.22.0",
+    "@consta/uikit": "^5.24.0",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@oclif/command": "^1.8.22",
@@ -42,7 +42,6 @@
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "commitizen": "^4.2.5",
-    "compute-scroll-into-view": "^1.0.17",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.4.1",
     "dotenv": "^10.0.0",
@@ -165,7 +164,7 @@
     "ag-grid-community": "^33.2.3",
     "ag-grid-enterprise": "^33.2.3",
     "ag-grid-react": "^33.2.3",
-    "compute-scroll-into-view": "^1.0.17",
+    "compute-scroll-into-view": "^3.1.1",
     "date-fns": "^2.30.0",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
