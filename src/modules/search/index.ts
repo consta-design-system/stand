@@ -179,3 +179,14 @@ export const searchListLengthAtom = atom((ctx) => {
   }
   return 0;
 });
+
+export const dropDownTopPositionAtom = atom((ctx) => {
+  const fieldRef = ctx.spy(fieldRefAtom);
+
+  if (fieldRef.current) {
+    const { height, top } = fieldRef.current.getBoundingClientRect();
+    return height + top;
+  }
+
+  return 0;
+});

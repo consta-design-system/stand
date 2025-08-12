@@ -2,13 +2,13 @@ import React, { memo } from 'react';
 
 import { SearchTextField } from '##/containers/Search';
 
-import { SearchDesctopDropDown } from './SearchDesctopDropDown';
+import { SearchDesktopDropDown } from './SearchDesktopDropDown';
 
-export const SearchDesctop = memo(() => {
+export const SearchDesktop = memo(() => {
   return (
     <>
       <SearchTextField />
-      <SearchDesctopDropDown />
+      <SearchDesktopDropDown />
     </>
   );
 });

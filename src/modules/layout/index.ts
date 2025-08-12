@@ -1,6 +1,7 @@
 import { action, atom } from '@reatom/core';
 import { onUpdate } from '@reatom/hooks';
 import { reatomBoolean } from '@reatom/primitives';
+import React from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';
 
@@ -27,6 +28,8 @@ export const leftSideDistanceHelperHeightAtom = atom((ctx) => {
 
   return fixed ? heihgt : 0;
 });
+
+export const leftSideElAtom = atom<HTMLDivElement | null>(null);
 
 onUpdate(breakpointsAtom, (ctx, breakpoints) => {
   if (breakpoints.m) {

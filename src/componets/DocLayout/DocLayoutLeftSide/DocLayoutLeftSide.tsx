@@ -6,6 +6,7 @@ import React from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';
 import {
+  leftSideElAtom,
   leftSideScrollPositionAtom,
   openLeftSideAtom,
 } from '##/modules/layout';
@@ -21,6 +22,7 @@ export const DocLayoutLeftSide: React.FC<{
   const [open] = useAtom(openLeftSideAtom);
   const setLeftSideScrollPosition = useAction(leftSideScrollPositionAtom);
   const setOpenFalse = useAction(openLeftSideAtom.setFalse);
+  const [, setLeftSideEl] = useAtom(leftSideElAtom, undefined, false);
 
   return (
     <>
@@ -29,6 +31,7 @@ export const DocLayoutLeftSide: React.FC<{
           open,
           ...createMods(breakpoints),
         })}
+        ref={setLeftSideEl}
       >
         <div
           className={cnDocLayoutLeftSide('ScrollContainer', [cnMixScrollBar()])}

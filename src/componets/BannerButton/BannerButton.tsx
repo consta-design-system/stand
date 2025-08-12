@@ -1,7 +1,7 @@
 import './BannerButton.css';
 
-import { PropsWithHTMLAttributes } from '@consta/header/__internal__/src/utils/types/PropsWithHTMLAttributes';
 import { IconComponent } from '@consta/icons/Icon';
+import { PropsWithHTMLAttributes } from '@consta/uikit/__internal__/src/utils/types/PropsWithHTMLAttributes';
 import { Text } from '@consta/uikit/Text';
 import { useTheme } from '@consta/uikit/Theme';
 import React, { forwardRef } from 'react';

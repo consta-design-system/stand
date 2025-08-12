@@ -29,6 +29,10 @@
     box-shadow: var(--doc-layout-shadow-none);
   }
 
+  &_open:not(.stand--DocLayoutRightSide_breakpointL) {
+    z-index: 9000;
+  }
+
   &_position {
     &_absolute {
       position: absolute;

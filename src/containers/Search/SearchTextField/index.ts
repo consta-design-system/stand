@@ -1,1 +1,1 @@
-export * from './SearchDesctopTextField';
+export * from './SearchTextField';
