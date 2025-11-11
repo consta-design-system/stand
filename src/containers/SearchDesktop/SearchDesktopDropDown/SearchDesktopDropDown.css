@@ -3,6 +3,7 @@
   --popover-width: 380px;
   overflow: hidden;
   height: var(--popover-height);
+  z-index: var(--doc-layout-leftside-z-index);
   /* top: auto; */
 
   &-Lenght {

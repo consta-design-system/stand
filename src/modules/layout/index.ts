@@ -31,6 +31,20 @@ export const leftSideDistanceHelperHeightAtom = atom((ctx) => {
 
 export const leftSideElAtom = atom<HTMLDivElement | null>(null);
 
+export const leftSideScrollContainerAtom = atom<HTMLDivElement | null>(null);
+
+export const leftSideScrollContainerScrollTopAtom = atom(0);
+
+export const leftSideScrollContainerScrollTopSetAction = action((ctx) => {
+  const scrollContainer = ctx.get(leftSideScrollContainerAtom);
+  if (scrollContainer) {
+    const value = scrollContainer.scrollTop;
+    leftSideScrollContainerScrollTopAtom(ctx, value);
+  } else {
+    leftSideScrollContainerScrollTopAtom(ctx, 0);
+  }
+});
+
 onUpdate(breakpointsAtom, (ctx, breakpoints) => {
   if (breakpoints.m) {
     openLeftSideAtom.setFalse(ctx);

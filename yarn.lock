@@ -1538,15 +1538,15 @@
   resolved "https://registry.yarnpkg.com/@consta/header/-/header-3.0.2.tgz#6b251bf03574171748f5f7294d3429110e7e3fff"
   integrity sha512-0HkAnI0D5zQHvLgdBqA8K5jk0Cpnl1Ffn6PrIpbx4MSrTPRzmafoqgyfvzmL8Issr5wEXGSpaYDB+/x/psNuaw==
 
-"@consta/icons@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-1.2.0.tgz#d89322aa88fc2f4fa5aca94faedfe355490aba55"
-  integrity sha512-+7pwJcRvWqR3vxFUL4rRKydsTSlctCya0AWzL9ot+tVi7KWSjXzM9mFuRtfEWZRNChRAL160TNWI3mTXV2MXDw==
+"@consta/icons@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-1.5.0.tgz#92164390ba95e4a557f90583dc02743b70e6f044"
+  integrity sha512-LfoTGjuPMgC/M8NN00tbbf1xJfhiiAZeZjgg/nAiM7ab4WzkAPkQy9yCkRrml40bcjBXgJxDjZOHaSfitLddaA==
 
-"@consta/uikit@^5.24.2":
-  version "5.24.2"
-  resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-5.24.2.tgz#ef09d475defcbbb652d689b007cdcc4761bd573a"
-  integrity sha512-pBy+rOEkBkld0mUWuysxEnJPMVqoNh7ZtXkAzcK2EMv/pTOe/VhKrUceakArRJl1kJogyPBi+fa1xzwBe23LVg==
+"@consta/uikit@^5.27.1":
+  version "5.27.1"
+  resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-5.27.1.tgz#e046e5c5836ba4a3fb303d465df881ea36c66d19"
+  integrity sha512-DnR9erAah99+D2O1d3yJR6cudSY5fof21i0pj4R6qqaSDUArhbyuCir3WV87HYMt1Af8asNyW5DQn9K63hDqDA==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"

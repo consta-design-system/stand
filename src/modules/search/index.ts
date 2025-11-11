@@ -2,6 +2,7 @@ import { action, atom } from '@reatom/core';
 import { withLocalStorage } from '@reatom/persist-web-storage';
 import { reatomBoolean } from '@reatom/primitives';
 
+import { leftSideScrollContainerScrollTopAtom } from '##/modules/layout';
 // @ts-ignore: При сборке стенды осутствуют
 import { stands } from '##/modules/stands';
 import { PreparedStand } from '##/types';
@@ -182,6 +183,8 @@ export const searchListLengthAtom = atom((ctx) => {
 
 export const dropDownTopPositionAtom = atom((ctx) => {
   const fieldRef = ctx.spy(fieldRefAtom);
+
+  ctx.spy(leftSideScrollContainerScrollTopAtom);
 
   if (fieldRef.current) {
     const { height, top } = fieldRef.current.getBoundingClientRect();
