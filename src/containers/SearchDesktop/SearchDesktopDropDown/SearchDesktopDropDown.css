@@ -1,10 +1,9 @@
 .stand--SearchDesktopDropDown.Popover {
   --popover-height: 300px;
   --popover-width: 380px;
-  overflow: hidden;
-  height: var(--popover-height);
   z-index: var(--doc-layout-leftside-z-index);
-  /* top: auto; */
+  overflow-y: auto;
+  height: var(--popover-height);
 
   &-Lenght {
     position: absolute;

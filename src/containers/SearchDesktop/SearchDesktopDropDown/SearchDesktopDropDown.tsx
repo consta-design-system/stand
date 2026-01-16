@@ -5,6 +5,7 @@ import {
   animateTimeout,
   cnMixPopoverAnimate,
 } from '@consta/uikit/MixPopoverAnimate';
+import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { Popover } from '@consta/uikit/Popover';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useAction, useAtom } from '@reatom/npm-react';
@@ -46,6 +47,7 @@ export const SearchDesktopDropDown = memo(() => {
       {(animate) => (
         <Popover
           className={cnSearchDesktopDropDown(null, [
+            cnMixScrollBar(),
             cnListBox({ form: 'default ', border: true, shadow: true }),
             cnMixPopoverAnimate({ animate }),
           ])}
