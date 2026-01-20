@@ -57,7 +57,11 @@ export const SearchDesktopDropDown = memo(() => {
           container={leftSideEl || undefined}
           style={{ top: dropDownTopPosition }}
         >
-          <SearchList className={cnSearchDesktopDropDown('List')} />
+          <SearchList
+            className={cnSearchDesktopDropDown('List', [
+              cnMixScrollBar({ size: 's' }),
+            ])}
+          />
           <SearchLenght className={cnSearchDesktopDropDown('Lenght')} />
         </Popover>
       )}
