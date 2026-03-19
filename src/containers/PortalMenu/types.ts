@@ -1,6 +1,5 @@
-import React from 'react';
-
 import { PropsWithHTMLAttributesAndRef } from '@consta/uikit/__internal__/src/utils/types/PropsWithHTMLAttributes';
+import React from 'react';
 
 export type PortalMenuOnClick<ITEM> = (args: {
   e: React.MouseEvent;

@@ -9,18 +9,15 @@
   --doc-layout-content-padding-standart-top: var(--space-l);
   --doc-layout-content-padding-standart-bottom: var(--space-3xl);
   --doc-layout-content-padding-left: var(--doc-layout-content-padding-standart);
-  --doc-layout-content-padding-right:
-    var(
-      --doc-layout-content-padding-standart
-    );
-  --doc-layout-content-padding-top:
-    calc(
-      var(--header-height) + var(--doc-layout-content-padding-standart-top)
-    );
-  --doc-layout-content-padding-bottom:
-    var(
-      --doc-layout-content-padding-standart-bottom
-    );
+  --doc-layout-content-padding-right: var(
+    --doc-layout-content-padding-standart
+  );
+  --doc-layout-content-padding-top: calc(
+    var(--header-height) + var(--doc-layout-content-padding-standart-top)
+  );
+  --doc-layout-content-padding-bottom: var(
+    --doc-layout-content-padding-standart-bottom
+  );
   position: relative;
   min-height: 100vh;
   background: var(--color-bg-default);
@@ -34,10 +31,9 @@
   &_breakpointM {
     --doc-layout-center-padding-left: var(--doc-layout-side-width);
     --doc-layout-center-padding-right: var(--doc-layout-mini-side-width);
-    --doc-layout-content-padding-top:
-      var(
-        --doc-layout-content-padding-standart
-      );
+    --doc-layout-content-padding-top: var(
+      --doc-layout-content-padding-standart
+    );
   }
 
   &_breakpointL {
@@ -50,8 +46,7 @@
   }
 
   &-Content {
-    padding:
-      var(--doc-layout-content-padding-top)
+    padding: var(--doc-layout-content-padding-top)
       var(--doc-layout-content-padding-right)
       var(--doc-layout-content-padding-bottom)
       var(--doc-layout-content-padding-left);

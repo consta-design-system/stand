@@ -101,9 +101,8 @@ const createSizeMap = (breakpoint: Breakpoint) => {
   const sizeMap: Record<string, string> = {};
   Object.keys(textSizeMMap).forEach((key) => {
     const copyKey = key as Gap;
-    sizeMap[
-      `--lazy-docs-size-${copyKey}`
-    ] = `var(--size-text-${getSpaceFromDimension(copyKey, breakpoint)})`;
+    sizeMap[`--lazy-docs-size-${copyKey}`] =
+      `var(--size-text-${getSpaceFromDimension(copyKey, breakpoint)})`;
   });
   return sizeMap;
 };

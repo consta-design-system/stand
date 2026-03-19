@@ -10,7 +10,6 @@ import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
 import { useAtom } from '@reatom/npm-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'react-router5';
 
 import { VariantsBoard } from '##/containers/VariantsBoard';
 import { buildPath, routesNames } from '##/modules/router';

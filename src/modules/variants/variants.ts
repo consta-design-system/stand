@@ -20,12 +20,12 @@ type Value<TYPE extends VariantType, OPTION extends string | number> =
   | (TYPE extends 'boolean'
       ? boolean
       : TYPE extends 'date' | 'date-time'
-      ? Date
-      : TYPE extends 'number'
-      ? number
-      : TYPE extends 'select'
-      ? OPTION
-      : string)
+        ? Date
+        : TYPE extends 'number'
+          ? number
+          : TYPE extends 'select'
+            ? OPTION
+            : string)
   | undefined;
 
 export type Variant<

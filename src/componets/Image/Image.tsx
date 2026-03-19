@@ -1,9 +1,9 @@
 import './Image.css';
 
+import { PropsWithHTMLAttributes } from '@consta/uikit/__internal__/src/utils/types/PropsWithHTMLAttributes';
 import React from 'react';
 
 import { cn } from '##/utils/bem';
-import { PropsWithHTMLAttributes } from '@consta/uikit/__internal__/src/utils/types/PropsWithHTMLAttributes';
 
 const cnImage = cn('Image');
 

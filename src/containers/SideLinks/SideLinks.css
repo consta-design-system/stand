@@ -1,16 +1,20 @@
 .stand--SideLinks {
   position: static;
   overflow: hidden;
+
   /* min-height: 100vh; */
   height: 100%;
 
   &-Slot {
     display: flex;
+    overflow-y: scroll;
     flex-direction: column-reverse;
     height: 100%;
     min-height: 100vh;
-    overflow-y: scroll;
-    transition: padding 0.2s, transform 0.4s, opacity 0.4s;
+    transition:
+      padding 0.2s,
+      transform 0.4s,
+      opacity 0.4s;
 
     &_size {
       &_s {
