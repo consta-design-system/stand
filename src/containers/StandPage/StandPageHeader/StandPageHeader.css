@@ -16,8 +16,8 @@
   }
 
   &-Title {
-    font-size: var(--lazy-docs-size-3xl);
     margin-bottom: var(--lazy-docs-gap-xs);
+    font-size: var(--lazy-docs-size-3xl);
   }
 
   &-Description {

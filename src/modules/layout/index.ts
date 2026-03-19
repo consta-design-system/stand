@@ -1,7 +1,6 @@
 import { action, atom } from '@reatom/core';
 import { onUpdate } from '@reatom/hooks';
 import { reatomBoolean } from '@reatom/primitives';
-import React from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';
 

@@ -7,7 +7,9 @@
   display: flex;
   flex-direction: column;
   background: var(--color-bg-default);
-  transition: transform 0.3s, opacity 0.3s;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
 
   &_animate {
     &_entered,

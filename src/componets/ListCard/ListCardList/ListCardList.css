@@ -1,7 +1,7 @@
 .stand--ListCardList {
   display: grid;
-  grid-column-gap: var(--space-2xl);
-  grid-row-gap: var(--space-l);
+  column-gap: var(--space-2xl);
+  row-gap: var(--space-l);
   grid-template-columns: 1fr;
 
   &_desctop {

@@ -1,11 +1,10 @@
 .stand--LibPageMenu {
   display: flex;
   flex-direction: column;
-  min-height:
-    calc(
-      100% - var(--header-left-side-height) - var(--filters-left-side-height) -
+  min-height: calc(
+    100% - var(--header-left-side-height) - var(--filters-left-side-height) -
       1px
-    );
+  );
 
   &-Header {
     display: flex;

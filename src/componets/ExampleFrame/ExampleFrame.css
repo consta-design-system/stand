@@ -16,7 +16,7 @@
 
       &_image {
         background: var(--color-bg-ghost);
-        mask-image: url(./ExampleFrameBg.svg);
+        mask-image: url('./ExampleFrameBg.svg');
         opacity: 0.3;
       }
     }

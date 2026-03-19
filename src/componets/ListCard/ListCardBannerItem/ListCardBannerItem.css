@@ -1,10 +1,6 @@
 .stand--ListCardBannerItem {
   background:
-    linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.3)
-    ),
+    linear-gradient(0deg, rgb(255 255 255 / 0.3), rgb(255 255 255 / 0.3)),
     linear-gradient(90deg, #4d7286 0%, #6287a4 100%);
   border-radius: var(--control-radius);
 
