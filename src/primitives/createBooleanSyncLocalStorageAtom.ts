@@ -1,5 +1,4 @@
-import { onUpdate } from '@reatom/hooks';
-import { reatomBoolean } from '@reatom/primitives';
+import { reatomBoolean } from '##/primitives/reatomBoolean';
 
 export const createBooleanSyncLocalStorageAtom = (
   localStorageName: string,
@@ -12,9 +11,9 @@ export const createBooleanSyncLocalStorageAtom = (
 
   const booleanAtom = reatomBoolean(init);
 
-  onUpdate(booleanAtom, (ctx, value) =>
-    localStorage.setItem(localStorageName, value ? 'Y' : 'N'),
-  );
+  booleanAtom.subscribe((value) => {
+    localStorage.setItem(localStorageName, value ? 'Y' : 'N');
+  });
 
   return booleanAtom;
 };

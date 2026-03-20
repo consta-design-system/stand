@@ -5,7 +5,7 @@ import { IconArrowRight } from '@consta/icons/IconArrowRight';
 import { Button } from '@consta/uikit/Button';
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 

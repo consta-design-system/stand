@@ -23,6 +23,7 @@ const repos = [
   'amcharts-map-examples',
   'gpn-responses',
   'icons',
+  'theme-constructor',
   'react-slick-adapter',
   'themes',
   'table',
