@@ -1,4 +1,4 @@
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import { useEffect } from 'react';
 import { useRouter } from 'react-router5';
 

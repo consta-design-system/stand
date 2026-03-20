@@ -1,5 +1,5 @@
 import { IconComponent } from '@consta/icons/Icon';
-import { atom } from '@reatom/core';
+import { computed } from '@reatom/core';
 
 import { ListCardBig, ListCardMini } from '##/componets/ListCard';
 import { libsAtom } from '##/modules/libs';
@@ -184,8 +184,8 @@ const getExtractedLibs = (
   return groups.sort(sort);
 };
 
-const configAtom = atom((ctx) => {
-  const config = ctx.spy(libsPageConfigAtom);
+const configAtom = computed(() => {
+  const config = libsPageConfigAtom();
   const configGroups: Record<string, LibsPageConfigGroup> = {};
   const extractLibs: Record<string, boolean> = {};
 
@@ -206,25 +206,25 @@ const configAtom = atom((ctx) => {
   return [configGroups, extractLibs] as const;
 });
 
-export const libsPageItemsAtom = atom((ctx) => {
-  const libs = ctx.spy(libsAtom);
-  const config = ctx.spy(configAtom);
+export const libsPageItemsAtom = computed(() => {
+  const libs = libsAtom();
+  const config = configAtom();
 
   return getExtractedLibs(libs, config[0], config[1]);
 });
 
-export const libsPageTitleAtom = atom((ctx) => {
-  const config = ctx.spy(libsPageConfigAtom);
+export const libsPageTitleAtom = computed(() => {
+  const config = libsPageConfigAtom();
   return config.title;
 });
 
-export const libsPageDescriptionAtom = atom((ctx) => {
-  const config = ctx.spy(libsPageConfigAtom);
+export const libsPageDescriptionAtom = computed(() => {
+  const config = libsPageConfigAtom();
   return config.description;
 });
 
-export const libsPageMenuCollapsedConfigAtom = atom((ctx) => {
-  const { groups } = ctx.spy(libsPageConfigAtom);
+export const libsPageMenuCollapsedConfigAtom = computed(() => {
+  const { groups } = libsPageConfigAtom();
   const groupsConfig: Record<string, boolean> = {};
 
   if (!groups) {
@@ -239,8 +239,8 @@ export const libsPageMenuCollapsedConfigAtom = atom((ctx) => {
   return groupsConfig;
 });
 
-export const libsPageMenuItemAtom = atom((ctx) => {
-  const groups = ctx.spy(libsPageItemsAtom);
+export const libsPageMenuItemAtom = computed(() => {
+  const groups = libsPageItemsAtom();
 
   const items: ItemWithGroup[] = [];
 

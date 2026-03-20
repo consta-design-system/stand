@@ -1,8 +1,7 @@
-import { atom } from '@reatom/core';
-import { NavigationToProps } from 'reatom-router5';
+import { atom, computed } from '@reatom/core';
 
 import { libIdAtom } from '##/modules/lib';
-import { routesNames } from '##/modules/router';
+import { NavigationToProps, routesNames } from '##/modules/router';
 
 import { standOthersVersionsAtom, standStatusAtom } from './stand';
 
@@ -13,10 +12,10 @@ type HeaderInfo = {
   linkLabel?: string;
 };
 
-export const standHeaderInfoAtom = atom((ctx) => {
-  const status = ctx.spy(standStatusAtom);
-  const { canary, stable } = ctx.spy(standOthersVersionsAtom);
-  const lib = ctx.get(libIdAtom);
+export const standHeaderInfoAtom = computed(() => {
+  const status = standStatusAtom();
+  const { canary, stable } = standOthersVersionsAtom();
+  const lib = libIdAtom();
 
   if (!status || (status === 'stable' && !canary)) {
     return undefined;
@@ -94,7 +93,6 @@ const iconViewMap = {
   stable: undefined,
 } as const;
 
-export const standHeaderIconViewAtom = atom((ctx) => {
-  const status = ctx.spy(standStatusAtom);
-  return iconViewMap[status || 'stable'];
+export const standHeaderIconViewAtom = computed(() => {
+  return iconViewMap[standStatusAtom() || 'stable'];
 });

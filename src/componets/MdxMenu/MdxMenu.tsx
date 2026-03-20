@@ -1,4 +1,4 @@
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { useEffect } from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';
@@ -7,7 +7,7 @@ import { menuMdxAtom } from '##/modules/menuMdx';
 export const MdxMenu: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
-  const setMenu = useAction(menuMdxAtom);
+  const setMenu = useAction(menuMdxAtom.set);
   const [breakpoints] = useAtom(breakpointsAtom);
 
   useEffect(() => {

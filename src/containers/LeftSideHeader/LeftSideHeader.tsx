@@ -1,19 +1,19 @@
 import './LeftSideHeader.css';
 
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { useAction, useAtom, useUpdate } from '@reatom/npm-react';
-import React, { memo, useEffect, useRef } from 'react';
+import { useAction, useAtom } from '@reatom/react';
+import React, { memo } from 'react';
 import { useRouter } from 'react-router5';
 
 import { SearchDesktop } from '##/containers/SearchDesktop';
 import { buildLink } from '##/hooks/useLink';
 import Logo from '##/images/Logo.image.svg';
-import { headerLeftSideRefAtom } from '##/modules/header';
+import { headerLeftSideElementAtom } from '##/modules/header';
 import {
+  distanseElementAtom,
+  fieldElementAtom,
   leftSideDistanceHelperHeightAtom,
-  leftSideDistanceToSearchAtom,
   leftSideFixedSearchFieldAtom,
-  leftSideSearchFieldHeightAtom,
 } from '##/modules/layout';
 import { mainPageAtom } from '##/modules/pages';
 import { cn } from '##/utils/bem';
@@ -21,34 +21,24 @@ import { cn } from '##/utils/bem';
 const cnLeftSideHeader = cn('LeftSideHeader');
 
 export const LeftSideHeader = memo(() => {
-  const setLeftSideDistance = useAction(leftSideDistanceToSearchAtom);
-  const setLeftSideSearchFieldHeight = useAction(leftSideSearchFieldHeightAtom);
   const [searchFixed] = useAtom(leftSideFixedSearchFieldAtom);
   const [distanceHelperHeight] = useAtom(leftSideDistanceHelperHeightAtom);
-  const distanseRefHelper = useRef<HTMLDivElement>(null);
-  const fieldRef = useRef<HTMLDivElement>(null);
-  const headerLeftSideRef = useRef<HTMLDivElement>(null);
+
+  // const headerLeftSideRef = useRef<HTMLDivElement>(null);
   const routeName = useAtom(mainPageAtom)[0]?.routeName;
   const router = useRouter();
+  const setDistanseElement = useAction(distanseElementAtom.set);
+  const setFieldElement = useAction(fieldElementAtom.set);
+  const setHeaderLeftSideElement = useAction(headerLeftSideElementAtom.set);
 
   const [link, onClick] = routeName
     ? buildLink(router, { to: routeName })
     : [undefined, undefined];
 
-  useEffect(() => {
-    setLeftSideDistance(distanseRefHelper.current?.offsetTop || 0);
-  }, [distanseRefHelper.current]);
-
-  useEffect(() => {
-    setLeftSideSearchFieldHeight(fieldRef.current?.clientHeight || 0);
-  }, [fieldRef.current]);
-
-  useUpdate(headerLeftSideRefAtom, [headerLeftSideRef]);
-
   const LinkTag = onClick ? 'a' : 'span';
 
   return (
-    <div className={cnLeftSideHeader()} ref={headerLeftSideRef}>
+    <div className={cnLeftSideHeader()} ref={setHeaderLeftSideElement}>
       <LinkTag
         className={cnLeftSideHeader('LogoWrapper', [
           cnMixSpace({ mT: '2xl', mB: 'xl', pH: 'xl' }),
@@ -58,12 +48,12 @@ export const LeftSideHeader = memo(() => {
       >
         <Logo className={cnLeftSideHeader('Logo')} />
       </LinkTag>
-      <div ref={distanseRefHelper} style={{ height: distanceHelperHeight }} />
+      <div ref={setDistanseElement} style={{ height: distanceHelperHeight }} />
       <div
         className={cnLeftSideHeader('SearchBox', { fixed: searchFixed }, [
           cnMixSpace({ pH: 'xl', pV: 'xs' }),
         ])}
-        ref={fieldRef}
+        ref={setFieldElement}
       >
         <SearchDesktop />
       </div>

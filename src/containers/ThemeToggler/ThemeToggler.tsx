@@ -3,7 +3,7 @@ import { IconMoon } from '@consta/icons/IconMoon';
 import { IconSun } from '@consta/icons/IconSun';
 import { withAnimateSwitcherHOC } from '@consta/icons/withAnimateSwitcherHOC';
 import { Button } from '@consta/uikit/Button';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React from 'react';
 
 import { isDarkThemeAtom, toggleThemeAction } from '##/modules/theme';

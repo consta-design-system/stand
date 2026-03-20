@@ -3,7 +3,7 @@ import './AppTheme.css';
 import { classnames } from '@bem-react/classnames';
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { cnTheme, Theme } from '@consta/uikit/Theme';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { useEffect } from 'react';
 
 import { currentThemeAtom, htmlModsAtom } from '##/modules/theme';

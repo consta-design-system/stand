@@ -1,6 +1,6 @@
 import './DocLayout.css';
 
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';
@@ -21,7 +21,7 @@ export const DocLayout: React.FC<{
 }> = (props) => {
   const [breakpoints] = useAtom(breakpointsAtom);
 
-  const Footer = useAtom(footerAtom)[0].copmonent;
+  const Footer = useAtom(footerAtom)[0].component;
 
   return (
     <div className={cnDocLayout(createMods(breakpoints))}>

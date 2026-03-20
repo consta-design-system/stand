@@ -1,6 +1,6 @@
 import './StandPage.css';
 
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 

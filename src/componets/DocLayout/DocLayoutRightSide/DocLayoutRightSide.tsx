@@ -1,7 +1,7 @@
 import './DocLayoutRightSide.css';
 
 import { useClickOutside } from '@consta/uikit/useClickOutside';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';

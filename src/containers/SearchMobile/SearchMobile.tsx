@@ -1,7 +1,7 @@
 import './SearchMobile.css';
 
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { memo, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 

@@ -2,7 +2,7 @@ import './SearchLenght.css';
 
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { memo } from 'react';
 
 import { searchListLengthAtom } from '##/modules/search';

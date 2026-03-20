@@ -1,15 +1,15 @@
 import './DocLayoutLeftSide.css';
 
-import { useElementAtomEventListener } from '@consta/uikit/__internal__/src/utils/state/useElementAtomEventListener';
+// import { useElementAtomEventListener } from '@consta/uikit/__internal__/src/utils/state/useElementAtomEventListener';
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React from 'react';
 
 import { breakpointsAtom } from '##/modules/breakpoints';
 import {
   leftSideElAtom,
   leftSideScrollContainerAtom,
-  leftSideScrollContainerScrollTopSetAction,
+  // leftSideScrollContainerScrollTopSetAction,
   leftSideScrollPositionAtom,
   openLeftSideAtom,
 } from '##/modules/layout';
@@ -23,20 +23,17 @@ export const DocLayoutLeftSide: React.FC<{
 }> = ({ children }) => {
   const [breakpoints] = useAtom(breakpointsAtom);
   const [open] = useAtom(openLeftSideAtom);
-  const setLeftSideScrollPosition = useAction(leftSideScrollPositionAtom);
+  const setLeftSideScrollPosition = useAction(leftSideScrollPositionAtom.set);
   const setOpenFalse = useAction(openLeftSideAtom.setFalse);
-  const [, setLeftSideScrollContainer] = useAtom(
-    leftSideScrollContainerAtom,
-    undefined,
-    false,
-  );
-  const [, setLeftSideEl] = useAtom(leftSideElAtom, undefined, false);
+  const setLeftSideScrollContainer = useAction(leftSideScrollContainerAtom.set);
+  const setLeftSideEl = useAction(leftSideElAtom.set);
 
-  useElementAtomEventListener(
-    leftSideScrollContainerAtom,
-    'scroll',
-    useAction(leftSideScrollContainerScrollTopSetAction),
-  );
+  // TODO: переписать
+  // useElementAtomEventListener(
+  //   leftSideScrollContainerAtom,
+  //   'scroll',
+  //   useAction(leftSideScrollContainerScrollTopSetAction),
+  // );
 
   return (
     <>
