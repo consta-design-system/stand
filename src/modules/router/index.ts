@@ -16,18 +16,16 @@ router.usePlugin(
 
 router.start();
 
-transitionSuccessAction.subscribe((params) => {
-  const payload = params[0]?.params[0];
+transitionSuccessAction.subscribe((_, params) => {
+  const payload = params?.[0];
   if (payload) {
     const { toState, fromState } = payload;
-
     if (
       toState?.params.stand !== undefined &&
       toState?.params.stand === fromState?.params.stand
     ) {
       return;
     }
-
     window.scrollTo(0, 0);
   }
 });

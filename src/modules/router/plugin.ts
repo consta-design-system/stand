@@ -69,14 +69,14 @@ export const transitionErrorAction = action((payload: RouterActionProp) => {
   });
 }, atomNaming('transitionError'));
 
-export const navigateToAction = action<NavigationToProps>(
-  () => {},
+export const navigateToAction = action(
+  (props: NavigationToProps) => props,
   atomNaming('navigateTo'),
 );
 
 export const plugin: PluginFactory = (router) => {
-  navigateToAction.subscribe((params) => {
-    const payload = params[0]?.params[0];
+  navigateToAction.subscribe((_, params) => {
+    const payload = params?.[0];
 
     if (payload && router) {
       router.navigate(payload.name, payload.params || {}, payload.opts || {});
