@@ -1,4 +1,4 @@
-import { atom, computed } from '@reatom/core';
+import { computed } from '@reatom/core';
 
 import { libIdAtom } from '##/modules/lib';
 import { NavigationToProps, routesNames } from '##/modules/router';
