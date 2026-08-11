@@ -88,7 +88,8 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "yarn install-peers && husky install && node ./scripts/rm.js --path=./node_modules/@types/react-syntax-highlighter/node_modules/@types/react",
+    "prepare": "install-peers",
+    "postinstall": "husky install && node ./scripts/rm.js --path=./node_modules/@types/react-syntax-highlighter/node_modules/@types/react",
     "tsc-dry-run": "tsc --noEmit",
     "lint:js": "eslint --ext .js,.jsx,.tsx,.ts . --quiet",
     "lint:js:fix": "eslint --ext .js,.jsx,.tsx,.ts --fix . --quiet",
