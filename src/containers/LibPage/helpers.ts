@@ -1,14 +1,14 @@
 import { getGroups } from '@consta/uikit/__internal__/src/utils/getGroups';
 import { atom } from '@reatom/core';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import { useEffect } from 'react';
 
 import { libAtom } from '##/modules/lib';
 import { navigateToAction, routesNames } from '##/modules/router';
 import { Group, PreparedStand } from '##/types';
 
-export const groupsAtom = atom((ctx) => {
-  const lib = ctx.spy(libAtom);
+export const groupsAtom = atom(() => {
+  const lib = libAtom();
 
   if (!lib?.stands) {
     return [];

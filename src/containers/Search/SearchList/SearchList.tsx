@@ -2,7 +2,7 @@ import './SearchList.css';
 
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo } from 'react';
 import { useRouter } from 'react-router5';
 
