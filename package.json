@@ -113,7 +113,7 @@
     "stylelint-fix": "stylelint --fix",
     "clone-repos": "node ./__mocks__/cloneRepositories.js",
     "stand:generate": "node ./scripts/standGenerate.js --config=__mocks__/config.js",
-    "stand:build": "yarn rm:dist && yarn clone-repos && yarn stand:generate && cross-env NODE_ENV=production webpack --mode production --config webpack.mocks.config.js",
+    "stand:build": "yarn rm:build && yarn clone-repos && yarn stand:generate && cross-env NODE_ENV=production webpack --mode production --config webpack.mocks.config.js",
     "stand:start": "cross-env NODE_ENV=development webpack serve --open --progress --mode development --hot --progress --stats-error-details --config webpack.mocks.config.js",
     "copy-deps": "node ./__mocks__/copy-deps.js",
     "start": "yarn clone-repos && yarn stand:generate && yarn stand:start",

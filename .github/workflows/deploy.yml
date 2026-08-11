@@ -42,14 +42,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      # - name: Install dependencies
+      #   run: yarn --frozen-lockfile
+
+      # - name: Copy deps
+      #   run: yarn copy-deps
+
       - name: Install dependencies
         run: yarn --frozen-lockfile
-
-      - name: Copy deps
-        run: yarn copy-deps
-
-      - name: Install dependencies
-        run: yarn
 
       # Записываем в переменные окружения имя текущей ветки
       # Чтобы избежать конфиликтов с URL, меняем точки на _, а слеши на минусы
