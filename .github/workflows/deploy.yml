@@ -45,6 +45,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Copy deps
+        run: yarn copy-deps
+
+      - name: Install dependencies
+        run: yarn install
+
       - name: Install peers-dependencies
         run: yarn install-peers
 
