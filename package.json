@@ -122,7 +122,8 @@
     "rm:dist": "node ./scripts/rm.js --path=./dist",
     "rm:build": "node ./scripts/rm.js --path=./build",
     "rm:stands": "node ./scripts/rm.js --path=./src/stands",
-    "rm:repositories": "node ./scripts/rm.js --path=./repositories"
+    "rm:repositories": "node ./scripts/rm.js --path=./repositories",
+    "theme:generate": "node ./scripts/rm.js --path=./src/containers/AppTheme/theme && node ./node_modules/@consta/theme/ci/ciFigmaThemeTransform/ciFigmaThemeTransform.js --path=./src/containers/AppTheme/tokens  --output=./src/containers/AppTheme/theme --addLegacyBridge"
   },
   "config": {
     "commitizen": {
@@ -163,6 +164,7 @@
     "@consta/header": "^3.1.0",
     "@consta/icons": "^1.7.1",
     "@consta/table": "^0.8.0",
+    "@consta/theme": "https://pkg.pr.new/consta-design-system/themes/@consta/themes@d9d117c",
     "@consta/uikit": "^5.32.0",
     "@consta/widgets-utils": "^0.2.15",
     "@types/d3": "5.7.2",
