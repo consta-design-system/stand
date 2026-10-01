@@ -1,5 +1,5 @@
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useCallback } from 'react';
 import { useRouter } from 'react-router5';
 

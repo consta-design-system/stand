@@ -13,7 +13,7 @@ import { Text } from '@consta/uikit/Text';
 import { useTheme } from '@consta/uikit/Theme';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { useRef } from 'react';
 import { Transition } from 'react-transition-group';
 

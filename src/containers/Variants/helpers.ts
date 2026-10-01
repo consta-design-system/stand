@@ -1,4 +1,4 @@
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import { createContext, useContext } from 'react';
 
 import {
