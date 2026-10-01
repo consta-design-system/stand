@@ -14,7 +14,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const isEnvProduction = process.env.NODE_ENV === 'production';
 
 const repos = [
-  'portal',
+  // 'portal',
   'analytic-ui',
   'uikit',
   'charts',

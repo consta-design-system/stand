@@ -1561,10 +1561,9 @@
   resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-1.7.1.tgz#438d6fc7cb20ac1db67cc9502aa06eb83682ac62"
   integrity sha512-ZFngpjo9MlVyNnRU0SJqg2kbzHmh41ydqCYLOWokvhPjlgqUS7W+R38+dHSpIMyMe33wKBvF8LciSqhGwmuP9w==
 
-"@consta/uikit@^5.32.0":
-  version "5.32.0"
-  resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-5.32.0.tgz#2e39bec5388756f550e4358ddad536975d112c5d"
-  integrity sha512-mFXYkEvh4NaAvV2FUDCB0e2bu/qCB53rtXcQHdsR8AKWhQOez75rVB4bTFnZFZCBKCPn3yudN1FdvERTsgNm2A==
+"@consta/uikit@https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@69ca435":
+  version "5.34.0-alpha.2"
+  resolved "https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@69ca435#a98776f33a7c3655fd675279f1078be09067f63b"
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"

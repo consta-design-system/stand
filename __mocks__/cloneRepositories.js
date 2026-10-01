@@ -8,7 +8,7 @@ const { exec } = require('child_process');
 const execAsync = promisify(exec);
 
 const repos = [
-  'portal',
+  // 'portal',
   'analytic-ui',
   'uikit',
   'charts',
