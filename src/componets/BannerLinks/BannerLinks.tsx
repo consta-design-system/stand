@@ -97,6 +97,7 @@ export const BannerLinks = (props: BannerLinksProps) => {
         form="round"
         className={cnBannerLinks('Button', [
           standTheme.themeClassNames.color.accent,
+          standTheme.themeClassNames.bridge,
           className,
         ])}
         onlyIcon

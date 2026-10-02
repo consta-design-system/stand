@@ -35,6 +35,7 @@ export const PortalMenuItem = (
       <div
         className={cnPortalMenuItem('Body', [
           active ? themeClassNames.color.accent : undefined,
+          active ? themeClassNames.bridge : undefined,
         ])}
       >
         {children}

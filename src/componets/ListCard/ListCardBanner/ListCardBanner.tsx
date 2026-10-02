@@ -27,7 +27,12 @@ export const ListCardBanner: ListCardComponent = ({
 
   return (
     <div className={cnListCardBox(null, [className])}>
-      <div className={cnListCardBox('List', [themeClassNames.color.accent])}>
+      <div
+        className={cnListCardBox('List', [
+          themeClassNames.color.accent,
+          themeClassNames.bridge,
+        ])}
+      >
         {shortItems.map((item, index) => (
           <ListCardBannerItem {...item} key={index} />
         ))}

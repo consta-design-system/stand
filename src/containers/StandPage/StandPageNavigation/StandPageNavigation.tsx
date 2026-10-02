@@ -161,6 +161,7 @@ export const StandPageNavigation = ({ className }: Props) => {
             <div
               className={cnStandPageNavigation('Links', [
                 themeClassNames.color.invert,
+                themeClassNames.bridge,
               ])}
             >
               <Button
@@ -178,6 +179,7 @@ export const StandPageNavigation = ({ className }: Props) => {
             <div
               className={cnStandPageNavigation('Links', [
                 themeClassNames.color.invert,
+                themeClassNames.bridge,
               ])}
             >
               {items.map(({ onlyIcon, href, icon, label, iconSize }, index) => (
