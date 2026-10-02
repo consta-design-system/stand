@@ -11,13 +11,12 @@ import { useTheme } from '@consta/uikit/Theme';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { navigateToAction, routerAtom } from 'reatom-router5';
 
 import { useStand } from '##/containers/StandPage/helpers';
 import IconFigma from '##/icons/Figma.icon.svg';
-import { routesNames } from '##/modules/router';
+import { navigateToAction, routerAtom, routesNames } from '##/modules/router';
 import { componentRepositoryUrlAtom, figmaAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';
 
@@ -162,6 +161,7 @@ export const StandPageNavigation = ({ className }: Props) => {
             <div
               className={cnStandPageNavigation('Links', [
                 themeClassNames.color.invert,
+                themeClassNames.bridge,
               ])}
             >
               <Button
@@ -179,6 +179,7 @@ export const StandPageNavigation = ({ className }: Props) => {
             <div
               className={cnStandPageNavigation('Links', [
                 themeClassNames.color.invert,
+                themeClassNames.bridge,
               ])}
             >
               {items.map(({ onlyIcon, href, icon, label, iconSize }, index) => (

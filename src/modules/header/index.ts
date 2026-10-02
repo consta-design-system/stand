@@ -1,4 +1,4 @@
-import { atom } from '@reatom/core';
+import { atom, computed } from '@reatom/core';
 
 export type MenuItem = {
   label: string;
@@ -7,11 +7,8 @@ export type MenuItem = {
   active: boolean;
 };
 
-export const headerLeftSideRefAtom = atom<React.RefObject<HTMLDivElement>>({
-  current: null,
-});
+export const headerLeftSideElementAtom = atom<HTMLDivElement | null>(null);
 
-export const headerLeftSideHeightAtom = atom((ctx) => {
-  const headerLeftSideRef = ctx.spy(headerLeftSideRefAtom);
-  return headerLeftSideRef.current?.offsetHeight || 0;
-});
+export const headerLeftSideHeightAtom = computed(
+  () => headerLeftSideElementAtom()?.offsetHeight || 0,
+);

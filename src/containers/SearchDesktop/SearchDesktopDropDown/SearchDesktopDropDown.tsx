@@ -8,7 +8,7 @@ import {
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { Popover } from '@consta/uikit/Popover';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 

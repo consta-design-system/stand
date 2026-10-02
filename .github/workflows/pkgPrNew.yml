@@ -1,4 +1,4 @@
-name: Deploy
+name: Publish to pkg.pr.new
 
 on:
   push:
@@ -10,15 +10,16 @@ on:
       - reopened
       - synchronize
 
+permissions:
+  contents: read
+
 env:
-  BUILD_SCRIPT: yarn stand:build
-  BUILD_SCRIPT_OUTPUT: build
+  BUILD_SCRIPT: yarn build
+  BUILD_SCRIPT_OUTPUT: dist
   APP_NAME: stand
 
 jobs:
   deploy:
-    env:
-      REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       # Делаем checkout текущей ветки
@@ -43,13 +44,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
-
-      - name: Copy deps
-        run: yarn copy-deps
-
-      - name: Install dependencies
-        run: yarn
+        run: yarn add "install-peers-cli@https://github.com/evless/install-peers-cli#fix-yarn-policies" && yarn --frozen-lockfile
 
       # Записываем в переменные окружения имя текущей ветки
       # Чтобы избежать конфиликтов с URL, меняем точки на _, а слеши на минусы
@@ -62,23 +57,5 @@ jobs:
       - name: Build Appliction
         run: $BUILD_SCRIPT
       # Доставляем собранное приложение на сервер
-      - name: Deploy to Server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DEPLOY_SERVER_HOST }}
-          username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
-          key: ${{ secrets.DEPLOY_SERVER_KEY }}
-          source: ${{ env.BUILD_SCRIPT_OUTPUT }}
-          target: /srv/www/${{ env.APP_NAME }}/${{ env.BRANCH_NAME }}
-          strip_components: 1
-          overwrite: true
-          rm: true
-      - name: Print Info
-        run: echo "🎉 Deployed at https://${{env.BRANCH_NAME}}---${{env.APP_NAME}}.${{secrets.DEPLOY_DOMAIN}}"
-
-      - name: Add comment
-        if: ${{ github.event_name == 'pull_request'}}
-        uses: allthatjazzleo/actions-pull-request-add-comment@master
-        with:
-          message: '🎉 **Deployed at** https://${{env.BRANCH_NAME}}---${{env.APP_NAME}}.${{secrets.DEPLOY_DOMAIN}}'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to pkg.pr.new
+        run: yarn pkg-pr-new publish './dist'
