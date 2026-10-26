@@ -3,7 +3,7 @@ import './StandPageHeaderInfo.css';
 import { IconAlert } from '@consta/icons/IconAlert';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 
 import { Link } from '##/componets/Link';

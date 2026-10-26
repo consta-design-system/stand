@@ -31,6 +31,7 @@ export const BannerButton = forwardRef<HTMLDivElement, BannerButtonProps>(
         className={cnBannerButton(null, [
           className,
           theme.themeClassNames.color.accent,
+          theme.themeClassNames.bridge,
         ])}
         {...otherProps}
       >

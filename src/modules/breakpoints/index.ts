@@ -1,6 +1,5 @@
 import { getLastPoint, useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { atom } from '@reatom/core';
-import { useUpdate } from '@reatom/npm-react';
 
 export type Breakpoint = 'xs' | 's' | 'm' | 'l';
 
@@ -19,15 +18,9 @@ export const breakpointsAtom = atom<Record<Breakpoint, boolean>>({
 });
 
 export const lastBreakpointAtom = atom(
-  (ctx) => getLastPoint(ctx.spy(breakpointsAtom)) || 'xs',
+  () => getLastPoint(breakpointsAtom()) || 'xs',
 );
 
 export const useBreakpointsSubscriber = () => {
-  const data = useBreakpoints({ map: breakpoints, isActive: true });
-  useUpdate(
-    (ctx) => {
-      breakpointsAtom(ctx, data);
-    },
-    [data],
-  );
+  breakpointsAtom.set(useBreakpoints({ map: breakpoints, isActive: true }));
 };

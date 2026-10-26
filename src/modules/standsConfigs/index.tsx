@@ -4,6 +4,6 @@ import { LibsPageConfig } from '##/types';
 
 export const libsPageConfigAtom = atom<LibsPageConfig>({ title: 'Библиотеки' });
 
-export const footerAtom = atom<{ copmonent: () => JSX.Element | null }>({
-  copmonent: () => null,
+export const footerAtom = atom<{ component: () => JSX.Element | null }>({
+  component: () => null,
 });
