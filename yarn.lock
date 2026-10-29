@@ -1561,9 +1561,9 @@
   resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-1.7.1.tgz#438d6fc7cb20ac1db67cc9502aa06eb83682ac62"
   integrity sha512-ZFngpjo9MlVyNnRU0SJqg2kbzHmh41ydqCYLOWokvhPjlgqUS7W+R38+dHSpIMyMe33wKBvF8LciSqhGwmuP9w==
 
-"@consta/uikit@https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@03b690f":
-  version "5.34.0-alpha.1"
-  resolved "https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@03b690f#e4a8b5aed51c2e37f1da3b190394edf1f90080df"
+"@consta/uikit@https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@c54c147":
+  version "5.34.0-alpha.2"
+  resolved "https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@c54c147#6a8e13fe630920daa6d3359b9dd1f5f9a0c2e371"
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
@@ -2260,10 +2260,9 @@
   optionalDependencies:
     idb-keyval "^6.2.4"
 
-"@reatom/react@^1001.0.1":
+"@reatom/react@https://pkg.pr.new/@reatom/react@8e287d5":
   version "1001.0.1"
-  resolved "https://registry.yarnpkg.com/@reatom/react/-/react-1001.0.1.tgz#a5159652b6bc2b2a32e06f02902a0a1b4ae45995"
-  integrity sha512-xU5diWeNIrVmJs5a5G6RTPOAz3OhPTtT7iqswPKJs5tGEahf2tCWo25JKEALv79pG0eqTGGJ5W/k7llweOhe3g==
+  resolved "https://pkg.pr.new/@reatom/react@8e287d5#c117ec42f9997da2e3287f9d0e2a22512b044150"
 
 "@restart/hooks@^0.3.25":
   version "0.3.27"
@@ -13351,11 +13350,11 @@ react-dnd@9.3.2:
     shallowequal "^1.1.0"
 
 "react-dom@>= 18.2.0":
-  version "19.2.8"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.2.8.tgz#3b46b9eeda877cdff2cf13d2770fff4ae36c2ec2"
-  integrity sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==
+  version "19.3.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.3.1.tgz#b384c53cfcbe9c2a5d09d863b98455de9d68afe2"
+  integrity sha512-Y0bARz53lhEC1NMCASs0/j+faB/zqt3R8hpvg1e8+61ZVJ4UL0UdC4cBbXfZMcIuhrfgeILTLe+ZeBCavQPtKQ==
   dependencies:
-    scheduler "^0.27.0"
+    scheduler "^0.28.0"
 
 react-error-boundary@^3.1.0:
   version "3.1.4"
@@ -13456,9 +13455,9 @@ react-uid@2.2.0:
   integrity sha512-z+g5+hFOQ08hCfrGcJ1PNs+cmvH8Uq2CVzCmPeWBsUi5A4W4NWXR5jouledzy3oSKGMU9HOzf8zFuGi15TXJoQ==
 
 "react@>= 18.2.0":
-  version "19.2.8"
-  resolved "https://registry.yarnpkg.com/react/-/react-19.2.8.tgz#a80663dbb58d69c6fe3fd291d3cb324e8a7dff2d"
-  integrity sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==
+  version "19.3.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-19.3.1.tgz#26e9523fc36ea06be5050ebb780249a133260ad7"
+  integrity sha512-QNhWdt7nrgVWWQG58QuGsAR3jv3Hbe4mb4vz7w2csnHavciZJgda1CPNaldF6eVxv90ud3jUXpKlHL69gO38yw==
 
 read-cache@^1.0.0:
   version "1.0.0"
@@ -14128,10 +14127,10 @@ scheduler@^0.23.0:
   dependencies:
     loose-envify "^1.1.0"
 
-scheduler@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.27.0.tgz#0c4ef82d67d1e5c1e359e8fc76d3a87f045fe5bd"
-  integrity sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==
+scheduler@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.28.0.tgz#03d3ca348aeaf8b7502f64468f217b27523f9695"
+  integrity sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==
 
 schema-utils@2.7.0:
   version "2.7.0"
