@@ -1,6 +1,6 @@
 import './HeaderLogo.css';
 
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 import { useRouter } from 'react-router5';
 

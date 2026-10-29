@@ -5,7 +5,7 @@ import { Badge } from '@consta/uikit/Badge';
 import { Button } from '@consta/uikit/Button';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useCallback } from 'react';
 import { useRoute, useRouter } from 'react-router5';
 
