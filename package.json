@@ -17,7 +17,7 @@
   "dependencies": {
     "@consta/header": "^3.1.0",
     "@consta/icons": "^1.7.1",
-    "@consta/uikit": "https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@c54c147",
+    "@consta/uikit": "https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@d48dc46",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@oclif/command": "^1.8.22",
