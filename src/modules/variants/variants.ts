@@ -6,74 +6,14 @@ import { navigateToAction, routerAtom } from '##/modules/router';
 import { standIdAtom } from '##/modules/stand';
 import { htmlModsActionAdd } from '##/modules/theme';
 
-export type VariantType =
-  | 'select'
-  | 'boolean'
-  | 'text'
-  | 'date'
-  | 'date-time'
-  | 'number';
-
-type Value<TYPE extends VariantType, OPTION extends string | number> =
-  | (TYPE extends 'boolean'
-      ? boolean
-      : TYPE extends 'date' | 'date-time'
-        ? Date
-        : TYPE extends 'number'
-          ? number
-          : TYPE extends 'select'
-            ? OPTION
-            : string)
-  | undefined;
-
-export type Variant<
-  TYPE extends VariantType = VariantType,
-  OPTION extends string | number = string,
-> = {
-  type: TYPE;
-  name: string;
-  value: Value<TYPE, OPTION>;
-  options?: OPTION[] | readonly OPTION[];
-  isActive: boolean;
-};
-
-type VariantWithId<
-  TYPE extends VariantType = VariantType,
-  OPTION extends string | number = string,
-> = {
-  type: TYPE;
-  name: string;
-  value: Value<TYPE, OPTION>;
-  options?: OPTION[] | readonly OPTION[];
-  isActive: boolean;
-  id: string;
-};
-
-type WithUndefindValue = <T extends unknown>(
-  value: T,
-) => Exclude<T, 'undefined'> | undefined;
-
-const valueWithUndefined: WithUndefindValue = (value) => {
-  return value !== 'undefined'
-    ? (value as Exclude<typeof value, 'undefined'>)
-    : undefined;
-};
-
-type OptionsWithUndefined = <T extends unknown>(
-  value: readonly T[] | T[],
-) => Array<T | 'undefined'>;
-
-const optionsWithUndefined: OptionsWithUndefined = (options) => {
-  return ['undefined', ...options];
-};
+import {
+  optionsWithUndefined,
+  propIsEqual,
+  valueWithUndefined,
+} from './helpers';
+import { Value, Variant, VariantType, VariantWithId } from './types';
 
 export type VariantsAtomState = Record<string, VariantWithId>;
-
-const propIsEqual = <T extends Object>(
-  variantOld: T,
-  variantNew: T,
-  prop: keyof T,
-) => variantOld?.[prop] === variantNew?.[prop];
 
 export const variantsAtom = atom<VariantsAtomState>({}).extend(
   withSessionStorage('variantsAtom'),
