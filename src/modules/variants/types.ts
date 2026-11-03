@@ -39,7 +39,7 @@ export type Knob<
   name: string;
   value: Value<TYPE, OPTION>;
   options?: OPTION[] | readonly OPTION[];
-  isActive?: AtomLike<boolean>;
+  isActive?: AtomLike<boolean | undefined>;
 };
 
 export type VariantWithId<

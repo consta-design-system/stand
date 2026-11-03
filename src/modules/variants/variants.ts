@@ -232,7 +232,7 @@ export const knobSelect = <OPTION extends string | number>(
   name: string,
   options: OPTION[] | readonly OPTION[],
   value: OPTION | undefined = undefined,
-  isActive?: AtomLike<boolean>,
+  isActive?: AtomLike<boolean | undefined>,
 ) => {
   const isInitValueUndefined = typeof value === 'undefined';
   const optionsPrepare = isInitValueUndefined
@@ -258,19 +258,19 @@ export const knobSelect = <OPTION extends string | number>(
 export const knobBoolean = (
   name: string,
   value: boolean = false,
-  isActive?: AtomLike<boolean>,
+  isActive?: AtomLike<boolean | undefined>,
 ) => knob({ type: 'boolean', name, value, isActive });
 
 export const knobText = (
   name: string,
   value: string = '',
-  isActive?: AtomLike<boolean>,
+  isActive?: AtomLike<boolean | undefined>,
 ) => knob({ type: 'text', name, value, isActive });
 
 export const knobDate = (
   name: string,
   value: Date = new Date(),
-  isActive?: AtomLike<boolean>,
+  isActive?: AtomLike<boolean | undefined>,
 ) => {
   const knobValue = knob({ type: 'date', name, value, isActive });
   return computed(() => {
@@ -282,7 +282,7 @@ export const knobDate = (
 export const knobDateTime = (
   name: string,
   value: Date = new Date(),
-  isActive?: AtomLike<boolean>,
+  isActive?: AtomLike<boolean | undefined>,
 ) => {
   const knobValue = knob({ type: 'date-time', name, value, isActive });
   return computed(() => {
@@ -294,5 +294,5 @@ export const knobDateTime = (
 export const knobNumber = (
   name: string,
   value: number = 0,
-  isActive?: AtomLike<boolean>,
+  isActive?: AtomLike<boolean | undefined>,
 ) => knob({ type: 'number', name, value, isActive });
