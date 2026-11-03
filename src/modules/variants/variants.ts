@@ -1,4 +1,12 @@
-import { action, atom, computed, withSessionStorage } from '@reatom/core';
+import {
+  abortVar,
+  action,
+  atom,
+  AtomLike,
+  computed,
+  effect,
+  withSessionStorage,
+} from '@reatom/core';
 import { useAction, useAtom } from '@reatom/react';
 import { useEffect } from 'react';
 
@@ -11,7 +19,7 @@ import {
   propIsEqual,
   valueWithUndefined,
 } from './helpers';
-import { Value, Variant, VariantType, VariantWithId } from './types';
+import { Knob, Value, Variant, VariantType, VariantWithId } from './types';
 
 export type VariantsAtomState = Record<string, VariantWithId>;
 
@@ -190,3 +198,101 @@ export const useNumber = (
   value?: number,
   isActive: boolean = true,
 ) => useVariant({ type: 'number', name, value, isActive });
+
+export const knob = <
+  TYPE extends VariantType = VariantType,
+  OPTION extends string | number = string,
+>(
+  knob: Knob<TYPE, OPTION>,
+) => {
+  const idAtom = computed(() => `${standIdAtom()}-${knob.name}`);
+  const isActiveAtom = computed(() => (knob.isActive ? knob.isActive() : true));
+
+  const valueAtom = computed(() => {
+    const variants = variantsAtom();
+    if (variants[idAtom()] && variants[idAtom()].isActive) {
+      return variants[idAtom()].value;
+    }
+  });
+
+  effect(() => {
+    variantsActionSet({
+      ...knob,
+      id: idAtom(),
+      isActive: isActiveAtom(),
+    } as VariantWithId);
+  });
+
+  abortVar.subscribe(() => variantsActionDel(idAtom()));
+
+  return valueAtom as AtomLike<Value<TYPE, OPTION>>;
+};
+
+export const knobSelect = <OPTION extends string | number>(
+  name: string,
+  options: OPTION[] | readonly OPTION[],
+  value: OPTION | undefined = undefined,
+  isActive?: AtomLike<boolean>,
+) => {
+  const isInitValueUndefined = typeof value === 'undefined';
+  const optionsPrepare = isInitValueUndefined
+    ? optionsWithUndefined(options)
+    : options;
+
+  const valueKnobAtom = knob({
+    type: 'select',
+    name,
+    options: optionsPrepare,
+    value,
+    isActive,
+  });
+
+  return computed(() => {
+    const valueKnob = valueKnobAtom();
+    isInitValueUndefined
+      ? valueWithUndefined(valueKnob)
+      : (valueKnob as Exclude<OPTION, 'undefined'>);
+  });
+};
+
+export const knobBoolean = (
+  name: string,
+  value: boolean = false,
+  isActive?: AtomLike<boolean>,
+) => knob({ type: 'boolean', name, value, isActive });
+
+export const knobText = (
+  name: string,
+  value: string = '',
+  isActive?: AtomLike<boolean>,
+) => knob({ type: 'text', name, value, isActive });
+
+export const knobDate = (
+  name: string,
+  value: Date = new Date(),
+  isActive?: AtomLike<boolean>,
+) => {
+  const knobValue = knob({ type: 'date', name, value, isActive });
+  return computed(() => {
+    const value = knobValue();
+    return typeof value === 'string' ? new Date(value) : value;
+  });
+};
+
+export const knobDateTime = (
+  name: string,
+  value: Date = new Date(),
+  isActive?: AtomLike<boolean>,
+) => {
+  const knobValue = knob({ type: 'date-time', name, value, isActive });
+  return computed(() => {
+    const value = knobValue();
+    return typeof value === 'string' ? new Date(value) : value;
+  });
+};
+
+export const knobNumber = (
+  name: string,
+  value: number = 0,
+  isActive?: AtomLike<boolean>,
+) => knob({ type: 'number', name, value, isActive });

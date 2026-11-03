@@ -31,15 +31,15 @@ export type Variant<
   isActive: boolean;
 };
 
-export type VariantAtom<
+export type Knob<
   TYPE extends VariantType = VariantType,
   OPTION extends string | number = string,
 > = {
   type: TYPE;
   name: string;
-  value: AtomLike<Value<TYPE, OPTION>>;
+  value: Value<TYPE, OPTION>;
   options?: OPTION[] | readonly OPTION[];
-  isActive: boolean;
+  isActive?: AtomLike<boolean>;
 };
 
 export type VariantWithId<
