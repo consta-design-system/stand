@@ -1,4 +1,4 @@
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRoute } from 'react-router5';
 
@@ -71,7 +71,7 @@ const scrollDetector = (
 };
 
 export const useMenu: UseMenu = () => {
-  const setActiveItem = useAction(activeItemAtom);
+  const setActiveItem = useAction(activeItemAtom.set);
   const [menuNode] = useAtom(menuMdxAtom);
   const route = useRoute();
   const { path } = route.route;

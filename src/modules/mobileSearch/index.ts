@@ -1,17 +1,16 @@
-import { action, atom } from '@reatom/core';
-import { onUpdate } from '@reatom/hooks';
-import { navigateToAction, routerAtom } from 'reatom-router5';
+import { action, computed } from '@reatom/core';
 
+import { navigateToAction, routerAtom } from '##/modules/router';
 import { htmlModsActionAdd } from '##/modules/theme';
 
-export const mobileSearchIsActiveAtom = atom((ctx) => {
-  const router = ctx.spy(routerAtom);
+export const mobileSearchIsActiveAtom = computed(() => {
+  const router = routerAtom();
   return Boolean(router.route?.params.search);
 });
 
-export const mobileSearchToogleAction = action((ctx) => {
-  const isActive = ctx.get(mobileSearchIsActiveAtom);
-  const { route } = ctx.get(routerAtom);
+export const mobileSearchToggleAction = action(() => {
+  const isActive = mobileSearchIsActiveAtom();
+  const { route } = routerAtom();
 
   if (!route) {
     return;
@@ -20,13 +19,13 @@ export const mobileSearchToogleAction = action((ctx) => {
   if (isActive) {
     window.history.back();
   } else {
-    navigateToAction(ctx, {
+    navigateToAction({
       name: route.name,
       params: { ...route.params, search: true },
     });
   }
 });
 
-onUpdate(mobileSearchIsActiveAtom, (ctx, isActive) => {
-  htmlModsActionAdd(ctx, { noScroll: isActive });
+mobileSearchIsActiveAtom.subscribe((isActive) => {
+  htmlModsActionAdd({ noScroll: isActive });
 });

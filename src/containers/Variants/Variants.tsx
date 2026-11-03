@@ -8,7 +8,7 @@ import { cnTheme } from '@consta/uikit/Theme';
 import { useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { VariantsBoard } from '##/containers/VariantsBoard';

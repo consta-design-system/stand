@@ -1,145 +1,91 @@
-import { action, atom } from '@reatom/core';
-import { onUpdate } from '@reatom/hooks';
-import { useAction, useAtom } from '@reatom/npm-react';
-import { withSessionStorage } from '@reatom/persist-web-storage';
+import {
+  abortVar,
+  action,
+  atom,
+  AtomLike,
+  computed,
+  effect,
+  withSessionStorage,
+} from '@reatom/core';
+import { useAction, useAtom } from '@reatom/react';
 import { useEffect } from 'react';
-import { navigateToAction, routerAtom } from 'reatom-router5';
 
+import { navigateToAction, routerAtom } from '##/modules/router';
 import { standIdAtom } from '##/modules/stand';
 import { htmlModsActionAdd } from '##/modules/theme';
 
-export type VariantType =
-  | 'select'
-  | 'boolean'
-  | 'text'
-  | 'date'
-  | 'date-time'
-  | 'number';
-
-type Value<TYPE extends VariantType, OPTION extends string | number> =
-  | (TYPE extends 'boolean'
-      ? boolean
-      : TYPE extends 'date' | 'date-time'
-        ? Date
-        : TYPE extends 'number'
-          ? number
-          : TYPE extends 'select'
-            ? OPTION
-            : string)
-  | undefined;
-
-export type Variant<
-  TYPE extends VariantType = VariantType,
-  OPTION extends string | number = string,
-> = {
-  type: TYPE;
-  name: string;
-  value: Value<TYPE, OPTION>;
-  options?: OPTION[] | readonly OPTION[];
-  isActive: boolean;
-};
-
-type VariantWithId<
-  TYPE extends VariantType = VariantType,
-  OPTION extends string | number = string,
-> = {
-  type: TYPE;
-  name: string;
-  value: Value<TYPE, OPTION>;
-  options?: OPTION[] | readonly OPTION[];
-  isActive: boolean;
-  id: string;
-};
-
-type WithUndefindValue = <T extends unknown>(
-  value: T,
-) => Exclude<T, 'undefined'> | undefined;
-
-const valueWithUndefined: WithUndefindValue = (value) => {
-  return value !== 'undefined'
-    ? (value as Exclude<typeof value, 'undefined'>)
-    : undefined;
-};
-
-type OptionsWithUndefined = <T extends unknown>(
-  value: readonly T[] | T[],
-) => Array<T | 'undefined'>;
-
-const optionsWithUndefined: OptionsWithUndefined = (options) => {
-  return ['undefined', ...options];
-};
+import {
+  optionsWithUndefined,
+  propIsEqual,
+  valueWithUndefined,
+} from './helpers';
+import { Knob, Value, Variant, VariantType, VariantWithId } from './types';
 
 export type VariantsAtomState = Record<string, VariantWithId>;
 
-const propIsEqual = <T extends Object>(
-  variantOld: T,
-  variantNew: T,
-  prop: keyof T,
-) => variantOld?.[prop] === variantNew?.[prop];
-
-export const variantsAtom = atom<VariantsAtomState>({}).pipe(
+export const variantsAtom = atom<VariantsAtomState>({}).extend(
   withSessionStorage('variantsAtom'),
 );
 
 export const variantsActionSetActive = action(
-  (ctx, { id, isActive }: { id: string; isActive: boolean }) => {
-    const state = ctx.get(variantsAtom);
+  ({ id, isActive }: { id: string; isActive: boolean }) => {
+    const state = variantsAtom();
 
     if (id in state && state[id].isActive !== isActive) {
-      variantsAtom(ctx, { ...state, [id]: { ...state[id], isActive } });
+      variantsAtom.set({ ...state, [id]: { ...state[id], isActive } });
     }
   },
 );
 
-export const variantsActionSet = action((ctx, payload: Variant) => {
-  const state = ctx.get(variantsAtom);
-  const standId = ctx.get(standIdAtom);
+export const variantsActionSet = action((payload: Variant) => {
+  const state = variantsAtom();
+  const standId = standIdAtom();
 
   const id = `${standId}-${payload.name}`;
 
   if (!(id in state)) {
-    variantsAtom(ctx, { ...state, [id]: { ...payload, id } });
+    variantsAtom.set({ ...state, [id]: { ...payload, id } });
   }
 
   if (
     !propIsEqual(state[id], payload, 'isActive') ||
     !propIsEqual(state[id], payload, 'value')
   ) {
-    variantsAtom(ctx, { ...state, [id]: { ...payload, id } });
+    variantsAtom.set({ ...state, [id]: { ...payload, id } });
   }
 });
 
-export const variantsActionDel = action((ctx, id: string) => {
-  const state = ctx.get(variantsAtom);
+export const variantsActionDel = action((id: string) => {
+  const state = variantsAtom();
 
   if (id in state) {
     const newState = { ...state };
     delete newState[id];
-    variantsAtom(ctx, newState);
+    variantsAtom.set(newState);
   }
 });
 
-export const variantsActionSetState = action(
-  (ctx, payload: VariantsAtomState) => variantsAtom(ctx, payload),
+export const variantsActionSetState = action((payload: VariantsAtomState) =>
+  variantsAtom.set(payload),
 );
 
-export const variantsActionClear = action((ctx) => variantsAtom(ctx, {}));
+export const variantsActionClear = action(() => variantsAtom.set({}));
 
-export const variantsNamesAtom = atom((ctx) => {
-  const variants = ctx.spy(variantsAtom);
-  const standId = ctx.get(standIdAtom);
+export const variantsNamesAtom = computed(() => {
+  const variants = variantsAtom();
+  const standId = standIdAtom();
 
   return Object.keys(variants).filter((id) => id.indexOf(standId) >= 0);
 });
 
-export const variantsIsFullScreen = atom((ctx) => {
-  const router = ctx.spy(routerAtom);
+export const variantsIsFullScreen = computed(() => {
+  const router = routerAtom();
   return Boolean(router.route?.params.variants);
 });
 
-export const variantsToggleFullScreen = action((ctx) => {
-  const isFullScreen = ctx.get(variantsIsFullScreen);
-  const { route } = ctx.get(routerAtom);
+export const variantsToggleFullScreen = action(() => {
+  const isFullScreen = variantsIsFullScreen();
+  const { route } = routerAtom();
 
   if (!route) {
     return;
@@ -148,16 +94,16 @@ export const variantsToggleFullScreen = action((ctx) => {
   if (isFullScreen) {
     window.history.back();
   } else {
-    navigateToAction(ctx, {
+    navigateToAction({
       name: route.name,
       params: { ...route.params, variants: true },
     });
   }
 });
 
-onUpdate(variantsIsFullScreen, (ctx, isFullScreen) => {
-  htmlModsActionAdd(ctx, { noScroll: isFullScreen });
-});
+variantsIsFullScreen.subscribe((isFullScreen) =>
+  htmlModsActionAdd({ noScroll: isFullScreen }),
+);
 
 export const useVariant = <
   TYPE extends VariantType = VariantType,
@@ -252,3 +198,101 @@ export const useNumber = (
   value?: number,
   isActive: boolean = true,
 ) => useVariant({ type: 'number', name, value, isActive });
+
+export const knob = <
+  TYPE extends VariantType = VariantType,
+  OPTION extends string | number = string,
+>(
+  knob: Knob<TYPE, OPTION>,
+) => {
+  const idAtom = computed(() => `${standIdAtom()}-${knob.name}`);
+  const isActiveAtom = computed(() => (knob.isActive ? knob.isActive() : true));
+
+  const valueAtom = computed(() => {
+    const variants = variantsAtom();
+    if (variants[idAtom()] && variants[idAtom()].isActive) {
+      return variants[idAtom()].value;
+    }
+  });
+
+  effect(() => {
+    variantsActionSet({
+      ...knob,
+      id: idAtom(),
+      isActive: isActiveAtom(),
+    } as VariantWithId);
+  });
+
+  abortVar.subscribe(() => variantsActionDel(idAtom()));
+
+  return valueAtom as AtomLike<Value<TYPE, OPTION>>;
+};
+
+export const knobSelect = <OPTION extends string | number>(
+  name: string,
+  options: OPTION[] | readonly OPTION[],
+  value: OPTION | undefined = undefined,
+  isActive?: AtomLike<boolean | undefined>,
+) => {
+  const isInitValueUndefined = typeof value === 'undefined';
+  const optionsPrepare = isInitValueUndefined
+    ? optionsWithUndefined(options)
+    : options;
+
+  const valueKnobAtom = knob({
+    type: 'select',
+    name,
+    options: optionsPrepare,
+    value,
+    isActive,
+  });
+
+  return computed(() => {
+    const valueKnob = valueKnobAtom();
+    isInitValueUndefined
+      ? valueWithUndefined(valueKnob)
+      : (valueKnob as Exclude<OPTION, 'undefined'>);
+  });
+};
+
+export const knobBoolean = (
+  name: string,
+  value: boolean = false,
+  isActive?: AtomLike<boolean | undefined>,
+) => knob({ type: 'boolean', name, value, isActive });
+
+export const knobText = (
+  name: string,
+  value: string = '',
+  isActive?: AtomLike<boolean | undefined>,
+) => knob({ type: 'text', name, value, isActive });
+
+export const knobDate = (
+  name: string,
+  value: Date = new Date(),
+  isActive?: AtomLike<boolean | undefined>,
+) => {
+  const knobValue = knob({ type: 'date', name, value, isActive });
+  return computed(() => {
+    const value = knobValue();
+    return typeof value === 'string' ? new Date(value) : value;
+  });
+};
+
+export const knobDateTime = (
+  name: string,
+  value: Date = new Date(),
+  isActive?: AtomLike<boolean | undefined>,
+) => {
+  const knobValue = knob({ type: 'date-time', name, value, isActive });
+  return computed(() => {
+    const value = knobValue();
+    return typeof value === 'string' ? new Date(value) : value;
+  });
+};
+
+export const knobNumber = (
+  name: string,
+  value: number = 0,
+  isActive?: AtomLike<boolean | undefined>,
+) => knob({ type: 'number', name, value, isActive });

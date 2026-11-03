@@ -8,9 +8,7 @@ import {
   presetGpnDisplay,
   ThemePreset,
 } from '@consta/uikit/Theme';
-import { action, atom } from '@reatom/core';
-import { onUpdate } from '@reatom/hooks';
-import { withLocalStorage } from '@reatom/persist-web-storage';
+import { action, atom, computed, withLocalStorage } from '@reatom/core';
 
 import { routerAtom, routesNames } from '##/modules/router';
 
@@ -48,34 +46,32 @@ export const getThemeIcon = (theme: ThemePreset) =>
 export const getThemeLabel = (theme: ThemePreset) =>
   labelMap[theme.color.primary];
 
-export const themeAtom = atom<ThemePreset>(getDefaultTheme()).pipe(
+export const themeAtom = atom<ThemePreset>(getDefaultTheme()).extend(
   withLocalStorage('themeAtom'),
 );
 
-export const toggleThemeAction = action((ctx) => {
-  const theme = ctx.get(themeAtom);
+export const isDarkThemeAtom = computed(() => {
+  return themeAtom().color.primary === presetGpnDark.color.primary;
+});
+
+export const toggleThemeAction = action(() => {
+  const theme = themeAtom();
 
   if (theme.color.primary === presetGpnDark.color.primary) {
-    themeAtom(ctx, presetGpnDefault);
+    themeAtom.set(presetGpnDefault);
   } else {
-    themeAtom(ctx, presetGpnDark);
+    themeAtom.set(presetGpnDark);
   }
 });
 
-export const isDarkThemeAtom = atom((ctx) => {
-  const theme = ctx.spy(themeAtom);
-
-  return theme.color.primary === presetGpnDark.color.primary;
-});
-
-export const variantThemeAtom = atom<ThemePreset>(getDefaultTheme()).pipe(
+export const variantThemeAtom = atom<ThemePreset>(getDefaultTheme()).extend(
   withLocalStorage('variantThemeAtom'),
 );
 
-export const currentThemeAtom = atom<ThemePreset>((ctx) => {
-  const theme = ctx.spy(themeAtom);
-  const variantTheme = ctx.spy(variantThemeAtom);
-  const router = ctx.get(routerAtom);
+export const currentThemeAtom = computed<ThemePreset>(() => {
+  const theme = themeAtom();
+  const variantTheme = variantThemeAtom();
+  const router = routerAtom();
 
   if (router.route?.name === routesNames.LIBS_VARIANTS) {
     return variantTheme;
@@ -84,8 +80,8 @@ export const currentThemeAtom = atom<ThemePreset>((ctx) => {
   return theme;
 });
 
-onUpdate(themeAtom, (ctx, value) => {
-  variantThemeAtom(ctx, value);
+themeAtom.subscribe((theme) => {
+  variantThemeAtom.set(theme);
 });
 
 export const htmlModsAtom = atom<Record<string, string | boolean | undefined>>(
@@ -93,20 +89,20 @@ export const htmlModsAtom = atom<Record<string, string | boolean | undefined>>(
 );
 
 export const htmlModsActionAdd = action(
-  (ctx, payload: Record<string, string | boolean | undefined>) => {
-    htmlModsAtom(ctx, {
-      ...ctx.get(htmlModsAtom),
+  (payload: Record<string, string | boolean | undefined>) => {
+    htmlModsAtom.set({
+      ...htmlModsAtom(),
       ...payload,
     });
   },
 );
 
-export const htmlModsActionDel = action((ctx, name: string) => {
-  const state = ctx.get(htmlModsAtom);
+export const htmlModsActionDel = action((name: string) => {
+  const state = htmlModsAtom();
   if (name in state) {
     const newState = { ...state };
     delete newState[name];
 
-    htmlModsAtom(ctx, newState);
+    htmlModsAtom.set(newState);
   }
 });

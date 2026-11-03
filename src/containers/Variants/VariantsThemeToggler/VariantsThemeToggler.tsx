@@ -5,7 +5,7 @@ import { Button } from '@consta/uikit/Button';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { ThemePreset } from '@consta/uikit/Theme';
 import { useFlag } from '@consta/uikit/useFlag';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { useEffect, useRef } from 'react';
 
 import {
@@ -26,11 +26,7 @@ export const VariantsThemeToggler: React.FC<{
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const [theme] = useAtom(variantThemeAtom);
-
-  const setTheme = useAction((ctx, value: ThemePreset) => {
-    variantThemeAtom(ctx, value);
-  });
+  const [theme, setTheme] = useAtom(variantThemeAtom);
 
   const handleSelect = (item: ThemePreset) => {
     setIsOpen.off();

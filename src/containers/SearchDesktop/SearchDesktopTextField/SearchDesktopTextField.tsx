@@ -1,8 +1,8 @@
 import { IconSearchStroked } from '@consta/icons/IconSearchStroked';
 import { TextField } from '@consta/uikit/TextField';
 import { useDebounce } from '@consta/uikit/useDebounce';
-import { useAction, useAtom, useUpdate } from '@reatom/npm-react';
-import React, { useRef } from 'react';
+import { useAction, useAtom } from '@reatom/react';
+import React, { useEffect, useRef } from 'react';
 
 import {
   fieldRefAtom,
@@ -18,16 +18,20 @@ export const SearchDesktopTextField = () => {
 
   const setSearchValueAtomDebounced = useDebounce(searchValueAtom, 300);
 
-  const onChange = useAction((ctx, value: string | null) => {
-    inputValueAtom(ctx, value);
+  const onChange = useAction((value: string | null) => {
+    inputValueAtom.set(value);
     if (value?.trim()) {
-      setSearchValueAtomDebounced(ctx, value);
+      setSearchValueAtomDebounced.set(value);
     } else {
-      searchValueAtom(ctx, value);
+      searchValueAtom.set(value);
     }
   });
 
-  useUpdate(fieldRefAtom, [ref]);
+  // Перенести формирование fieldRefAtom непосредственно в DOM
+
+  useEffect(() => {
+    fieldRefAtom.set(ref);
+  }, [ref]);
 
   return (
     <TextField

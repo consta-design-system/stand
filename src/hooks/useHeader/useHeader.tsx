@@ -1,9 +1,9 @@
 import { useDebounce } from '@consta/uikit/useDebounce';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { useEffect, useMemo } from 'react';
-import { routerAtom } from 'reatom-router5';
 
 import { headerHeightAtom } from '##/modules/layout';
+import { routerAtom } from '##/modules/router';
 import {
   getStringChildren,
   typographyHeaderConverter,

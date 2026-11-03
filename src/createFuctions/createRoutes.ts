@@ -1,6 +1,6 @@
 // @ts-ignore: При сборке стенды осутствуют
 
-import { defaultRoute, routes as additionalRoutes } from '##/stands/router';
+// import { defaultRoute, routes as additionalRoutes } from '##/stands/router';
 
 export type RouterItem = {
   name: string;
@@ -17,7 +17,7 @@ const routesNames = {
 
 export const createRoutes = () => {
   const routes: RouterItem[] = [
-    ...additionalRoutes,
+    // ...additionalRoutes,
     {
       name: routesNames.LIBS,
       path: `/libs?:hash?:search`,
@@ -43,6 +43,6 @@ export const createRoutes = () => {
   return {
     routesNames,
     routes,
-    defaultRoute: defaultRoute || routesNames.LIBS,
+    defaultRoute: routesNames.LIBS,
   };
 };

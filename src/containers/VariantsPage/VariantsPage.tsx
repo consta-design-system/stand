@@ -1,6 +1,6 @@
 import './VariantsPage.css';
 
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 
 import { ExampleFrame } from '##/componets/ExampleFrame';

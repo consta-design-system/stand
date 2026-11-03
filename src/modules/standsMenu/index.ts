@@ -1,22 +1,20 @@
-import { atom } from '@reatom/core';
-import { onUpdate } from '@reatom/hooks';
-import { withLocalStorage } from '@reatom/persist-web-storage';
-import { BooleanAtom, reatomBoolean, reatomString } from '@reatom/primitives';
+import { atom, computed, withLocalStorage } from '@reatom/core';
 
 import { libAtom } from '##/modules/lib';
 import { standAtom } from '##/modules/stand';
+import { BooleanAtom, reatomBoolean } from '##/primitives/reatomBoolean';
 
-export const searchValueAtom = reatomString();
+export const searchValueAtom = atom<string>('');
 
-export const deprecatedSwitchAtom = reatomBoolean(true).pipe(
+export const deprecatedSwitchAtom = reatomBoolean(true).extend(
   withLocalStorage('deprecatedSwitchAtom'),
 );
 
-export const canarySwitchAtom = reatomBoolean(true).pipe(
+export const canarySwitchAtom = reatomBoolean(true).extend(
   withLocalStorage('canarySwitchAtom'),
 );
 
-export const inWorkSwitchAtom = reatomBoolean(true).pipe(
+export const inWorkSwitchAtom = reatomBoolean(true).extend(
   withLocalStorage('inWorkSwitchAtom'),
 );
 
@@ -27,8 +25,8 @@ export type fiterItem = {
   value: boolean;
 };
 
-export const filtersAtom = atom((ctx) => {
-  const lib = ctx.spy(libAtom);
+export const filtersAtom = computed(() => {
+  const lib = libAtom();
 
   if (!lib?.stands) {
     return [];
@@ -50,8 +48,8 @@ export const filtersAtom = atom((ctx) => {
     filter.push({
       label: 'Deprecated',
       status: 'deprecated',
-      value: ctx.spy(deprecatedSwitchAtom),
-      onClick: () => deprecatedSwitchAtom.toggle(ctx),
+      value: deprecatedSwitchAtom(),
+      onClick: () => deprecatedSwitchAtom.toggle(),
     });
   }
 
@@ -59,8 +57,8 @@ export const filtersAtom = atom((ctx) => {
     filter.push({
       label: 'Canary',
       status: 'canary',
-      value: ctx.spy(canarySwitchAtom),
-      onClick: () => canarySwitchAtom.toggle(ctx),
+      value: canarySwitchAtom(),
+      onClick: () => canarySwitchAtom.toggle(),
     });
   }
 
@@ -68,25 +66,25 @@ export const filtersAtom = atom((ctx) => {
     filter.push({
       label: 'В работе',
       status: 'inWork',
-      value: ctx.spy(inWorkSwitchAtom),
-      onClick: () => inWorkSwitchAtom.toggle(ctx),
+      value: inWorkSwitchAtom(),
+      onClick: () => inWorkSwitchAtom.toggle(),
     });
   }
 
   return filter;
 });
 
-export const visibleListAtom = atom((ctx) => {
-  const lib = ctx.spy(libAtom);
+export const visibleListAtom = computed(() => {
+  const lib = libAtom();
 
   if (!lib?.stands) {
     return [];
   }
 
-  const searchValue = ctx.spy(searchValueAtom);
-  const showDeprecated = ctx.spy(deprecatedSwitchAtom);
-  const showCanary = ctx.spy(canarySwitchAtom);
-  const showInWork = ctx.spy(inWorkSwitchAtom);
+  const searchValue = searchValueAtom();
+  const showDeprecated = deprecatedSwitchAtom();
+  const showCanary = canarySwitchAtom();
+  const showInWork = inWorkSwitchAtom();
 
   return lib.stands.filter((item) => {
     if (
@@ -119,8 +117,8 @@ export const libPageMenuFiltersRefAtom = atom<React.RefObject<HTMLDivElement>>({
   current: null,
 });
 
-export const libPageMenuFiltersHeightAtom = atom((ctx) => {
-  const libPageMenuFiltersRef = ctx.spy(libPageMenuFiltersRefAtom);
+export const libPageMenuFiltersHeightAtom = computed(() => {
+  const libPageMenuFiltersRef = libPageMenuFiltersRefAtom();
   return libPageMenuFiltersRef.current?.offsetHeight || 0;
 });
 
@@ -136,11 +134,11 @@ const mapAtom: Record<
   stable: undefined,
 };
 
-onUpdate(standAtom, (ctx, stand) => {
+standAtom.subscribe((stand) => {
   const status = stand?.stand.status;
   if (!status) {
     return;
   }
 
-  mapAtom[status]?.setTrue(ctx);
+  mapAtom[status]?.setTrue();
 });

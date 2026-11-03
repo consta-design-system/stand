@@ -1,4 +1,4 @@
-import { atom } from '@reatom/core';
+import { computed } from '@reatom/core';
 import { State } from 'router5';
 
 import { routerAtom, routesNames } from '##/modules/router';
@@ -7,8 +7,8 @@ import { stands } from '##/modules/stands';
 import { PreparedStand, PreparedStandNopreparedLibs } from '##/types';
 import { generateStandId } from '##/utils/generateStandId';
 
-export const standIdAtom = atom((ctx) => {
-  const router = ctx.spy(routerAtom);
+export const standIdAtom = computed(() => {
+  const router = routerAtom();
 
   const standId = router.route?.params.stand as string | undefined;
   const libId = router.route?.params.lib as string | undefined;
@@ -16,13 +16,7 @@ export const standIdAtom = atom((ctx) => {
   return generateStandId(libId, standId);
 });
 
-export const standAtom = atom((ctx) => {
-  const standId = ctx.spy(standIdAtom);
-
-  const stand = stands[standId];
-
-  return stand;
-});
+export const standAtom = computed(() => stands[standIdAtom()]);
 
 export const getComponentRepositoryUrl = (stand: PreparedStand | undefined) => {
   if (!stand) {
@@ -42,10 +36,9 @@ export const getComponentRepositoryUrl = (stand: PreparedStand | undefined) => {
   return componentUrl;
 };
 
-export const componentRepositoryUrlAtom = atom((ctx) => {
-  const stand = ctx.spy(standAtom);
-  return getComponentRepositoryUrl(stand);
-});
+export const componentRepositoryUrlAtom = computed(() =>
+  getComponentRepositoryUrl(standAtom()),
+);
 
 export const getDocsUrl = (
   repositoryUrl: string | undefined,
@@ -68,11 +61,11 @@ export const getDocsUrl = (
   }
 };
 
-export const docsRepositoryUrlAtom = atom((ctx) => {
-  const router = ctx.spy(routerAtom);
-  const stand = ctx.spy(standAtom);
+export const docsRepositoryUrlAtom = computed(() => {
+  const { route } = routerAtom();
+  const stand = standAtom();
 
-  if (!stand || !router.route) {
+  if (!stand || !route) {
     return;
   }
 
@@ -82,11 +75,11 @@ export const docsRepositoryUrlAtom = atom((ctx) => {
     repositoryPath,
   } = stand;
 
-  return getDocsUrl(repositoryUrl, router.route, lazyAccess, repositoryPath);
+  return getDocsUrl(repositoryUrl, route, lazyAccess, repositoryPath);
 });
 
-export const issueRepositoryUrlAtom = atom((ctx) => {
-  const stand = ctx.spy(standAtom);
+export const issueRepositoryUrlAtom = computed(() => {
+  const stand = standAtom();
 
   if (!stand) {
     return;
@@ -99,16 +92,15 @@ export const issueRepositoryUrlAtom = atom((ctx) => {
   return repositoryUrl && `${repositoryUrl}/issues/new/choose`;
 });
 
-export const figmaAtom = atom((ctx) => ctx.spy(standAtom)?.stand.figma);
+export const figmaAtom = computed(() => standAtom()?.stand.figma);
 
 const isVersion =
   (version: PreparedStandNopreparedLibs['stand']['status']) =>
   (stand: PreparedStandNopreparedLibs) =>
     stand.stand.status === version;
 
-export const standOthersVersionsAtom = atom((ctx) => {
-  const stand = ctx.spy(standAtom);
-  const others = stand?.stand.otherVersion || [];
+export const standOthersVersionsAtom = computed(() => {
+  const others = standAtom()?.stand.otherVersion || [];
 
   return {
     deprecated: others.find(isVersion('deprecated')),
@@ -117,9 +109,8 @@ export const standOthersVersionsAtom = atom((ctx) => {
   };
 });
 
-export const standStatusAtom = atom((ctx) => {
-  const stand = ctx.spy(standAtom);
-  return stand?.stand.status;
+export const standStatusAtom = computed(() => {
+  return standAtom()?.stand.status;
 });
 
 export const badgeLabelStatusMap = {
