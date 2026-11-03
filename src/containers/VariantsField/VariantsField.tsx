@@ -70,7 +70,7 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   return (
     <TextFieldMemo
       className={cnVariantsField()}
-      value={value}
+      value={value || ''}
       type="text"
       onChange={onChange}
       label={name}
@@ -97,7 +97,7 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   return (
     <TextFieldMemo
       className={cnVariantsField()}
-      value={value?.toString()}
+      value={value?.toString() || ''}
       type="number"
       onChange={onChange}
       label={name}
