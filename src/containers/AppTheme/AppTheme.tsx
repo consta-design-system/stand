@@ -11,7 +11,7 @@ import { cn } from '##/utils/bem';
 
 const cnAppTheme = cn('AppTheme');
 
-export const AppTheme: React.FC<{ children: React.ReactChild }> = (props) => {
+export const AppTheme: React.FC<{ children: React.ReactNode }> = (props) => {
   const [theme] = useAtom(currentThemeAtom);
   const [htmlMods] = useAtom(htmlModsAtom);
 

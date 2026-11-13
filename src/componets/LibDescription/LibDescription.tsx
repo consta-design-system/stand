@@ -6,7 +6,7 @@ import { components } from '##/typography';
 
 type LibDescriptionProps = {
   description?:
-    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | ((props: { components?: MDXComponents }) => React.JSX.Element)
     | string;
 };
 

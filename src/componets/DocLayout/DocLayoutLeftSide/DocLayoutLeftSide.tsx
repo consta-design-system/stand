@@ -25,8 +25,12 @@ export const DocLayoutLeftSide: React.FC<{
   const [open] = useAtom(openLeftSideAtom);
   const setLeftSideScrollPosition = useAction(leftSideScrollPositionAtom.set);
   const setOpenFalse = useAction(openLeftSideAtom.setFalse);
-  const setLeftSideScrollContainer = useAction(leftSideScrollContainerAtom.set);
-  const setLeftSideEl = useAction(leftSideElAtom.set);
+  const setLeftSideScrollContainer = useAction((el: HTMLDivElement | null) => {
+    leftSideScrollContainerAtom.set(el);
+  });
+  const setLeftSideEl = useAction((el: HTMLDivElement | null) => {
+    leftSideElAtom.set(el);
+  });
 
   // TODO: переписать
   // useElementAtomEventListener(

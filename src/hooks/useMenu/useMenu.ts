@@ -22,12 +22,20 @@ type NodeItem = {
   element: HTMLElement;
 };
 
-type GetMenuData = (children: React.ReactElement) => MenuItem[];
+type MenuNodeProps = {
+  children?: React.ReactNode;
+  href?: string;
+};
+
+type MenuNode = React.ReactElement<MenuNodeProps>;
+
+type GetMenuData = (children: MenuNode) => MenuItem[];
+
+const isMenuNode = (node: React.ReactNode): node is MenuNode =>
+  React.isValidElement(node);
 
 const getMenuData: GetMenuData = (children) => {
-  const {
-    props: { children: childrenProp, href },
-  } = children;
+  const { children: childrenProp, href } = children.props;
   const array: MenuItem[] = [];
   if (typeof childrenProp === 'string') {
     href &&
@@ -37,11 +45,11 @@ const getMenuData: GetMenuData = (children) => {
       });
   } else if (Array.isArray(childrenProp)) {
     childrenProp.forEach((child) => {
-      if (typeof child === 'object') {
+      if (isMenuNode(child)) {
         array.push(...getMenuData(child));
       }
     });
-  } else if (childrenProp) {
+  } else if (isMenuNode(childrenProp)) {
     array.push(...getMenuData(childrenProp));
   }
   return array;
@@ -83,7 +91,7 @@ export const useMenu: UseMenu = () => {
   const { github, figma } = stand?.stand ?? ({} as Stand);
 
   useEffect(() => {
-    setMenu(menuNode ? getMenuData(menuNode as React.ReactElement) : []);
+    setMenu(isMenuNode(menuNode) ? getMenuData(menuNode) : []);
   }, [menuNode]);
 
   const [offset] = useAtom(headerHeightAtom);

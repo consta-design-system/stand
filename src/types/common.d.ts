@@ -1,11 +1,15 @@
 declare module '*.docs.mdx' {
-  const MDXComponent: (props: { components?: MDXComponents }) => JSX.Element;
+  const MDXComponent: (props: {
+    components?: MDXComponents;
+  }) => React.JSX.Element;
 
   export default MDXComponent;
 }
 
 declare module '*.stand.mdx' {
-  const MDXComponent: (props: { components?: MDXComponents }) => JSX.Element;
+  const MDXComponent: (props: {
+    components?: MDXComponents;
+  }) => React.JSX.Element;
 
   export default MDXComponent;
 }
@@ -39,10 +43,8 @@ declare module '*.image.svg' {
 }
 
 declare module '*.icon.svg' {
-  import { IconProps } from '@consta/icons/Icon';
+  import { IconComponent } from '@consta/icons/Icon';
 
-  export const ReactComponent: React.FC<IconProps>;
-
-  const content: React.FC<IconProps>;
+  const content: IconComponent;
   export default content;
 }

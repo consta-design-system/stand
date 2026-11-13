@@ -27,9 +27,15 @@ export const LeftSideHeader = memo(() => {
   // const headerLeftSideRef = useRef<HTMLDivElement>(null);
   const routeName = useAtom(mainPageAtom)[0]?.routeName;
   const router = useRouter();
-  const setDistanseElement = useAction(distanseElementAtom.set);
-  const setFieldElement = useAction(fieldElementAtom.set);
-  const setHeaderLeftSideElement = useAction(headerLeftSideElementAtom.set);
+  const setDistanseElement = useAction((el: HTMLDivElement | null) => {
+    distanseElementAtom.set(el);
+  });
+  const setFieldElement = useAction((el: HTMLDivElement | null) => {
+    fieldElementAtom.set(el);
+  });
+  const setHeaderLeftSideElement = useAction((el: HTMLDivElement | null) => {
+    headerLeftSideElementAtom.set(el);
+  });
 
   const [link, onClick] = routeName
     ? buildLink(router, { to: routeName })

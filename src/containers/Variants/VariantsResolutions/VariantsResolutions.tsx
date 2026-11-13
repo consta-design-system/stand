@@ -21,7 +21,7 @@ const cnVariantsResolutions = cn('VariantsResolutions');
 export const VariantsResolutions: React.FC<{
   onOpen: (open: boolean) => void;
   onSelect: (value: number) => void;
-  componentRef: React.RefObject<HTMLDivElement>;
+  componentRef: React.RefObject<HTMLDivElement | null>;
 }> = ({ onSelect, onOpen, componentRef }) => {
   const [openResolutionsMenu, setOpenResolutionsMenu] = useFlag();
   const [resolution, setResolution] = useState(0);

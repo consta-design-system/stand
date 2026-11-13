@@ -113,7 +113,9 @@ export const visibleListAtom = computed(() => {
   });
 });
 
-export const libPageMenuFiltersRefAtom = atom<React.RefObject<HTMLDivElement>>({
+export const libPageMenuFiltersRefAtom = atom<
+  React.RefObject<HTMLDivElement | null>
+>({
   current: null,
 });
 

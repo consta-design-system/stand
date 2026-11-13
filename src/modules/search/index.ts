@@ -14,7 +14,7 @@ import { stands } from '##/modules/stands';
 import { reatomBoolean } from '##/primitives/reatomBoolean';
 import { PreparedStand } from '##/types';
 
-export const fieldRefAtom = atom<React.RefObject<HTMLDivElement>>({
+export const fieldRefAtom = atom<React.RefObject<HTMLDivElement | null>>({
   current: null,
 });
 

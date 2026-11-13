@@ -1,7 +1,7 @@
 import { footerAtom } from '##/modules/standsConfigs';
 
 export const footerConfig = (props: {
-  component: () => JSX.Element | null;
+  component: () => React.JSX.Element | null;
 }) => {
   footerAtom.set(props);
 };

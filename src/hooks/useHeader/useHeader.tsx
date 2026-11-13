@@ -11,7 +11,7 @@ import {
 
 type UseHeader = (
   children: React.ReactNode,
-  ref: React.RefObject<HTMLHeadingElement>,
+  ref: React.RefObject<HTMLHeadingElement | null>,
 ) => {
   id: string;
   label: string;
