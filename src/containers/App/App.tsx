@@ -3,8 +3,8 @@ import React from 'react';
 import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';
 
-import { DocLayout } from '##/componets/DocLayout';
-import { LazyPage } from '##/componets/LazyPage';
+import { DocLayout } from '##/components/DocLayout';
+import { LazyPage } from '##/components/LazyPage';
 import { Header } from '##/containers/Header';
 import { LeftSideHeader } from '##/containers/LeftSideHeader';
 import { Menu } from '##/containers/Menu';

@@ -11,13 +11,13 @@ import { Popover } from '@consta/uikit/Popover';
 import { Switch } from '@consta/uikit/Switch';
 import { Text } from '@consta/uikit/Text';
 import { useTheme } from '@consta/uikit/Theme';
+import { Transition } from '@consta/uikit/Transition';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useFlag } from '@consta/uikit/useFlag';
 import { useAction, useAtom } from '@reatom/react';
 import React, { useRef } from 'react';
-import { Transition } from 'react-transition-group';
 
-import { BannerButton } from '##/componets/BannerButton';
+import { BannerButton } from '##/components/BannerButton';
 import IconFeedback from '##/icons/Feedback.icon.svg';
 import IconTelegram from '##/icons/Telegram.icon.svg';
 import { isDarkThemeAtom, toggleThemeAction } from '##/modules/theme';
@@ -102,7 +102,7 @@ export const BannerLinks = (props: BannerLinksProps) => {
         onlyIcon
         iconLeft={MoreSwitchIcon}
       />
-      <Transition in={isOpen} unmountOnExit timeout={400} nodeRef={popoverRef}>
+      <Transition in={isOpen} unmountOnExit timeout={400}>
         {(animate) => (
           <Popover
             direction={mode === 'sidebar' ? 'upStartRight' : 'downStartRight'}

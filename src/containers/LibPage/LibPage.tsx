@@ -4,8 +4,8 @@ import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
-import { LibDescription } from '##/componets/LibDescription';
-import { ListCardMini } from '##/componets/ListCard';
+import { LibDescription } from '##/components/LibDescription';
+import { ListCardMini } from '##/components/ListCard';
 import { routesNames } from '##/modules/router';
 import { getComponentRepositoryUrl } from '##/modules/stand';
 import { ListCardItem } from '##/types';

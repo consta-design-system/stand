@@ -6,7 +6,7 @@ import { Text } from '@consta/uikit/Text';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
-import { Link } from '##/componets/Link';
+import { Link } from '##/components/Link';
 import { gapAtomMapFabric, sizeAtomMapFabric } from '##/modules/adaptiveSize';
 import { standHeaderIconViewAtom, standHeaderInfoAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';

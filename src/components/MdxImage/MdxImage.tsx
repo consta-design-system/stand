@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Image } from '##/componets/Image';
+import { Image } from '##/components/Image';
 
 export const MdxImage: typeof Image = (props = {}) => {
   return <Image {...props} />;

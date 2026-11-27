@@ -6,7 +6,7 @@ import { getLastPoint, useBreakpoints } from '@consta/uikit/useBreakpoints';
 import { useForkRef } from '@consta/uikit/useForkRef';
 import React, { forwardRef, useRef } from 'react';
 
-import { ExampleFrame } from '##/componets/ExampleFrame';
+import { ExampleFrame } from '##/components/ExampleFrame';
 import { cn } from '##/utils/bem';
 
 import {

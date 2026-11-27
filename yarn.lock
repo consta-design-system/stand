@@ -1561,10 +1561,9 @@
   resolved "https://registry.yarnpkg.com/@consta/header/-/header-3.1.0.tgz#a2937c58af238b7453a253c81c706dc2805c6688"
   integrity sha512-wo5ayLZPa9Xthv1lWBlAYVERA7AShQ0gLUxrdpbQjnYSyqQ9lPFjKF5TRMaceIcI8xVDru40EngarHTZtPL+Qg==
 
-"@consta/icons@^1.7.1":
+"@consta/icons@https://pkg.pr.new/consta-design-system/icons/@consta/icons@894ff92":
   version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@consta/icons/-/icons-1.7.1.tgz#438d6fc7cb20ac1db67cc9502aa06eb83682ac62"
-  integrity sha512-ZFngpjo9MlVyNnRU0SJqg2kbzHmh41ydqCYLOWokvhPjlgqUS7W+R38+dHSpIMyMe33wKBvF8LciSqhGwmuP9w==
+  resolved "https://pkg.pr.new/consta-design-system/icons/@consta/icons@894ff92#2fe5484814cbb108e843d4430534dddf5b165ceb"
 
 "@consta/uikit@https://pkg.pr.new/consta-design-system/uikit/@consta/uikit@55b1010":
   version "5.34.0-alpha.2"
@@ -2908,20 +2907,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-transition-group@^4.4.12":
-  version "4.4.12"
-  resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.12.tgz#b5d76568485b02a307238270bfe96cb51ee2a044"
-  integrity sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==
-
-"@types/react@*", "@types/react@18.3.12", "@types/react@>=16", "@types/react@>=16.9.0", "@types/react@>=16.9.11":
-  version "18.3.12"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.12.tgz#99419f182ccd69151813b7ee24b792fe08774f60"
-  integrity sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^3.0.2"
-
-"@types/react@^19.3.0":
+"@types/react@*", "@types/react@19.3.0", "@types/react@>=16", "@types/react@>=16.9.0", "@types/react@>=16.9.11", "@types/react@^19.3.0":
   version "19.3.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-19.3.0.tgz#3b3ce8d8c1627fb5ccd4dadd57ef445c5a153b77"
   integrity sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==

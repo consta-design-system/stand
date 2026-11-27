@@ -5,11 +5,11 @@ import { IconArrowRight } from '@consta/icons/IconArrowRight';
 import { Button } from '@consta/uikit/Button';
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
+import { Transition } from '@consta/uikit/Transition';
 import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useRef } from 'react';
-import { Transition } from 'react-transition-group';
 
-import { BannerLinks } from '##/componets/BannerLinks';
+import { BannerLinks } from '##/components/BannerLinks';
 import { MdxMenuTransfer } from '##/containers/MdxMenuTransfer';
 import { ThemeToggler } from '##/containers/ThemeToggler';
 import { breakpointsAtom } from '##/modules/breakpoints';
@@ -27,7 +27,6 @@ export const SideLinks = memo(() => {
   const isOpen = openRightSide || breakpoints.l;
   const withOpenButton = !breakpoints.l;
   const slotMainRef = useRef<HTMLDivElement>(null);
-  const slotSecondaryRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={cnSideLinks(null)}>
@@ -35,10 +34,9 @@ export const SideLinks = memo(() => {
         in={isOpen}
         unmountOnExit
         timeout={timeout}
-        onEnter={() => {
+        onEntered={() => {
           slotMainRef.current?.scrollTo({ top: -9999999 });
         }}
-        nodeRef={slotMainRef}
       >
         {(animate) => {
           return (
@@ -76,16 +74,10 @@ export const SideLinks = memo(() => {
           );
         }}
       </Transition>
-      <Transition
-        in={!isOpen}
-        unmountOnExit
-        timeout={timeout}
-        nodeRef={slotSecondaryRef}
-      >
+      <Transition in={!isOpen} unmountOnExit timeout={timeout}>
         {(animate) => {
           return (
             <div
-              ref={slotSecondaryRef}
               className={cnSideLinks(
                 'Slot',
                 { animate, size: 's', withOpenButton },

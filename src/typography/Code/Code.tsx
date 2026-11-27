@@ -10,7 +10,7 @@ import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
 
-import { AnimateCopyButton } from '##/componets/AnimateCopyButton';
+import { AnimateCopyButton } from '##/components/AnimateCopyButton';
 import { cn } from '##/utils/bem';
 
 import { useTheme } from './theme';

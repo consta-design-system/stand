@@ -1,9 +1,9 @@
 import './SearchMobile.css';
 
 import { cnMixSpace } from '@consta/uikit/MixSpace';
+import { Transition } from '@consta/uikit/Transition';
 import { useAtom } from '@reatom/react';
-import React, { memo, useRef } from 'react';
-import { Transition } from 'react-transition-group';
+import React, { memo } from 'react';
 
 import {
   SearchLenght,
@@ -19,14 +19,12 @@ const cnSearchMobile = cn('SearchMobile');
 export const SearchMobile = memo(() => {
   const [isActive] = useAtom(mobileSearchIsActiveAtom);
   const [headerHeight] = useAtom(headerHeightAtom);
-  const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <Transition timeout={300} in={isActive} unmountOnExit nodeRef={ref}>
+    <Transition timeout={300} in={isActive} unmountOnExit>
       {(animate) => (
         <div
           className={cnSearchMobile({ animate })}
-          ref={ref}
           style={{ ['--header-height' as string]: `${headerHeight}px` }}
         >
           <SearchTextField

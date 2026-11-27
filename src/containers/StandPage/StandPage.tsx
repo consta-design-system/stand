@@ -4,7 +4,7 @@ import { useAtom } from '@reatom/react';
 import React, { memo, useMemo } from 'react';
 import { useRoute } from 'react-router5';
 
-import { LazyDocs } from '##/componets/LazyDocs';
+import { LazyDocs } from '##/components/LazyDocs';
 import { PageDecorator } from '##/containers/PageDecorator';
 import { Variants } from '##/containers/Variants';
 import { gapMapAtom, sizeMapAtom } from '##/modules/adaptiveSize';

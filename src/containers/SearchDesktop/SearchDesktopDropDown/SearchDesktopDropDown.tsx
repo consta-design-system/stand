@@ -7,10 +7,10 @@ import {
 } from '@consta/uikit/MixPopoverAnimate';
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
 import { Popover } from '@consta/uikit/Popover';
+import { Transition } from '@consta/uikit/Transition';
 import { useClickOutside } from '@consta/uikit/useClickOutside';
 import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useRef } from 'react';
-import { Transition } from 'react-transition-group';
 
 import { SearchLenght, SearchList } from '##/containers/Search';
 import { leftSideElAtom } from '##/modules/layout';
@@ -38,12 +38,7 @@ export const SearchDesktopDropDown = memo(() => {
   });
 
   return (
-    <Transition
-      nodeRef={popoverRef}
-      in={isOpen}
-      timeout={animateTimeout}
-      unmountOnExit
-    >
+    <Transition in={isOpen} timeout={animateTimeout} unmountOnExit>
       {(animate) => (
         <Popover
           className={cnSearchDesktopDropDown(null, [

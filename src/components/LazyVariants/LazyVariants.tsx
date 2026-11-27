@@ -3,7 +3,7 @@ import './LazyVariants.css';
 import { ProgressSpin } from '@consta/uikit/ProgressSpin';
 import React, { lazy, memo, Suspense } from 'react';
 
-import { ErrorBoundary } from '##/componets/ErrorBoundary';
+import { ErrorBoundary } from '##/components/ErrorBoundary';
 import { cn } from '##/utils/bem';
 
 const cnLazyVariants = cn('LazyVariants');

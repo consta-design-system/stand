@@ -9,8 +9,8 @@ import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
-import { Image } from '##/componets/Image';
-import { LazyImage } from '##/componets/LazyImage';
+import { Image } from '##/components/Image';
+import { LazyImage } from '##/components/LazyImage';
 import { useLink } from '##/hooks/useLink';
 import IconFigma from '##/icons/Figma.icon.svg';
 import NoImage from '##/images/NoImage.image.svg';
