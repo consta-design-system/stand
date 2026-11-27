@@ -19,7 +19,7 @@ export const getStringChildren = (node: React.ReactNode): string => {
   if (Array.isArray(node)) {
     return node.map((item) => getStringChildren(item)).join('');
   }
-  const { props } = node as React.ReactElement;
+  const { props } = node as React.ReactElement<{ children?: React.ReactNode }>;
   return getStringChildren(props?.children ?? '');
 };
 

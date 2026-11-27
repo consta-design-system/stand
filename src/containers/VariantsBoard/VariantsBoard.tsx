@@ -1,5 +1,5 @@
 import { cnMixScrollBar } from '@consta/uikit/MixScrollBar';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React, { forwardRef } from 'react';
 
 import { VariantsField } from '##/containers/VariantsField';

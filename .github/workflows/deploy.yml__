@@ -43,13 +43,16 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn install
+
+      - name: Clone repositories
+        run: yarn clone-repos
 
       - name: Copy deps
         run: yarn copy-deps
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install
 
       # Записываем в переменные окружения имя текущей ветки
       # Чтобы избежать конфиликтов с URL, меняем точки на _, а слеши на минусы

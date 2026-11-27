@@ -4,7 +4,7 @@ import { DatePicker } from '@consta/uikit/DatePicker';
 import { Select } from '@consta/uikit/Select';
 import { Switch } from '@consta/uikit/Switch';
 import { TextField } from '@consta/uikit/TextField';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo, useCallback } from 'react';
 
 import { useZIndex } from '##/containers/Variants/helpers';
@@ -63,14 +63,14 @@ const VariantsFieldText: React.FC<Variant<'text'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, value: string | null) =>
-    variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
+  const onChange = useAction((value: string | null) =>
+    variantsActionSet({ type, value: value ?? undefined, name, isActive }),
   );
 
   return (
     <TextFieldMemo
       className={cnVariantsField()}
-      value={value}
+      value={value || ''}
       type="text"
       onChange={onChange}
       label={name}
@@ -85,8 +85,8 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, value: string | null) =>
-    variantsActionSet(ctx, {
+  const onChange = useAction((value: string | null) =>
+    variantsActionSet({
       type,
       value: value !== undefined ? Number(value) : undefined,
       name,
@@ -97,7 +97,7 @@ const VariantsFieldNumber: React.FC<Variant<'number'>> = ({
   return (
     <TextFieldMemo
       className={cnVariantsField()}
-      value={value?.toString()}
+      value={value?.toString() || ''}
       type="number"
       onChange={onChange}
       label={name}
@@ -112,8 +112,8 @@ const VariantsFieldDate: React.FC<Variant<'date'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, value: Date | null) =>
-    variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
+  const onChange = useAction((value: Date | null) =>
+    variantsActionSet({ type, value: value ?? undefined, name, isActive }),
   );
 
   const date = typeof value === 'string' ? new Date(value) : value;
@@ -137,8 +137,8 @@ const VariantsFieldDateTime: React.FC<Variant<'date-time'>> = ({
   value,
   isActive,
 }) => {
-  const onChange = useAction((ctx, value: Date | null) =>
-    variantsActionSet(ctx, { type, value: value ?? undefined, name, isActive }),
+  const onChange = useAction((value: Date | null) =>
+    variantsActionSet({ type, value: value ?? undefined, name, isActive }),
   );
 
   const date = typeof value === 'string' ? new Date(value) : value;
@@ -162,8 +162,8 @@ const VariantsFieldBoolean: React.FC<Variant<'boolean'>> = ({
   value,
   isActive,
 }) => {
-  const action = useAction((ctx, value: boolean) =>
-    variantsActionSet(ctx, { type, value, name, isActive }),
+  const action = useAction((value: boolean) =>
+    variantsActionSet({ type, value, name, isActive }),
   );
 
   const onChange = useCallback(() => action(!value), [value]);
@@ -188,8 +188,8 @@ const VariantsFieldSelect: React.FC<Variant<'select'>> = ({
   options = [],
   isActive,
 }) => {
-  const onChange = useAction((ctx, value: string | null) =>
-    variantsActionSet(ctx, {
+  const onChange = useAction((value: string | null) =>
+    variantsActionSet({
       type,
       value: value ?? undefined,
       name,

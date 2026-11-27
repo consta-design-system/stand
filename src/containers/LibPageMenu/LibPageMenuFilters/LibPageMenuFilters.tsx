@@ -2,8 +2,8 @@ import './LibPageMenuFilters.css';
 
 import { Badge } from '@consta/uikit/Badge';
 import { Switch } from '@consta/uikit/Switch';
-import { useAtom, useUpdate } from '@reatom/npm-react';
-import React, { useRef } from 'react';
+import { useAtom } from '@reatom/react';
+import React, { useEffect, useRef } from 'react';
 
 import { filtersAtom, libPageMenuFiltersRefAtom } from '##/modules/standsMenu';
 import { cn } from '##/utils/bem';
@@ -20,7 +20,9 @@ export const LibPageMenuFilters = () => {
   const [filters] = useAtom(filtersAtom);
   const ref = useRef<HTMLDivElement>(null);
 
-  useUpdate(libPageMenuFiltersRefAtom, [ref]);
+  useEffect(() => {
+    libPageMenuFiltersRefAtom.set(ref);
+  }, [ref]);
 
   if (!filters.length) {
     return null;

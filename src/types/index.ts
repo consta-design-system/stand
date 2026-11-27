@@ -50,7 +50,7 @@ export type Lib<GROUP extends Group> = {
   status?: 'deprecated' | 'stable' | 'inWork';
   description?: string;
   fullDescription?:
-    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | ((props: { components?: MDXComponents }) => React.JSX.Element)
     | string;
   standPageDecoration?: (props: {
     theme: ThemePreset;
@@ -106,7 +106,7 @@ export type LibsPageConfigGroup = {
 export type LibsPageConfig = {
   title: string;
   description?:
-    | ((props: { components?: MDXComponents }) => JSX.Element)
+    | ((props: { components?: MDXComponents }) => React.JSX.Element)
     | string;
   extractLibs?: string[];
   groups?: LibsPageConfigGroup[];
@@ -129,4 +129,4 @@ export type ListCardComponent = (props: {
   className?: string;
   maxCount?: number;
   buttonMore?: boolean;
-}) => JSX.Element | null;
+}) => React.JSX.Element | null;

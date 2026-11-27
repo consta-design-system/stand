@@ -29,7 +29,7 @@ const resolutionsLabels: Record<number, string> = {
 };
 
 export const useResolutions = (
-  componentRef: React.RefObject<HTMLDivElement>,
+  componentRef: React.RefObject<HTMLDivElement | null>,
 ) => {
   const breakpoints = useBreakpoints({
     ref: componentRef,

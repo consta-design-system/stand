@@ -1,16 +1,16 @@
 import { IconSearchStroked } from '@consta/icons/IconSearchStroked';
 import { Button } from '@consta/uikit/Button';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
-import { useAction, useAtom } from '@reatom/npm-react';
+import { useAction, useAtom } from '@reatom/react';
 import React, { memo } from 'react';
 
 import {
   mobileSearchIsActiveAtom,
-  mobileSearchToogleAction,
+  mobileSearchToggleAction,
 } from '##/modules/mobileSearch';
 
 export const HeaderSearchToggler = memo(() => {
-  const toggle = useAction(mobileSearchToogleAction);
+  const toggle = useAction(mobileSearchToggleAction);
   const [isActive] = useAtom(mobileSearchIsActiveAtom);
 
   return (

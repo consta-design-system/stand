@@ -1,4 +1,4 @@
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 import { useRoute } from 'react-router5';
 import { startsWithSegment } from 'router5-helpers';

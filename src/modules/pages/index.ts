@@ -1,4 +1,4 @@
-import { atom } from '@reatom/core';
+import { atom, computed } from '@reatom/core';
 import { startsWithSegment } from 'router5-helpers';
 
 import { routerAtom } from '##/modules/router';
@@ -8,9 +8,9 @@ import { pages } from '##/stands';
 export const pagesAtom =
   atom<{ routeName: string; mainPage?: boolean; path: string }[]>(pages);
 
-export const pageAtom = atom((ctx) => {
-  const routerName = ctx.spy(routerAtom).route?.name;
-  const pages = ctx.spy(pagesAtom);
+export const pageAtom = computed(() => {
+  const routerName = routerAtom().route?.name;
+  const pages = pagesAtom();
 
   if (!routerName) {
     return undefined;
@@ -31,6 +31,6 @@ export const pageAtom = atom((ctx) => {
   );
 });
 
-export const mainPageAtom = atom((ctx) =>
-  ctx.spy(pagesAtom).find((page) => page.mainPage),
+export const mainPageAtom = computed(() =>
+  pagesAtom().find((page) => page.mainPage),
 );

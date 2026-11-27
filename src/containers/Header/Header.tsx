@@ -5,7 +5,7 @@ import { IconHamburger } from '@consta/icons/IconHamburger';
 import { Button } from '@consta/uikit/Button';
 import { cnMixSpace } from '@consta/uikit/MixSpace';
 import { useComponentSize } from '@consta/uikit/useComponentSize';
-import { useAction } from '@reatom/npm-react';
+import { useAction } from '@reatom/react';
 import React, { memo, useEffect, useRef } from 'react';
 
 import { BannerLinks } from '##/componets/BannerLinks';

@@ -1,33 +1,26 @@
 import { IconSearchStroked } from '@consta/icons/IconSearchStroked';
 import { TextField } from '@consta/uikit/TextField';
-import { useDebounce } from '@consta/uikit/useDebounce';
-import { useAction, useAtom, useUpdate } from '@reatom/npm-react';
-import React, { memo, useRef } from 'react';
+import { useAction, useAtom } from '@reatom/react';
+import React, { memo, useEffect, useRef } from 'react';
 
 import {
   fieldRefAtom,
+  handleChangeAction,
   inputFocusedAtom,
   inputValueAtom,
-  searchValueAtom,
 } from '##/modules/search';
 
 export const SearchTextField = memo(({ className }: { className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [value] = useAtom(inputValueAtom);
+  const onChange = useAction(handleChangeAction);
 
-  const setSearchValueAtomDebounced = useDebounce(searchValueAtom, 300);
+  // TODO: Перенести формирование fieldRefAtom непосредственно в DOM
 
-  const onChange = useAction((ctx, value: string | null) => {
-    inputValueAtom(ctx, value);
-    if (value?.trim()) {
-      setSearchValueAtomDebounced(ctx, value);
-    } else {
-      searchValueAtom(ctx, value);
-    }
-  });
-
-  useUpdate(fieldRefAtom, [ref]);
+  useEffect(() => {
+    fieldRefAtom.set(ref);
+  }, [ref]);
 
   return (
     <TextField

@@ -1,7 +1,7 @@
 import './Blockquote.css';
 
 import { Text } from '@consta/uikit/Text';
-import { useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/react';
 import React from 'react';
 
 import { sizeAtomMapFabric } from '##/modules/adaptiveSize';
