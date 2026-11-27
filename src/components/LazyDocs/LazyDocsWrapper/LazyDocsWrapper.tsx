@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErrorBoundary } from '##/componets/ErrorBoundary';
+import { ErrorBoundary } from '##/components/ErrorBoundary';
 
 import { LazyDocsFallbackCodeError } from '../LazyDocsFallbackCodeError';
 

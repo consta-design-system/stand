@@ -1,7 +1,7 @@
 import React, { lazy, memo, Suspense } from 'react';
 
-import { ErrorBoundary } from '##/componets/ErrorBoundary';
-import { Image } from '##/componets/Image';
+import { ErrorBoundary } from '##/components/ErrorBoundary';
+import { Image } from '##/components/Image';
 import NoImage from '##/images/NoImage.image.svg';
 
 type LazyImageProps = { id: string; className?: string };

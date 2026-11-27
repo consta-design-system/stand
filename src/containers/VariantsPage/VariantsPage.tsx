@@ -3,8 +3,8 @@ import './VariantsPage.css';
 import { useAtom } from '@reatom/react';
 import React from 'react';
 
-import { ExampleFrame } from '##/componets/ExampleFrame';
-import { LazyVariants } from '##/componets/LazyVariants';
+import { ExampleFrame } from '##/components/ExampleFrame';
+import { LazyVariants } from '##/components/LazyVariants';
 import { PageDecorator } from '##/containers/PageDecorator';
 import { standAtom } from '##/modules/stand';
 import { cn } from '##/utils/bem';

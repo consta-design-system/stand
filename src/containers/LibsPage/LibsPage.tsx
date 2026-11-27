@@ -5,7 +5,7 @@ import { Text } from '@consta/uikit/Text';
 import { useAction, useAtom } from '@reatom/react';
 import React, { Fragment, useEffect } from 'react';
 
-import { LibDescription } from '##/componets/LibDescription';
+import { LibDescription } from '##/components/LibDescription';
 import { libsIsOneLibAtom } from '##/modules/libs';
 import {
   libsPageDescriptionAtom,

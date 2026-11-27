@@ -1,7 +1,7 @@
 import { IconComponent } from '@consta/icons/Icon';
 import { computed } from '@reatom/core';
 
-import { ListCardBig, ListCardMini } from '##/componets/ListCard';
+import { ListCardBig, ListCardMini } from '##/components/ListCard';
 import { libsAtom } from '##/modules/libs';
 import { routesNames } from '##/modules/router';
 import { libsPageConfigAtom } from '##/modules/standsConfigs';

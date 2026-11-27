@@ -1,7 +1,7 @@
 import { Text } from '@consta/uikit/Text';
 import React, { useRef } from 'react';
 
-import { CopyButton } from '##/componets/CopyButton';
+import { CopyButton } from '##/components/CopyButton';
 import { useHeader } from '##/hooks/useHeader';
 
 import { cnH } from '../H';

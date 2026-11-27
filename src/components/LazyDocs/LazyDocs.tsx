@@ -3,7 +3,7 @@ import './LazyDocs.css';
 import { MDXComponents } from 'mdx/types';
 import React, { lazy, memo, Suspense } from 'react';
 
-import { ErrorBoundary } from '##/componets/ErrorBoundary';
+import { ErrorBoundary } from '##/components/ErrorBoundary';
 import { components } from '##/typography';
 import { cn } from '##/utils/bem';
 
